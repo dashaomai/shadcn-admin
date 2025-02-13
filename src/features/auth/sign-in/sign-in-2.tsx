@@ -1,3 +1,4 @@
+import { i18next } from '@/lib/i18n'
 import { UserAuthForm } from './components/user-auth-form'
 
 export default function SignIn2() {
@@ -18,52 +19,39 @@ export default function SignIn2() {
           >
             <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
           </svg>
-          Boller Admin Console
+          {i18next.t('title')}
         </div>
 
         <img
-          src="/images/bollerlogo.png"
+          src='/images/bollerlogo.png'
           className='relative m-auto'
           width={335}
           height={225}
-          alt='Boller'
+          alt={i18next.t('title')}
         />
 
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
             <p className='text-lg'>
-              &ldquo;Welcome to use the admin console. It's management for boller tech with admin, account, transaction, report and many of functions to do.&rdquo;
+              &ldquo;{i18next.t('auth signIn welcome')}&rdquo;
             </p>
-            <footer className='text-sm'>Boller Admin Console</footer>
+            <footer className='text-sm'>{i18next.t('title')}</footer>
           </blockquote>
         </div>
       </div>
       <div className='lg:p-8'>
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[350px]'>
           <div className='flex flex-col space-y-2 text-left'>
-            <h1 className='text-2xl font-semibold tracking-tight'>Login</h1>
+            <h1 className='text-2xl font-semibold tracking-tight'>
+              {i18next.t('auth signIn title')}
+            </h1>
             <p className='text-sm text-muted-foreground'>
-              Enter your name and password below <br />
-              to log into your account
+              {i18next.t('auth signIn description')}
             </p>
           </div>
           <UserAuthForm />
           <p className='px-8 text-center text-sm text-muted-foreground'>
-            By clicking login, you agree to our{' '}
-            <a
-              href='/terms'
-              className='underline underline-offset-4 hover:text-primary'
-            >
-              Terms of Service
-            </a>{' '}
-            and{' '}
-            <a
-              href='/privacy'
-              className='underline underline-offset-4 hover:text-primary'
-            >
-              Privacy Policy
-            </a>
-            .
+            {i18next.t('auth signIn footer')}
           </p>
         </div>
       </div>
