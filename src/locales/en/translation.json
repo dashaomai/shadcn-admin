@@ -1,0 +1,22 @@
+{
+  "title": "Boller 管理后台",
+  "auth": {
+    "signIn": {
+      "welcome": "Welcome to use the admin console. It's management for boller tech with admin, account, transaction, report and many of functions to do.",
+      "title": "登录",
+      "description": "在下方输入你的账号和密码，以便登入你的账户。",
+      "name": {
+        "label": "账号",
+        "placeholder": "你的登录帐号"
+      },
+      "password": {
+        "label": "密码",
+        "placeholder": "你的登录密码"
+      },
+      "failed": "登录失败，请检查账号与密码后重试。",
+      "submit": "登录",
+      "tip": "请先登录，随后才能操作。",
+      "footer": "Boller 版本所有"
+    }
+  }
+}

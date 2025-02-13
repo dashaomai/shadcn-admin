@@ -1,0 +1,78 @@
+{
+  "title": "Boller 管理后台",
+  "auth": {
+    "signIn": {
+      "welcome": "欢迎使用管理后台。它是为 Boller 公司的维护者设计，可用于管理、账户、注单、数据汇报及众多管理功能。",
+      "title": "登录",
+      "description": "在下方输入你的账号和密码，以便登入你的账户。",
+      "name": {
+        "label": "账号",
+        "placeholder": "你的登录帐号"
+      },
+      "password": {
+        "label": "密码",
+        "placeholder": "你的登录密码"
+      },
+      "failed": "登录失败，请检查账号与密码后重试。",
+      "submit": "登录",
+      "tip": "请先登录，随后才能操作。",
+      "footer": "Boller 版本所有"
+    },
+    "signOut": "登出"
+  },
+  "layout": {
+    "teams": {
+      "title": "所属团队",
+      "name": "mingfeng.com.tw"
+    },
+    "plans": {
+      "startup": "标准版"
+    },
+    "navigate": {
+      "groups": {
+        "normal": "常规管理",
+        "system": "系统管理",
+        "player": "玩家管理",
+        "records": "记录查询",
+        "personal": "个人设置"
+      },
+      "items": {
+        "dashboard": "数据面板",
+        "console-account": "管理后台账号",
+        "account": "账号",
+        "role": "角色",
+        "player": "玩家",
+        "game-hall": "游戏 & 厅馆管理",
+        "game": "游戏",
+        "hall": "厅馆",
+        "maintain": "维护",
+        "game-records": "游戏记录",
+        "settings": "设置",
+        "settings-description": "管理你的管理后台账号并设置电子邮箱地址等信息",
+        "profile": "个人资料",
+        "account-setting": "账号",
+        "appearance": "外观",
+        "notifications": "通知",
+        "display": "显示",
+        "help-center": "帮助中心"
+      }
+    },
+    "search": {
+      "placeholder": "功能搜索",
+      "input-placeholder": "输入命令或模块名以搜索 ...",
+      "no-results-found": "无相关功能。"
+    },
+    "theme": {
+      "title": "主题",
+      "description": "切换主题",
+      "light": "亮色调",
+      "dark": "暗色调",
+      "system": "跟随系统配置"
+    },
+    "account": {
+      "profile": "个人资料",
+      "billing": "支付信息",
+      "settings": "设置"
+    }
+  }
+}

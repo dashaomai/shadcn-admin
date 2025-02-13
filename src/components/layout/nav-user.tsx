@@ -1,3 +1,14 @@
+import { Link } from '@tanstack/react-router'
+import {
+  BadgeCheck,
+  Bell,
+  ChevronsUpDown,
+  CreditCard,
+  LogOut,
+  Sparkles,
+} from 'lucide-react'
+import { useAuthStore } from '@/stores/authStore'
+import { i18next } from '@/lib/i18n'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -14,16 +25,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { useAuthStore } from '@/stores/authStore'
-import { Link } from '@tanstack/react-router'
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from 'lucide-react'
 
 export function NavUser({
   user,
@@ -77,29 +78,22 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
               <DropdownMenuItem asChild>
                 <Link to='/settings/account'>
                   <BadgeCheck />
-                  Account
+                  {i18next.t('layout account profile')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings'>
                   <CreditCard />
-                  Billing
+                  {i18next.t('layout account billing')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings/notifications'>
                   <Bell />
-                  Notifications
+                  {i18next.t('layout account settings')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -107,7 +101,7 @@ export function NavUser({
             <DropdownMenuItem asChild>
               <Link onClick={() => authStore.auth.reset()}>
                 <LogOut />
-                Log out
+                {i18next.t('auth signOut')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

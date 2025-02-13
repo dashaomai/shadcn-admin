@@ -3,7 +3,7 @@ import {
   IconBrowserCheck,
   IconBug,
   IconChecklist,
-  IconError404,
+  IconCheckupList,
   IconHelp,
   IconLayoutDashboard,
   IconLock,
@@ -15,123 +15,75 @@ import {
   IconServerOff,
   IconSettings,
   IconTool,
+  IconUser,
   IconUserCog,
   IconUserOff,
   IconUsers,
 } from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
+import { AudioWaveform } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   user: {
     name: 'satnaing',
     email: 'satnaingdev@gmail.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar: './avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: 'Shadcn Admin',
-      logo: Command,
-      plan: 'Vite + ShadcnUI',
-    },
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
+      name: 'layout teams name',
       logo: AudioWaveform,
-      plan: 'Startup',
+      plan: 'layout plans startup',
     },
   ],
   navGroups: [
     {
-      title: 'General',
+      title: 'layout navigate groups normal',
+      roles: ['superadmin', 'admin', 'agent'],
       items: [
         {
-          title: 'Dashboard',
+          title: 'layout navigate items dashboard',
           url: '/',
           icon: IconLayoutDashboard,
-        },
-        {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: IconChecklist,
-        },
-        {
-          title: 'Apps',
-          url: '/apps',
-          icon: IconPackages,
-        },
-        {
-          title: 'Chats',
-          url: '/chats',
-          badge: '3',
-          icon: IconMessages,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: IconUsers,
         },
       ],
     },
     {
-      title: 'Pages',
+      title: 'layout navigate groups system',
+      roles: ['superadmin', 'admin'],
       items: [
         {
-          title: 'Auth',
+          title: 'layout navigate items console-account',
           icon: IconLockAccess,
           items: [
             {
-              title: 'Sign In',
+              title: 'layout navigate items account',
               url: '/sign-in',
+              icon: IconUsers,
             },
             {
-              title: 'Sign In (2 Col)',
+              title: 'layout navigate items role',
               url: '/sign-in-2',
-            },
-            {
-              title: 'Sign Up',
-              url: '/sign-up',
-            },
-            {
-              title: 'Forgot Password',
-              url: '/forgot-password',
-            },
-            {
-              title: 'OTP',
-              url: '/otp',
+              icon: IconCheckupList,
             },
           ],
         },
         {
-          title: 'Errors',
+          title: 'layout navigate items game-hall',
           icon: IconBug,
           items: [
             {
-              title: 'Unauthorized',
+              title: 'layout navigate items game',
               url: '/401',
               icon: IconLock,
             },
             {
-              title: 'Forbidden',
+              title: 'layout navigate items hall',
               url: '/403',
               icon: IconUserOff,
             },
             {
-              title: 'Not Found',
-              url: '/404',
-              icon: IconError404,
-            },
-            {
-              title: 'Internal Server Error',
-              url: '/500',
-              icon: IconServerOff,
-            },
-            {
-              title: 'Maintenance Error',
+              title: 'layout navigate items maintain',
               url: '/503',
               icon: IconBarrierBlock,
             },
@@ -140,41 +92,41 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Other',
+      title: 'layout navigate groups personal',
       items: [
         {
-          title: 'Settings',
+          title: 'layout navigate items settings',
           icon: IconSettings,
           items: [
             {
-              title: 'Profile',
+              title: 'layout navigate items settings',
               url: '/settings',
               icon: IconUserCog,
             },
             {
-              title: 'Account',
+              title: 'layout navigate items account-setting',
               url: '/settings/account',
               icon: IconTool,
             },
             {
-              title: 'Appearance',
+              title: 'layout navigate items appearance',
               url: '/settings/appearance',
               icon: IconPalette,
             },
             {
-              title: 'Notifications',
+              title: 'layout navigate items notifications',
               url: '/settings/notifications',
               icon: IconNotification,
             },
             {
-              title: 'Display',
+              title: 'layout navigate items display',
               url: '/settings/display',
               icon: IconBrowserCheck,
             },
           ],
         },
         {
-          title: 'Help Center',
+          title: 'layout navigate items help-center',
           url: '/help-center',
           icon: IconHelp,
         },

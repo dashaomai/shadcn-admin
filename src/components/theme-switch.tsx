@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { IconCheck, IconMoon, IconSun } from '@tabler/icons-react'
+import { i18next } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/context/theme-context'
 import { Button } from '@/components/ui/button'
@@ -27,26 +28,28 @@ export function ThemeSwitch() {
         <Button variant='ghost' size='icon' className='scale-95 rounded-full'>
           <IconSun className='size-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
           <IconMoon className='absolute size-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-          <span className='sr-only'>Toggle theme</span>
+          <span className='sr-only'>
+            {i18next.t('layout theme description')}
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light{' '}
+          {i18next.t('layout theme light')}
           <IconCheck
             size={14}
             className={cn('ml-auto', theme !== 'light' && 'hidden')}
           />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
+          {i18next.t('layout theme dark')}
           <IconCheck
             size={14}
             className={cn('ml-auto', theme !== 'dark' && 'hidden')}
           />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
+          {i18next.t('layout theme system')}
           <IconCheck
             size={14}
             className={cn('ml-auto', theme !== 'system' && 'hidden')}

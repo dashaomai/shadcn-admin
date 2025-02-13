@@ -6,6 +6,7 @@ import {
   IconMoon,
   IconSun,
 } from '@tabler/icons-react'
+import { i18next } from '@/lib/i18n'
 import { useSearch } from '@/context/search-context'
 import { useTheme } from '@/context/theme-context'
 import {
@@ -35,18 +36,22 @@ export function CommandMenu() {
 
   return (
     <CommandDialog modal open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder='Type a command or search...' />
+      <CommandInput
+        placeholder={i18next.t('layout search input-placeholder')}
+      />
       <CommandList>
         <ScrollArea type='hover' className='h-72 pr-1'>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>
+            {i18next.t('layout search no-results-found')}
+          </CommandEmpty>
           {sidebarData.navGroups.map((group) => (
-            <CommandGroup key={group.title} heading={group.title}>
+            <CommandGroup key={group.title} heading={i18next.t(group.title)}>
               {group.items.map((navItem, i) => {
                 if (navItem.url)
                   return (
                     <CommandItem
                       key={`${navItem.url}-${i}`}
-                      value={navItem.title}
+                      value={i18next.t(navItem.title)}
                       onSelect={() => {
                         runCommand(() => navigate({ to: navItem.url }))
                       }}
@@ -54,14 +59,14 @@ export function CommandMenu() {
                       <div className='mr-2 flex h-4 w-4 items-center justify-center'>
                         <IconArrowRightDashed className='size-2 text-muted-foreground/80' />
                       </div>
-                      {navItem.title}
+                      {i18next.t(navItem.title)}
                     </CommandItem>
                   )
 
                 return navItem.items?.map((subItem, i) => (
                   <CommandItem
                     key={`${subItem.url}-${i}`}
-                    value={subItem.title}
+                    value={i18next.t(subItem.title)}
                     onSelect={() => {
                       runCommand(() => navigate({ to: subItem.url }))
                     }}
@@ -69,24 +74,24 @@ export function CommandMenu() {
                     <div className='mr-2 flex h-4 w-4 items-center justify-center'>
                       <IconArrowRightDashed className='size-2 text-muted-foreground/80' />
                     </div>
-                    {subItem.title}
+                    {i18next.t(subItem.title)}
                   </CommandItem>
                 ))
               })}
             </CommandGroup>
           ))}
           <CommandSeparator />
-          <CommandGroup heading='Theme'>
+          <CommandGroup heading={i18next.t('layout theme title')}>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
-              <IconSun /> <span>Light</span>
+              <IconSun /> <span>{i18next.t('layout theme light')}</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
               <IconMoon className='scale-90' />
-              <span>Dark</span>
+              <span>{i18next.t('layout theme dark')}</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
               <IconDeviceLaptop />
-              <span>System</span>
+              <span>{i18next.t('layout theme system')}</span>
             </CommandItem>
           </CommandGroup>
         </ScrollArea>

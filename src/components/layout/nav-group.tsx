@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
+import { i18next } from '@/lib/i18n'
 import {
   Collapsible,
   CollapsibleContent,
@@ -33,7 +34,7 @@ export function NavGroup({ title, items }: NavGroup) {
   const href = useLocation({ select: (location) => location.href })
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{title}</SidebarGroupLabel>
+      <SidebarGroupLabel>{i18next.t(title)}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const key = `${item.title}-${item.url}`
@@ -64,11 +65,11 @@ const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
-        tooltip={item.title}
+        tooltip={i18next.t(item.title)}
       >
         <Link to={item.url} onClick={() => setOpenMobile(false)}>
           {item.icon && <item.icon />}
-          <span>{item.title}</span>
+          <span>{i18next.t(item.title)}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
@@ -94,7 +95,7 @@ const SidebarMenuCollapsible = ({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <span>{i18next.t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
@@ -102,14 +103,14 @@ const SidebarMenuCollapsible = ({
         <CollapsibleContent className='CollapsibleContent'>
           <SidebarMenuSub>
             {item.items.map((subItem) => (
-              <SidebarMenuSubItem key={subItem.title}>
+              <SidebarMenuSubItem key={i18next.t(subItem.title)}>
                 <SidebarMenuSubButton
                   asChild
                   isActive={checkIsActive(href, subItem)}
                 >
                   <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
                     {subItem.icon && <subItem.icon />}
-                    <span>{subItem.title}</span>
+                    <span>{i18next.t(subItem.title)}</span>
                     {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
                   </Link>
                 </SidebarMenuSubButton>
@@ -134,18 +135,18 @@ const SidebarMenuCollapsedDropdown = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
-            tooltip={item.title}
+            tooltip={i18next.t(item.title)}
             isActive={checkIsActive(href, item)}
           >
             {item.icon && <item.icon />}
-            <span>{item.title}</span>
+            <span>{i18next.t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent side='right' align='start' sideOffset={4}>
           <DropdownMenuLabel>
-            {item.title} {item.badge ? `(${item.badge})` : ''}
+            {i18next.t(item.title)} {item.badge ? `(${item.badge})` : ''}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           {item.items.map((sub) => (
@@ -155,7 +156,9 @@ const SidebarMenuCollapsedDropdown = ({
                 className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
               >
                 {sub.icon && <sub.icon />}
-                <span className='max-w-52 text-wrap'>{sub.title}</span>
+                <span className='max-w-52 text-wrap'>
+                  {i18next.t(sub.title)}
+                </span>
                 {sub.badge && (
                   <span className='ml-auto text-xs'>{sub.badge}</span>
                 )}
