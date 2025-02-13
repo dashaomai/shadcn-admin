@@ -17,7 +17,8 @@
       "submit": "登录",
       "tip": "请先登录，随后才能操作。",
       "footer": "Boller 版本所有"
-    }
+    },
+    "signOut": "登出"
   },
   "layout": {
     "teams": {
@@ -47,6 +48,7 @@
         "maintain": "维护",
         "game-records": "游戏记录",
         "settings": "设置",
+        "settings-description": "管理你的管理后台账号并设置电子邮箱地址等信息",
         "profile": "个人资料",
         "account-setting": "账号",
         "appearance": "外观",
@@ -62,9 +64,15 @@
     },
     "theme": {
       "title": "主题",
+      "description": "切换主题",
       "light": "亮色调",
       "dark": "暗色调",
       "system": "跟随系统配置"
+    },
+    "account": {
+      "profile": "个人资料",
+      "billing": "支付信息",
+      "settings": "设置"
     }
   }
 }
