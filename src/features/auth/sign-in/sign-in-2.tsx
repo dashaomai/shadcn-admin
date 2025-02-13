@@ -23,7 +23,7 @@ export default function SignIn2() {
         </div>
 
         <img
-          src='/images/bollerlogo.png'
+          src='./images/bollerlogo.png'
           className='relative m-auto'
           width={335}
           height={225}
