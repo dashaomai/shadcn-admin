@@ -1,4 +1,3 @@
-import ViteLogo from '@/assets/vite.svg'
 import { UserAuthForm } from './components/user-auth-form'
 
 export default function SignIn2() {
@@ -19,25 +18,23 @@ export default function SignIn2() {
           >
             <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
           </svg>
-          Shadcn Admin
+          Boller Admin Console
         </div>
 
         <img
-          src={ViteLogo}
+          src="/images/bollerlogo.png"
           className='relative m-auto'
-          width={301}
-          height={60}
-          alt='Vite'
+          width={335}
+          height={225}
+          alt='Boller'
         />
 
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
             <p className='text-lg'>
-              &ldquo;This template has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
+              &ldquo;Welcome to use the admin console. It's management for boller tech with admin, account, transaction, report and many of functions to do.&rdquo;
             </p>
-            <footer className='text-sm'>John Doe</footer>
+            <footer className='text-sm'>Boller Admin Console</footer>
           </blockquote>
         </div>
       </div>
@@ -46,7 +43,7 @@ export default function SignIn2() {
           <div className='flex flex-col space-y-2 text-left'>
             <h1 className='text-2xl font-semibold tracking-tight'>Login</h1>
             <p className='text-sm text-muted-foreground'>
-              Enter your email and password below <br />
+              Enter your name and password below <br />
               to log into your account
             </p>
           </div>
