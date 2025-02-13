@@ -3,7 +3,7 @@ import {
   IconBrowserCheck,
   IconBug,
   IconChecklist,
-  IconError404,
+  IconCheckupList,
   IconHelp,
   IconLayoutDashboard,
   IconLock,
@@ -15,6 +15,7 @@ import {
   IconServerOff,
   IconSettings,
   IconTool,
+  IconUser,
   IconUserCog,
   IconUserOff,
   IconUsers,
@@ -45,27 +46,6 @@ export const sidebarData: SidebarData = {
           url: '/',
           icon: IconLayoutDashboard,
         },
-        {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: IconChecklist,
-        },
-        {
-          title: 'Apps',
-          url: '/apps',
-          icon: IconPackages,
-        },
-        {
-          title: 'Chats',
-          url: '/chats',
-          badge: '3',
-          icon: IconMessages,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: IconUsers,
-        },
       ],
     },
     {
@@ -79,10 +59,12 @@ export const sidebarData: SidebarData = {
             {
               title: 'layout navigate items account',
               url: '/sign-in',
+              icon: IconUsers,
             },
             {
               title: 'layout navigate items role',
               url: '/sign-in-2',
+              icon: IconCheckupList,
             },
           ],
         },

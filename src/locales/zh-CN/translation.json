@@ -54,6 +54,17 @@
         "display": "显示",
         "help-center": "帮助中心"
       }
+    },
+    "search": {
+      "placeholder": "功能搜索",
+      "input-placeholder": "输入命令或模块名以搜索 ...",
+      "no-results-found": "无相关功能。"
+    },
+    "theme": {
+      "title": "主题",
+      "light": "亮色调",
+      "dark": "暗色调",
+      "system": "跟随系统配置"
     }
   }
 }
