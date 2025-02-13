@@ -1,0 +1,1 @@
+export const apiBase = '//localhost:8080'

@@ -53,3 +53,5 @@ export const useAuthStore = create<AuthState>()((set) => {
 })
 
 // export const useAuth = () => useAuthStore((state) => state.auth)
+
+export const isAuthenticated = (): boolean => !!Cookies.get(ACCESS_TOKEN)
