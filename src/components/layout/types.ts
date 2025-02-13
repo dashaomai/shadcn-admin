@@ -28,10 +28,13 @@ type NavCollapsible = BaseNavItem & {
   url?: never
 }
 
-type NavItem = NavCollapsible | NavLink
+type NavItem = {
+  roles?: string[]
+} & (NavCollapsible | NavLink)
 
 interface NavGroup {
   title: string
+  roles?: string[]
   items: NavItem[]
 }
 

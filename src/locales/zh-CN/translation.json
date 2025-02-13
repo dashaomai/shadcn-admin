@@ -18,5 +18,42 @@
       "tip": "请先登录，随后才能操作。",
       "footer": "Boller 版本所有"
     }
+  },
+  "layout": {
+    "teams": {
+      "title": "所属团队",
+      "name": "mingfeng.com.tw"
+    },
+    "plans": {
+      "startup": "标准版"
+    },
+    "navigate": {
+      "groups": {
+        "normal": "常规管理",
+        "system": "系统管理",
+        "player": "玩家管理",
+        "records": "记录查询",
+        "personal": "个人设置"
+      },
+      "items": {
+        "dashboard": "数据面板",
+        "console-account": "管理后台账号",
+        "account": "账号",
+        "role": "角色",
+        "player": "玩家",
+        "game-hall": "游戏 & 厅馆管理",
+        "game": "游戏",
+        "hall": "厅馆",
+        "maintain": "维护",
+        "game-records": "游戏记录",
+        "settings": "设置",
+        "profile": "个人资料",
+        "account-setting": "账号",
+        "appearance": "外观",
+        "notifications": "通知",
+        "display": "显示",
+        "help-center": "帮助中心"
+      }
+    }
   }
 }
