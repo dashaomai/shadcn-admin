@@ -86,6 +86,7 @@ export const sidebarData: SidebarData = {
               title: 'layout navigate items maintain',
               url: '/503',
               icon: IconBarrierBlock,
+              roles: ['sysadmin'],
             },
           ],
         },
