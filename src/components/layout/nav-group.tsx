@@ -1,7 +1,9 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
+import { useRoles } from '@/api/auth'
 import { i18next } from '@/lib/i18n'
+import { rolesCheck } from '@/lib/role'
 import {
   Collapsible,
   CollapsibleContent,
@@ -18,6 +20,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Badge } from '../ui/badge'
 import {
   DropdownMenu,
@@ -32,23 +35,37 @@ import { NavCollapsible, NavItem, NavLink, type NavGroup } from './types'
 export function NavGroup({ title, items }: NavGroup) {
   const { state } = useSidebar()
   const href = useLocation({ select: (location) => location.href })
+  const rolesQuery = useRoles()
+
+  if (rolesQuery.isFetching) {
+    return <Skeleton className='h-12 w-12 rounded-full' />
+  } else if (rolesQuery.isError) {
+    return <p>{rolesQuery.error.message}</p>
+  }
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{i18next.t(title)}</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => {
-          const key = `${item.title}-${item.url}`
+        {items
+          .filter((item) => rolesCheck(rolesQuery.data, item.roles))
+          .map((item) => {
+            const key = `${item.title}-${item.url}`
 
-          if (!item.items)
-            return <SidebarMenuLink key={key} item={item} href={href} />
+            if (!item.items)
+              return <SidebarMenuLink key={key} item={item} href={href} />
 
-          if (state === 'collapsed')
-            return (
-              <SidebarMenuCollapsedDropdown key={key} item={item} href={href} />
-            )
+            if (state === 'collapsed')
+              return (
+                <SidebarMenuCollapsedDropdown
+                  key={key}
+                  item={item}
+                  href={href}
+                />
+              )
 
-          return <SidebarMenuCollapsible key={key} item={item} href={href} />
-        })}
+            return <SidebarMenuCollapsible key={key} item={item} href={href} />
+          })}
       </SidebarMenu>
     </SidebarGroup>
   )
@@ -85,6 +102,8 @@ const SidebarMenuCollapsible = ({
   href: string
 }) => {
   const { setOpenMobile } = useSidebar()
+  const rolesQuery = useRoles()
+
   return (
     <Collapsible
       asChild
@@ -102,20 +121,22 @@ const SidebarMenuCollapsible = ({
         </CollapsibleTrigger>
         <CollapsibleContent className='CollapsibleContent'>
           <SidebarMenuSub>
-            {item.items.map((subItem) => (
-              <SidebarMenuSubItem key={i18next.t(subItem.title)}>
-                <SidebarMenuSubButton
-                  asChild
-                  isActive={checkIsActive(href, subItem)}
-                >
-                  <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
-                    {subItem.icon && <subItem.icon />}
-                    <span>{i18next.t(subItem.title)}</span>
-                    {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
-                  </Link>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-            ))}
+            {item.items
+              .filter((subItem) => rolesCheck(rolesQuery.data, subItem.roles))
+              .map((subItem) => (
+                <SidebarMenuSubItem key={i18next.t(subItem.title)}>
+                  <SidebarMenuSubButton
+                    asChild
+                    isActive={checkIsActive(href, subItem)}
+                  >
+                    <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
+                      {subItem.icon && <subItem.icon />}
+                      <span>{i18next.t(subItem.title)}</span>
+                      {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ))}
           </SidebarMenuSub>
         </CollapsibleContent>
       </SidebarMenuItem>
@@ -130,6 +151,8 @@ const SidebarMenuCollapsedDropdown = ({
   item: NavCollapsible
   href: string
 }) => {
+  const rolesQuery = useRoles()
+
   return (
     <SidebarMenuItem>
       <DropdownMenu>
@@ -149,22 +172,24 @@ const SidebarMenuCollapsedDropdown = ({
             {i18next.t(item.title)} {item.badge ? `(${item.badge})` : ''}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {item.items.map((sub) => (
-            <DropdownMenuItem key={`${sub.title}-${sub.url}`} asChild>
-              <Link
-                to={sub.url}
-                className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
-              >
-                {sub.icon && <sub.icon />}
-                <span className='max-w-52 text-wrap'>
-                  {i18next.t(sub.title)}
-                </span>
-                {sub.badge && (
-                  <span className='ml-auto text-xs'>{sub.badge}</span>
-                )}
-              </Link>
-            </DropdownMenuItem>
-          ))}
+          {item.items
+            .filter((sub) => rolesCheck(rolesQuery.data, sub.roles))
+            .map((sub) => (
+              <DropdownMenuItem key={`${sub.title}-${sub.url}`} asChild>
+                <Link
+                  to={sub.url}
+                  className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
+                >
+                  {sub.icon && <sub.icon />}
+                  <span className='max-w-52 text-wrap'>
+                    {i18next.t(sub.title)}
+                  </span>
+                  {sub.badge && (
+                    <span className='ml-auto text-xs'>{sub.badge}</span>
+                  )}
+                </Link>
+              </DropdownMenuItem>
+            ))}
         </DropdownMenuContent>
       </DropdownMenu>
     </SidebarMenuItem>

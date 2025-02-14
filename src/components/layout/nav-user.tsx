@@ -8,7 +8,7 @@ import {
   LogOut,
   Sparkles,
 } from 'lucide-react'
-import { getProfile } from '@/api/auth'
+import { getProfile, useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { i18next } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
@@ -33,15 +33,12 @@ import { Skeleton } from '@/components/ui/skeleton'
 export function NavUser() {
   const { isMobile } = useSidebar()
   const authStore = useAuthStore()
-  const profile = useQuery({
-    queryKey: ['self-profile'],
-    queryFn: async () => getProfile(),
-  })
+  const profileQuery = useProfile()
 
-  if (profile.isFetching) {
+  if (profileQuery.isFetching) {
     return <Skeleton className='h-12 w-12 rounded-full' />
-  } else if (profile.isError) {
-    return <p>{profile.error?.message}</p>
+  } else if (profileQuery.isError) {
+    return <p>{profileQuery.error?.message}</p>
   }
 
   return (
@@ -55,19 +52,19 @@ export function NavUser() {
             >
               <Avatar className='h-8 w-8 rounded-lg'>
                 <AvatarImage
-                  src={profile.data?.profile.avatar}
-                  alt={profile.data?.profile.nickname}
+                  src={profileQuery.data?.avatar}
+                  alt={profileQuery.data?.nickname}
                 />
                 <AvatarFallback className='rounded-lg'>
-                  {getFallback(profile.data?.profile.nickname)}
+                  {getFallback(profileQuery.data?.nickname)}
                 </AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>
-                  {profile.data?.profile.nickname}
+                  {profileQuery.data?.nickname}
                 </span>
                 <span className='truncate text-xs'>
-                  {profile.data?.profile.email}
+                  {profileQuery.data?.email}
                 </span>
               </div>
               <ChevronsUpDown className='ml-auto size-4' />
@@ -83,19 +80,19 @@ export function NavUser() {
               <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                 <Avatar className='h-8 w-8 rounded-lg'>
                   <AvatarImage
-                    src={profile.data?.profile.avatar}
-                    alt={profile.data?.profile.nickname}
+                    src={profileQuery.data?.avatar}
+                    alt={profileQuery.data?.nickname}
                   />
                   <AvatarFallback className='rounded-lg'>
-                    {getFallback(profile.data?.profile.nickname)}
+                    {getFallback(profileQuery.data?.nickname)}
                   </AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
                   <span className='truncate font-semibold'>
-                    {profile.data?.profile.nickname}
+                    {profileQuery.data?.nickname}
                   </span>
                   <span className='truncate text-xs'>
-                    {profile.data?.profile.email}
+                    {profileQuery.data?.email}
                   </span>
                 </div>
               </div>
