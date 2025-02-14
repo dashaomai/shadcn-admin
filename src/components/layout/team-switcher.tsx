@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ChevronsUpDown } from 'lucide-react'
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,10 +42,10 @@ export function TeamSwitcher({
               </div>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>
-                  {i18next.t(activeTeam.name)}
+                  {i18n.t(activeTeam.name)}
                 </span>
                 <span className='truncate text-xs'>
-                  {i18next.t(activeTeam.plan)}
+                  {i18n.t(activeTeam.plan)}
                 </span>
               </div>
               <ChevronsUpDown className='ml-auto' />
@@ -58,18 +58,18 @@ export function TeamSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel className='text-xs text-muted-foreground'>
-              {i18next.t('layout teams title')}
+              {i18n.t('layout.teams.title')}
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
-                key={i18next.t(team.name)}
+                key={i18n.t(team.name)}
                 onClick={() => setActiveTeam(team)}
                 className='gap-2 p-2'
               >
                 <div className='flex size-6 items-center justify-center rounded-sm border'>
                   <team.logo className='size-4 shrink-0' />
                 </div>
-                {i18next.t(team.name)}
+                {i18n.t(team.name)}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}

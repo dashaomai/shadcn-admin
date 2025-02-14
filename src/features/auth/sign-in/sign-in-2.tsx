@@ -1,4 +1,4 @@
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import { UserAuthForm } from './components/user-auth-form'
 
 export default function SignIn2() {
@@ -19,7 +19,7 @@ export default function SignIn2() {
           >
             <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
           </svg>
-          {i18next.t('title')}
+          {i18n.t('title')}
         </div>
 
         <img
@@ -27,15 +27,15 @@ export default function SignIn2() {
           className='relative m-auto'
           width={335}
           height={225}
-          alt={i18next.t('title')}
+          alt={i18n.t('title')}
         />
 
         <div className='relative z-20 mt-auto'>
           <blockquote className='space-y-2'>
             <p className='text-lg'>
-              &ldquo;{i18next.t('auth signIn welcome')}&rdquo;
+              &ldquo;{i18n.t('auth.signIn.welcome')}&rdquo;
             </p>
-            <footer className='text-sm'>{i18next.t('title')}</footer>
+            <footer className='text-sm'>{i18n.t('title')}</footer>
           </blockquote>
         </div>
       </div>
@@ -43,15 +43,15 @@ export default function SignIn2() {
         <div className='mx-auto flex w-full flex-col justify-center space-y-2 sm:w-[350px]'>
           <div className='flex flex-col space-y-2 text-left'>
             <h1 className='text-2xl font-semibold tracking-tight'>
-              {i18next.t('auth signIn title')}
+              {i18n.t('auth.signIn.title')}
             </h1>
             <p className='text-sm text-muted-foreground'>
-              {i18next.t('auth signIn description')}
+              {i18n.t('auth.signIn.description')}
             </p>
           </div>
           <UserAuthForm />
           <p className='px-8 text-center text-sm text-muted-foreground'>
-            {i18next.t('auth signIn footer')}
+            {i18n.t('auth.signIn.footer')}
           </p>
         </div>
       </div>

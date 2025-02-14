@@ -6,7 +6,7 @@ import {
   IconTool,
   IconUser,
 } from '@tabler/icons-react'
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import { Separator } from '@/components/ui/separator'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -30,10 +30,10 @@ export default function Settings() {
       <Main fixed>
         <div className='space-y-0.5'>
           <h1 className='text-2xl font-bold tracking-tight md:text-3xl'>
-            {i18next.t('layout navigate items settings')}
+            {i18n.t('layout.navigate.items.settings')}
           </h1>
           <p className='text-muted-foreground'>
-            {i18next.t('layout navigate items settings-description')}
+            {i18n.t('layout.navigate.items.settings-description')}
           </p>
         </div>
         <Separator className='my-4 lg:my-6' />
@@ -52,27 +52,27 @@ export default function Settings() {
 
 const sidebarNavItems = [
   {
-    title: 'layout navigate items profile',
+    title: 'layout.navigate.items.profile',
     icon: <IconUser size={18} />,
     href: '/settings',
   },
   {
-    title: 'layout navigate items account-setting',
+    title: 'layout.navigate.items.account-setting',
     icon: <IconTool size={18} />,
     href: '/settings/account',
   },
   {
-    title: 'layout navigate items appearance',
+    title: 'layout.navigate.items.appearance',
     icon: <IconPalette size={18} />,
     href: '/settings/appearance',
   },
   {
-    title: 'layout navigate items notifications',
+    title: 'layout.navigate.items.notifications',
     icon: <IconNotification size={18} />,
     href: '/settings/notifications',
   },
   {
-    title: 'layout navigate items display',
+    title: 'layout.navigate.items.display',
     icon: <IconBrowserCheck size={18} />,
     href: '/settings/display',
   },

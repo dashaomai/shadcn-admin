@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getRouteApi, useRouter } from '@tanstack/react-router'
@@ -6,7 +6,7 @@ import logger from 'loglevel'
 import { doSignIn } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { SignInPayload } from '@/lib/auth'
-import { i18next, z } from '@/lib/i18n'
+import { i18n, z } from '@/lib/i18n'
 import { WrappedResponse } from '@/lib/response'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -45,11 +45,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       name: '',
       password: '',
     },
+    mode: 'all',
   })
-
-  useEffect(() => {
-    setLoginFailed(false)
-  }, [form.formState])
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
@@ -92,10 +89,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               name='name'
               render={({ field }) => (
                 <FormItem className='space-y-1'>
-                  <FormLabel>{i18next.t('auth signIn name label')}</FormLabel>
+                  <FormLabel>{i18n.t('auth.signIn.name.label')}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder={i18next.t('auth signIn name placeholder')}
+                      placeholder={i18n.t('auth.signIn.name.placeholder')}
                       {...field}
                     />
                   </FormControl>
@@ -110,7 +107,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 <FormItem className='space-y-1'>
                   <div className='flex items-center justify-between'>
                     <FormLabel>
-                      {i18next.t('auth signIn password label')}
+                      {i18n.t('auth.signIn.password.label')}
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -122,11 +119,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             />
 
             {loginFailed && (
-              <FormMessage>{i18next.t('auth signIn failed')}</FormMessage>
+              <FormMessage>{i18n.t('auth.signIn.failed')}</FormMessage>
             )}
 
             <Button className='mt-2' disabled={isLoading}>
-              {i18next.t('auth signIn submit')}
+              {i18n.t('auth.signIn.submit')}
             </Button>
 
             <div className='relative my-2'>
@@ -135,7 +132,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
                 <span className='bg-background px-2 text-muted-foreground'>
-                  {i18next.t('auth signIn tip')}
+                  {i18n.t('auth.signIn.tip')}
                 </span>
               </div>
             </div>

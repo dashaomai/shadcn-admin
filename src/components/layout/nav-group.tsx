@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 import { useRoles } from '@/api/auth'
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import { rolesCheck } from '@/lib/role'
 import {
   Collapsible,
@@ -45,7 +45,7 @@ export function NavGroup({ title, items }: NavGroup) {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{i18next.t(title)}</SidebarGroupLabel>
+      <SidebarGroupLabel>{i18n.t(title)}</SidebarGroupLabel>
       <SidebarMenu>
         {items
           .filter((item) => rolesCheck(rolesQuery.data, item.roles))
@@ -82,11 +82,11 @@ const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
-        tooltip={i18next.t(item.title)}
+        tooltip={i18n.t(item.title)}
       >
         <Link to={item.url} onClick={() => setOpenMobile(false)}>
           {item.icon && <item.icon />}
-          <span>{i18next.t(item.title)}</span>
+          <span>{i18n.t(item.title)}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
@@ -114,7 +114,7 @@ const SidebarMenuCollapsible = ({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
             {item.icon && <item.icon />}
-            <span>{i18next.t(item.title)}</span>
+            <span>{i18n.t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
@@ -124,14 +124,14 @@ const SidebarMenuCollapsible = ({
             {item.items
               .filter((subItem) => rolesCheck(rolesQuery.data, subItem.roles))
               .map((subItem) => (
-                <SidebarMenuSubItem key={i18next.t(subItem.title)}>
+                <SidebarMenuSubItem key={i18n.t(subItem.title)}>
                   <SidebarMenuSubButton
                     asChild
                     isActive={checkIsActive(href, subItem)}
                   >
                     <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
                       {subItem.icon && <subItem.icon />}
-                      <span>{i18next.t(subItem.title)}</span>
+                      <span>{i18n.t(subItem.title)}</span>
                       {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
                     </Link>
                   </SidebarMenuSubButton>
@@ -158,18 +158,18 @@ const SidebarMenuCollapsedDropdown = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
-            tooltip={i18next.t(item.title)}
+            tooltip={i18n.t(item.title)}
             isActive={checkIsActive(href, item)}
           >
             {item.icon && <item.icon />}
-            <span>{i18next.t(item.title)}</span>
+            <span>{i18n.t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent side='right' align='start' sideOffset={4}>
           <DropdownMenuLabel>
-            {i18next.t(item.title)} {item.badge ? `(${item.badge})` : ''}
+            {i18n.t(item.title)} {item.badge ? `(${item.badge})` : ''}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           {item.items
@@ -182,7 +182,7 @@ const SidebarMenuCollapsedDropdown = ({
                 >
                   {sub.icon && <sub.icon />}
                   <span className='max-w-52 text-wrap'>
-                    {i18next.t(sub.title)}
+                    {i18n.t(sub.title)}
                   </span>
                   {sub.badge && (
                     <span className='ml-auto text-xs'>{sub.badge}</span>
