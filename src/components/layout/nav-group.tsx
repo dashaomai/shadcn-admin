@@ -1,8 +1,7 @@
 import { ReactNode } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
-import { getRoles } from '@/api/auth'
+import { useRoles } from '@/api/auth'
 import { i18next } from '@/lib/i18n'
 import { rolesCheck } from '@/lib/role'
 import {
@@ -36,10 +35,7 @@ import { NavCollapsible, NavItem, NavLink, type NavGroup } from './types'
 export function NavGroup({ title, items }: NavGroup) {
   const { state } = useSidebar()
   const href = useLocation({ select: (location) => location.href })
-  const rolesQuery = useQuery({
-    queryKey: ['self-roles'],
-    queryFn: async () => getRoles(),
-  })
+  const rolesQuery = useRoles()
 
   if (rolesQuery.isFetching) {
     return <Skeleton className='h-12 w-12 rounded-full' />
@@ -106,16 +102,7 @@ const SidebarMenuCollapsible = ({
   href: string
 }) => {
   const { setOpenMobile } = useSidebar()
-  const rolesQuery = useQuery({
-    queryKey: ['self-roles'],
-    queryFn: async () => getRoles(),
-  })
-
-  if (rolesQuery.isFetching) {
-    return <Skeleton className='h-12 w-12 rounded-full' />
-  } else if (rolesQuery.isError) {
-    return <p>{rolesQuery.error.message}</p>
-  }
+  const rolesQuery = useRoles()
 
   return (
     <Collapsible
@@ -164,16 +151,7 @@ const SidebarMenuCollapsedDropdown = ({
   item: NavCollapsible
   href: string
 }) => {
-  const rolesQuery = useQuery({
-    queryKey: ['self-roles'],
-    queryFn: async () => getRoles(),
-  })
-
-  if (rolesQuery.isFetching) {
-    return <Skeleton className='h-12 w-12 rounded-full' />
-  } else if (rolesQuery.isError) {
-    return <p>{rolesQuery.error.message}</p>
-  }
+  const rolesQuery = useRoles()
 
   return (
     <SidebarMenuItem>

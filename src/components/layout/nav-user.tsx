@@ -8,7 +8,7 @@ import {
   LogOut,
   Sparkles,
 } from 'lucide-react'
-import { getProfile } from '@/api/auth'
+import { getProfile, useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { i18next } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
@@ -33,10 +33,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 export function NavUser() {
   const { isMobile } = useSidebar()
   const authStore = useAuthStore()
-  const profileQuery = useQuery({
-    queryKey: ['self-profile'],
-    queryFn: async () => getProfile(),
-  })
+  const profileQuery = useProfile()
 
   if (profileQuery.isFetching) {
     return <Skeleton className='h-12 w-12 rounded-full' />

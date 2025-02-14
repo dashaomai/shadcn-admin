@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { getProfile } from '@/api/auth'
+import { getProfile, useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { i18next } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
@@ -20,10 +20,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function ProfileDropdown() {
   const authStore = useAuthStore()
-  const profileQuery = useQuery({
-    queryKey: ['self-profile'],
-    queryFn: async () => getProfile(),
-  })
+  const profileQuery = useProfile()
 
   if (profileQuery.isFetching) {
     return <Skeleton className='h-12 w-12 rounded-full' />

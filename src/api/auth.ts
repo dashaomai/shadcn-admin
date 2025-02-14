@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
@@ -44,3 +45,15 @@ export const getPersonalData = async <T>(
     return response.payload
   }
 }
+
+export const useProfile = () =>
+  useQuery({
+    queryKey: ['self-profile'],
+    queryFn: async () => getProfile(),
+  })
+
+export const useRoles = () =>
+  useQuery({
+    queryKey: ['self-roles'],
+    queryFn: async () => getRoles(),
+  })
