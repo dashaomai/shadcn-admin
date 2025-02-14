@@ -1,6 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import { getProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { i18next } from '@/lib/i18n'
+import { getFallback } from '@/utils/avatar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,26 +16,44 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export function ProfileDropdown() {
   const authStore = useAuthStore()
+  const profile = useQuery({
+    queryKey: ['self-profile'],
+    queryFn: async () => getProfile(),
+  })
+
+  if (profile.isFetching) {
+    return <Skeleton className='h-12 w-12 rounded-full' />
+  } else if (profile.isError) {
+    return <p>{profile.error?.message}</p>
+  }
 
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
           <Avatar className='h-8 w-8'>
-            <AvatarImage src='./avatars/01.png' alt='@shadcn' />
-            <AvatarFallback>SN</AvatarFallback>
+            <AvatarImage
+              src={profile.data?.profile.avatar}
+              alt={profile.data?.profile.nickname}
+            />
+            <AvatarFallback>
+              {getFallback(profile.data?.profile.nickname)}
+            </AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56' align='end' forceMount>
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>satnaing</p>
+            <p className='text-sm font-medium leading-none'>
+              {profile.data?.profile.nickname}
+            </p>
             <p className='text-xs leading-none text-muted-foreground'>
-              satnaingdev@gmail.com
+              {profile.data?.profile.email}
             </p>
           </div>
         </DropdownMenuLabel>

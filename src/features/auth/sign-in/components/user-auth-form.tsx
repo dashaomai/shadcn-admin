@@ -64,7 +64,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         } else if (result.code === 200) {
           // Sign in successful.
           logger.info('sign-in successful.')
-          authStore.auth.setAccessToken(result.payload.token)
+          authStore.auth.setAccessToken(
+            result.payload.token,
+            result.payload.expires
+          )
           router.history.push(search.redirect ?? '/')
         } else {
           // Sign in failed

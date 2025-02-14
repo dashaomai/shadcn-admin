@@ -1,23 +1,37 @@
-import { apiBase } from "@/config/api";
+import { apiBase } from '@/config/api'
+import { fetchAuthed } from '@/stores/authStore'
+import { InfoPayload } from '@/lib/auth'
 
 export async function doSignIn(name: string, password: string) {
-    const data = {
-        type: 1,
-        name,
-        password,
-    }
+  const data = {
+    type: 1,
+    name,
+    password,
+  }
 
-    const response = await fetch(`${apiBase}/auth/signIn`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+  const response = await fetch(`${apiBase}/auth/signIn`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 
-    if (response.status === 200) {
-        return response.json()
-    } else if (response.status === 401) {
-        return undefined
-    }
+  if (response.status === 200) {
+    return response.json()
+  } else if (response.status === 401) {
+    return undefined
+  }
+}
+
+export async function getProfile(
+  accountId?: string
+): Promise<InfoPayload | undefined> {
+  const response = await fetchAuthed<InfoPayload>(
+    `/account/info/${accountId ?? ''}`
+  )
+
+  if (response?.code === 200) {
+    return response.payload
+  }
 }
