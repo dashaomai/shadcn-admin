@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { create } from 'zustand'
+import { queryClient } from '@/lib/client'
 import { WrappedResponse } from '@/lib/response'
 
 const ACCESS_TOKEN = 'sdfjas;ldfjal;sjdkfs;djkfasd;fj'
@@ -39,11 +40,13 @@ export const useAuthStore = create<AuthState>()((set) => {
       setAccessToken: (accessToken: string, expire: number) =>
         set((state) => {
           Cookies.set(ACCESS_TOKEN, accessToken)
+          clearSelfData()
           return { ...state, auth: { ...state.auth, accessToken, expire } }
         }),
       resetAccessToken: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
+          clearSelfData()
           return {
             ...state,
             auth: { ...state.auth, accessToken: '', expire: 0 },
@@ -52,6 +55,7 @@ export const useAuthStore = create<AuthState>()((set) => {
       reset: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
+          clearSelfData()
           return {
             ...state,
             auth: { ...state.auth, user: null, accessToken: '', expire: 0 },
@@ -100,4 +104,13 @@ export const fetchAuthed = async <T>(
   const response = await responseInterceptor<T>(await fetch(request))
 
   return response
+}
+
+const clearSelfData = () => {
+  queryClient.invalidateQueries({
+    queryKey: ['self-profile'],
+  })
+  queryClient.invalidateQueries({
+    queryKey: ['self-roles'],
+  })
 }
