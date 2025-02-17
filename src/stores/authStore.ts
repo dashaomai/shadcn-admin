@@ -107,10 +107,12 @@ export const fetchAuthed = async <T>(
 }
 
 const clearSelfData = () => {
-  queryClient.invalidateQueries({
-    queryKey: ['self-profile'],
-  })
-  queryClient.invalidateQueries({
-    queryKey: ['self-roles'],
-  })
+  setTimeout(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['self-profile'],
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['self-roles'],
+    })
+  }, 0)
 }
