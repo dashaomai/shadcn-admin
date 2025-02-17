@@ -77,7 +77,10 @@
   },
   "apps": {
     "roles": {
-      "description": "对系统内各个角色/安全组进行管理"
+      "description": "对系统内各个角色/安全组进行管理",
+      "button": {
+        "add": "创建角色"
+      }
     }
   }
 }

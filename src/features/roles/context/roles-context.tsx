@@ -20,8 +20,7 @@ export default function RolesProvider({ children }: ListAppsProps) {
   )
 }
 
-export const userRoles = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const useRoles = () => {
   const rolesContext = useContext(RolesContext)
 
   if (!rolesContext) {

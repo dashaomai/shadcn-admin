@@ -3,6 +3,7 @@ import MainContent from '@/components/layout/main-content.tsx'
 import MainHeader from '@/components/layout/main-header.tsx'
 import MainTitleBar from '@/components/layout/main-title-bar.tsx'
 import { Main } from '@/components/layout/main.tsx'
+import { RolesPrimaryButtons } from '@/features/roles/components/roles-primary-buttons.tsx'
 import RolesProvider from '@/features/roles/context/roles-context.tsx'
 
 export default function RolesPage() {
@@ -15,7 +16,7 @@ export default function RolesPage() {
           title={i18n.t('layout.navigate.items.role')}
           description={i18n.t('apps.roles.description')}
         >
-          <p>角色管理按钮</p>
+          <RolesPrimaryButtons />
         </MainTitleBar>
 
         <MainContent>
