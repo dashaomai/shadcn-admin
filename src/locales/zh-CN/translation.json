@@ -74,5 +74,10 @@
       "billing": "支付信息",
       "settings": "设置"
     }
+  },
+  "apps": {
+    "roles": {
+      "description": "对系统内各个角色/安全组进行管理"
+    }
   }
 }
