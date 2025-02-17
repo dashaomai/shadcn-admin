@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import {
   BadgeCheck,
@@ -6,11 +5,10 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
-  Sparkles,
 } from 'lucide-react'
-import { getProfile, useProfile } from '@/api/auth'
+import { useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -102,19 +100,19 @@ export function NavUser() {
               <DropdownMenuItem asChild>
                 <Link to='/settings/account'>
                   <BadgeCheck />
-                  {i18next.t('layout account profile')}
+                  {i18n.t('layout.account.profile')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings'>
                   <CreditCard />
-                  {i18next.t('layout account billing')}
+                  {i18n.t('layout.account.billing')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings/notifications'>
                   <Bell />
-                  {i18next.t('layout account settings')}
+                  {i18n.t('layout.account.settings')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -122,7 +120,7 @@ export function NavUser() {
             <DropdownMenuItem asChild>
               <Link onClick={() => authStore.auth.reset()}>
                 <LogOut />
-                {i18next.t('auth signOut')}
+                {i18n.t('auth.signOut')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

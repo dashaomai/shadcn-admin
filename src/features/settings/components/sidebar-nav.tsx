@@ -1,7 +1,6 @@
-import { useState, type JSX } from 'react'
-import { useLocation, useNavigate } from '@tanstack/react-router'
-import { Link } from '@tanstack/react-router'
-import { i18next } from '@/lib/i18n'
+import { type JSX, useState } from 'react'
+import { Link, useLocation, useNavigate } from '@tanstack/react-router'
+import { i18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -47,7 +46,7 @@ export default function SidebarNav({
               <SelectItem key={item.href} value={item.href}>
                 <div className='flex gap-x-4 px-2 py-1'>
                   <span className='scale-125'>{item.icon}</span>
-                  <span className='text-md'>{i18next.t(item.title)}</span>
+                  <span className='text-md'>{i18n.t(item.title)}</span>
                 </div>
               </SelectItem>
             ))}
@@ -80,7 +79,7 @@ export default function SidebarNav({
               )}
             >
               <span className='mr-2'>{item.icon}</span>
-              {i18next.t(item.title)}
+              {i18n.t(item.title)}
             </Link>
           ))}
         </nav>

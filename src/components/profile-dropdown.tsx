@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { getProfile, useProfile } from '@/api/auth'
+import { useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
-import { i18next } from '@/lib/i18n'
+import { i18n } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -58,19 +57,19 @@ export function ProfileDropdown() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link to='/settings'>
-              {i18next.t('layout account profile')}
+              {i18n.t('layout.account.profile')}
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link to='/settings'>
-              {i18next.t('layout account billing')}
+              {i18n.t('layout.account.billing')}
               <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <Link to='/settings'>
-              {i18next.t('layout account settings')}
+              {i18n.t('layout.account.settings')}
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
@@ -78,7 +77,7 @@ export function ProfileDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link onClick={() => authStore.auth.reset()}>
-            {i18next.t('auth signOut')}
+            {i18n.t('auth.signOut')}
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </Link>
         </DropdownMenuItem>

@@ -2,20 +2,15 @@ import {
   IconBarrierBlock,
   IconBrowserCheck,
   IconBug,
-  IconChecklist,
   IconCheckupList,
   IconHelp,
   IconLayoutDashboard,
   IconLock,
   IconLockAccess,
-  IconMessages,
   IconNotification,
-  IconPackages,
   IconPalette,
-  IconServerOff,
   IconSettings,
   IconTool,
-  IconUser,
   IconUserCog,
   IconUserOff,
   IconUsers,
@@ -24,66 +19,61 @@ import { AudioWaveform } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
-  user: {
-    name: 'satnaing',
-    email: 'satnaingdev@gmail.com',
-    avatar: './avatars/shadcn.jpg',
-  },
   teams: [
     {
-      name: 'layout teams name',
+      name: 'layout.teams.name',
       logo: AudioWaveform,
-      plan: 'layout plans startup',
+      plan: 'layout.plans.startup',
     },
   ],
   navGroups: [
     {
-      title: 'layout navigate groups normal',
+      title: 'layout.navigate.groups.normal',
       roles: ['superadmin', 'admin', 'agent'],
       items: [
         {
-          title: 'layout navigate items dashboard',
+          title: 'layout.navigate.items.dashboard',
           url: '/',
           icon: IconLayoutDashboard,
         },
       ],
     },
     {
-      title: 'layout navigate groups system',
+      title: 'layout.navigate.groups.system',
       roles: ['superadmin', 'admin'],
       items: [
         {
-          title: 'layout navigate items console-account',
+          title: 'layout.navigate.items.console-account',
           icon: IconLockAccess,
           items: [
             {
-              title: 'layout navigate items account',
+              title: 'layout.navigate.items.account',
               url: '/sign-in',
               icon: IconUsers,
             },
             {
-              title: 'layout navigate items role',
+              title: 'layout.navigate.items.role',
               url: '/sign-in-2',
               icon: IconCheckupList,
             },
           ],
         },
         {
-          title: 'layout navigate items game-hall',
+          title: 'layout.navigate.items.game-hall',
           icon: IconBug,
           items: [
             {
-              title: 'layout navigate items game',
+              title: 'layout.navigate.items.game',
               url: '/401',
               icon: IconLock,
             },
             {
-              title: 'layout navigate items hall',
+              title: 'layout.navigate.items.hall',
               url: '/403',
               icon: IconUserOff,
             },
             {
-              title: 'layout navigate items maintain',
+              title: 'layout.navigate.items.maintain',
               url: '/503',
               icon: IconBarrierBlock,
               roles: ['sysadmin'],
@@ -93,41 +83,41 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'layout navigate groups personal',
+      title: 'layout.navigate.groups.personal',
       items: [
         {
-          title: 'layout navigate items settings',
+          title: 'layout.navigate.items.settings',
           icon: IconSettings,
           items: [
             {
-              title: 'layout navigate items settings',
+              title: 'layout.navigate.items.settings',
               url: '/settings',
               icon: IconUserCog,
             },
             {
-              title: 'layout navigate items account-setting',
+              title: 'layout.navigate.items.account-setting',
               url: '/settings/account',
               icon: IconTool,
             },
             {
-              title: 'layout navigate items appearance',
+              title: 'layout.navigate.items.appearance',
               url: '/settings/appearance',
               icon: IconPalette,
             },
             {
-              title: 'layout navigate items notifications',
+              title: 'layout.navigate.items.notifications',
               url: '/settings/notifications',
               icon: IconNotification,
             },
             {
-              title: 'layout navigate items display',
+              title: 'layout.navigate.items.display',
               url: '/settings/display',
               icon: IconBrowserCheck,
             },
           ],
         },
         {
-          title: 'layout navigate items help-center',
+          title: 'layout.navigate.items.help-center',
           url: '/help-center',
           icon: IconHelp,
         },
