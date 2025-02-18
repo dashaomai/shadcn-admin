@@ -78,8 +78,32 @@
   "apps": {
     "roles": {
       "description": "对系统内各个角色/安全组进行管理",
+      "toast": {
+        "create": {
+          "title": "创建新角色",
+          "ing": "正在创建新的角色 {{name}}",
+          "ed": "成功创建新的角色 {{name}}"
+        },
+        "update": {
+          "title": "修改角色",
+          "ing": "正在修改角色 {{name}}",
+          "ed": "成功修改角色 {{name}}"
+        }
+      },
       "button": {
-        "add": "创建角色"
+        "create": "创建角色"
+      }
+    }
+  },
+  "errors": {
+    "duplicated": {
+      "login": {
+        "title": "登录信息重复",
+        "description": "登录信息重复，请更换后再试"
+      },
+      "role": {
+        "title": "角色信息重复",
+        "description": "角色信息重复，请更换后再试"
       }
     }
   }
