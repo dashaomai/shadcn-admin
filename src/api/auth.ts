@@ -4,6 +4,7 @@ import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
 import { ConsoleProfile, Roles } from '@/lib/auth'
 import { PageRequest } from '@/lib/request.ts'
+import { PageResponse } from '@/lib/response.ts'
 import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
 import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 
@@ -58,7 +59,7 @@ export const useRoles = () =>
   })
 
 export const listRoles = async (request: PageRequest) => {
-  return fetchAuthed<Role[]>(
+  return fetchAuthed<PageResponse<Role>>(
     `/role/?page=${request.page}&limit=${request.limit}`
   )
 }
