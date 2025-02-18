@@ -1,4 +1,5 @@
 import React from 'react'
+import { ColumnDef, Row } from '@tanstack/react-table'
 
 export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
@@ -20,4 +21,16 @@ export interface ListAppActionDialogProps<E> {
   currentRow?: E
   open: boolean
   onOpenChange: (open: boolean) => void
+}
+
+export type DataTableProps<T> = {
+  columns: ColumnDef<T>[]
+  data: T[]
+  page: number
+  limit: number
+  total: number
+}
+
+export type DataTableRowActionsProps<T> = {
+  row: Row<T>
 }
