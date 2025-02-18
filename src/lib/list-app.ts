@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type ListAppsDialogType = 'add' | 'edit' | 'delete'
+export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
 export interface ListAppsContextType<T, E> {
   open: T | null
@@ -14,4 +14,10 @@ export const createContext = <T, E>() =>
 
 export interface ListAppsProps {
   children: React.ReactNode
+}
+
+export interface ListAppActionDialogProps<E> {
+  currentRow?: E
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
