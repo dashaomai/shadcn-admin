@@ -78,6 +78,27 @@
   "apps": {
     "roles": {
       "description": "对系统内各个角色/安全组进行管理",
+      "create": {
+        "title": "创建新角色",
+        "description": "录入新角色的属性，随后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改角色",
+        "description": "修改当前角色的属性，随后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "properties": {
+        "name": {
+          "title": "角色名",
+          "placeholder": "请指定角色名",
+          "description": "角色名由至少 3 个字符构成，且不能与其它角色重名"
+        },
+        "description": {
+          "title": "角色备注",
+          "placeholder": "请输入当前角色的备注信息"
+        }
+      },
       "toast": {
         "create": {
           "title": "创建新角色",

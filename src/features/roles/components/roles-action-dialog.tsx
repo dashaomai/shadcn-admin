@@ -21,6 +21,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -54,6 +55,7 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
           description: '',
           isUpdate,
         },
+    mode: 'onChange',
   })
 
   const onSubmit = (values: RoleForm) => {
@@ -97,19 +99,27 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
       open={props.open}
       onOpenChange={(state) => {
         form.reset()
+        setPending(false)
         props.onOpenChange(state)
       }}
     >
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isUpdate ? 'Edit Role' : 'Add New Role'}</DialogTitle>
+          <DialogTitle>
+            {i18n.t(
+              isUpdate ? 'apps.roles.update.title' : 'apps.roles.create.title'
+            )}
+          </DialogTitle>
           <DialogDescription>
-            {isUpdate ? 'Update the role here. ' : 'Create new role here. '}
-            Click save when you&apos;re done.
+            {i18n.t(
+              isUpdate
+                ? 'apps.roles.update.description'
+                : 'apps.roles.create.description'
+            )}
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className='-mr-4 h-[15rem] w-full py-1 pr-4'>
+        <ScrollArea className='-mr-4 h-[18rem] w-full py-1 pr-4'>
           <Form {...form}>
             <form
               id='role-form'
@@ -120,19 +130,24 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
                 control={form.control}
                 name='name'
                 render={({ field }) => (
-                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Name
+                  <FormItem>
+                    <FormLabel>
+                      {i18n.t('apps.roles.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='John'
+                        placeholder={i18n.t(
+                          'apps.roles.properties.name.placeholder'
+                        )}
                         className='col-span-4'
                         autoComplete='off'
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className='col-span-4 col-start-3' />
+                    <FormDescription>
+                      {i18n.t('apps.roles.properties.name.description')}
+                    </FormDescription>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -141,18 +156,22 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
                 control={form.control}
                 name='description'
                 render={({ field }) => (
-                  <FormItem className='grid grid-cols-6 items-center gap-x-4 gap-y-1 space-y-0'>
-                    <FormLabel className='col-span-2 text-right'>
-                      Description
+                  <FormItem>
+                    <FormLabel>
+                      {i18n.t('apps.roles.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
+                        rows={3}
                         className='col-span-4'
                         autoComplete='off'
+                        placeholder={i18n.t(
+                          'apps.roles.properties.description.placeholder'
+                        )}
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className='col-span-4 col-start-3' />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -162,7 +181,9 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
 
         <DialogFooter>
           <Button type='submit' form='role-form' disabled={pending}>
-            Save changes
+            {i18n.t(
+              isUpdate ? 'apps.roles.update.submit' : 'apps.roles.create.submit'
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>
