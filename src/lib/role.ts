@@ -1,5 +1,15 @@
 import { Roles } from './auth'
 
+export type Role = {
+  id: number
+  name: string
+  description: string
+}
+
+export type CreateOrUpdateRoleResponse = {
+  id: number
+}
+
 /**
  * 检查用户权限与资源要求达到的权限候选清单是否匹配，即用户是否有权执行后续的操作。
  * @param roles 用户拥有的权限

@@ -4,7 +4,7 @@ import {
   createContext,
   ListAppsDialogType,
   ListAppsProps,
-} from '@/lib/context.ts'
+} from '@/lib/list-app.ts'
 import useDialogState from '@/hooks/use-dialog-state.tsx'
 
 const RolesContext = createContext<ListAppsDialogType, Role>()

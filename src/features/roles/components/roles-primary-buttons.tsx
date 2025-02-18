@@ -8,8 +8,8 @@ export function RolesPrimaryButtons() {
 
   return (
     <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => setOpen('add')}>
-        <span>{i18n.t('apps.roles.button.add')}</span>{' '}
+      <Button className='space-x-1' onClick={() => setOpen('create')}>
+        <span>{i18n.t('apps.roles.button.create')}</span>{' '}
         <IconPasswordUser size={18} />
       </Button>
     </div>
