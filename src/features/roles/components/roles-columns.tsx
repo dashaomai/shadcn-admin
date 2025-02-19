@@ -68,9 +68,6 @@ export const columns: ColumnDef<Role>[] = [
 
   {
     id: 'actions',
-    header: () => {
-      ;<p>Actions</p>
-    },
     cell: RolesRowActions,
   },
 ]
