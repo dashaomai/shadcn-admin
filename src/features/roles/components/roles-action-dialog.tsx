@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { getRouteApi } from '@tanstack/react-router'
 import { Role } from '@/schemas/role.ts'
-import { createRole, updateRole } from '@/api/auth.ts'
+import { createOrUpdateRole } from '@/api/auth.ts'
 import { z } from '@/lib/i18n'
 import { i18n } from '@/lib/i18n.ts'
 import { ListAppActionDialogProps } from '@/lib/list-app.ts'
@@ -41,7 +41,37 @@ export type RoleForm = z.infer<typeof formSchema>
 export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
-  const [pending, setPending] = useState<boolean>(false)
+
+  const api = getRouteApi('/_authenticated/roles/')
+  const { page, limit } = api.useSearch()
+
+  const mutation = useMutation({
+    mutationFn: createOrUpdateRole,
+    onSuccess: (payload: CreateOrUpdateRoleResponse | undefined, params) => {
+      if (payload) {
+        queryClient
+          .invalidateQueries({ queryKey: ['roles-list', page, limit] })
+          .then()
+
+        toast({
+          title: i18n.t(
+            isUpdate
+              ? 'apps.roles.toast.update.title'
+              : 'apps.roles.toast.create.title'
+          ),
+          description: i18n.t(
+            isUpdate
+              ? 'apps.roles.toast.update.ed'
+              : 'apps.roles.toast.create.ed',
+            { name: params.name }
+          ),
+        })
+
+        form.reset()
+        props.onOpenChange(false)
+      }
+    },
+  })
 
   const form = useForm<RoleForm>({
     resolver: zodResolver(formSchema),
@@ -59,39 +89,10 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
   })
 
   const onSubmit = (values: RoleForm) => {
-    setPending(true)
-
-    const onResult = (payload: CreateOrUpdateRoleResponse | undefined) => {
-      if (payload) {
-        queryClient.invalidateQueries({ queryKey: ['roles-list'] }).then()
-
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.roles.toast.update.title'
-              : 'apps.roles.toast.create.title'
-          ),
-          description: i18n.t(
-            isUpdate
-              ? 'apps.roles.toast.update.ed'
-              : 'apps.roles.toast.create.ed',
-            { name: values.name }
-          ),
-        })
-
-        form.reset()
-        props.onOpenChange(false)
-      } else {
-        // 提交失败，另有专门处理错误码的位置
-        setPending(false)
-      }
-    }
-
-    if (isUpdate) {
-      updateRole(props.currentRow!.id, values).then(onResult)
-    } else {
-      createRole(values).then(onResult)
-    }
+    mutation.mutate({
+      id: props.currentRow?.id,
+      ...values,
+    })
   }
 
   return (
@@ -99,7 +100,7 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
       open={props.open}
       onOpenChange={(state) => {
         form.reset()
-        setPending(false)
+        mutation.reset()
         props.onOpenChange(state)
       }}
     >
@@ -180,7 +181,7 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
         </ScrollArea>
 
         <DialogFooter>
-          <Button type='submit' form='role-form' disabled={pending}>
+          <Button type='submit' form='role-form' disabled={mutation.isPending}>
             {i18n.t(
               isUpdate ? 'apps.roles.update.submit' : 'apps.roles.create.submit'
             )}

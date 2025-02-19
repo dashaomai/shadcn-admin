@@ -139,6 +139,11 @@ const responseInterceptor = async <T>(
       case Code.StatusForbidden: {
         // 权限不足
         logger.error('no authorization for this api.')
+        toast({
+          variant: 'destructive',
+          title: i18n.t('errors.forbidden.title'),
+          description: i18n.t('errors.forbidden.description'),
+        })
 
         break
       }

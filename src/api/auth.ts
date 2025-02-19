@@ -87,3 +87,20 @@ export const updateRole = async (id: number, values: RoleForm) => {
     body: JSON.stringify(body),
   })
 }
+
+export const createOrUpdateRole = async (
+  values: { id?: number } & RoleForm
+) => {
+  if (!values.id) {
+    return createRole(values)
+  } else {
+    const { id, ...data } = values
+    return updateRole(id, data)
+  }
+}
+
+export const deleteRole = async (id: number) => {
+  return fetchAuthed<CreateOrUpdateRoleResponse>(`/role/${id}`, {
+    method: 'DELETE',
+  })
+}

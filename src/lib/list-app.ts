@@ -23,6 +23,12 @@ export interface ListAppActionDialogProps<E> {
   onOpenChange: (open: boolean) => void
 }
 
+export interface ListAppsDeleteDialogProps<E> {
+  currentRow: E
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
+
 export type DataTableProps<T> = {
   columns: ColumnDef<T>[]
   data: T[]

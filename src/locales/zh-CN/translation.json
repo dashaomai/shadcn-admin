@@ -117,6 +117,10 @@
     }
   },
   "errors": {
+    "forbidden": {
+      "title": "权限不足",
+      "description": "你的账号无权执行当前操作"
+    },
     "duplicated": {
       "login": {
         "title": "登录信息重复",

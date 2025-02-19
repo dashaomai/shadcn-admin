@@ -17,7 +17,7 @@ export default function RolesPage() {
   const { page, limit } = routeApi.useSearch()
 
   const query = useQuery({
-    queryKey: ['roles-page', page, limit],
+    queryKey: ['roles-list', page, limit],
     queryFn: async () =>
       listRoles({
         page,
