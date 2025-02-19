@@ -21,8 +21,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx'
+import { TableFacetedFilter } from '@/features/roles/components/table-faceted-filter.tsx'
+import { TableToolbar } from '@/features/roles/components/table-toolbar.tsx'
 import { DataTablePagination } from '@/features/users/components/data-table-pagination.tsx'
-import { DataTableToolbar } from '@/features/users/components/data-table-toolbar.tsx'
 
 type Props = DataTableProps<Role>
 
@@ -52,11 +53,29 @@ export function RolesTable({ columns, data, total }: Props) {
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    globalFilterFn: 'includesString',
   })
+
+  const rows = table.getRowModel().rows
+  const nameOptions = rows.map((row) => ({
+    label: row.original.name,
+    value: row.original.name,
+  }))
 
   return (
     <div className='space-y-4'>
-      <DataTableToolbar table={table} />
+      <TableToolbar table={table}>
+        <div className='flex gap-x-2'>
+          {table.getColumn('name') && (
+            <TableFacetedFilter
+              column={table.getColumn('name')}
+              title='Name'
+              options={nameOptions}
+            />
+          )}
+        </div>
+      </TableToolbar>
+
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -81,6 +100,7 @@ export function RolesTable({ columns, data, total }: Props) {
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
@@ -115,6 +135,7 @@ export function RolesTable({ columns, data, total }: Props) {
           </TableBody>
         </Table>
       </div>
+
       <DataTablePagination table={table} />
     </div>
   )

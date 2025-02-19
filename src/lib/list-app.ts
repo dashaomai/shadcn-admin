@@ -1,5 +1,5 @@
-import React from 'react'
-import { ColumnDef, Row } from '@tanstack/react-table'
+import React, { ReactElement } from 'react'
+import { Column, ColumnDef, Row, Table } from '@tanstack/react-table'
 
 export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
@@ -33,4 +33,23 @@ export type DataTableProps<T> = {
 
 export type DataTableRowActionsProps<T> = {
   row: Row<T>
+}
+
+export type DataTableToolbarProps<T> = {
+  table: Table<T>
+  children?: ReactElement
+}
+
+export type DataTableFacetedFilterProps<T, V> = {
+  column?: Column<T, V>
+  title?: string
+  options: {
+    label: string
+    value: string
+    icon?: React.ComponentType<{ className?: string }>
+  }[]
+}
+
+export type DataTableViewOptions<T> = {
+  table: Table<T>
 }
