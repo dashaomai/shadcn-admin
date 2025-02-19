@@ -22,8 +22,8 @@ import {
   TableRow,
 } from '@/components/ui/table.tsx'
 import { TableFacetedFilter } from '@/features/roles/components/table-faceted-filter.tsx'
+import { TablePagination } from '@/features/roles/components/table-pagination.tsx'
 import { TableToolbar } from '@/features/roles/components/table-toolbar.tsx'
-import { DataTablePagination } from '@/features/users/components/data-table-pagination.tsx'
 
 type Props = DataTableProps<Role>
 
@@ -136,7 +136,7 @@ export function RolesTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <DataTablePagination table={table} />
+      <TablePagination table={table} />
     </div>
   )
 }

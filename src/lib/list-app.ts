@@ -53,3 +53,7 @@ export type DataTableFacetedFilterProps<T, V> = {
 export type DataTableViewOptions<T> = {
   table: Table<T>
 }
+
+export type DataTablePaginationProps<T> = {
+  table: Table<T>
+}
