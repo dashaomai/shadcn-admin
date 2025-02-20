@@ -1,4 +1,5 @@
 import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons'
+import { i18n } from '@/lib/i18n.ts'
 import { DataTableFacetedFilterProps } from '@/lib/list-app.ts'
 import { cn } from '@/lib/utils.ts'
 import { Badge } from '@/components/ui/badge.tsx'
@@ -122,7 +123,7 @@ export function TableFacetedFilter<T, V>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className='justify-center text-center'
                   >
-                    Clear filters
+                    {i18n.t('apps.table.faceted-filter.clear')}
                   </CommandItem>
                 </CommandGroup>
               </>

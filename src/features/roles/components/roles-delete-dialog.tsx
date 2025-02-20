@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { IconAlertTriangle } from '@tabler/icons-react'
 import { deleteRole } from '@/api/auth.ts'
+import { i18n } from '@/lib/i18n.ts'
 import { ListAppsDeleteDialogProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import { toast } from '@/hooks/use-toast.ts'
@@ -21,6 +22,8 @@ export function RolesDeleteDialog({
   const api = getRouteApi('/_authenticated/roles/')
   const { page, limit } = api.useSearch()
 
+  const name = currentRow.name
+
   const mutation = useMutation({
     mutationFn: deleteRole,
     onSuccess: async (payload) => {
@@ -32,7 +35,8 @@ export function RolesDeleteDialog({
           })
           .then()
         toast({
-          title: 'The role has been deleted.',
+          title: i18n.t('apps.roles.toast.delete.title'),
+          description: i18n.t('apps.roles.toast.delete.ed', { name }),
         })
       }
     },
@@ -58,39 +62,40 @@ export function RolesDeleteDialog({
             className='mr-1 inline-block stroke-destructive'
             size={18}
           />{' '}
-          Delete Role
+          {i18n.t('apps.roles.toast.delete.title')}
         </span>
       }
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete{' '}
-            <span className='font-bold'>{currentRow.name}</span>?
+            {i18n.t('apps.roles.delete.confirm0')}
+            <span className='font-bold'>{currentRow.name}</span>
+            {i18n.t('apps.roles.delete.confirm1')}
             <br />
-            This action will permanently remove the role of{' '}
-            <span className='font-bold'>{currentRow.description}</span> from the
-            system. This cannot be undone.
+            {i18n.t('apps.roles.delete.confirm2')}
+            <span className='font-bold'>{currentRow.description}</span>
+            {i18n.t('apps.roles.delete.confirm3')}
           </p>
 
           <Label className='my-2'>
-            Name:
+            {i18n.t('apps.roles.properties.name.title')}:
             <Input
               value={value}
               disabled={mutation.isPending}
               onChange={(e) => setValue(e.target.value)}
-              placeholder='Enter name to confirm deletion.'
+              placeholder={i18n.t('apps.roles.delete.placeholder')}
             />
           </Label>
 
           <Alert variant='destructive'>
-            <AlertTitle>Warning!</AlertTitle>
+            <AlertTitle>{i18n.t('apps.roles.delete.warning')}</AlertTitle>
             <AlertDescription>
-              Please be careful, this operation can not be rolled back.
+              {i18n.t('apps.roles.delete.careful')}
             </AlertDescription>
           </Alert>
         </div>
       }
-      confirmText='Delete'
+      confirmText={i18n.t('apps.roles.delete.submit')}
       destructive
     />
   )

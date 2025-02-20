@@ -43,6 +43,7 @@ export type DataTableRowActionsProps<T> = {
 
 export type DataTableToolbarProps<T> = {
   table: Table<T>
+  placeholder?: string
   children?: ReactElement
 }
 

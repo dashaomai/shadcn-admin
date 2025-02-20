@@ -5,6 +5,7 @@ import {
   DoubleArrowRightIcon,
 } from '@radix-ui/react-icons'
 import { useRouter, useSearch } from '@tanstack/react-router'
+import { i18n } from '@/lib/i18n.ts'
 import { DataTablePaginationProps } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
@@ -43,12 +44,16 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
       style={{ overflowClipMargin: 1 }}
     >
       <div className='hidden flex-1 text-sm text-muted-foreground sm:block'>
-        {table.getFilteredSelectedRowModel().rows.length} of{' '}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+        {i18n.t('apps.table.pagination.selected', {
+          selected: table.getFilteredSelectedRowModel().rows.length,
+          count: table.getFilteredRowModel().rows.length,
+        })}
       </div>
       <div className='flex items-center sm:space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>
-          <p className='hidden text-sm font-medium sm:block'>Rows per page</p>
+          <p className='hidden text-sm font-medium sm:block'>
+            {i18n.t('apps.table.pagination.rows')}
+          </p>
           <Select
             value={`${Number(limit)}`}
             onValueChange={(value) => gotoPage(page, value)}
@@ -66,7 +71,10 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
           </Select>
         </div>
         <div className='flex w-[100px] items-center justify-center text-sm font-medium'>
-          Page {table.getState().pagination.pageIndex + 1} of {maxPage}
+          {i18n.t('apps.table.pagination.page', {
+            page,
+            maxPage,
+          })}
         </div>
         <div className='flex items-center space-x-2'>
           <Button
@@ -75,7 +83,9 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             onClick={() => gotoPage(1, limit)}
             disabled={!canPreviousPage}
           >
-            <span className='sr-only'>Go to first page</span>
+            <span className='sr-only'>
+              {i18n.t('apps.table.pagination.first-page')}
+            </span>
             <DoubleArrowLeftIcon className='h-4 w-4' />
           </Button>
           <Button
@@ -84,7 +94,9 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             onClick={() => gotoPage(Number(page) - 1, limit)}
             disabled={!canPreviousPage}
           >
-            <span className='sr-only'>Go to previous page</span>
+            <span className='sr-only'>
+              {i18n.t('apps.table.pagination.prev-page')}
+            </span>
             <ChevronLeftIcon className='h-4 w-4' />
           </Button>
           <Button
@@ -93,7 +105,9 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             onClick={() => gotoPage(Number(page) + 1, limit)}
             disabled={!canNextPage}
           >
-            <span className='sr-only'>Go to next page</span>
+            <span className='sr-only'>
+              {i18n.t('apps.table.pagination.next-page')}
+            </span>
             <ChevronRightIcon className='h-4 w-4' />
           </Button>
           <Button
@@ -102,7 +116,9 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             onClick={() => gotoPage(maxPage, limit)}
             disabled={!canNextPage}
           >
-            <span className='sr-only'>Go to last page</span>
+            <span className='sr-only'>
+              {i18n.t('apps.table.pagination.last-page')}
+            </span>
             <DoubleArrowRightIcon className='h-4 w-4' />
           </Button>
         </div>

@@ -1,5 +1,6 @@
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { MixerHorizontalIcon } from '@radix-ui/react-icons'
+import { i18n } from '@/lib/i18n.ts'
 import { DataTableViewOptions } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
@@ -20,11 +21,13 @@ export function TableViewOptions<T>({ table }: DataTableViewOptions<T>) {
           className='ml-auto hidden h-8 lg:flex'
         >
           <MixerHorizontalIcon className='mr-2 h-4 w-4' />
-          View
+          {i18n.t('apps.table.view')}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[150px]'>
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {i18n.t('apps.table.toggle-columns')}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
@@ -40,7 +43,7 @@ export function TableViewOptions<T>({ table }: DataTableViewOptions<T>) {
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {column.columnDef.meta?.displayTag ?? column.id}
               </DropdownMenuCheckboxItem>
             )
           })}

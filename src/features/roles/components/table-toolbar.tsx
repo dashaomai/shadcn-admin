@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { TableViewOptions } from '@/features/roles/components/table-view-options.tsx'
 
-export function TableToolbar({ children, table }: DataTableToolbarProps<Role>) {
+export function TableToolbar({
+  children,
+  placeholder,
+  table,
+}: DataTableToolbarProps<Role>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const [filter, setFilter] = useState<string>('')
 
@@ -18,7 +22,7 @@ export function TableToolbar({ children, table }: DataTableToolbarProps<Role>) {
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
-          placeholder='Filter roles...'
+          placeholder={placeholder}
           value={filter}
           onChange={(event) => setFilter(event.target.value)}
           className='h-8 w-[150px] lg:w-[250px]'

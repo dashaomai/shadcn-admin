@@ -75,7 +75,37 @@
       "settings": "设置"
     }
   },
+  "common": {
+    "data": {
+      "no-results": "当前无数据内容。"
+    }
+  },
   "apps": {
+    "table": {
+      "toggle-columns": "数据列显示开关",
+      "faceted-filter": {
+        "clear": "清除过滤条件"
+      },
+      "view": "视图控制",
+      "row": {
+        "select-all": "选择全部数据行",
+        "select": "选择数据行"
+      },
+      "actions": {
+        "open-menu": "开启菜单",
+        "edit": "修改",
+        "delete": "删除"
+      },
+      "pagination": {
+        "selected": "选中了 {{selected}} / {{count}} 项",
+        "page": "第 {{page}} / {{maxPage}} 页",
+        "rows": "每页行数",
+        "first-page": "前往第一页",
+        "last-page": "前往最后页",
+        "prev-page": "前一页",
+        "next-page": "后一页"
+      }
+    },
     "roles": {
       "description": "对系统内各个角色/安全组进行管理",
       "create": {
@@ -88,6 +118,16 @@
         "description": "修改当前角色的属性，随后点击“保存”按钮",
         "submit": "保存"
       },
+      "delete": {
+        "confirm0": "你是否确认要删除 ",
+        "confirm1": "？",
+        "confirm2": "此操作将会从后台中永久删除角色 ",
+        "confirm3": "，无法被撤销。",
+        "placeholder": "请输入角色名，以确认删除。",
+        "warning": "警告！！！",
+        "careful": "请注意，这项操作无法被撤回。",
+        "submit": "删除"
+      },
       "properties": {
         "name": {
           "title": "角色名",
@@ -99,16 +139,21 @@
           "placeholder": "请输入当前角色的备注信息"
         }
       },
+      "toolbar": {
+        "placeholder": "过滤 角色 信息"
+      },
       "toast": {
         "create": {
           "title": "创建新角色",
-          "ing": "正在创建新的角色 {{name}}",
           "ed": "成功创建新的角色 {{name}}"
         },
         "update": {
           "title": "修改角色",
-          "ing": "正在修改角色 {{name}}",
           "ed": "成功修改角色 {{name}}"
+        },
+        "delete": {
+          "title": "删除角色",
+          "ed": "成功删除角色 {{name}}"
         }
       },
       "button": {

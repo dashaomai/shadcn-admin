@@ -11,6 +11,7 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
+import { i18n } from '@/lib/i18n.ts'
 import { DataTableProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import {
@@ -64,12 +65,15 @@ export function RolesTable({ columns, data, total }: Props) {
 
   return (
     <div className='space-y-4'>
-      <TableToolbar table={table}>
+      <TableToolbar
+        table={table}
+        placeholder={i18n.t('apps.roles.toolbar.placeholder')}
+      >
         <div className='flex gap-x-2'>
           {table.getColumn('name') && (
             <TableFacetedFilter
               column={table.getColumn('name')}
-              title='Name'
+              title={i18n.t('apps.roles.properties.name.title')}
               options={nameOptions}
             />
           )}
@@ -128,7 +132,7 @@ export function RolesTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {i18n.t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

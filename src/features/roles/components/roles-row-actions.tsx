@@ -1,5 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { i18n } from '@/lib/i18n.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx'
@@ -27,7 +28,9 @@ export function RolesRowActions({ row }: Props) {
             className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
           >
             <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>Open menu</span>
+            <span className='sr-only'>
+              {i18n.t('apps.table.actions.open-menu')}
+            </span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[160px]'>
@@ -37,7 +40,7 @@ export function RolesRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            Edit
+            {i18n.t('apps.table.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>
@@ -50,7 +53,7 @@ export function RolesRowActions({ row }: Props) {
             }}
             className='!text-red-500'
           >
-            Delete
+            {i18n.t('apps.table.actions.delete')}
             <DropdownMenuShortcut>
               <IconTrash size={16} />
             </DropdownMenuShortcut>
