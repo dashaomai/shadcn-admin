@@ -47,14 +47,14 @@ export const sidebarData: SidebarData = {
           icon: IconLockAccess,
           items: [
             {
-              title: 'layout.navigate.items.account',
-              url: '/sign-in',
-              icon: IconUsers,
+              title: 'layout.navigate.items.role',
+              url: '/roles',
+              icon: IconCheckupList,
             },
             {
-              title: 'layout.navigate.items.role',
-              url: '/sign-in-2',
-              icon: IconCheckupList,
+              title: 'layout.navigate.items.account',
+              url: '/users',
+              icon: IconUsers,
             },
           ],
         },

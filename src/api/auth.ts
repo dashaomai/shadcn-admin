@@ -3,6 +3,10 @@ import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
 import { ConsoleProfile, Roles } from '@/lib/auth'
+import { PageRequest } from '@/lib/request.ts'
+import { PageResponse } from '@/lib/response.ts'
+import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
+import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 
 export async function doSignIn(name: string, password: string) {
   const data = {
@@ -39,11 +43,7 @@ export const getPersonalData = async <T>(
   path: string,
   accountId?: string
 ): Promise<T | undefined> => {
-  const response = await fetchAuthed<T>(`${path}${accountId ?? ''}`)
-
-  if (response?.code === 200) {
-    return response.payload
-  }
+  return fetchAuthed<T>(`${path}${accountId ?? ''}`)
 }
 
 export const useProfile = () =>
@@ -57,3 +57,50 @@ export const useRoles = () =>
     queryKey: ['self-roles'],
     queryFn: async () => getRoles(),
   })
+
+export const listRoles = async (request: PageRequest) => {
+  return fetchAuthed<PageResponse<Role>>(
+    `/role/?page=${request.page}&limit=${request.limit}`
+  )
+}
+
+export const createRole = async (values: RoleForm) => {
+  const body = {
+    name: values.name,
+    description: values.description,
+  }
+
+  return fetchAuthed<CreateOrUpdateRoleResponse>('/role/', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export const updateRole = async (id: number, values: RoleForm) => {
+  const body = {
+    name: values.name,
+    description: values.description,
+  }
+
+  return fetchAuthed<CreateOrUpdateRoleResponse>(`/role/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  })
+}
+
+export const createOrUpdateRole = async (
+  values: { id?: number } & RoleForm
+) => {
+  if (!values.id) {
+    return createRole(values)
+  } else {
+    const { id, ...data } = values
+    return updateRole(id, data)
+  }
+}
+
+export const deleteRole = async (id: number) => {
+  return fetchAuthed<CreateOrUpdateRoleResponse>(`/role/${id}`, {
+    method: 'DELETE',
+  })
+}

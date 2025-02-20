@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import {
-  ColumnDef,
   ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
-  RowData,
   SortingState,
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
+import { i18n } from '@/lib/i18n.ts'
+import { DataTableProps } from '@/lib/list-app.ts'
+import { Role } from '@/lib/role.ts'
 import {
   Table,
   TableBody,
@@ -21,25 +21,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { User } from '../data/schema'
-import { DataTablePagination } from './data-table-pagination'
-import { DataTableToolbar } from './data-table-toolbar'
+} from '@/components/ui/table.tsx'
+import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
+import { TablePagination } from '@/features/table/components/table-pagination.tsx'
+import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 
-declare module '@tanstack/react-table' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ColumnMeta<TData extends RowData, TValue> {
-    className?: string
-    displayTag?: string
-  }
-}
+type Props = DataTableProps<Role>
 
-interface DataTableProps {
-  columns: ColumnDef<User>[]
-  data: User[]
-}
-
-export function UsersTable({ columns, data }: DataTableProps) {
+export function RolesTable({ columns, data, total }: Props) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -48,6 +37,7 @@ export function UsersTable({ columns, data }: DataTableProps) {
   const table = useReactTable({
     data,
     columns,
+    rowCount: total,
     state: {
       sorting,
       columnVisibility,
@@ -61,15 +51,35 @@ export function UsersTable({ columns, data }: DataTableProps) {
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    globalFilterFn: 'includesString',
   })
+
+  const rows = table.getRowModel().rows
+  const nameOptions = rows.map((row) => ({
+    label: row.original.name,
+    value: row.original.name,
+  }))
 
   return (
     <div className='space-y-4'>
-      <DataTableToolbar table={table} />
+      <TableToolbar
+        table={table}
+        placeholder={i18n.t('apps.roles.toolbar.placeholder')}
+      >
+        <div className='flex gap-x-2'>
+          {table.getColumn('name') && (
+            <TableFacetedFilter
+              column={table.getColumn('name')}
+              title={i18n.t('apps.roles.properties.name.title')}
+              options={nameOptions}
+            />
+          )}
+        </div>
+      </TableToolbar>
+
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
@@ -94,6 +104,7 @@ export function UsersTable({ columns, data }: DataTableProps) {
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
@@ -121,14 +132,15 @@ export function UsersTable({ columns, data }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {i18n.t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+
+      <TablePagination table={table} />
     </div>
   )
 }
