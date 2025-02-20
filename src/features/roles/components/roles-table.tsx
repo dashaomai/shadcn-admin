@@ -22,9 +22,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx'
-import { TableFacetedFilter } from '@/features/roles/components/table-faceted-filter.tsx'
-import { TablePagination } from '@/features/roles/components/table-pagination.tsx'
-import { TableToolbar } from '@/features/roles/components/table-toolbar.tsx'
+import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
+import { TablePagination } from '@/features/table/components/table-pagination.tsx'
+import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 
 type Props = DataTableProps<Role>
 

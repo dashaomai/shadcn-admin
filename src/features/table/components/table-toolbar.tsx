@@ -4,7 +4,7 @@ import { DataTableToolbarProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
-import { TableViewOptions } from '@/features/roles/components/table-view-options.tsx'
+import { TableViewOptions } from '@/features/table/components/table-view-options.tsx'
 
 export function TableToolbar({
   children,
