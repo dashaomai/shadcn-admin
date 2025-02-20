@@ -56,6 +56,7 @@ export function RolesDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={handleDelete}
       disabled={value.trim() !== currentRow.name}
+      cancelBtnText={i18n.t('layout.dialog.cancel')}
       title={
         <span className='text-destructive'>
           <IconAlertTriangle

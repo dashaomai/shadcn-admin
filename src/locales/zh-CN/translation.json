@@ -57,6 +57,9 @@
         "help-center": "帮助中心"
       }
     },
+    "dialog": {
+      "cancel": "取消"
+    },
     "search": {
       "placeholder": "功能搜索",
       "input-placeholder": "输入命令或模块名以搜索 ...",
