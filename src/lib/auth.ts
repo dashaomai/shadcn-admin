@@ -23,3 +23,7 @@ export type ConsoleProfile = {
 }
 
 export type Roles = string[]
+
+export type CreateOrUpdateProfileResponse = {
+  id: string
+}

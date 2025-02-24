@@ -162,6 +162,62 @@
       "button": {
         "create": "创建角色"
       }
+    },
+    "accounts": {
+      "actions": {
+        "create": "创建新账号",
+        "edit": "修改账号信息",
+        "edit-roles": "角色调整",
+        "reset-password": "重置密码"
+      },
+      "description": "对系统内各个账号进行管理",
+      "create": {
+        "title": "创建新账号",
+        "description": "录入新账号的属性，随后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改账号",
+        "description": "修改当前账号的属性，随后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "toolbar": {
+        "placeholder": "过滤 账号 信息"
+      },
+      "properties": {
+        "loginName": {
+          "title": "登录名",
+          "placeholder": "请指定登录名",
+          "description": "登录名由至少 3 个字符构成，且不能与其它账号重名"
+        },
+        "password": {
+          "title": "密码",
+          "placeholder": "请指定登录密码",
+          "description": "密码由至少 6 个字符构成"
+        },
+        "passwordConfirm": {
+          "title": "确认密码",
+          "placeholder": "请再次输入登录密码"
+        },
+        "profile": {
+          "nickname": {
+            "title": "昵称",
+            "placeholder": "请输入账号的昵称"
+          },
+          "email": {
+            "title": "电子邮箱",
+            "placeholder": "请输入账号的电子邮箱"
+          },
+          "avatar": {
+            "title": "头像",
+            "placeholder": "请上传账号的头像"
+          }
+        },
+        "roles": {
+          "title": "角色",
+          "placeholder": "请选择账号的角色"
+        }
+      }
     }
   },
   "errors": {

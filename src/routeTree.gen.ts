@@ -20,6 +20,7 @@ import { Route as authSignInImport } from './routes/(auth)/sign-in'
 import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as auth500Import } from './routes/(auth)/500'
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
+import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 
 // Create Virtual Routes
 
@@ -237,6 +238,16 @@ const AuthenticatedRolesIndexRoute = AuthenticatedRolesIndexImport.update({
   import('./routes/_authenticated/roles/index.lazy').then((d) => d.Route),
 )
 
+const AuthenticatedAccountsIndexRoute = AuthenticatedAccountsIndexImport.update(
+  {
+    id: '/accounts/',
+    path: '/accounts/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/_authenticated/accounts/index.lazy').then((d) => d.Route),
+)
+
 const AuthenticatedSettingsNotificationsLazyRoute =
   AuthenticatedSettingsNotificationsLazyImport.update({
     id: '/notifications',
@@ -411,6 +422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsNotificationsLazyImport
       parentRoute: typeof AuthenticatedSettingsRouteLazyImport
     }
+    '/_authenticated/accounts/': {
+      id: '/_authenticated/accounts/'
+      path: '/accounts'
+      fullPath: '/accounts'
+      preLoaderRoute: typeof AuthenticatedAccountsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/roles/': {
       id: '/_authenticated/roles/'
       path: '/roles'
@@ -494,6 +512,7 @@ const AuthenticatedSettingsRouteLazyRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteLazyRoute: typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
   AuthenticatedAppsIndexLazyRoute: typeof AuthenticatedAppsIndexLazyRoute
   AuthenticatedChatsIndexLazyRoute: typeof AuthenticatedChatsIndexLazyRoute
@@ -506,6 +525,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteLazyRoute:
     AuthenticatedSettingsRouteLazyRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
   AuthenticatedAppsIndexLazyRoute: AuthenticatedAppsIndexLazyRoute,
   AuthenticatedChatsIndexLazyRoute: AuthenticatedChatsIndexLazyRoute,
@@ -535,6 +555,7 @@ export interface FileRoutesByFullPath {
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
+  '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
@@ -560,6 +581,7 @@ export interface FileRoutesByTo {
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
+  '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
@@ -589,6 +611,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
+  '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexLazyRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexLazyRoute
@@ -618,6 +641,7 @@ export interface FileRouteTypes {
     | '/settings/appearance'
     | '/settings/display'
     | '/settings/notifications'
+    | '/accounts'
     | '/roles'
     | '/apps'
     | '/chats'
@@ -642,6 +666,7 @@ export interface FileRouteTypes {
     | '/settings/appearance'
     | '/settings/display'
     | '/settings/notifications'
+    | '/accounts'
     | '/roles'
     | '/apps'
     | '/chats'
@@ -669,6 +694,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
     | '/_authenticated/settings/notifications'
+    | '/_authenticated/accounts/'
     | '/_authenticated/roles/'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
@@ -738,6 +764,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/settings",
         "/_authenticated/",
+        "/_authenticated/accounts/",
         "/_authenticated/roles/",
         "/_authenticated/apps/",
         "/_authenticated/chats/",
@@ -809,6 +836,10 @@ export const routeTree = rootRoute
     "/_authenticated/settings/notifications": {
       "filePath": "_authenticated/settings/notifications.lazy.tsx",
       "parent": "/_authenticated/settings"
+    },
+    "/_authenticated/accounts/": {
+      "filePath": "_authenticated/accounts/index.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/roles/": {
       "filePath": "_authenticated/roles/index.tsx",

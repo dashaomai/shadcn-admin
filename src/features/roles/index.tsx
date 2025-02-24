@@ -19,7 +19,7 @@ export default function RolesPage() {
   const query = useQuery({
     queryKey: ['roles-list', page, limit],
     queryFn: async () =>
-      listRoles({
+      await listRoles({
         page,
         limit,
       }),
