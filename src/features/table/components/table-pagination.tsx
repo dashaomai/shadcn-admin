@@ -15,8 +15,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
+import logger from 'loglevel'
 
 export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
+  logger.info('Table Pagination component')
+
   const router = useRouter()
   const pathname = router.latestLocation.pathname
 
@@ -34,7 +37,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
     theLimit: number | string | undefined
   ) {
     router.history.push(
-      `${pathname}?page=${pageIndex ?? 0}&limit=${theLimit ?? 10}`
+      `${pathname}?page=${pageIndex ?? 1}&limit=${theLimit ?? 10}`
     )
   }
 

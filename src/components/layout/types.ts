@@ -1,5 +1,5 @@
 import { LinkProps } from '@tanstack/react-router'
-import { Roles } from '@/lib/auth'
+import { TinyRoles } from '@/lib/auth'
 
 interface User {
   name: string
@@ -17,7 +17,7 @@ interface BaseNavItem {
   title: string
   badge?: string
   icon?: React.ElementType
-  roles?: Roles
+  roles?: TinyRoles
 }
 
 type NavLink = BaseNavItem & {
@@ -34,7 +34,7 @@ type NavItem = NavCollapsible | NavLink
 
 interface NavGroup {
   title: string
-  roles?: Roles
+  roles?: TinyRoles
   items: NavItem[]
 }
 

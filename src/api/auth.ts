@@ -2,11 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
-import { ConsoleProfile, Roles } from '@/lib/auth'
+import { ConsoleProfile, CreateOrUpdateProfileResponse, Roles, TinyRoles } from '@/lib/auth'
 import { PageRequest } from '@/lib/request.ts'
 import { PageResponse } from '@/lib/response.ts'
 import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
 import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
+import { AccountInfo } from '@/features/accounts/data/account-info.ts'
+import { AccountForm } from '@/features/accounts/components/accounts-action-dialog'
+import { AccountRolesForm } from '@/features/accounts/components/accounts-roles-dialog'
 
 export async function doSignIn(name: string, password: string) {
   const data = {
@@ -36,7 +39,7 @@ export const getProfile = async (accountId?: string) => {
 }
 
 export const getRoles = async (accountId?: string) => {
-  return getPersonalData<Roles>('/account/roles/', accountId)
+  return getPersonalData<TinyRoles>('/account/roles/', accountId)
 }
 
 export const getPersonalData = async <T>(
@@ -44,6 +47,10 @@ export const getPersonalData = async <T>(
   accountId?: string
 ): Promise<T | undefined> => {
   return fetchAuthed<T>(`${path}${accountId ?? ''}`)
+}
+
+export const getAllRoles = async () => {
+  return fetchAuthed<Roles>('/role/all')
 }
 
 export const useProfile = () =>
@@ -56,6 +63,12 @@ export const useRoles = () =>
   useQuery({
     queryKey: ['self-roles'],
     queryFn: async () => getRoles(),
+  })
+
+export const useAllRoles = () =>
+  useQuery({
+    queryKey: ['all-roles'],
+    queryFn: getAllRoles,
   })
 
 export const listRoles = async (request: PageRequest) => {
@@ -89,7 +102,7 @@ export const updateRole = async (id: number, values: RoleForm) => {
 }
 
 export const createOrUpdateRole = async (
-  values: { id?: number } & RoleForm
+  values: { id?: number } & RoleForm,
 ) => {
   if (!values.id) {
     return createRole(values)
@@ -102,5 +115,83 @@ export const createOrUpdateRole = async (
 export const deleteRole = async (id: number) => {
   return fetchAuthed<CreateOrUpdateRoleResponse>(`/role/${id}`, {
     method: 'DELETE',
+  })
+}
+
+
+/****** Accounts *****/
+export const listAccountInfos = async (request: PageRequest) => {
+  return fetchAuthed<PageResponse<AccountInfo>>(
+    `/account/?page=${request.page}&limit=${request.limit}`,
+  )
+}
+
+const createAccount = async (values: AccountForm) => {
+  const data = {
+    type: 1,
+    name: values.loginName,
+    password: values.password,
+    nickname: values.profileNickname,
+    email: values.profileEmail,
+    avatar: values.profileAvatar,
+  }
+
+  return fetchAuthed<CreateOrUpdateProfileResponse>('/account/signUp', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+const updateAccount = async (id: string, values: AccountForm) => {
+  if (values.password && values.password === values.passwordConfirm) {
+    // update the password
+    const data = {
+      type: 1,
+      password: values.password,
+    }
+
+    const passwordResponse = await fetchAuthed<CreateOrUpdateProfileResponse>(`/account/login/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    })
+
+    if (!passwordResponse) {
+      // failed to update the password
+      return undefined
+    }
+  }
+
+  const data = {
+    nickname: values.profileNickname,
+    email: values.profileEmail,
+    avatar: values.profileAvatar,
+  }
+  return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/profile/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  })
+}
+
+
+export const createOrUpdateAccount = async (
+  values: { id?: string } & AccountForm,
+) => {
+  if (!values.id) {
+    return createAccount(values)
+  } else {
+    const { id, ...data } = values
+    return updateAccount(id, data)
+  }
+}
+
+export const updateRoles = async (values: {id?: string} & AccountRolesForm) => {
+  const { id, roles } = values
+  const data = {
+    roles,
+  }
+
+  return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/roles/${id}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
   })
 }

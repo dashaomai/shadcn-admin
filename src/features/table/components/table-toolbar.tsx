@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { DataTableToolbarProps } from '@/lib/list-app.ts'
-import { Role } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { TableViewOptions } from '@/features/table/components/table-view-options.tsx'
 
-export function TableToolbar({
+export function TableToolbar<T>({
   children,
   placeholder,
   table,
-}: DataTableToolbarProps<Role>) {
+}: DataTableToolbarProps<T>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const [filter, setFilter] = useState<string>('')
 
