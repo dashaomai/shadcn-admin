@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -128,7 +128,8 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
                                   }}
                                 />
                               </FormControl>
-                              <FormLabel>{role.name}: {role.description}</FormLabel>
+                              <FormLabel>{role.name}</FormLabel>
+                              <FormDescription>{role.description}</FormDescription>
                             </FormItem>
                           )}
                         />
