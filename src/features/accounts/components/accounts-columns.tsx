@@ -139,7 +139,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap'>
-        {(row.getValue('roles') as Roles).map((role: string) => (
+        {(row.getValue('roles') as Roles)?.map((role: string) => (
           <span key={role} className='text-sm capitalize'>{role}</span>
         ))}
       </div>

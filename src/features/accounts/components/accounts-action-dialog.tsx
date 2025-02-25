@@ -1,7 +1,7 @@
 import { ListAppActionDialogProps } from "@/lib/list-app"
 import { i18n, z } from '@/lib/i18n'
 import { getRouteApi } from "@tanstack/react-router"
-import { createOrUpdateAccountsProfile } from "@/api/auth"
+import { createOrUpdateAccount } from "@/api/auth"
 import { toast } from "@/hooks/use-toast"
 import { CreateOrUpdateProfileResponse } from "@/lib/auth"
 import { useQueryClient, useMutation } from "@tanstack/react-query"
@@ -14,17 +14,17 @@ import { AccountInfo } from "../data/account-info"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { PasswordInput } from "@/components/password-input"
+import { Separator } from "@/components/ui/separator"
 
 const accountFormSchema = z.object({
   loginName: z.string(),
-  password: z.string().min(6).max(20),
-  passwordConfirm: z.string(),
+  password: z.string().transform(value => value.trim()),
+  passwordConfirm: z.string().transform(value => value.trim()),
   profileNickname: z.string().max(30),
   profileEmail: z.string().email().optional(),
-  profileAvatar: z.string().url().optional(),
-  isUpdate: z.boolean(),
+  profileAvatar: z.string().optional(),
 }).refine(data => data.password === data.passwordConfirm, {
-  message: i18n.t('apps.accounts.properties.password.confirm.not-equal'),
+  message: i18n.t('apps.accounts.properties.passwordConfirm.not-equal'),
 })
 
 export type AccountForm = z.infer<typeof accountFormSchema>
@@ -37,7 +37,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
   const { page, limit } = api.useSearch()
 
   const mutation = useMutation({
-    mutationFn: createOrUpdateAccountsProfile,
+    mutationFn: createOrUpdateAccount,
     onSuccess: (payload: CreateOrUpdateProfileResponse | undefined, params) => {
       if (payload) {
         queryClient
@@ -75,7 +75,6 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
           profileNickname: props.currentRow?.profile.nickname,
           profileEmail: props.currentRow?.profile.email,
           profileAvatar: props.currentRow?.profile.avatar,
-          isUpdate,
       }
       : {
         loginName: '',
@@ -84,7 +83,6 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
         profileNickname: '',
         profileEmail: '',
         profileAvatar: '',
-        isUpdate,
       },
     mode: 'onChange',
   })
@@ -145,7 +143,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t('apps.accounts.properties.loginName.description')}
+                      {i18n.t(isUpdate ? 'apps.accounts.properties.loginName.updateDescription' : 'apps.accounts.properties.loginName.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -186,6 +184,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                     <FormControl>
                       <Input
                         type='email'
+                        required={false}
                         className='col-span-4'
                         autoComplete='off'
                         placeholder={i18n.t(
@@ -209,6 +208,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                     </FormLabel>
                     <FormControl>
                       <Input
+                        required={false}
                         className='col-span-4'
                         autoComplete='off'
                         placeholder={i18n.t(
@@ -222,6 +222,8 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 )}
               />
 
+              <Separator style={{marginTop: '2.3rem'}} />
+
               <FormField
                 control={form.control}
                 name='password'
@@ -232,6 +234,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
+                        required={!isUpdate}
                         className='col-span-4'
                         autoComplete='off'
                         placeholder={i18n.t(
@@ -255,6 +258,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
+                        required={!isUpdate}
                         className='col-span-4'
                         autoComplete='off'
                         placeholder={i18n.t(

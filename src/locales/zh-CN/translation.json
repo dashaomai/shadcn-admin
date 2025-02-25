@@ -188,7 +188,8 @@
         "loginName": {
           "title": "登录名",
           "placeholder": "请指定登录名",
-          "description": "登录名由至少 3 个字符构成，且不能与其它账号重名"
+          "description": "登录名由至少 3 个字符构成，且不能与其它账号重名",
+          "updateDescription": "登录名不可修改"
         },
         "password": {
           "title": "密码",
@@ -197,7 +198,8 @@
         },
         "passwordConfirm": {
           "title": "确认密码",
-          "placeholder": "请再次输入登录密码"
+          "placeholder": "请再次输入登录密码",
+          "notEqual": "两次输入的密码不一致"
         },
         "profile": {
           "nickname": {

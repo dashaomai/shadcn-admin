@@ -9,6 +9,7 @@ import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
 import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
 import { AccountForm } from '@/features/accounts/components/accounts-action-dialog'
+import { Code } from '@/lib/code'
 
 export async function doSignIn(name: string, password: string) {
   const data = {
@@ -125,28 +126,60 @@ export const listAccountInfos = async (request: PageRequest) => {
   )
 }
 
-const createProfile = async (values: AccountForm) => {
-  return fetchAuthed<CreateOrUpdateProfileResponse>('/account/profile/', {
+const createAccount = async (values: AccountForm) => {
+  const data = {
+    type: 1,
+    name: values.loginName,
+    password: values.password,
+    nickname: values.profileNickname,
+    email: values.profileEmail,
+    avatar: values.profileAvatar,
+  }
+
+  return fetchAuthed<CreateOrUpdateProfileResponse>('/account/signUp', {
     method: 'POST',
-    body: JSON.stringify(values),
+    body: JSON.stringify(data),
   })
 }
 
-const updateProfile = async (id: string, values: AccountForm) => {
+const updateAccount = async (id: string, values: AccountForm) => {
+  if (values.password && values.password === values.passwordConfirm) {
+    // update the password
+    const data = {
+      type: 1,
+      password: values.password,
+    }
+
+    const passwordResponse = await fetchAuthed<CreateOrUpdateProfileResponse>(`/account/login/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    })
+
+    if (!passwordResponse) {
+      // failed to update the password
+      return undefined
+    }
+  }
+
+  const data = {
+    nickname: values.profileNickname,
+    email: values.profileEmail,
+    avatar: values.profileAvatar,
+  }
   return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/profile/${id}`, {
     method: 'PUT',
-    body: JSON.stringify(values),
+    body: JSON.stringify(data),
   })
 }
 
 
-export const createOrUpdateAccountsProfile = async (
+export const createOrUpdateAccount = async (
   values: { id?: string } & AccountForm,
 ) => {
   if (!values.id) {
-    return createProfile(values)
+    return createAccount(values)
   } else {
     const { id, ...data } = values
-    return updateProfile(id, data)
+    return updateAccount(id, data)
   }
 }
