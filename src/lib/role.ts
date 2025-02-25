@@ -1,4 +1,4 @@
-import { Roles } from './auth'
+import { TinyRoles } from './auth'
 
 export type Role = {
   id: number
@@ -17,8 +17,8 @@ export type CreateOrUpdateRoleResponse = {
  * @returns 用户权限中是否有与候选列表匹配的权限
  */
 export const rolesCheck = (
-  roles: Roles | undefined,
-  candidates: Roles | undefined
+  roles: TinyRoles | undefined,
+  candidates: TinyRoles | undefined
 ): boolean => {
   if (isEmptyArray(roles)) {
     return false

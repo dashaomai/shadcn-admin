@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
-import { ConsoleProfile, CreateOrUpdateProfileResponse, Roles } from '@/lib/auth'
+import { ConsoleProfile, CreateOrUpdateProfileResponse, Roles, TinyRoles } from '@/lib/auth'
 import { PageRequest } from '@/lib/request.ts'
 import { PageResponse } from '@/lib/response.ts'
 import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
@@ -10,6 +10,7 @@ import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
 import { AccountForm } from '@/features/accounts/components/accounts-action-dialog'
 import { Code } from '@/lib/code'
+import { AccountRolesForm } from '@/features/accounts/components/accounts-roles-dialog'
 
 export async function doSignIn(name: string, password: string) {
   const data = {
@@ -39,7 +40,7 @@ export const getProfile = async (accountId?: string) => {
 }
 
 export const getRoles = async (accountId?: string) => {
-  return getPersonalData<Roles>('/account/roles/', accountId)
+  return getPersonalData<TinyRoles>('/account/roles/', accountId)
 }
 
 export const getPersonalData = async <T>(
@@ -182,4 +183,16 @@ export const createOrUpdateAccount = async (
     const { id, ...data } = values
     return updateAccount(id, data)
   }
+}
+
+export const updateRoles = async (values: {id?: string} & AccountRolesForm) => {
+  const { id, roles } = values
+  const data = {
+    roles,
+  }
+
+  return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/roles/${id}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
 }

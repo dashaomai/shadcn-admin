@@ -1,4 +1,4 @@
-import { Roles } from '@/lib/auth.ts'
+import { TinyRoles } from '@/lib/auth.ts'
 
 export interface ConsoleProfile {
   nickname: string
@@ -10,5 +10,5 @@ export interface AccountInfo {
   id: string
   loginName: string
   profile: ConsoleProfile
-  roles: Roles
+  roles: TinyRoles
 }

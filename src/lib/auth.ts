@@ -1,3 +1,5 @@
+import { Role } from "./role"
+
 export type SignInRequest = {
   type: number
   name: string
@@ -22,7 +24,8 @@ export type ConsoleProfile = {
   avatar: string
 }
 
-export type Roles = string[]
+export type Roles = Role[]
+export type TinyRoles = string[]
 
 export type CreateOrUpdateProfileResponse = {
   id: string

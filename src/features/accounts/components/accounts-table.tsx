@@ -53,8 +53,8 @@ export function AccountsTable({ columns, data, total }: Props) {
     if (allRoles.isFetched) {
       const options =
         allRoles.data?.map(role => ({
-          label: role,
-          value: role,
+          label: role.description,
+          value: role.name,
         }))
 
       setRoleOptions(options)

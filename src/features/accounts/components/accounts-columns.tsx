@@ -7,7 +7,7 @@ import { DataTableColumnHeader } from '@/features/users/components/data-table-co
 import LongText from '@/components/long-text.tsx'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import { getFallback } from '@/utils/avatar.ts'
-import { Roles } from '@/lib/auth.ts'
+import { TinyRoles } from '@/lib/auth.ts'
 import { AccountsRowActions } from '@/features/accounts/components/accounts-row-actions.tsx'
 import { Badge } from '@/components/ui/badge'
 
@@ -144,7 +144,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
       if (roles) {
         return (
         <div className='w-fit text-nowrap flex flex-row space-x-2'>
-          {(row.getValue('roles') as Roles)?.map((role: string) => (
+          {(row.getValue('roles') as TinyRoles)?.map((role: string) => (
             <Badge key={role} variant='default' className='text-sm capitalize'>{role}</Badge>
           ))}
         </div>
