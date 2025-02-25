@@ -3,7 +3,7 @@ import { ListAppActionDialogProps } from "@/lib/list-app";
 import { AccountInfo } from "../data/account-info";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getRouteApi } from "@tanstack/react-router";
-import { updateRoles, useAllRoles } from "@/api/auth";
+import { updateRoles, useAllRoles, useProfile } from "@/api/auth";
 import { CreateOrUpdateProfileResponse } from "@/lib/auth";
 import { toast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
@@ -26,6 +26,8 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
   const api = getRouteApi('/_authenticated/accounts/')
   const { page, limit } = api.useSearch()
 
+  const selfProfile = useProfile()
+
   const mutation = useMutation({
     mutationFn: updateRoles,
     onSuccess: (payload?: CreateOrUpdateProfileResponse) => {
@@ -33,6 +35,11 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
         queryClient
           .invalidateQueries({ queryKey: ['accounts-list', page, limit] })
           .then()
+        
+        // if is myself, reset my roles immediately
+        if (payload.id === selfProfile.data?.id) {
+          queryClient.invalidateQueries({ queryKey: ['self-roles']}).then()
+        }
 
         toast({
           title: i18n.t('apps.accounts.actions.updateRoles.success'),
