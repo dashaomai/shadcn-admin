@@ -217,7 +217,8 @@
         },
         "roles": {
           "title": "角色",
-          "placeholder": "请选择账号的角色"
+          "placeholder": "请选择账号的角色",
+          "empty": "当前账号无角色"
         }
       }
     }

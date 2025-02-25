@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import { getFallback } from '@/utils/avatar.ts'
 import { Roles } from '@/lib/auth.ts'
 import { AccountsRowActions } from '@/features/accounts/components/accounts-row-actions.tsx'
+import { Badge } from '@/components/ui/badge'
 
 export const columns: ColumnDef<AccountInfo>[] = [
   {
@@ -137,13 +138,20 @@ export const columns: ColumnDef<AccountInfo>[] = [
         title={i18n.t('apps.accounts.properties.roles.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap'>
-        {(row.getValue('roles') as Roles)?.map((role: string) => (
-          <span key={role} className='text-sm capitalize'>{role}</span>
-        ))}
-      </div>
-    ),
+    cell: ({ row }) => {
+      const roles = row.getValue('roles')
+
+      if (roles) {
+        return (
+        <div className='w-fit text-nowrap flex flex-row space-x-2'>
+          {(row.getValue('roles') as Roles)?.map((role: string) => (
+            <Badge key={role} variant='default' className='text-sm capitalize'>{role}</Badge>
+          ))}
+        </div>
+      )
+      } else {
+        return (<p className='text-gray-300'>{i18n.t('apps.accounts.properties.roles.empty')}</p>)
+      }},
 
     meta: {
       displayTag: i18n.t('apps.accounts.properties.roles.title'),
