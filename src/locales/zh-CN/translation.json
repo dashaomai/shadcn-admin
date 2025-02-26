@@ -42,8 +42,12 @@
         "account": "账号",
         "role": "角色",
         "player": "玩家",
+        "platform": "平台",
+        "developer": "开发商",
+        "publisher": "发行商",
         "game-hall": "游戏 & 厅馆管理",
         "game": "游戏",
+        "game-catalog": "游戏分类",
         "hall": "厅馆",
         "maintain": "维护",
         "game-records": "游戏记录",
@@ -230,6 +234,63 @@
           "updateTitle": "调整该账号的角色",
           "description": "请选择账号的角色信息后，点击“保存”按钮",
           "empty": "当前账号无角色"
+        }
+      }
+    },
+    "platforms": {
+      "description": "对系统内各个平台进行管理",
+      "create": {
+        "title": "创建新平台",
+        "description": "录入新平台的各项资料，然后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改平台",
+        "description": "修改平台的资料，然后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "properties": {
+        "name": {
+          "title": "平台名",
+          "description": "平台的名称",
+          "placeholder": "请输入平台名称",
+          "updateDescription": "平台名称不可修改",
+          "createDescription": "请输入平台名称，不可与其它平台重名。"
+        },
+        "description": {
+          "title": "平台备注",
+          "placeholder": "请输入平台的详细资料"
+        },
+        "type": {
+          "title": "类型",
+          "placeholder": "请选择平台的类型",
+          "unknown": "未知",
+          "private": "自有",
+          "cooperate": "合作",
+          "thirdpart": "第三方"
+        },
+        "status": {
+          "title": "状态",
+          "placeholder": "请选择平台的状态",
+          "unavailable": "尚未正式运营",
+          "offline": "已下线",
+          "intention": "有合作意向",
+          "developing": "正在接入",
+          "available": "正式运营",
+          "online": "已上线"
+        }
+      },
+      "toolbar": {
+        "placeholder": "过滤平台信息"
+      },
+      "toast": {
+        "create": {
+          "title": "创建新平台",
+          "ed": "成功创建新平台 {{name}}"
+        },
+        "update": {
+          "title": "修改平台",
+          "ed": "成功修改平台 {{name}}"
         }
       }
     }

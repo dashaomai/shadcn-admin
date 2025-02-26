@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   ColumnFiltersState,
   flexRender,
@@ -11,9 +11,8 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { useAllRoles } from '@/api/auth.ts'
-import { i18n } from '@/lib/i18n.ts'
-import { DataTableProps } from '@/lib/list-app.ts'
+import { i18n } from '@/lib/i18n'
+import { DataTableProps } from '@/lib/list-app'
 import { SelectOption } from '@/lib/option'
 import {
   Table,
@@ -22,15 +21,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table.tsx'
-import { AccountInfo } from '@/features/accounts/data/account-info.ts'
-import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
-import { TablePagination } from '@/features/table/components/table-pagination.tsx'
-import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
+} from '@/components/ui/table'
+import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter'
+import { TablePagination } from '@/features/table/components/table-pagination'
+import { TableToolbar } from '@/features/table/components/table-toolbar'
+import {
+  PlatformInfo,
+  PlatformStatusDescriptions,
+  PlatformTypeDescriptions,
+} from '../data/platform'
 
-type Props = DataTableProps<AccountInfo>
+type Props = DataTableProps<PlatformInfo>
 
-export function AccountsTable({ columns, data, total }: Props) {
+export function PlatformsTable({ columns, data, total }: Props) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -58,33 +61,44 @@ export function AccountsTable({ columns, data, total }: Props) {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
-  const allRoles = useAllRoles()
+  const allTypes = useMemo<SelectOption[]>(
+    () =>
+      PlatformTypeDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.platforms.properties.type.${desc}`),
+        value: String(i),
+      })),
+    []
+  )
 
-  const [roleOptions, setRoleOptions] = useState<SelectOption[] | undefined>([])
-
-  useEffect(() => {
-    if (allRoles.isFetched) {
-      const options = allRoles.data?.map((role) => ({
-        label: role.description,
-        value: role.name,
-      }))
-
-      setRoleOptions(options)
-    }
-  }, [allRoles.isFetched, setRoleOptions])
+  const allStatus = useMemo<SelectOption[]>(
+    () =>
+      PlatformStatusDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.platforms.properties.status.${desc}`),
+        value: String(i),
+      })),
+    []
+  )
 
   return (
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.accounts.toolbar.placeholder')}
+        placeholder={i18n.t('apps.platforms.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
-          {table.getColumn('roles') && roleOptions && (
+          {table.getColumn('type') && allTypes && (
             <TableFacetedFilter
-              column={table.getColumn('roles')}
-              title={i18n.t('apps.accounts.properties.roles.title')}
-              options={roleOptions}
+              column={table.getColumn('type')}
+              title={i18n.t('apps.platforms.properties.type.title')}
+              options={allTypes}
+            />
+          )}
+
+          {table.getColumn('status') && allStatus && (
+            <TableFacetedFilter
+              column={table.getColumn('status')}
+              title={i18n.t('apps.platforms.properties.status.title')}
+              options={allStatus}
             />
           )}
         </div>
