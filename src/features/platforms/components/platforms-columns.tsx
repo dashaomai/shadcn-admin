@@ -4,7 +4,11 @@ import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
 import { DataTableColumnHeader } from '@/features/tasks/components/data-table-column-header'
-import { PlatformInfo } from '../data/platform'
+import {
+  PlatformInfo,
+  PlatformStatusDescriptions,
+  PlatformTypeDescriptions,
+} from '../data/platform'
 
 export const columns: ColumnDef<PlatformInfo>[] = [
   {
@@ -61,14 +65,20 @@ export const columns: ColumnDef<PlatformInfo>[] = [
   },
 
   {
-    id: 'type',
+    accessorKey: 'type',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
         title={i18n.t('apps.platforms.properties.type.title')}
       />
     ),
-    cell: ({ row }) => <div className='w-fit'>{row.getValue('type')}</div>,
+    cell: ({ row }) => (
+      <div className='w-fit'>
+        {i18n.t(
+          `apps.platforms.properties.type.${PlatformTypeDescriptions[row.getValue('type') as number]}`
+        )}
+      </div>
+    ),
 
     meta: {
       displayTag: i18n.t('apps.platforms.properties.type.title'),
@@ -76,14 +86,20 @@ export const columns: ColumnDef<PlatformInfo>[] = [
   },
 
   {
-    id: 'status',
+    accessorKey: 'status',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
         title={i18n.t('apps.platforms.properties.status.title')}
       />
     ),
-    cell: ({ row }) => <div className='w-fit'>{row.getValue('status')}</div>,
+    cell: ({ row }) => (
+      <div className='w-fit'>
+        {i18n.t(
+          `apps.platforms.properties.status.${PlatformStatusDescriptions[row.getValue('status') as number]}`
+        )}
+      </div>
+    ),
 
     meta: {
       displayTag: i18n.t('apps.platforms.properties.status.title'),
@@ -91,7 +107,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
   },
 
   {
-    id: 'description',
+    accessorKey: 'description',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}

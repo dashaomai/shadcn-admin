@@ -57,7 +57,7 @@ export function TableFacetedFilter<T, V>({
                     .map((option) => (
                       <Badge
                         variant='secondary'
-                        key={option.value}
+                        key={String(option.value)}
                         className='rounded-sm px-1 font-normal'
                       >
                         {option.label}

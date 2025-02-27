@@ -60,7 +60,9 @@ export function AccountsTable({ columns, data, total }: Props) {
 
   const allRoles = useAllRoles()
 
-  const [roleOptions, setRoleOptions] = useState<SelectOption[] | undefined>([])
+  const [roleOptions, setRoleOptions] = useState<
+    SelectOption<string>[] | undefined
+  >([])
 
   useEffect(() => {
     if (allRoles.isFetched) {

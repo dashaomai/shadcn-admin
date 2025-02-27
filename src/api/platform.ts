@@ -34,10 +34,18 @@ export const createOrUpdatePlatform = async (
   values: { id?: number } & PlatformForm
 ) => {
   if (!values.id) {
-    return createPlatform(values)
+    return createPlatform({
+      ...values,
+      type: Number(values.type),
+      status: Number(values.status),
+    })
   } else {
     const { id, ...data } = values
-    return updatePlatform(id, data)
+    return updatePlatform(id, {
+      ...data,
+      type: Number(data.type),
+      status: Number(data.status),
+    })
   }
 }
 

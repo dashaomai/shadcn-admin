@@ -41,8 +41,8 @@ import { PlatformInfo } from '../data/platform'
 const platformFormSchema = z.object({
   name: z.string(),
   description: z.string(),
-  type: z.number(),
-  status: z.number(),
+  type: z.union([z.number(), z.string()]),
+  status: z.union([z.number(), z.string()]),
 })
 
 export type PlatformForm = z.infer<typeof platformFormSchema>
