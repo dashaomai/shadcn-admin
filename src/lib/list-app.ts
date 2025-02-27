@@ -47,12 +47,12 @@ export type DataTableToolbarProps<T> = {
   children?: ReactElement
 }
 
-export type DataTableFacetedFilterProps<T, V> = {
+export type DataTableFacetedFilterProps<T, V, O> = {
   column?: Column<T, V>
   title?: string
   options: {
     label: string
-    value: string
+    value: O
     icon?: React.ComponentType<{ className?: string }>
   }[]
 }

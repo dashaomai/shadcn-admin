@@ -1,4 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
+import { Row } from '@tanstack/react-table'
 import { i18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -80,7 +81,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
         )}
       </div>
     ),
-
+    filterFn: 'numberFilterFn',
     meta: {
       displayTag: i18n.t('apps.platforms.properties.type.title'),
     },
@@ -101,7 +102,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
         )}
       </div>
     ),
-
+    filterFn: 'numberFilterFn',
     meta: {
       displayTag: i18n.t('apps.platforms.properties.status.title'),
     },

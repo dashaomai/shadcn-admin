@@ -59,22 +59,30 @@ export function PlatformsTable({ columns, data, total }: Props) {
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    filterFns: {
+      numberFilterFn: (row, columnId, filterValue) => {
+        if (!filterValue || !Array.isArray(filterValue)) return true
+
+        const value = row.getValue(columnId)
+        return filterValue.indexOf(value) > -1
+      },
+    },
   })
 
-  const allTypes = useMemo<SelectOption[]>(
+  const allTypes = useMemo<SelectOption<number>[]>(
     () =>
       PlatformTypeDescriptions.map((desc, i) => ({
         label: i18n.t(`apps.platforms.properties.type.${desc}`),
-        value: String(i),
+        value: i,
       })),
     []
   )
 
-  const allStatus = useMemo<SelectOption[]>(
+  const allStatus = useMemo<SelectOption<number>[]>(
     () =>
       PlatformStatusDescriptions.map((desc, i) => ({
         label: i18n.t(`apps.platforms.properties.status.${desc}`),
-        value: String(i),
+        value: i,
       })),
     []
   )

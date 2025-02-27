@@ -20,13 +20,13 @@ import {
 } from '@/components/ui/popover.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
 
-export function TableFacetedFilter<T, V>({
+export function TableFacetedFilter<T, V, O>({
   column,
   title,
   options,
-}: DataTableFacetedFilterProps<T, V>) {
+}: DataTableFacetedFilterProps<T, V, O>) {
   const facets = column?.getFacetedUniqueValues()
-  const selectedValues = new Set(column?.getFilterValue() as string[])
+  const selectedValues = new Set(column?.getFilterValue() as O[])
 
   return (
     <Popover>
@@ -79,7 +79,7 @@ export function TableFacetedFilter<T, V>({
                 const isSelected = selectedValues.has(option.value)
                 return (
                   <CommandItem
-                    key={option.value}
+                    key={String(option.value)}
                     onSelect={() => {
                       if (isSelected) {
                         selectedValues.delete(option.value)
