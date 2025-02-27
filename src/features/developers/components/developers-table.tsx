@@ -26,14 +26,14 @@ import { TableFacetedFilter } from '@/features/table/components/table-faceted-fi
 import { TablePagination } from '@/features/table/components/table-pagination'
 import { TableToolbar } from '@/features/table/components/table-toolbar'
 import {
-  PlatformInfo,
-  PlatformStatusDescriptions,
-  PlatformTypeDescriptions,
-} from '../data/platform'
+  DeveloperInfo,
+  DeveloperStatusDescriptions,
+  DeveloperTypeDescriptions,
+} from '../data/developer'
 
-type Props = DataTableProps<PlatformInfo>
+type Props = DataTableProps<DeveloperInfo>
 
-export function PlatformsTable({ columns, data, total }: Props) {
+export function DevelopersTable({ columns, data, total }: Props) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -66,8 +66,8 @@ export function PlatformsTable({ columns, data, total }: Props) {
 
   const allTypes = useMemo<SelectOption<number>[]>(
     () =>
-      PlatformTypeDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.platforms.properties.type.${desc}`),
+      DeveloperTypeDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.developers.properties.type.${desc}`),
         value: i,
       })),
     []
@@ -75,8 +75,8 @@ export function PlatformsTable({ columns, data, total }: Props) {
 
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
-      PlatformStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.platforms.properties.status.${desc}`),
+      DeveloperStatusDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.developers.properties.status.${desc}`),
         value: i,
       })),
     []

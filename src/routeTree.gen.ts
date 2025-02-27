@@ -21,6 +21,7 @@ import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as auth500Import } from './routes/(auth)/500'
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
+import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 
 // Create Virtual Routes
@@ -248,6 +249,17 @@ const AuthenticatedPlatformsIndexRoute =
     import('./routes/_authenticated/platforms/index.lazy').then((d) => d.Route),
   )
 
+const AuthenticatedDevelopersIndexRoute =
+  AuthenticatedDevelopersIndexImport.update({
+    id: '/developers/',
+    path: '/developers/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/developers/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedAccountsIndexRoute = AuthenticatedAccountsIndexImport.update(
   {
     id: '/accounts/',
@@ -439,6 +451,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/developers/': {
+      id: '/_authenticated/developers/'
+      path: '/developers'
+      fullPath: '/developers'
+      preLoaderRoute: typeof AuthenticatedDevelopersIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/platforms/': {
       id: '/_authenticated/platforms/'
       path: '/platforms'
@@ -530,6 +549,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteLazyRoute: typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
+  AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
   AuthenticatedAppsIndexLazyRoute: typeof AuthenticatedAppsIndexLazyRoute
@@ -544,6 +564,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedSettingsRouteLazyRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
+  AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
   AuthenticatedAppsIndexLazyRoute: AuthenticatedAppsIndexLazyRoute,
@@ -575,6 +596,7 @@ export interface FileRoutesByFullPath {
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
+  '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
@@ -602,6 +624,7 @@ export interface FileRoutesByTo {
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
+  '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
@@ -633,6 +656,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
+  '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexLazyRoute
@@ -664,6 +688,7 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/accounts'
+    | '/developers'
     | '/platforms'
     | '/roles'
     | '/apps'
@@ -690,6 +715,7 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/accounts'
+    | '/developers'
     | '/platforms'
     | '/roles'
     | '/apps'
@@ -719,6 +745,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/display'
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
+    | '/_authenticated/developers/'
     | '/_authenticated/platforms/'
     | '/_authenticated/roles/'
     | '/_authenticated/apps/'
@@ -790,6 +817,7 @@ export const routeTree = rootRoute
         "/_authenticated/settings",
         "/_authenticated/",
         "/_authenticated/accounts/",
+        "/_authenticated/developers/",
         "/_authenticated/platforms/",
         "/_authenticated/roles/",
         "/_authenticated/apps/",
@@ -865,6 +893,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/accounts/": {
       "filePath": "_authenticated/accounts/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/developers/": {
+      "filePath": "_authenticated/developers/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/platforms/": {

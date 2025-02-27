@@ -270,7 +270,7 @@
           "unknown": "未知",
           "private": "自有",
           "cooperate": "合作",
-          "thirdpart": "第三方"
+          "thirdparty": "第三方"
         },
         "status": {
           "title": "状态",
@@ -294,6 +294,68 @@
         "update": {
           "title": "修改平台",
           "ed": "成功修改平台 {{name}}"
+        }
+      }
+    },
+    "developers": {
+      "actions": {
+        "edit": "修改开发商信息"
+      },
+      "description": "对系统内各个开发商进行管理",
+      "create": {
+        "title": "创建新开发商",
+        "description": "录入新开发商的各项资料，然后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改开发商",
+        "description": "修改开发商的资料，然后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "properties": {
+        "name": {
+          "title": "开发商名",
+          "description": "开发商的名称",
+          "placeholder": "请输入开发商名称",
+          "updateDescription": "开发商名称不可修改",
+          "createDescription": "请输入开发商名称，不可与其它开发商重名。"
+        },
+        "description": {
+          "title": "开发商备注",
+          "placeholder": "请输入开发商的详细资料"
+        },
+        "type": {
+          "title": "类型",
+          "placeholder": "请选择开发商的类型",
+          "unknown": "未知",
+          "private": "集团内",
+          "department": "部门",
+          "subsidiary": "子公司",
+          "thirdparty": "外包",
+          "individual": "个人",
+          "studio": "工作室",
+          "company": "公司"
+        },
+        "status": {
+          "title": "状态",
+          "placeholder": "请选择开发商的状态",
+          "unknown": "未知",
+          "normal": "正常",
+          "frozen": "冻结",
+          "deleted": "已删除"
+        }
+      },
+      "toolbar": {
+        "placeholder": "过滤开发商信息"
+      },
+      "toast": {
+        "create": {
+          "title": "创建新的开发商",
+          "ed": "成功创建新的开发商 {{name}}"
+        },
+        "update": {
+          "title": "修改开发商",
+          "ed": "成功修改开发商 {{name}}"
         }
       }
     }

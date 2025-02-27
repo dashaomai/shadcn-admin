@@ -64,3 +64,14 @@ export type DataTableViewOptions<T> = {
 export type DataTablePaginationProps<T> = {
   table: Table<T>
 }
+
+export const numberIn = <T>(
+  row: Row<T>,
+  columnId: string,
+  filterValue: number[]
+) => {
+  if (!filterValue || !Array.isArray(filterValue)) return true
+
+  const value = row.getValue<number>(columnId)
+  return filterValue.indexOf(value) > -1
+}

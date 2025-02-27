@@ -13,7 +13,7 @@ export const listPlatforms = async (request: PageRequest) => {
 }
 
 export const listAllPlatforms = async () => {
-  return fetchAuthed<PageResponse<PlatformInfo>>('/platform/all')
+  return fetchAuthed<PlatformInfo[]>('/platform/all')
 }
 
 export const createPlatform = async (values: PlatformForm) => {

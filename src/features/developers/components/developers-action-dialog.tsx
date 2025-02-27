@@ -3,9 +3,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import {
-  createOrUpdatePlatform,
-  PlatformActionPayload,
-} from '@/api/system/platform'
+  createOrUpdateDeveloper,
+  DeveloperActionPayload,
+} from '@/api/system/developer'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { toast } from '@/hooks/use-toast'
@@ -39,44 +39,44 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { PlatformInfo } from '../data/platform'
+import { DeveloperInfo } from '../data/developer'
 
-const platformFormSchema = z.object({
+const developerFormSchema = z.object({
   name: z.string(),
   description: z.string(),
   type: z.union([z.number(), z.string()]),
   status: z.union([z.number(), z.string()]),
 })
 
-export type PlatformForm = z.infer<typeof platformFormSchema>
+export type DeveloperForm = z.infer<typeof developerFormSchema>
 
-export function PlatformsActionDialog(
-  props: ListAppActionDialogProps<PlatformInfo>
+export function DevelopersActionDialog(
+  props: ListAppActionDialogProps<DeveloperInfo>
 ) {
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
-  const api = getRouteApi('/_authenticated/platforms/')
+  const api = getRouteApi('/_authenticated/developers/')
   const { page, limit } = api.useSearch()
 
   const mutation = useMutation({
-    mutationFn: createOrUpdatePlatform,
-    onSuccess: (payload?: PlatformActionPayload) => {
+    mutationFn: createOrUpdateDeveloper,
+    onSuccess: (payload?: DeveloperActionPayload) => {
       if (payload) {
         queryClient
-          .invalidateQueries({ queryKey: ['platforms-list', page, limit] })
+          .invalidateQueries({ queryKey: ['developers-list', page, limit] })
           .then()
 
         toast({
           title: i18n.t(
             isUpdate
-              ? 'apps.platforms.toast.update.title'
-              : 'apps.platforms.toast.create.title'
+              ? 'apps.developers.toast.update.title'
+              : 'apps.developers.toast.create.title'
           ),
           description: i18n.t(
             isUpdate
-              ? 'apps.platforms.toast.update.ed'
-              : 'apps.platforms.toast.create.ed'
+              ? 'apps.developers.toast.update.ed'
+              : 'apps.developers.toast.create.ed'
           ),
         })
 
@@ -86,8 +86,8 @@ export function PlatformsActionDialog(
     },
   })
 
-  const form = useForm<PlatformForm>({
-    resolver: zodResolver(platformFormSchema),
+  const form = useForm<DeveloperForm>({
+    resolver: zodResolver(developerFormSchema),
     defaultValues: isUpdate
       ? {
           ...props.currentRow,
@@ -101,7 +101,7 @@ export function PlatformsActionDialog(
     mode: 'onChange',
   })
 
-  const onSubmit = (values: PlatformForm) => {
+  const onSubmit = (values: DeveloperForm) => {
     mutation.mutate({
       id: props.currentRow?.id,
       ...values,
@@ -122,15 +122,15 @@ export function PlatformsActionDialog(
           <DialogTitle>
             {i18n.t(
               isUpdate
-                ? 'apps.platforms.update.title'
-                : 'apps.platforms.create.title'
+                ? 'apps.developers.update.title'
+                : 'apps.developers.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
             {i18n.t(
               isUpdate
-                ? 'apps.platforms.update.description'
-                : 'apps.platforms.create.description'
+                ? 'apps.developers.update.description'
+                : 'apps.developers.create.description'
             )}
           </DialogDescription>
         </DialogHeader>
@@ -148,12 +148,12 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.name.title')}
+                      {i18n.t('apps.developers.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder={i18n.t(
-                          'apps.platforms.properties.name.placeholder'
+                          'apps.developers.properties.name.placeholder'
                         )}
                         className='col-span-4'
                         autoComplete='off'
@@ -162,7 +162,7 @@ export function PlatformsActionDialog(
                     </FormControl>
                     <FormDescription>
                       {i18n.t(
-                        'apps.platforms.properties.name.createDescription'
+                        'apps.developers.properties.name.createDescription'
                       )}
                     </FormDescription>
                     <FormMessage />
@@ -176,14 +176,14 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.description.title')}
+                      {i18n.t('apps.developers.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
                         placeholder={i18n.t(
-                          'apps.platforms.properties.description.placeholder'
+                          'apps.developers.properties.description.placeholder'
                         )}
                         {...field}
                       />
@@ -199,7 +199,7 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.type.title')}
+                      {i18n.t('apps.developers.properties.type.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -209,24 +209,49 @@ export function PlatformsActionDialog(
                         <SelectTrigger>
                           <SelectValue
                             placeholder={i18n.t(
-                              'apps.platforms.properties.type.placeholder'
+                              'apps.developers.properties.type.placeholder'
                             )}
                           />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.platforms.properties.type.unknown')}
+                          {i18n.t('apps.developers.properties.type.unknown')}
                         </SelectItem>
-                        <SelectItem value='1'>
-                          {i18n.t('apps.platforms.properties.type.private')}
-                        </SelectItem>
-                        <SelectItem value='2'>
-                          {i18n.t('apps.platforms.properties.type.cooperate')}
-                        </SelectItem>
-                        <SelectItem value='3'>
-                          {i18n.t('apps.platforms.properties.type.thirdparty')}
-                        </SelectItem>
+                        <SelectGroup>
+                          <SelectLabel>
+                            {i18n.t('apps.developers.properties.type.private')}
+                          </SelectLabel>
+                          <SelectItem value='1'>
+                            {i18n.t(
+                              'apps.developers.properties.type.department'
+                            )}
+                          </SelectItem>
+                          <SelectItem value='2'>
+                            {i18n.t(
+                              'apps.developers.properties.type.subsidiary'
+                            )}
+                          </SelectItem>
+                        </SelectGroup>
+
+                        <SelectGroup>
+                          <SelectLabel>
+                            {i18n.t(
+                              'apps.developers.properties.type.thirdparty'
+                            )}
+                          </SelectLabel>
+                          <SelectItem value='3'>
+                            {i18n.t(
+                              'apps.developers.properties.type.individual'
+                            )}
+                          </SelectItem>
+                          <SelectItem value='4'>
+                            {i18n.t('apps.developers.properties.type.studio')}
+                          </SelectItem>
+                          <SelectItem value='5'>
+                            {i18n.t('apps.developers.properties.type.company')}
+                          </SelectItem>
+                        </SelectGroup>
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -239,7 +264,7 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.status.title')}
+                      {i18n.t('apps.developers.properties.status.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -249,42 +274,24 @@ export function PlatformsActionDialog(
                         <SelectTrigger>
                           <SelectValue
                             placeholder={i18n.t(
-                              'apps.platforms.properties.status.placeholder'
+                              'apps.developers.properties.status.placeholder'
                             )}
                           />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectGroup>
-                          <SelectLabel>
-                            {i18n.t(
-                              'apps.platforms.properties.status.unavailable'
-                            )}
-                          </SelectLabel>
-                          <SelectItem value='0'>
-                            {i18n.t('apps.platforms.properties.status.offline')}
-                          </SelectItem>
-                          <SelectItem value='1'>
-                            {i18n.t(
-                              'apps.platforms.properties.status.intention'
-                            )}
-                          </SelectItem>
-                          <SelectItem value='2'>
-                            {i18n.t(
-                              'apps.platforms.properties.status.developing'
-                            )}
-                          </SelectItem>
-                        </SelectGroup>
-                        <SelectGroup>
-                          <SelectLabel>
-                            {i18n.t(
-                              'apps.platforms.properties.status.available'
-                            )}
-                          </SelectLabel>
-                          <SelectItem value='3'>
-                            {i18n.t('apps.platforms.properties.status.online')}
-                          </SelectItem>
-                        </SelectGroup>
+                        <SelectItem value='0'>
+                          {i18n.t('apps.developers.properties.status.unknown')}
+                        </SelectItem>
+                        <SelectItem value='1'>
+                          {i18n.t('apps.developers.properties.status.normal')}
+                        </SelectItem>
+                        <SelectItem value='2'>
+                          {i18n.t('apps.developers.properties.status.frozen')}
+                        </SelectItem>
+                        <SelectItem value='3'>
+                          {i18n.t('apps.developers.properties.status.deleted')}
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -302,8 +309,8 @@ export function PlatformsActionDialog(
           >
             {i18n.t(
               isUpdate
-                ? 'apps.platforms.update.submit'
-                : 'apps.platforms.create.submit'
+                ? 'apps.developers.update.submit'
+                : 'apps.developers.create.submit'
             )}
           </Button>
         </DialogFooter>

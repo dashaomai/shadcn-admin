@@ -18,14 +18,14 @@ export const enum PlatformType {
   /** 合作 */
   Cooperate = 2,
   /** 第三方 */
-  ThirdPart = 3,
+  ThirdParty = 3,
 }
 
 export const PlatformTypeDescriptions = [
   'unknown',
   'private',
   'cooperate',
-  'thirdpart',
+  'thirdparty',
 ]
 
 /** 平台状态 */

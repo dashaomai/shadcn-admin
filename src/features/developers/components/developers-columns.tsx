@@ -3,15 +3,15 @@ import { i18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
-import { DataTableColumnHeader } from '@/features/tasks/components/data-table-column-header'
+import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header'
 import {
-  PlatformInfo,
-  PlatformStatusDescriptions,
-  PlatformTypeDescriptions,
-} from '../data/platform'
-import { PlatformsRowActions } from './platforms-row-actions'
+  DeveloperInfo,
+  DeveloperStatusDescriptions,
+  DeveloperTypeDescriptions,
+} from '../data/developer'
+import { DevelopersRowActions } from './developers-row-actions'
 
-export const columns: ColumnDef<PlatformInfo>[] = [
+export const columns: ColumnDef<DeveloperInfo>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -48,7 +48,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.platforms.properties.name.title')}
+        title={i18n.t('apps.developers.properties.name.title')}
       />
     ),
     cell: ({ row }) => (
@@ -60,7 +60,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
         'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
         'sticky left-6 md:table-cell'
       ),
-      displayTag: i18n.t('apps.platforms.properties.name.title'),
+      displayTag: i18n.t('apps.developers.properties.name.title'),
     },
     enableHiding: false,
   },
@@ -70,19 +70,19 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.platforms.properties.type.title')}
+        title={i18n.t('apps.developers.properties.type.title')}
       />
     ),
     cell: ({ row }) => (
       <div className='w-fit'>
         {i18n.t(
-          `apps.platforms.properties.type.${PlatformTypeDescriptions[row.getValue('type') as number]}`
+          `apps.developers.properties.type.${DeveloperTypeDescriptions[row.getValue<number>('type')]}`
         )}
       </div>
     ),
     filterFn: 'numberIn',
     meta: {
-      displayTag: i18n.t('apps.platforms.properties.type.title'),
+      displayTag: i18n.t('apps.developers.properties.type.title'),
     },
   },
 
@@ -91,19 +91,19 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.platforms.properties.status.title')}
+        title={i18n.t('apps.developers.properties.status.title')}
       />
     ),
     cell: ({ row }) => (
       <div className='w-fit'>
         {i18n.t(
-          `apps.platforms.properties.status.${PlatformStatusDescriptions[row.getValue('status') as number]}`
+          `apps.developers.properties.status.${DeveloperStatusDescriptions[row.getValue<number>('status')]}`
         )}
       </div>
     ),
     filterFn: 'numberIn',
     meta: {
-      displayTag: i18n.t('apps.platforms.properties.status.title'),
+      displayTag: i18n.t('apps.developers.properties.status.title'),
     },
   },
 
@@ -112,7 +112,7 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.platforms.properties.description.title')}
+        title={i18n.t('apps.developers.properties.description.title')}
       />
     ),
     cell: ({ row }) => (
@@ -120,12 +120,12 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.platforms.properties.description.title'),
+      displayTag: i18n.t('apps.developers.properties.description.title'),
     },
   },
 
   {
     id: 'actions',
-    cell: PlatformsRowActions,
+    cell: DevelopersRowActions,
   },
 ]
