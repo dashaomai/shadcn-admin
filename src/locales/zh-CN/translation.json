@@ -238,6 +238,9 @@
       }
     },
     "platforms": {
+      "actions": {
+        "edit": "修改平台信息"
+      },
       "description": "对系统内各个平台进行管理",
       "create": {
         "title": "创建新平台",

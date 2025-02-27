@@ -9,6 +9,7 @@ import {
   PlatformStatusDescriptions,
   PlatformTypeDescriptions,
 } from '../data/platform'
+import { PlatformsRowActions } from './platforms-row-actions'
 
 export const columns: ColumnDef<PlatformInfo>[] = [
   {
@@ -121,5 +122,10 @@ export const columns: ColumnDef<PlatformInfo>[] = [
     meta: {
       displayTag: i18n.t('apps.platforms.properties.description.title'),
     },
+  },
+
+  {
+    id: 'actions',
+    cell: PlatformsRowActions,
   },
 ]
