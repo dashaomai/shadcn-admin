@@ -1,19 +1,27 @@
 import {
   IconBarrierBlock,
+  IconBrandCodepen,
   IconBrowserCheck,
   IconBug,
+  IconChartArrowsVertical,
   IconCheckupList,
+  IconClubs,
+  IconDeviceGamepad2,
+  IconDice3,
   IconHelp,
   IconLayoutDashboard,
   IconLock,
   IconLockAccess,
   IconNotification,
   IconPalette,
+  IconPlant,
   IconSettings,
+  IconTag,
   IconTool,
   IconUserCog,
   IconUserOff,
   IconUsers,
+  IconWall,
 } from '@tabler/icons-react'
 import { AudioWaveform } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -43,6 +51,65 @@ export const sidebarData: SidebarData = {
       roles: ['superadmin', 'admin'],
       items: [
         {
+          title: 'layout.navigate.items.base',
+          icon: IconPlant,
+          items: [
+            {
+              title: 'layout.navigate.items.platform',
+              url: '/platforms',
+              icon: IconBrandCodepen,
+            },
+            {
+              title: 'layout.navigate.items.developer',
+              url: '/developers',
+              icon: IconDeviceGamepad2,
+            },
+            {
+              title: 'layout.navigate.items.publisher',
+              url: '/publishers',
+              icon: IconChartArrowsVertical,
+            },
+            {
+              title: 'layout.navigate.items.game-catalog',
+              url: '/game-catalogs',
+              icon: IconClubs,
+            },
+            {
+              title: 'layout.navigate.items.tag',
+              url: '/tags',
+              icon: IconTag,
+            },
+          ],
+        },
+        {
+          title: 'layout.navigate.items.game-hall',
+          icon: IconBug,
+          items: [
+            {
+              title: 'layout.navigate.items.game',
+              url: '/401',
+              icon: IconDice3,
+            },
+            {
+              title: 'layout.navigate.items.hall',
+              url: '/403',
+              icon: IconWall,
+            },
+            {
+              title: 'layout.navigate.items.maintain',
+              url: '/503',
+              icon: IconBarrierBlock,
+              roles: ['sysadmin'],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: 'layout.navigate.groups.authorize',
+      roles: ['superadmin', 'admin'],
+      items: [
+        {
           title: 'layout.navigate.items.console-account',
           icon: IconLockAccess,
           items: [
@@ -55,28 +122,6 @@ export const sidebarData: SidebarData = {
               title: 'layout.navigate.items.account',
               url: '/accounts',
               icon: IconUsers,
-            },
-          ],
-        },
-        {
-          title: 'layout.navigate.items.game-hall',
-          icon: IconBug,
-          items: [
-            {
-              title: 'layout.navigate.items.game',
-              url: '/401',
-              icon: IconLock,
-            },
-            {
-              title: 'layout.navigate.items.hall',
-              url: '/403',
-              icon: IconUserOff,
-            },
-            {
-              title: 'layout.navigate.items.maintain',
-              url: '/503',
-              icon: IconBarrierBlock,
-              roles: ['sysadmin'],
             },
           ],
         },

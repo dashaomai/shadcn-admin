@@ -31,6 +31,7 @@
     "navigate": {
       "groups": {
         "normal": "常规管理",
+        "authorize": "登录管理",
         "system": "系统管理",
         "player": "玩家管理",
         "records": "记录查询",
@@ -42,6 +43,7 @@
         "account": "账号",
         "role": "角色",
         "player": "玩家",
+        "base": "基础数据管理",
         "platform": "平台",
         "developer": "开发商",
         "publisher": "发行商",
