@@ -48,6 +48,7 @@
         "game-hall": "游戏 & 厅馆管理",
         "game": "游戏",
         "game-catalog": "游戏分类",
+        "tag": "标签",
         "hall": "厅馆",
         "maintain": "维护",
         "game-records": "游戏记录",
@@ -467,6 +468,48 @@
         "update": {
           "title": "修改游戏分类",
           "ed": "成功修改游戏分类 {{name}}"
+        }
+      }
+    },
+    "tags": {
+      "actions": {
+        "edit": "修改标签"
+      },
+      "description": "对系统内各个标签进行管理",
+      "create": {
+        "title": "创建新标签",
+        "description": "录入新标签的各项资料，然后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改标签",
+        "description": "修改标签的资料，然后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "properties": {
+        "name": {
+          "title": "标签名",
+          "description": "标签的名称",
+          "placeholder": "请输入标签名称",
+          "updateDescription": "标签名称不可修改",
+          "createDescription": "请输入标签名称，不可与其它标签重名。"
+        },
+        "description": {
+          "title": "标签备注",
+          "placeholder": "请输入标签的详细资料"
+        }
+      },
+      "toolbar": {
+        "placeholder": "过滤标签信息"
+      },
+      "toast": {
+        "create": {
+          "title": "创建新的标签",
+          "ed": "成功创建新的标签 {{name}}"
+        },
+        "update": {
+          "title": "修改标签",
+          "ed": "成功修改标签 {{name}}"
         }
       }
     }

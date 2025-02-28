@@ -19,6 +19,7 @@ import { Route as authSignIn2Import } from './routes/(auth)/sign-in-2'
 import { Route as authSignInImport } from './routes/(auth)/sign-in'
 import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as auth500Import } from './routes/(auth)/500'
+import { Route as AuthenticatedTagsIndexImport } from './routes/_authenticated/tags/index'
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
 import { Route as AuthenticatedPublishersIndexImport } from './routes/_authenticated/publishers/index'
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
@@ -232,6 +233,14 @@ const AuthenticatedAppsIndexLazyRoute = AuthenticatedAppsIndexLazyImport.update(
   } as any,
 ).lazy(() =>
   import('./routes/_authenticated/apps/index.lazy').then((d) => d.Route),
+)
+
+const AuthenticatedTagsIndexRoute = AuthenticatedTagsIndexImport.update({
+  id: '/tags/',
+  path: '/tags/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any).lazy(() =>
+  import('./routes/_authenticated/tags/index.lazy').then((d) => d.Route),
 )
 
 const AuthenticatedRolesIndexRoute = AuthenticatedRolesIndexImport.update({
@@ -510,6 +519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRolesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/tags/': {
+      id: '/_authenticated/tags/'
+      path: '/tags'
+      fullPath: '/tags'
+      preLoaderRoute: typeof AuthenticatedTagsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/apps/': {
       id: '/_authenticated/apps/'
       path: '/apps'
@@ -592,6 +608,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
   AuthenticatedPublishersIndexRoute: typeof AuthenticatedPublishersIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
+  AuthenticatedTagsIndexRoute: typeof AuthenticatedTagsIndexRoute
   AuthenticatedAppsIndexLazyRoute: typeof AuthenticatedAppsIndexLazyRoute
   AuthenticatedChatsIndexLazyRoute: typeof AuthenticatedChatsIndexLazyRoute
   AuthenticatedHelpCenterIndexLazyRoute: typeof AuthenticatedHelpCenterIndexLazyRoute
@@ -609,6 +626,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
   AuthenticatedPublishersIndexRoute: AuthenticatedPublishersIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
+  AuthenticatedTagsIndexRoute: AuthenticatedTagsIndexRoute,
   AuthenticatedAppsIndexLazyRoute: AuthenticatedAppsIndexLazyRoute,
   AuthenticatedChatsIndexLazyRoute: AuthenticatedChatsIndexLazyRoute,
   AuthenticatedHelpCenterIndexLazyRoute: AuthenticatedHelpCenterIndexLazyRoute,
@@ -643,6 +661,7 @@ export interface FileRoutesByFullPath {
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
+  '/tags': typeof AuthenticatedTagsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexLazyRoute
@@ -673,6 +692,7 @@ export interface FileRoutesByTo {
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
+  '/tags': typeof AuthenticatedTagsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexLazyRoute
   '/chats': typeof AuthenticatedChatsIndexLazyRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexLazyRoute
@@ -707,6 +727,7 @@ export interface FileRoutesById {
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
   '/_authenticated/publishers/': typeof AuthenticatedPublishersIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
+  '/_authenticated/tags/': typeof AuthenticatedTagsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexLazyRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexLazyRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexLazyRoute
@@ -741,6 +762,7 @@ export interface FileRouteTypes {
     | '/platforms'
     | '/publishers'
     | '/roles'
+    | '/tags'
     | '/apps'
     | '/chats'
     | '/help-center'
@@ -770,6 +792,7 @@ export interface FileRouteTypes {
     | '/platforms'
     | '/publishers'
     | '/roles'
+    | '/tags'
     | '/apps'
     | '/chats'
     | '/help-center'
@@ -802,6 +825,7 @@ export interface FileRouteTypes {
     | '/_authenticated/platforms/'
     | '/_authenticated/publishers/'
     | '/_authenticated/roles/'
+    | '/_authenticated/tags/'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/help-center/'
@@ -876,6 +900,7 @@ export const routeTree = rootRoute
         "/_authenticated/platforms/",
         "/_authenticated/publishers/",
         "/_authenticated/roles/",
+        "/_authenticated/tags/",
         "/_authenticated/apps/",
         "/_authenticated/chats/",
         "/_authenticated/help-center/",
@@ -969,6 +994,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/roles/": {
       "filePath": "_authenticated/roles/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/tags/": {
+      "filePath": "_authenticated/tags/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/apps/": {

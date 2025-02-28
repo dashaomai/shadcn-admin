@@ -138,7 +138,7 @@ export function DevelopersActionDialog(
         <ScrollArea className='-mr-4 max-h-[30rem] w-full py-1 pr-4'>
           <Form {...form}>
             <form
-              id='platform-form'
+              id='developer-form'
               onSubmit={form.handleSubmit(onSubmit)}
               className='space-y-4 p-0.5'
             >
@@ -304,7 +304,7 @@ export function DevelopersActionDialog(
         <DialogFooter>
           <Button
             type='submit'
-            form='platform-form'
+            form='developer-form'
             disabled={mutation.isPending}
           >
             {i18n.t(
