@@ -26,14 +26,13 @@ import { TableFacetedFilter } from '@/features/table/components/table-faceted-fi
 import { TablePagination } from '@/features/table/components/table-pagination'
 import { TableToolbar } from '@/features/table/components/table-toolbar'
 import {
-  PublisherInfo,
-  PublisherStatusDescriptions,
-  PublisherTypeDescriptions,
-} from '../data/publisher'
+  GameCatalogInfo,
+  GameCatalogStatusDescriptions,
+} from '../data/game-catalog'
 
-type Props = DataTableProps<PublisherInfo>
+type Props = DataTableProps<GameCatalogInfo>
 
-export function PublishersTable({ columns, data, total }: Props) {
+export function GameCatalogsTable({ columns, data, total }: Props) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -64,19 +63,10 @@ export function PublishersTable({ columns, data, total }: Props) {
     },
   })
 
-  const allTypes = useMemo<SelectOption<number>[]>(
-    () =>
-      PublisherTypeDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.publishers.properties.type.${desc}`),
-        value: i,
-      })),
-    []
-  )
-
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
-      PublisherStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.publishers.properties.status.${desc}`),
+      GameCatalogStatusDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.game-catalogs.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -86,21 +76,13 @@ export function PublishersTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.publishers.toolbar.placeholder')}
+        placeholder={i18n.t('apps.game-catalogs.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
-          {table.getColumn('type') && allTypes && (
-            <TableFacetedFilter
-              column={table.getColumn('type')}
-              title={i18n.t('apps.publishers.properties.type.title')}
-              options={allTypes}
-            />
-          )}
-
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.publishers.properties.status.title')}
+              title={i18n.t('apps.game-catalogs.properties.status.title')}
               options={allStatus}
             />
           )}

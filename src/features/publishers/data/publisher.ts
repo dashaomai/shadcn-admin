@@ -1,9 +1,9 @@
 export interface PublisherInfo {
   id: number
-  type: number
+  type: PublisherType
   name: string
   description: string
-  status: number
+  status: PublisherStatus
   createdAt: string
 }
 

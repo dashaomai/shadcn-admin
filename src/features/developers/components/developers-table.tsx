@@ -86,13 +86,13 @@ export function DevelopersTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.platforms.toolbar.placeholder')}
+        placeholder={i18n.t('apps.developers.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('type') && allTypes && (
             <TableFacetedFilter
               column={table.getColumn('type')}
-              title={i18n.t('apps.platforms.properties.type.title')}
+              title={i18n.t('apps.developers.properties.type.title')}
               options={allTypes}
             />
           )}
@@ -100,7 +100,7 @@ export function DevelopersTable({ columns, data, total }: Props) {
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.platforms.properties.status.title')}
+              title={i18n.t('apps.developers.properties.status.title')}
               options={allStatus}
             />
           )}

@@ -22,6 +22,7 @@ import { Route as auth500Import } from './routes/(auth)/500'
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
 import { Route as AuthenticatedPublishersIndexImport } from './routes/_authenticated/publishers/index'
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
+import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 
@@ -261,6 +262,17 @@ const AuthenticatedPlatformsIndexRoute =
     import('./routes/_authenticated/platforms/index.lazy').then((d) => d.Route),
   )
 
+const AuthenticatedGameCatalogsIndexRoute =
+  AuthenticatedGameCatalogsIndexImport.update({
+    id: '/game-catalogs/',
+    path: '/game-catalogs/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/game-catalogs/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedDevelopersIndexRoute =
   AuthenticatedDevelopersIndexImport.update({
     id: '/developers/',
@@ -470,6 +482,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDevelopersIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/game-catalogs/': {
+      id: '/_authenticated/game-catalogs/'
+      path: '/game-catalogs'
+      fullPath: '/game-catalogs'
+      preLoaderRoute: typeof AuthenticatedGameCatalogsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/platforms/': {
       id: '/_authenticated/platforms/'
       path: '/platforms'
@@ -569,6 +588,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
+  AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
   AuthenticatedPublishersIndexRoute: typeof AuthenticatedPublishersIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
@@ -585,6 +605,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
+  AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
   AuthenticatedPublishersIndexRoute: AuthenticatedPublishersIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
@@ -618,6 +639,7 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
+  '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
@@ -647,6 +669,7 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
+  '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
@@ -680,6 +703,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsLazyRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
+  '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
   '/_authenticated/publishers/': typeof AuthenticatedPublishersIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
@@ -713,6 +737,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/developers'
+    | '/game-catalogs'
     | '/platforms'
     | '/publishers'
     | '/roles'
@@ -741,6 +766,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/developers'
+    | '/game-catalogs'
     | '/platforms'
     | '/publishers'
     | '/roles'
@@ -772,6 +798,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
     | '/_authenticated/developers/'
+    | '/_authenticated/game-catalogs/'
     | '/_authenticated/platforms/'
     | '/_authenticated/publishers/'
     | '/_authenticated/roles/'
@@ -845,6 +872,7 @@ export const routeTree = rootRoute
         "/_authenticated/",
         "/_authenticated/accounts/",
         "/_authenticated/developers/",
+        "/_authenticated/game-catalogs/",
         "/_authenticated/platforms/",
         "/_authenticated/publishers/",
         "/_authenticated/roles/",
@@ -925,6 +953,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/developers/": {
       "filePath": "_authenticated/developers/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/game-catalogs/": {
+      "filePath": "_authenticated/game-catalogs/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/platforms/": {
