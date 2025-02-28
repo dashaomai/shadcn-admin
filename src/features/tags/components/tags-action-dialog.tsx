@@ -30,6 +30,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { TagInfo } from '../data/tag'
 
 const tagFormSchema = z.object({
+  id: z.number().optional(),
   name: z.string(),
   description: z.string(),
 })
@@ -45,7 +46,7 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
 
   const mutation = useMutation({
     mutationFn: createOrUpdateTag,
-    onSuccess: (payload?: TagActionPayload) => {
+    onSuccess: (payload: TagActionPayload | undefined, values: TagForm) => {
       if (payload) {
         queryClient
           .invalidateQueries({
@@ -60,7 +61,10 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
               : 'apps.tags.toast.create.title'
           ),
           description: i18n.t(
-            isUpdate ? 'apps.tags.toast.update.ed' : 'apps.tags.toast.create.ed'
+            isUpdate
+              ? 'apps.tags.toast.update.ed'
+              : 'apps.tags.toast.create.ed',
+            { name: values.name }
           ),
         })
 

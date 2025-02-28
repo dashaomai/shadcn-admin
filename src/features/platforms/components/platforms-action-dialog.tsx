@@ -42,6 +42,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { PlatformInfo } from '../data/platform'
 
 const platformFormSchema = z.object({
+  id: z.number().optional(),
   name: z.string(),
   description: z.string(),
   type: z.union([z.number(), z.string()]),
@@ -61,7 +62,10 @@ export function PlatformsActionDialog(
 
   const mutation = useMutation({
     mutationFn: createOrUpdatePlatform,
-    onSuccess: (payload?: PlatformActionPayload) => {
+    onSuccess: (
+      payload: PlatformActionPayload | undefined,
+      values: PlatformForm
+    ) => {
       if (payload) {
         queryClient
           .invalidateQueries({ queryKey: ['platforms-list', page, limit] })
@@ -76,7 +80,8 @@ export function PlatformsActionDialog(
           description: i18n.t(
             isUpdate
               ? 'apps.platforms.toast.update.ed'
-              : 'apps.platforms.toast.create.ed'
+              : 'apps.platforms.toast.create.ed',
+            { name: values.name }
           ),
         })
 

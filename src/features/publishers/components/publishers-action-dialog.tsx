@@ -42,6 +42,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { PublisherInfo } from '../data/publisher'
 
 const publisherFormSchema = z.object({
+  id: z.number().optional(),
   name: z.string(),
   description: z.string(),
   type: z.union([z.number(), z.string()]),
@@ -61,7 +62,10 @@ export function PublishersActionDialog(
 
   const mutation = useMutation({
     mutationFn: createOrUpdatePublisher,
-    onSuccess: (payload?: PublisherActionPayload) => {
+    onSuccess: (
+      payload: PublisherActionPayload | undefined,
+      values: PublisherForm
+    ) => {
       if (payload) {
         queryClient
           .invalidateQueries({
@@ -78,7 +82,8 @@ export function PublishersActionDialog(
           description: i18n.t(
             isUpdate
               ? 'apps.publishers.toast.update.ed'
-              : 'apps.publishers.toast.create.ed'
+              : 'apps.publishers.toast.create.ed',
+            { name: values.name }
           ),
         })
 

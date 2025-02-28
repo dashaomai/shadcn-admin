@@ -42,6 +42,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { DeveloperInfo } from '../data/developer'
 
 const developerFormSchema = z.object({
+  id: z.number().optional(),
   name: z.string(),
   description: z.string(),
   type: z.union([z.number(), z.string()]),
@@ -61,7 +62,10 @@ export function DevelopersActionDialog(
 
   const mutation = useMutation({
     mutationFn: createOrUpdateDeveloper,
-    onSuccess: (payload?: DeveloperActionPayload) => {
+    onSuccess: (
+      payload: DeveloperActionPayload | undefined,
+      values: DeveloperForm
+    ) => {
       if (payload) {
         queryClient
           .invalidateQueries({ queryKey: ['developers-list', page, limit] })
@@ -76,7 +80,8 @@ export function DevelopersActionDialog(
           description: i18n.t(
             isUpdate
               ? 'apps.developers.toast.update.ed'
-              : 'apps.developers.toast.create.ed'
+              : 'apps.developers.toast.create.ed',
+            { name: values.name }
           ),
         })
 

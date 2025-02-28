@@ -40,6 +40,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { GameCatalogInfo } from '../data/game-catalog'
 
 const gameCatalogFormSchema = z.object({
+  id: z.number().optional(),
   name: z.string(),
   description: z.string(),
   displayOrder: z.union([z.number(), z.string()]),
@@ -59,7 +60,10 @@ export function GameCatalogsActionDialog(
 
   const mutation = useMutation({
     mutationFn: createOrUpdateGameCatalog,
-    onSuccess: (payload?: GameCatalogActionPayload) => {
+    onSuccess: (
+      payload: GameCatalogActionPayload | undefined,
+      values: GameCatalogForm
+    ) => {
       if (payload) {
         queryClient
           .invalidateQueries({
@@ -76,7 +80,8 @@ export function GameCatalogsActionDialog(
           description: i18n.t(
             isUpdate
               ? 'apps.game-catalogs.toast.update.ed'
-              : 'apps.game-catalogs.toast.create.ed'
+              : 'apps.game-catalogs.toast.create.ed',
+            { name: values.name }
           ),
         })
 
