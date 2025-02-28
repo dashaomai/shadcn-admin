@@ -358,6 +358,64 @@
           "ed": "成功修改开发商 {{name}}"
         }
       }
+    },
+    "publishers": {
+      "actions": {
+        "edit": "修改发行商信息"
+      },
+      "description": "对系统内各个发行商进行管理",
+      "create": {
+        "title": "创建新发行商",
+        "description": "录入新发行商的各项资料，然后点击“创建”按钮",
+        "submit": "创建"
+      },
+      "update": {
+        "title": "修改发行商",
+        "description": "修改发行商的资料，然后点击“保存”按钮",
+        "submit": "保存"
+      },
+      "properties": {
+        "name": {
+          "title": "发行商名",
+          "description": "发行商的名称",
+          "placeholder": "请输入发行商名称",
+          "updateDescription": "发行商名称不可修改",
+          "createDescription": "请输入发行商名称，不可与其它发行商重名。"
+        },
+        "description": {
+          "title": "发行商备注",
+          "placeholder": "请输入发行商的详细资料"
+        },
+        "type": {
+          "title": "类型",
+          "placeholder": "请选择发行商的类型",
+          "unknown": "未知",
+          "private": "集团内",
+          "department": "部门",
+          "subsidiary": "子公司",
+          "thirdparty": "第三方"
+        },
+        "status": {
+          "title": "状态",
+          "placeholder": "请选择发行商的状态",
+          "disabled": "停用",
+          "enabled": "启用",
+          "pending": "暂缓"
+        }
+      },
+      "toolbar": {
+        "placeholder": "过滤发行商信息"
+      },
+      "toast": {
+        "create": {
+          "title": "创建新的发行商",
+          "ed": "成功创建新的发行商 {{name}}"
+        },
+        "update": {
+          "title": "修改发行商",
+          "ed": "成功修改发行商 {{name}}"
+        }
+      }
     }
   },
   "errors": {
