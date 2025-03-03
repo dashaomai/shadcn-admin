@@ -1,19 +1,32 @@
-import { AccountInfo } from '@/features/accounts/data/account-info.ts'
-import { DataTableProps } from '@/lib/list-app.ts'
 import { useEffect, useState } from 'react'
 import {
-  ColumnFiltersState, flexRender,
-  getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getSortedRowModel,
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getSortedRowModel,
   SortingState,
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
 import { useAllRoles } from '@/api/auth.ts'
-import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 import { i18n } from '@/lib/i18n.ts'
+import { DataTableProps } from '@/lib/list-app.ts'
+import { SelectOption } from '@/lib/option'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table.tsx'
+import { AccountInfo } from '@/features/accounts/data/account-info.ts'
 import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx'
 import { TablePagination } from '@/features/table/components/table-pagination.tsx'
+import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 
 type Props = DataTableProps<AccountInfo>
 
@@ -47,15 +60,16 @@ export function AccountsTable({ columns, data, total }: Props) {
 
   const allRoles = useAllRoles()
 
-  const [roleOptions, setRoleOptions] = useState<{label: string, value: string}[] | undefined>([])
+  const [roleOptions, setRoleOptions] = useState<
+    SelectOption<string>[] | undefined
+  >([])
 
   useEffect(() => {
     if (allRoles.isFetched) {
-      const options =
-        allRoles.data?.map(role => ({
-          label: role.description,
-          value: role.name,
-        }))
+      const options = allRoles.data?.map((role) => ({
+        label: role.description,
+        value: role.name,
+      }))
 
       setRoleOptions(options)
     }
@@ -93,9 +107,9 @@ export function AccountsTable({ columns, data, total }: Props) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   )
                 })}

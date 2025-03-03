@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Column, ColumnDef, Row, Table } from '@tanstack/react-table'
+import { FilterFns } from '@tanstack/react-table'
 
 export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
@@ -47,12 +48,12 @@ export type DataTableToolbarProps<T> = {
   children?: ReactElement
 }
 
-export type DataTableFacetedFilterProps<T, V> = {
+export type DataTableFacetedFilterProps<T, V, O> = {
   column?: Column<T, V>
   title?: string
   options: {
     label: string
-    value: string
+    value: O
     icon?: React.ComponentType<{ className?: string }>
   }[]
 }
@@ -63,4 +64,15 @@ export type DataTableViewOptions<T> = {
 
 export type DataTablePaginationProps<T> = {
   table: Table<T>
+}
+
+export const numberIn = <T>(
+  row: Row<T>,
+  columnId: string,
+  filterValue: number[]
+) => {
+  if (!filterValue || !Array.isArray(filterValue)) return true
+
+  const value = row.getValue<number>(columnId)
+  return filterValue.indexOf(value) > -1
 }

@@ -2,10 +2,13 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from '@tanstack/react-router'
+import logger from 'loglevel'
 import { queryClient, router } from '@/lib/client'
 import { FontProvider } from './context/font-context'
 import { ThemeProvider } from './context/theme-context'
 import './index.css'
+
+logger.setLevel(logger.levels.TRACE)
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

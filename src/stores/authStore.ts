@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { create } from 'zustand'
+import { SignInPayload } from '@/lib/auth'
 import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
@@ -25,12 +26,14 @@ interface AuthState {
     expire: number
     accessToken: string
     setAccessToken: (accessToken: string, expire: number) => void
+    refreshTokenTimeout: number | undefined
+    refreshHandler: () => Promise<void>
     resetAccessToken: () => void
     reset: () => void
   }
 }
 
-export const useAuthStore = create<AuthState>()((set) => {
+export const useAuthStore = create<AuthState>()((set, get) => {
   const cookieState = Cookies.get(ACCESS_TOKEN)
   const initToken = cookieState ?? ''
   return {
@@ -42,26 +45,77 @@ export const useAuthStore = create<AuthState>()((set) => {
       accessToken: initToken,
       setAccessToken: (accessToken: string, expire: number) =>
         set((state) => {
+          logger.info('set access token with expire: %d', expire)
+
           Cookies.set(ACCESS_TOKEN, accessToken)
           clearSelfData()
-          return { ...state, auth: { ...state.auth, accessToken, expire } }
+
+          clearTimeout(state.auth.refreshTokenTimeout)
+          const now = Date.now()
+          const delay = expire * 1000 - now
+          const timeout = setTimeout(
+            () => state.auth.refreshHandler(),
+            Math.max(10000, delay)
+          )
+
+          return {
+            ...state,
+            auth: {
+              ...state.auth,
+              accessToken,
+              expire,
+              refreshTokenTimeout: timeout,
+            },
+          }
         }),
       resetAccessToken: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
           clearSelfData()
+          clearTimeout(state.auth.refreshTokenTimeout)
+
           return {
             ...state,
-            auth: { ...state.auth, accessToken: '', expire: 0 },
+            auth: {
+              ...state.auth,
+              accessToken: '',
+              expire: 0,
+              refreshTokenTimeout: undefined,
+            },
           }
         }),
+      refreshTokenTimeout: undefined,
+      refreshHandler: async () => {
+        const state = get()
+        const token = state.auth.accessToken
+
+        if (token) {
+          const payload = await fetchAuthed<SignInPayload>('/auth/refresh', {
+            method: 'POST',
+          })
+
+          if (payload) {
+            state.auth.setAccessToken(payload.token, payload.expires)
+          } else {
+            state.auth.resetAccessToken()
+          }
+        }
+      },
       reset: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
           clearSelfData()
+          clearTimeout(state.auth.refreshTokenTimeout)
+
           return {
             ...state,
-            auth: { ...state.auth, user: null, accessToken: '', expire: 0 },
+            auth: {
+              ...state.auth,
+              user: null,
+              accessToken: '',
+              expire: 0,
+              refreshTokenTimeout: undefined,
+            },
           }
         }),
     },
@@ -85,8 +139,10 @@ const requestInterceptor = (request: Request) => {
 }
 
 const responseInterceptor = async <T>(
-  response: Response
+  request: Request
 ): Promise<WrappedResponse<T> | undefined> => {
+  const response = await fetch(request)
+
   if (response.status === Code.StatusOk) {
     // 取出结果并解析
     const result = (await response.json()) as WrappedResponse<T>
@@ -178,7 +234,7 @@ export const fetchAuthed = async <T>(
       },
     })
   )
-  const response = await responseInterceptor<T>(await fetch(request))
+  const response = await responseInterceptor<T>(request)
 
   return response?.payload
 }

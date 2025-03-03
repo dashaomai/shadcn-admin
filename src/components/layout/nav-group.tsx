@@ -197,9 +197,15 @@ const SidebarMenuCollapsedDropdown = ({
 }
 
 function checkIsActive(href: string, item: NavItem, mainNav = false) {
+  const pos = href.indexOf('?')
+
+  if (pos > -1) {
+    href = href.substring(0, pos)
+  }
+
   return (
     href === item.url || // /endpint?search=param
-    href.split('?')[0] === item.url || // endpoint
+    // href.split('?')[0] === item.url || // endpoint
     !!item?.items?.filter((i) => i.url === href).length || // if child nav is active
     (mainNav &&
       href.split('/')[1] !== '' &&

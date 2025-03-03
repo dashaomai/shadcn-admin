@@ -1,15 +1,15 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { AccountInfo } from '@/features/accounts/data/account-info.ts'
-import { Checkbox } from '@/components/ui/checkbox.tsx'
+import { TinyRoles } from '@/lib/auth.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { cn } from '@/lib/utils.ts'
-import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
-import LongText from '@/components/long-text.tsx'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import { getFallback } from '@/utils/avatar.ts'
-import { TinyRoles } from '@/lib/auth.ts'
-import { AccountsRowActions } from '@/features/accounts/components/accounts-row-actions.tsx'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.tsx'
 import { Badge } from '@/components/ui/badge'
+import { Checkbox } from '@/components/ui/checkbox.tsx'
+import LongText from '@/components/long-text.tsx'
+import { AccountsRowActions } from '@/features/accounts/components/accounts-row-actions.tsx'
+import { AccountInfo } from '@/features/accounts/data/account-info.ts'
+import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
 
 export const columns: ColumnDef<AccountInfo>[] = [
   {
@@ -43,8 +43,6 @@ export const columns: ColumnDef<AccountInfo>[] = [
     enableHiding: false,
   },
 
-
-
   {
     accessorKey: 'loginName',
     header: ({ column }) => (
@@ -70,7 +68,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
 
   {
     id: 'profileNickname',
-    accessorFn: row => row.profile.nickname,
+    accessorFn: (row) => row.profile.nickname,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -88,7 +86,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
 
   {
     id: 'profileEmail',
-    accessorFn: row => row.profile.email,
+    accessorFn: (row) => row.profile.email,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -106,7 +104,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
 
   {
     id: 'profileAvatar',
-    accessorFn: row => row.profile.avatar,
+    accessorFn: (row) => row.profile.avatar,
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -143,15 +141,27 @@ export const columns: ColumnDef<AccountInfo>[] = [
 
       if (roles) {
         return (
-        <div className='w-fit text-nowrap flex flex-row space-x-2'>
-          {(row.getValue('roles') as TinyRoles)?.map((role: string) => (
-            <Badge key={role} variant='default' className='text-sm capitalize'>{role}</Badge>
-          ))}
-        </div>
-      )
+          <div className='flex w-fit flex-row space-x-2 text-nowrap'>
+            {(row.getValue('roles') as TinyRoles)?.map((role: string) => (
+              <Badge
+                key={role}
+                variant='default'
+                className='text-sm capitalize'
+              >
+                {role}
+              </Badge>
+            ))}
+          </div>
+        )
       } else {
-        return (<p className='text-gray-300'>{i18n.t('apps.accounts.properties.roles.empty')}</p>)
-      }},
+        return (
+          <p className='text-gray-300'>
+            {i18n.t('apps.accounts.properties.roles.empty')}
+          </p>
+        )
+      }
+    },
+    filterFn: 'arrIncludesSome',
 
     meta: {
       displayTag: i18n.t('apps.accounts.properties.roles.title'),
