@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { fetchAuthed } from '@/stores/authStore'
 import { PageRequest } from '@/lib/request'
 import { ActionPayload, PageResponse } from '@/lib/response'
@@ -53,3 +54,9 @@ export const deleteDeveloper = async (id: number) => {
     method: 'DELETE',
   })
 }
+
+export const useAllDevelopers = () =>
+  useQuery({
+    queryKey: ['all-developers'],
+    queryFn: listAllDevelopers,
+  })

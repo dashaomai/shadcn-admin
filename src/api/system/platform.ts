@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { fetchAuthed } from '@/stores/authStore'
 import { PageRequest } from '@/lib/request'
 import { ActionPayload, PageResponse } from '@/lib/response'
@@ -54,3 +55,9 @@ export const deletePlatform = async (id: number) => {
     method: 'DELETE',
   })
 }
+
+export const useAllPlatforms = () =>
+  useQuery({
+    queryKey: ['all-platforms'],
+    queryFn: listAllPlatforms,
+  })

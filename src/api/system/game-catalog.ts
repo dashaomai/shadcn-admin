@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { fetchAuthed } from '@/stores/authStore'
 import { PageRequest } from '@/lib/request'
 import { ActionPayload, PageResponse } from '@/lib/response'
@@ -56,3 +57,9 @@ export const createOrUpdateGameCatalog = async (
     })
   }
 }
+
+export const useAllGameCatalogs = () =>
+  useQuery({
+    queryKey: ['all-game-catalogs'],
+    queryFn: listAllGameCatalogs,
+  })
