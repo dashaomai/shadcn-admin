@@ -21,7 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 
-type UserAuthFormProps = HTMLAttributes<HTMLDivElement>
+type UserAuthFormProps = HTMLAttributes<HTMLFormElement>
 
 const formSchema = z.object({
   name: z.string().min(5).max(30),
