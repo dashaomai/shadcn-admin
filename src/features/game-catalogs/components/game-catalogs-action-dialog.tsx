@@ -8,7 +8,6 @@ import {
 } from '@/api/system/game-catalog'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -38,6 +37,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { GameCatalogInfo } from '../data/game-catalog'
+import { toast } from 'sonner'
 
 const gameCatalogFormSchema = z.object({
   id: z.number().optional(),
@@ -71,12 +71,11 @@ export function GameCatalogsActionDialog(
           })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.game-catalogs.toast.update.title'
-              : 'apps.game-catalogs.toast.create.title'
-          ),
+        toast.success(i18n.t(
+          isUpdate
+            ? 'apps.game-catalogs.toast.update.title'
+            : 'apps.game-catalogs.toast.create.title'
+        ), {
           description: i18n.t(
             isUpdate
               ? 'apps.game-catalogs.toast.update.ed'

@@ -6,11 +6,11 @@ import { deleteRole } from '@/api/auth.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { ListAppsDeleteDialogProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
-import { toast } from '@/hooks/use-toast.ts'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import { ConfirmDialog } from '@/components/confirm-dialog.tsx'
+import { toast } from 'sonner'
 
 export function RolesDeleteDialog({
   open,
@@ -34,8 +34,7 @@ export function RolesDeleteDialog({
             queryKey: ['roles-list', page, limit],
           })
           .then()
-        toast({
-          title: i18n.t('apps.roles.toast.delete.title'),
+        toast.success(i18n.t('apps.roles.toast.delete.title'), {
           description: i18n.t('apps.roles.toast.delete.ed', { name }),
         })
       }

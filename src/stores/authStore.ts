@@ -7,7 +7,7 @@ import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { WrappedResponse } from '@/lib/response'
-import { toast } from '@/hooks/use-toast.ts'
+import { toast } from 'sonner'
 
 const ACCESS_TOKEN = 'sdfjas;ldfjal;sjdkfs;djkfasd;fj'
 
@@ -154,9 +154,7 @@ const responseInterceptor = async <T>(
         case Code.CodeLoginDuplicated: {
           // 登录信息重复
           logger.error('login name duplicated')
-          toast({
-            variant: 'destructive',
-            title: i18n.t('errors.duplicated.login.title'),
+          toast.error(i18n.t('errors.duplicated.login.title'), {
             description: i18n.t('errors.duplicated.login.description'),
           })
 
@@ -166,9 +164,7 @@ const responseInterceptor = async <T>(
         case Code.CodeRoleNameDuplicated: {
           // 角色信息重复
           logger.error('role name duplicated')
-          toast({
-            variant: 'destructive',
-            title: i18n.t('errors.duplicated.role.title'),
+          toast.error(i18n.t('errors.duplicated.role.title'), {
             description: i18n.t('errors.duplicated.role.description'),
           })
 
@@ -195,9 +191,7 @@ const responseInterceptor = async <T>(
       case Code.StatusForbidden: {
         // 权限不足
         logger.error('no authorization for this api.')
-        toast({
-          variant: 'destructive',
-          title: i18n.t('errors.forbidden.title'),
+        toast.error(i18n.t('errors.forbidden.title'), {
           description: i18n.t('errors.forbidden.description'),
         })
 

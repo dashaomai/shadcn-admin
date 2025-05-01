@@ -2,7 +2,6 @@ import { ListAppActionDialogProps } from "@/lib/list-app"
 import { i18n, z } from '@/lib/i18n'
 import { getRouteApi } from "@tanstack/react-router"
 import { createOrUpdateAccount } from "@/api/auth"
-import { toast } from "@/hooks/use-toast"
 import { CreateOrUpdateProfileResponse } from "@/lib/auth"
 import { useQueryClient, useMutation } from "@tanstack/react-query"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { PasswordInput } from "@/components/password-input"
 import { Separator } from "@/components/ui/separator"
+import { toast } from 'sonner'
 
 const accountFormSchema = z.object({
   loginName: z.string(),
@@ -44,12 +44,9 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
           .invalidateQueries({ queryKey: ['accounts-list', page, limit] })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.accounts.toast.update.title'
-              : 'apps.accounts.toast.create.title'
-          ),
+        const title = isUpdate ? 'apps.accounts.toast.update.title' : 'apps.accounts.toast.create.title'
+
+        toast.success(i18n.t(title), {
           description: i18n.t(
             isUpdate
               ? 'apps.accounts.toast.update.ed'

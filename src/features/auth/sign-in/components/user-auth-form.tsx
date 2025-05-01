@@ -80,10 +80,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   }
 
   return (
-    <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className='grid gap-2'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={cn('grid gap-3', className)} {...props}>
+
             <FormField
               control={form.control}
               name='name'
@@ -136,9 +135,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </span>
               </div>
             </div>
-          </div>
         </form>
       </Form>
-    </div>
   )
 }

@@ -5,7 +5,6 @@ import { getRouteApi } from '@tanstack/react-router'
 import { createOrUpdateTag, TagActionPayload } from '@/api/system/tag'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -28,6 +27,7 @@ import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
 import { TagInfo } from '../data/tag'
+import { toast } from 'sonner'
 
 const tagFormSchema = z.object({
   id: z.number().optional(),
@@ -54,12 +54,11 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
           })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.tags.toast.update.title'
-              : 'apps.tags.toast.create.title'
-          ),
+        toast.success(i18n.t(
+          isUpdate
+            ? 'apps.tags.toast.update.title'
+            : 'apps.tags.toast.create.title'
+        ), {
           description: i18n.t(
             isUpdate
               ? 'apps.tags.toast.update.ed'

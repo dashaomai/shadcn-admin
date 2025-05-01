@@ -5,14 +5,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getRouteApi } from "@tanstack/react-router";
 import { updateRoles, useAllRoles, useProfile } from "@/api/auth";
 import { CreateOrUpdateProfileResponse } from "@/lib/auth";
-import { toast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from 'sonner'
 
 const accountRolesFormSchema = z.object({
   roles: z.array(z.string()),
@@ -41,8 +41,7 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
           queryClient.invalidateQueries({ queryKey: ['self-roles']}).then()
         }
 
-        toast({
-          title: i18n.t('apps.accounts.actions.updateRoles.success'),
+        toast(i18n.t('apps.accounts.actions.updateRoles.success'), {
           description: i18n.t('apps.accounts.actions.updateRoles.successDescription', { loginName: props.currentRow?.loginName}),
         })
 

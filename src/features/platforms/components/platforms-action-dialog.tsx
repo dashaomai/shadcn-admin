@@ -8,7 +8,6 @@ import {
 } from '@/api/system/platform'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -40,6 +39,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { PlatformInfo } from '../data/platform'
+import { toast } from 'sonner'
 
 const platformFormSchema = z.object({
   id: z.number().optional(),
@@ -71,12 +71,11 @@ export function PlatformsActionDialog(
           .invalidateQueries({ queryKey: ['platforms-list', page, limit] })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.platforms.toast.update.title'
-              : 'apps.platforms.toast.create.title'
-          ),
+        toast.success(i18n.t(
+          isUpdate
+            ? 'apps.platforms.toast.update.title'
+            : 'apps.platforms.toast.create.title'
+        ), {
           description: i18n.t(
             isUpdate
               ? 'apps.platforms.toast.update.ed'

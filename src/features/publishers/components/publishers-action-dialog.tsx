@@ -8,7 +8,6 @@ import {
 } from '@/api/system/publisher'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -40,6 +39,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { PublisherInfo } from '../data/publisher'
+import { toast } from 'sonner'
 
 const publisherFormSchema = z.object({
   id: z.number().optional(),
@@ -73,12 +73,11 @@ export function PublishersActionDialog(
           })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.publishers.toast.update.title'
-              : 'apps.publishers.toast.create.title'
-          ),
+        toast.success(i18n.t(
+          isUpdate
+            ? 'apps.publishers.toast.update.title'
+            : 'apps.publishers.toast.create.title'
+        ), {
           description: i18n.t(
             isUpdate
               ? 'apps.publishers.toast.update.ed'

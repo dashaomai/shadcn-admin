@@ -8,7 +8,6 @@ import { z } from '@/lib/i18n'
 import { i18n } from '@/lib/i18n.ts'
 import { ListAppActionDialogProps } from '@/lib/list-app.ts'
 import { CreateOrUpdateRoleResponse } from '@/lib/role.ts'
-import { toast } from '@/hooks/use-toast.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
   Dialog,
@@ -30,6 +29,7 @@ import {
 import { Input } from '@/components/ui/input.tsx'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
 import { Textarea } from '@/components/ui/textarea.tsx'
+import { toast } from 'sonner'
 
 const formSchema = z.object({
   name: z.string().min(3),
@@ -53,16 +53,12 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
           .invalidateQueries({ queryKey: ['roles-list', page, limit] })
           .then()
 
-        toast({
-          title: i18n.t(
-            isUpdate
-              ? 'apps.roles.toast.update.title'
-              : 'apps.roles.toast.create.title'
-          ),
+        const title = isUpdate ? 'apps.roles.toast.update.title' : 'apps.roles.toast.create.title'
+        const description = isUpdate ? 'apps.roles.toast.update.ed' : 'apps.roles.toast.create.ed'
+
+        toast.success(i18n.t(title), {
           description: i18n.t(
-            isUpdate
-              ? 'apps.roles.toast.update.ed'
-              : 'apps.roles.toast.create.ed',
+            description,
             { name: params.name }
           ),
         })
