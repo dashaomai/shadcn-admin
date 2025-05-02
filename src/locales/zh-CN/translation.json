@@ -1,8 +1,8 @@
 {
-  "title": "Boller 管理后台",
+  "title": "Cyber 直播管理后台",
   "auth": {
     "signIn": {
-      "welcome": "欢迎使用管理后台。它是为 Boller 公司的维护者设计，可用于管理、账户、注单、数据汇报及众多管理功能。",
+      "welcome": "欢迎使用直播管理后台。它是为 Cyber Games 的直播系统设计，可用于管理、账户、直播、数据汇报及众多管理功能。",
       "title": "登录",
       "description": "在下方输入你的账号和密码，以便登入你的账户。",
       "name": {
@@ -16,14 +16,14 @@
       "failed": "登录失败，请检查账号与密码后重试。",
       "submit": "登录",
       "tip": "请先登录，随后才能操作。",
-      "footer": "Boller 版本所有"
+      "footer": "Cyber Games 版权所有"
     },
     "signOut": "登出"
   },
   "layout": {
     "teams": {
       "title": "所属平台",
-      "name": "hot168.app"
+      "name": "cyber.vod"
     },
     "plans": {
       "startup": "标准版"
