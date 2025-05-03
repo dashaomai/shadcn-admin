@@ -9,7 +9,7 @@ export function TablesPrimaryButtons() {
   return (
     <div className='flex gap-2'>
       <Button className='space-x-1' onClick={() => setOpen('create')}>
-        <span>{i18n.t('apps.game-catalogs.create.title')}</span>
+        <span>{i18n.t('apps.tables.create.title')}</span>
         <IconPlus size={18} />
       </Button>
     </div>

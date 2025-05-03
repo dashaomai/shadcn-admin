@@ -40,7 +40,7 @@ export function TablesRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            {i18n.t('apps.game-catalogs.actions.edit')}
+            {i18n.t('apps.tables.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>

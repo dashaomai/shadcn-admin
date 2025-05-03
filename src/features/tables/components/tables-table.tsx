@@ -22,11 +22,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx'
-import { GameCatalogStatusDescriptions } from '@/features/game-catalogs/data/game-catalog.ts'
 import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
 import { TablePagination } from '@/features/table/components/table-pagination.tsx'
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
-import { TableInfo } from '@/features/tables/data/table.ts'
+import {
+  TableInfo,
+  TableStatusDescriptions,
+} from '@/features/tables/data/table.ts'
 
 type Props = DataTableProps<TableInfo>
 
@@ -63,8 +65,8 @@ export function TablesTable({ columns, data, total }: Props) {
 
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
-      GameCatalogStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.game-catalogs.properties.status.${desc}`),
+      TableStatusDescriptions.map((desc, i) => ({
+        label: i18n.t(`apps.tables.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -74,13 +76,13 @@ export function TablesTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.game-catalogs.toolbar.placeholder')}
+        placeholder={i18n.t('apps.tables.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.game-catalogs.properties.status.title')}
+              title={i18n.t('apps.tables.properties.status.title')}
               options={allStatus}
             />
           )}

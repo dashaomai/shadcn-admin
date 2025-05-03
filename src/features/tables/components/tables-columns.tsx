@@ -2,9 +2,11 @@ import { ColumnDef } from '@tanstack/react-table'
 import { i18n } from '@/lib/i18n.ts'
 import { cn } from '@/lib/utils.ts'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
-import { GameCatalogStatusDescriptions } from '@/features/game-catalogs/data/game-catalog.ts'
 import { TablesRowActions } from '@/features/tables/components/tables-row-actions.tsx'
-import { TableInfo } from '@/features/tables/data/table.ts'
+import {
+  TableInfo,
+  TableStatusDescriptions,
+} from '@/features/tables/data/table.ts'
 import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
 
 export const columns: ColumnDef<TableInfo>[] = [
@@ -44,7 +46,7 @@ export const columns: ColumnDef<TableInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.game-catalogs.properties.name.title')}
+        title={i18n.t('apps.tables.properties.name.title')}
       />
     ),
     cell: ({ row }) => (
@@ -56,7 +58,7 @@ export const columns: ColumnDef<TableInfo>[] = [
         'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
         'sticky left-6 md:table-cell'
       ),
-      displayTag: i18n.t('apps.game-catalogs.properties.name.title'),
+      displayTag: i18n.t('apps.tables.properties.name.title'),
     },
     enableHiding: false,
   },
@@ -66,14 +68,14 @@ export const columns: ColumnDef<TableInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.game-catalogs.properties.orders.title')}
+        title={i18n.t('apps.tables.properties.orders.title')}
       />
     ),
     cell: ({ row }) => (
       <div className='w-fit'>{row.getValue<number>('orders')}</div>
     ),
     meta: {
-      displayTag: i18n.t('apps.game-catalogs.properties.orders.title'),
+      displayTag: i18n.t('apps.tables.properties.orders.title'),
     },
   },
 
@@ -82,19 +84,19 @@ export const columns: ColumnDef<TableInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.game-catalogs.properties.status.title')}
+        title={i18n.t('apps.tables.properties.status.title')}
       />
     ),
     cell: ({ row }) => (
       <div className='w-fit'>
         {i18n.t(
-          `apps.game-catalogs.properties.status.${GameCatalogStatusDescriptions[row.getValue<number>('status')]}`
+          `apps.tables.properties.status.${TableStatusDescriptions[row.getValue<number>('status')]}`
         )}
       </div>
     ),
     filterFn: 'numberIn',
     meta: {
-      displayTag: i18n.t('apps.game-catalogs.properties.status.title'),
+      displayTag: i18n.t('apps.tables.properties.status.title'),
     },
   },
 
