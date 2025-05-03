@@ -27,6 +27,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedTagsIndexImport } from './routes/_authenticated/tags/index'
+import { Route as AuthenticatedTablesIndexImport } from './routes/_authenticated/tables/index'
 import { Route as AuthenticatedSettingsIndexImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
 import { Route as AuthenticatedPublishersIndexImport } from './routes/_authenticated/publishers/index'
@@ -141,6 +142,14 @@ const AuthenticatedTagsIndexRoute = AuthenticatedTagsIndexImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any).lazy(() =>
   import('./routes/_authenticated/tags/index.lazy').then((d) => d.Route),
+)
+
+const AuthenticatedTablesIndexRoute = AuthenticatedTablesIndexImport.update({
+  id: '/tables/',
+  path: '/tables/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any).lazy(() =>
+  import('./routes/_authenticated/tables/index.lazy').then((d) => d.Route),
 )
 
 const AuthenticatedSettingsIndexRoute = AuthenticatedSettingsIndexImport.update(
@@ -451,6 +460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIndexImport
       parentRoute: typeof AuthenticatedSettingsRouteImport
     }
+    '/_authenticated/tables/': {
+      id: '/_authenticated/tables/'
+      path: '/tables'
+      fullPath: '/tables'
+      preLoaderRoute: typeof AuthenticatedTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/tags/': {
       id: '/_authenticated/tags/'
       path: '/tags'
@@ -512,6 +528,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
   AuthenticatedPublishersIndexRoute: typeof AuthenticatedPublishersIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
+  AuthenticatedTablesIndexRoute: typeof AuthenticatedTablesIndexRoute
   AuthenticatedTagsIndexRoute: typeof AuthenticatedTagsIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
@@ -529,6 +546,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
   AuthenticatedPublishersIndexRoute: AuthenticatedPublishersIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
+  AuthenticatedTablesIndexRoute: AuthenticatedTablesIndexRoute,
   AuthenticatedTagsIndexRoute: AuthenticatedTagsIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
@@ -565,6 +583,7 @@ export interface FileRoutesByFullPath {
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/tables': typeof AuthenticatedTablesIndexRoute
   '/tags': typeof AuthenticatedTagsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -596,6 +615,7 @@ export interface FileRoutesByTo {
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/tables': typeof AuthenticatedTablesIndexRoute
   '/tags': typeof AuthenticatedTagsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
@@ -630,6 +650,7 @@ export interface FileRoutesById {
   '/_authenticated/publishers/': typeof AuthenticatedPublishersIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_authenticated/tables/': typeof AuthenticatedTablesIndexRoute
   '/_authenticated/tags/': typeof AuthenticatedTagsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
@@ -665,6 +686,7 @@ export interface FileRouteTypes {
     | '/publishers'
     | '/roles'
     | '/settings/'
+    | '/tables'
     | '/tags'
     | '/tasks'
     | '/users'
@@ -695,6 +717,7 @@ export interface FileRouteTypes {
     | '/publishers'
     | '/roles'
     | '/settings'
+    | '/tables'
     | '/tags'
     | '/tasks'
     | '/users'
@@ -727,6 +750,7 @@ export interface FileRouteTypes {
     | '/_authenticated/publishers/'
     | '/_authenticated/roles/'
     | '/_authenticated/settings/'
+    | '/_authenticated/tables/'
     | '/_authenticated/tags/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
@@ -798,6 +822,7 @@ export const routeTree = rootRoute
         "/_authenticated/platforms/",
         "/_authenticated/publishers/",
         "/_authenticated/roles/",
+        "/_authenticated/tables/",
         "/_authenticated/tags/",
         "/_authenticated/tasks/",
         "/_authenticated/users/"
@@ -903,6 +928,10 @@ export const routeTree = rootRoute
     "/_authenticated/settings/": {
       "filePath": "_authenticated/settings/index.tsx",
       "parent": "/_authenticated/settings"
+    },
+    "/_authenticated/tables/": {
+      "filePath": "_authenticated/tables/index.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/tags/": {
       "filePath": "_authenticated/tags/index.tsx",

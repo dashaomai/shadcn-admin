@@ -1,6 +1,7 @@
 import {
   IconBarrierBlock,
   IconBrandCodepen,
+  IconBrandYoutube,
   IconBrowserCheck,
   IconBug,
   IconChartArrowsVertical,
@@ -10,21 +11,32 @@ import {
   IconDice3,
   IconHelp,
   IconLayoutDashboard,
-  IconLock,
   IconLockAccess,
   IconNotification,
   IconPalette,
   IconPlant,
   IconSettings,
+  IconSpade,
   IconTag,
   IconTool,
   IconUserCog,
-  IconUserOff,
   IconUsers,
   IconWall,
 } from '@tabler/icons-react'
 import { AudioWaveform } from 'lucide-react'
 import { type SidebarData } from '../types'
+
+// 至少是主播
+const gteAnchor = ['superadmin', 'admin', 'anchor']
+
+// 至少是管理员
+const gteAdmin = ['superadmin', 'admin']
+
+// 必须是超级管理员
+const isSuperAdmin = ['superadmin']
+
+// 必须是主播
+const isAnchor = ['anchor']
 
 export const sidebarData: SidebarData = {
   teams: [
@@ -37,7 +49,7 @@ export const sidebarData: SidebarData = {
   navGroups: [
     {
       title: 'layout.navigate.groups.normal',
-      roles: ['superadmin', 'admin', 'agent'],
+      roles: gteAnchor,
       items: [
         {
           title: 'layout.navigate.items.dashboard',
@@ -48,7 +60,7 @@ export const sidebarData: SidebarData = {
     },
     {
       title: 'layout.navigate.groups.system',
-      roles: ['superadmin', 'admin'],
+      roles: gteAdmin,
       items: [
         {
           title: 'layout.navigate.items.base',
@@ -99,7 +111,7 @@ export const sidebarData: SidebarData = {
               title: 'layout.navigate.items.maintain',
               url: '/503',
               icon: IconBarrierBlock,
-              roles: ['sysadmin'],
+              roles: isSuperAdmin,
             },
           ],
         },
@@ -107,7 +119,7 @@ export const sidebarData: SidebarData = {
     },
     {
       title: 'layout.navigate.groups.authorize',
-      roles: ['superadmin', 'admin'],
+      roles: gteAdmin,
       items: [
         {
           title: 'layout.navigate.items.console-account',
@@ -122,6 +134,23 @@ export const sidebarData: SidebarData = {
               title: 'layout.navigate.items.account',
               url: '/accounts',
               icon: IconUsers,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: 'layout.navigate.groups.broadcast',
+      roles: isAnchor,
+      items: [
+        {
+          title: 'layout.navigate.items.broadcast',
+          icon: IconBrandYoutube,
+          items: [
+            {
+              title: 'layout.navigate.items.table',
+              url: '/tables',
+              icon: IconSpade,
             },
           ],
         },
