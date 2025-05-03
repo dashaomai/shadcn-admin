@@ -1,15 +1,16 @@
 import Cookies from 'js-cookie'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
+import { toast } from 'sonner'
 import { create } from 'zustand'
 import { SignInPayload } from '@/lib/auth'
 import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { WrappedResponse } from '@/lib/response'
-import { toast } from 'sonner'
 
-const ACCESS_TOKEN = 'sdfjas;ldfjal;sjdkfs;djkfasd;fj'
+const ACCESS_TOKEN = 'sdfjas'
+const ACCESS_EXPIRE = 'eujpdwr'
 
 export interface AuthUser {
   id: string
@@ -26,7 +27,6 @@ interface AuthState {
     expire: number
     accessToken: string
     setAccessToken: (accessToken: string, expire: number) => void
-    refreshTokenTimeout: number | undefined
     refreshHandler: () => Promise<void>
     resetAccessToken: () => void
     reset: () => void
@@ -36,27 +36,32 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()((set, get) => {
   const cookieState = Cookies.get(ACCESS_TOKEN)
   const initToken = cookieState ?? ''
+  const cookieExpire = Cookies.get(ACCESS_EXPIRE)
+  const expire = cookieExpire ? parseInt(cookieExpire) : 0
+
+  setInterval(() => {
+    const now = Date.now()
+    const state = get()
+    const { expire } = state.auth
+    if (expire && expire * 1000 - now < 60000) {
+      state.auth.refreshHandler().then()
+    }
+  }, 1000)
+
   return {
     auth: {
       user: null,
       setUser: (user) =>
         set((state) => ({ ...state, auth: { ...state.auth, user } })),
-      expire: 0,
+      expire,
       accessToken: initToken,
       setAccessToken: (accessToken: string, expire: number) =>
         set((state) => {
           logger.info('set access token with expire: %d', expire)
 
           Cookies.set(ACCESS_TOKEN, accessToken)
+          Cookies.set(ACCESS_EXPIRE, String(expire))
           clearSelfData()
-
-          clearTimeout(state.auth.refreshTokenTimeout)
-          const now = Date.now()
-          const delay = expire * 1000 - now
-          const timeout = setTimeout(
-            () => state.auth.refreshHandler(),
-            Math.max(10000, delay)
-          )
 
           return {
             ...state,
@@ -64,15 +69,14 @@ export const useAuthStore = create<AuthState>()((set, get) => {
               ...state.auth,
               accessToken,
               expire,
-              refreshTokenTimeout: timeout,
             },
           }
         }),
       resetAccessToken: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
+          Cookies.remove(ACCESS_EXPIRE)
           clearSelfData()
-          clearTimeout(state.auth.refreshTokenTimeout)
 
           return {
             ...state,
@@ -84,7 +88,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
             },
           }
         }),
-      refreshTokenTimeout: undefined,
       refreshHandler: async () => {
         const state = get()
         const token = state.auth.accessToken
@@ -104,8 +107,8 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       reset: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
+          Cookies.remove(ACCESS_EXPIRE)
           clearSelfData()
-          clearTimeout(state.auth.refreshTokenTimeout)
 
           return {
             ...state,
@@ -114,7 +117,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
               user: null,
               accessToken: '',
               expire: 0,
-              refreshTokenTimeout: undefined,
             },
           }
         }),
