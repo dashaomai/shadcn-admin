@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Column, ColumnDef, Row, Table } from '@tanstack/react-table'
-import { FilterFns } from '@tanstack/react-table'
 
 export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
