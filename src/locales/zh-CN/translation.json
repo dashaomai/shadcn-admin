@@ -228,7 +228,7 @@
           },
           "avatar": {
             "title": "头像",
-            "placeholder": "请上传账号的头像"
+            "placeholder": "请指定账号的头像"
           }
         },
         "roles": {
