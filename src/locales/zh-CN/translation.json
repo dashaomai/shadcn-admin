@@ -525,7 +525,9 @@
     },
     "tables": {
       "actions": {
-        "edit": "修改游戏房"
+        "edit": "修改游戏房",
+        "start-broadcast": "开始直播",
+        "stop-broadcast": "停止直播"
       },
       "description": "查看游戏房并进行直播",
       "create": {
@@ -553,6 +555,9 @@
         "orders": {
           "title": "展示顺序",
           "placeholder": "请输入游戏房的展示顺序"
+        },
+        "broadcast": {
+          "title": "直播"
         },
         "status": {
           "title": "状态",

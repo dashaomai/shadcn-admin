@@ -3,6 +3,7 @@ import { i18n } from '@/lib/i18n.ts'
 import { cn } from '@/lib/utils.ts'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
 import { TablesRowActions } from '@/features/tables/components/tables-row-actions.tsx'
+import { TablesRowBroadcast } from '@/features/tables/components/tables-row-broadcast.tsx'
 import {
   TableInfo,
   TableStatusDescriptions,
@@ -98,6 +99,17 @@ export const columns: ColumnDef<TableInfo>[] = [
     meta: {
       displayTag: i18n.t('apps.tables.properties.status.title'),
     },
+  },
+
+  {
+    id: 'broadcast',
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title={i18n.t('apps.tables.properties.broadcast.title')}
+      />
+    ),
+    cell: TablesRowBroadcast,
   },
 
   {
