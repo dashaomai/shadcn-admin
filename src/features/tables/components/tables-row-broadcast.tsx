@@ -1,6 +1,9 @@
 import { FormEvent } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
+import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
+import { useBroadcastStore } from '@/stores/broadcastStore.ts'
+import { useVendorStore } from '@/stores/vendorStore.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { obs } from '@/lib/obs-ws.ts'
@@ -36,9 +39,12 @@ const advOuts: string[] = [
 ]
 
 export function TablesRowBroadcast({ row }: Props) {
+  const vendorStore = useVendorStore()
+  const broadcastStore = useBroadcastStore()
+
   const url = `/${row.original.name}`
 
-  async function handleBroadcast(_event: FormEvent<HTMLElement>) {
+  async function handleStartBroadcast(_event: FormEvent<HTMLElement>) {
     logger.info('handleBroadcast start', url)
 
     await obs.call('SetStreamServiceSettings', {
@@ -77,13 +83,42 @@ export function TablesRowBroadcast({ row }: Props) {
     setTimeout(async () => {
       await obs.call('StartStream')
       logger.info('handleBroadcast finished')
+
+      const expiredAt = new Date(Date.now() + 24 * 3600 * 1000)
+      const request: CreateBroadcastRequest = {
+        vendorName: vendorStore.vendor?.name ?? '',
+        domain: 'testput.leopardcat.live',
+        gameId: row.original.gameId,
+        gameName: 'bc_baccarat',
+        tableId: row.original.id,
+        tableName: row.original.name,
+        expiredAt: expiredAt.toISOString(),
+      }
+
+      await broadcastStore.createBroadcast(request)
     }, 1000)
   }
 
+  async function handleStopBroadcast(_event: FormEvent<HTMLElement>) {
+    await obs.call('StopStream')
+
+    await broadcastStore.finishBroadcast()
+  }
+
   return (
-    <Button variant='default' onClick={handleBroadcast}>
-      <IconBroadcast className='h-4 w-4' />
-      <span className=''>{i18n.t('apps.tables.actions.start-broadcast')}</span>
-    </Button>
+    <>
+      {broadcastStore.broadcast?.tableId === row.original.id && (
+        <Button variant='secondary' onClick={handleStopBroadcast}>
+          <IconBroadcast className='h-4 w-4' />
+          <span>{i18n.t('apps.tables.actions.stop-broadcast')}</span>
+        </Button>
+      )}
+      {!broadcastStore.broadcast && (
+        <Button variant='default' onClick={handleStartBroadcast}>
+          <IconBroadcast className='h-4 w-4' />
+          <span>{i18n.t('apps.tables.actions.start-broadcast')}</span>
+        </Button>
+      )}
+    </>
   )
 }
