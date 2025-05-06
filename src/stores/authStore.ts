@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
 import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { toast } from 'sonner'
@@ -8,36 +9,63 @@ import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { WrappedResponse } from '@/lib/response'
+import { brokerConn } from '@/lib/broker_conn'
 
 const ACCESS_TOKEN = 'sdfjas'
-const ACCESS_EXPIRE = 'eujpdwr'
 
-export interface AuthUser {
-  id: string
-  nickname: string
-  email: string
-  avatar: string
-  roles: string[]
+type UserInfo = {
+  identity: string
+  sid: string
+  expire: number
 }
 
 interface AuthState {
   auth: {
-    user: AuthUser | null
-    setUser: (user: AuthUser | null) => void
+    accountId?: string
+    sessionId?: string
     expire: number
-    accessToken: string
-    setAccessToken: (accessToken: string, expire: number) => void
+    accessToken?: string
+    setAccessToken: (accessToken: string, isRefresh: boolean) => void
     refreshHandler: () => Promise<void>
     resetAccessToken: () => void
     reset: () => void
   }
 }
 
+export function connectToBroker(accountId: string, sessionId: string) {
+  brokerConn.init(
+    {
+      wsUrl: 'ws://localhost:7799',
+    },
+    () => {
+      logger.info('broker connected')
+
+      brokerConn.request('broker.subscriber.entry', {accountId, sessionId}, () => {
+        logger.info('broker subscriber entry successful.')
+
+      })
+    },
+  )
+}
+
+export function disconnectFromBroker() {
+  brokerConn.disconnect()
+}
+
 export const useAuthStore = create<AuthState>()((set, get) => {
   const cookieState = Cookies.get(ACCESS_TOKEN)
   const initToken = cookieState ?? ''
-  const cookieExpire = Cookies.get(ACCESS_EXPIRE)
-  const expire = cookieExpire ? parseInt(cookieExpire) : 0
+  let accountId: string | undefined = undefined
+  let sessionId: string | undefined = undefined
+  let expire = 0
+  if (initToken) {
+    const decoded = jwtDecode<UserInfo>(initToken)
+    accountId = decoded.identity
+    sessionId = decoded.sid
+    expire = decoded.expire
+
+    connectToBroker(accountId, sessionId)
+  }
 
   setInterval(() => {
     const now = Date.now()
@@ -50,23 +78,30 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 
   return {
     auth: {
-      user: null,
-      setUser: (user) =>
-        set((state) => ({ ...state, auth: { ...state.auth, user } })),
+      accountId,
+      sessionId,
       expire,
       accessToken: initToken,
-      setAccessToken: (accessToken: string, expire: number) =>
+      setAccessToken: (accessToken: string, isRefresh: boolean) =>
         set((state) => {
-          logger.info('set access token with expire: %d', expire)
+          const decoded = jwtDecode<UserInfo>(accessToken)
+          console.log('decoded token: ', decoded)
+
+          logger.info('set access token with expire: %d', decoded.expire)
 
           Cookies.set(ACCESS_TOKEN, accessToken)
-          Cookies.set(ACCESS_EXPIRE, String(expire))
           clearSelfData()
+
+          if (!isRefresh) {
+            connectToBroker(decoded.identity, decoded.sid)
+          }
 
           return {
             ...state,
             auth: {
               ...state.auth,
+              accountId: decoded.identity,
+              sessionId: decoded.sid,
               accessToken,
               expire,
             },
@@ -75,16 +110,18 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       resetAccessToken: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
-          Cookies.remove(ACCESS_EXPIRE)
           clearSelfData()
+
+          disconnectFromBroker()
 
           return {
             ...state,
             auth: {
               ...state.auth,
-              accessToken: '',
+              accountId: undefined,
+              sessionId: undefined,
+              accessToken: undefined,
               expire: 0,
-              refreshTokenTimeout: undefined,
             },
           }
         }),
@@ -98,7 +135,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
           })
 
           if (payload) {
-            state.auth.setAccessToken(payload.token, payload.expires)
+            state.auth.setAccessToken(payload.token, true)
           } else {
             state.auth.resetAccessToken()
           }
@@ -107,15 +144,15 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       reset: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
-          Cookies.remove(ACCESS_EXPIRE)
           clearSelfData()
 
           return {
             ...state,
             auth: {
               ...state.auth,
-              user: null,
-              accessToken: '',
+              accountId: undefined,
+              sessionId: undefined,
+              accessToken: undefined,
               expire: 0,
             },
           }

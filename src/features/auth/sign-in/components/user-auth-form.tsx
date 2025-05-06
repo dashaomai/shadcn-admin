@@ -63,7 +63,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           logger.info('sign-in successful.')
           authStore.auth.setAccessToken(
             result.payload.token,
-            result.payload.expires
+            false,
           )
           router.history.push(search.redirect ?? '/')
         } else {
