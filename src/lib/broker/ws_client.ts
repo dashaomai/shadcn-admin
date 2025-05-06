@@ -483,9 +483,15 @@ export namespace PitayaClient {
          * @param route 请求协议的路由
          * @param msg 请求的数据
          */
-        private messageEncode(reqId: number, route: string | number, msg: unknown) {
+        private messageEncode(reqId: number, route: string, msg: unknown) {
             const type: MessageType = reqId ? MessageType.REQUEST : MessageType.NOTIFY
-            let compressRoute = typeof route === "number"
+            let compressRoute: boolean = false
+            let routeNum: number = 0
+            
+            if (this.dict[route]) {
+                compressRoute = true
+                routeNum = this.dict[route]
+            }
 
             let message: Uint8Array
 
@@ -495,7 +501,7 @@ export namespace PitayaClient {
                 message = new Uint8Array(0)
             }
 
-            return Message.encode(reqId, type, compressRoute, route, message)
+            return Message.encode(reqId, type, compressRoute, compressRoute ? routeNum : route, message)
         }
 
         /**
