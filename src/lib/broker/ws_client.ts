@@ -56,8 +56,6 @@ export namespace PitayaClient {
         private reqId: number = 0
         /** 请求回调 */
         private callbacks: Record<number, Function> = {}
-        /** 显示请求加载 */
-        private isShowLoads: Record<number, boolean> = {}
 
         /** 路由列表 */
         private routeMap: Record<number, string | number> = {}
@@ -256,7 +254,6 @@ export namespace PitayaClient {
             //if have a id then find the callback function with the request
             let cb = this.callbacks[msg.id]
             delete this.callbacks[msg.id]
-            delete this.isShowLoads[msg.id]
 
             if (typeof cb === 'function') {
                 cb(msg.payload)
@@ -449,7 +446,7 @@ export namespace PitayaClient {
          * @param cb 发送消息结束服务器的返回
          * @returns
          */
-        public request<R>(route: string, msg: unknown, isLoading: boolean, cb: (response: R) => void): void {
+        public request<R>(route: string, msg: unknown, cb: (response: R) => void): void {
             if (!route) {
                 return
             }
@@ -457,7 +454,6 @@ export namespace PitayaClient {
             this.reqId++
             this.sendMessage(this.reqId, route, msg)
 
-            this.isShowLoads[this.reqId] = isLoading
             this.callbacks[this.reqId] = cb
             this.routeMap[this.reqId] = route
         }
