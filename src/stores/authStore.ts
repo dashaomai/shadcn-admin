@@ -187,6 +187,8 @@ const responseInterceptor = async <T>(
         // 自动执行 refresh 操作
         logger.error('access token is expired, need refresh or sign-out.')
 
+        useAuthStore.getState().auth.refreshHandler()
+
         break
       }
 
@@ -196,6 +198,12 @@ const responseInterceptor = async <T>(
         toast.error(i18n.t('errors.forbidden.title'), {
           description: i18n.t('errors.forbidden.description'),
         })
+
+        useAuthStore.getState().auth.reset()
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 10)
 
         break
       }
