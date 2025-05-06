@@ -141,22 +141,10 @@ export const useAuthStore = create<AuthState>()((set, get) => {
           }
         }
       },
-      reset: () =>
-        set((state) => {
-          Cookies.remove(ACCESS_TOKEN)
-          clearSelfData()
-
-          return {
-            ...state,
-            auth: {
-              ...state.auth,
-              accountId: undefined,
-              sessionId: undefined,
-              accessToken: undefined,
-              expire: 0,
-            },
-          }
-        }),
+      reset: () => {
+        const state = get()
+        state.auth.resetAccessToken()
+      }
     },
   }
 })
