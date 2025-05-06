@@ -61,10 +61,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         } else if (result.code === 200) {
           // Sign in successful.
           logger.info('sign-in successful.')
-          authStore.auth.setAccessToken(
-            result.payload.token,
-            result.payload.expires
-          )
+          authStore.auth.setAccessToken(result.payload.token, false)
           router.history.push(search.redirect ?? '/')
         } else {
           // Sign in failed
@@ -80,62 +77,63 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   }
 
   return (
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={cn('grid gap-3', className)} {...props}>
-
-            <FormField
-              control={form.control}
-              name='name'
-              render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <FormLabel>{i18n.t('auth.signIn.name.label')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={i18n.t('auth.signIn.name.placeholder')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <div className='flex items-center justify-between'>
-                    <FormLabel>
-                      {i18n.t('auth.signIn.password.label')}
-                    </FormLabel>
-                  </div>
-                  <FormControl>
-                    <PasswordInput placeholder='********' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {loginFailed && (
-              <FormMessage>{i18n.t('auth.signIn.failed')}</FormMessage>
-            )}
-
-            <Button className='mt-2' disabled={isLoading}>
-              {i18n.t('auth.signIn.submit')}
-            </Button>
-
-            <div className='relative my-2'>
-              <div className='absolute inset-0 flex items-center'>
-                <span className='w-full border-t' />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn('grid gap-3', className)}
+        {...props}
+      >
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem className='space-y-1'>
+              <FormLabel>{i18n.t('auth.signIn.name.label')}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={i18n.t('auth.signIn.name.placeholder')}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='password'
+          render={({ field }) => (
+            <FormItem className='space-y-1'>
+              <div className='flex items-center justify-between'>
+                <FormLabel>{i18n.t('auth.signIn.password.label')}</FormLabel>
               </div>
-              <div className='relative flex justify-center text-xs uppercase'>
-                <span className='bg-background px-2 text-muted-foreground'>
-                  {i18n.t('auth.signIn.tip')}
-                </span>
-              </div>
-            </div>
-        </form>
-      </Form>
+              <FormControl>
+                <PasswordInput placeholder='********' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {loginFailed && (
+          <FormMessage>{i18n.t('auth.signIn.failed')}</FormMessage>
+        )}
+
+        <Button className='mt-2' disabled={isLoading}>
+          {i18n.t('auth.signIn.submit')}
+        </Button>
+
+        <div className='relative my-2'>
+          <div className='absolute inset-0 flex items-center'>
+            <span className='w-full border-t' />
+          </div>
+          <div className='relative flex justify-center text-xs uppercase'>
+            <span className='bg-background text-muted-foreground px-2'>
+              {i18n.t('auth.signIn.tip')}
+            </span>
+          </div>
+        </div>
+      </form>
+    </Form>
   )
 }
