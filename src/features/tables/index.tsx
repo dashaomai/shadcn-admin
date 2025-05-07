@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 import { useAllGames } from '@/api/bridge/game.ts'
 import { listTables } from '@/api/bridge/table.ts'
-import { i18n } from '@/lib/i18n.ts'
 import MainContent from '@/components/layout/main-content.tsx'
 import MainHeader from '@/components/layout/main-header.tsx'
 import MainTitleBar from '@/components/layout/main-title-bar.tsx'
@@ -15,6 +15,7 @@ import { TablesTable } from '@/features/tables/components/tables-table.tsx'
 import TablesProvider from '@/features/tables/context/tables-context.tsx'
 
 export default function TablesPage() {
+  const { t } = useTranslation()
   const routeApi = getRouteApi('/_authenticated/tables/')
   const { gameId, page, limit } = routeApi.useSearch()
 
@@ -43,10 +44,10 @@ export default function TablesPage() {
         <MainTitleBar
           title={
             game
-              ? i18n.t(`apps.games.name.${game.name}`)
-              : '' + i18n.t('layout.navigate.items.table')
+              ? t(`apps.games.name.${game.name}`)
+              : t('layout.navigate.items.table')
           }
-          description={i18n.t('apps.tables.description')}
+          description={t('apps.tables.description')}
         >
           <TablesPrimaryButtons />
         </MainTitleBar>

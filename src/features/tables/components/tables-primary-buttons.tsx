@@ -1,15 +1,16 @@
 import { IconPlus } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n.ts'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button.tsx'
 import { useTables } from '../context/tables-context'
 
 export function TablesPrimaryButtons() {
+  const { t } = useTranslation()
   const { setOpen } = useTables()
 
   return (
     <div className='flex gap-2'>
       <Button className='space-x-1' onClick={() => setOpen('create')}>
-        <span>{i18n.t('apps.tables.create.title')}</span>
+        <span>{t('apps.tables.create.title')}</span>
         <IconPlus size={18} />
       </Button>
     </div>

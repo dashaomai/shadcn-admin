@@ -1,10 +1,10 @@
 import { FormEvent } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
+import { useTranslation } from 'react-i18next'
 import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
 import { useVendorStore } from '@/stores/vendorStore.ts'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { obs } from '@/lib/obs-ws.ts'
 import { Button } from '@/components/ui/button.tsx'
@@ -39,6 +39,7 @@ const advOuts: string[] = [
 ]
 
 export function TablesRowBroadcast({ row }: Props) {
+  const { t } = useTranslation()
   const vendorStore = useVendorStore()
   const broadcastStore = useBroadcastStore()
 
@@ -110,13 +111,13 @@ export function TablesRowBroadcast({ row }: Props) {
       {broadcastStore.broadcast?.tableId === row.original.id && (
         <Button variant='secondary' onClick={handleStopBroadcast}>
           <IconBroadcast className='h-4 w-4' />
-          <span>{i18n.t('apps.tables.actions.stop-broadcast')}</span>
+          <span>{t('apps.tables.actions.stop-broadcast')}</span>
         </Button>
       )}
       {!broadcastStore.broadcast && (
         <Button variant='default' onClick={handleStartBroadcast}>
           <IconBroadcast className='h-4 w-4' />
-          <span>{i18n.t('apps.tables.actions.start-broadcast')}</span>
+          <span>{t('apps.tables.actions.start-broadcast')}</span>
         </Button>
       )}
     </>

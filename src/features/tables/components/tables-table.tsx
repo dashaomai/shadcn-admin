@@ -11,7 +11,7 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n.ts'
+import { useTranslation } from 'react-i18next'
 import { DataTableProps, numberIn } from '@/lib/list-app.ts'
 import { SelectOption } from '@/lib/option.ts'
 import {
@@ -33,6 +33,7 @@ import {
 type Props = DataTableProps<TableInfo>
 
 export function TablesTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -66,7 +67,7 @@ export function TablesTable({ columns, data, total }: Props) {
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
       TableStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.tables.properties.status.${desc}`),
+        label: t(`apps.tables.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -76,13 +77,13 @@ export function TablesTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.tables.toolbar.placeholder')}
+        placeholder={t('apps.tables.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.tables.properties.status.title')}
+              title={t('apps.tables.properties.status.title')}
               options={allStatus}
             />
           )}
@@ -141,7 +142,7 @@ export function TablesTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

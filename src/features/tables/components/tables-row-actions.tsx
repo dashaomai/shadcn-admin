@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n.ts'
+import { useTranslation } from 'react-i18next'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
@@ -16,6 +16,7 @@ import { useTables } from '../context/tables-context'
 type Props = DataTableRowActionsProps<TableInfo>
 
 export function TablesRowActions({ row }: Props) {
+  const { t } = useTranslation()
   const { setOpen, setCurrentRow } = useTables()
 
   return (
@@ -27,9 +28,7 @@ export function TablesRowActions({ row }: Props) {
             className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
           >
             <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>
-              {i18n.t('apps.table.actions.open-menu')}
-            </span>
+            <span className='sr-only'>{t('apps.table.actions.open-menu')}</span>
           </Button>
         </DropdownMenuTrigger>
 
@@ -40,7 +39,7 @@ export function TablesRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            {i18n.t('apps.tables.actions.edit')}
+            {t('apps.tables.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>

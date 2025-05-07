@@ -88,8 +88,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       setAccessToken: (accessToken: string, isRefresh: boolean) =>
         set((state) => {
           const decoded = jwtDecode<UserInfo>(accessToken)
-          console.log('decoded token: ', decoded)
-
           logger.info('set access token with expire: %d', decoded.expire)
 
           Cookies.set(ACCESS_TOKEN, accessToken)
