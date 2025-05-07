@@ -85,13 +85,48 @@
     "account": {
       "profile": "个人资料",
       "billing": "支付信息",
-      "settings": "设置"
+      "settings": "设置",
+      "appearance": "外观"
     }
   },
   "common": {
     "save": "保存",
     "data": {
       "no-results": "当前无数据内容。"
+    }
+  },
+  "settings": {
+    "profile": {
+      "title": "个人资料",
+      "description": "请在此处查看并修改你的个人资料"
+    },
+    "account": {
+      "title": "账号信息",
+      "description": "请在此处查看并修改你的账号信息"
+    },
+    "appearance": {
+      "title": "外观设置",
+      "description": "在此可以更改外观及主题设置",
+      "theme": {
+        "title": "主题",
+        "description": "选择你喜欢的主题",
+        "light": "亮色调",
+        "dark": "暗色调",
+        "system": "跟随系统配置"
+      },
+      "language": {
+        "title": "语言",
+        "description": "选择你喜欢的语言",
+        "search-placeholder": "输入语言名以搜索 ...",
+        "no-results-found": "无相关语言。"
+      },
+      "submit": "更新外观设置"
+    },
+    "notification": {
+
+    },
+    "display": {
+
     }
   },
   "apps": {
@@ -183,6 +218,11 @@
         "updateRoles": {
           "success": "角色更新完毕",
           "successDescription": "账号 {{loginName}} 的角色已经更新完毕"
+        },
+        "updateProfile": {
+          "submit": "更新个人资料",
+          "success": "个人资料更新完毕",
+          "failed": "个人资料更新失败"
         }
       },
       "description": "对系统内各个账号进行管理",
@@ -223,15 +263,18 @@
         "profile": {
           "nickname": {
             "title": "昵称",
-            "placeholder": "请输入账号的昵称"
+            "placeholder": "请输入账号的昵称",
+            "description": "系统中用户能互相看见对方的昵称。"
           },
           "email": {
             "title": "电子邮箱",
-            "placeholder": "请输入账号的电子邮箱"
+            "placeholder": "请输入账号的电子邮箱",
+            "description": "此电子邮箱为工作用途，请确保畅通。"
           },
           "avatar": {
             "title": "头像",
-            "placeholder": "请指定账号的头像"
+            "placeholder": "请上传账号的头像",
+            "description": "如果不设置头像，系统将会使用账号名生成默认头像。"
           }
         },
         "roles": {

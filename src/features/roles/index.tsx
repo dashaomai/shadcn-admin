@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { listRoles } from '@/api/auth'
-import { i18n } from '@/lib/i18n'
 import MainContent from '@/components/layout/main-content.tsx'
 import MainHeader from '@/components/layout/main-header.tsx'
 import MainTitleBar from '@/components/layout/main-title-bar.tsx'
@@ -11,8 +10,11 @@ import { RolesDialogs } from '@/features/roles/components/roles-dialogs.tsx'
 import { RolesPrimaryButtons } from '@/features/roles/components/roles-primary-buttons.tsx'
 import { RolesTable } from '@/features/roles/components/roles-table.tsx'
 import RolesProvider from '@/features/roles/context/roles-context.tsx'
+import { useTranslation } from 'react-i18next'
 
 export default function RolesPage() {
+  const { t } = useTranslation()
+  
   const routeApi = getRouteApi('/_authenticated/roles/')
   const { page, limit } = routeApi.useSearch()
 
@@ -31,8 +33,8 @@ export default function RolesPage() {
 
       <Main>
         <MainTitleBar
-          title={i18n.t('layout.navigate.items.role')}
-          description={i18n.t('apps.roles.description')}
+          title={t('layout.navigate.items.role')}
+          description={t('apps.roles.description')}
         >
           <RolesPrimaryButtons />
         </MainTitleBar>

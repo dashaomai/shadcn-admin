@@ -1,4 +1,4 @@
-import { i18n, z } from "@/lib/i18n";
+import { z } from "@/lib/i18n";
 import { ListAppActionDialogProps } from "@/lib/list-app";
 import { AccountInfo } from "../data/account-info";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from 'sonner'
+import { useTranslation } from "react-i18next";
 
 const accountRolesFormSchema = z.object({
   roles: z.array(z.string()),
@@ -21,6 +22,7 @@ const accountRolesFormSchema = z.object({
 export type AccountRolesForm = z.infer<typeof accountRolesFormSchema>
 
 export function AccountsRolesActionDialog(props: ListAppActionDialogProps<AccountInfo>) {
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
 
   const api = getRouteApi('/_authenticated/accounts/')
@@ -41,8 +43,8 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
           queryClient.invalidateQueries({ queryKey: ['self-roles']}).then()
         }
 
-        toast(i18n.t('apps.accounts.actions.updateRoles.success'), {
-          description: i18n.t('apps.accounts.actions.updateRoles.successDescription', { loginName: props.currentRow?.loginName}),
+        toast(t('apps.accounts.actions.updateRoles.success'), {
+          description: t('apps.accounts.actions.updateRoles.successDescription', { loginName: props.currentRow?.loginName}),
         })
 
         form.reset()
@@ -79,10 +81,10 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t('apps.accounts.updateRoles.title', {loginName: props.currentRow?.loginName})}
+            {t('apps.accounts.updateRoles.title', {loginName: props.currentRow?.loginName})}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t('apps.accounts.updateRoles.description')}
+            {t('apps.accounts.updateRoles.description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -100,10 +102,10 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
                 render={() => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.roles.updateTitle')}
+                      {t('apps.accounts.properties.roles.updateTitle')}
                     </FormLabel>
                     <FormDescription>
-                      {i18n.t('apps.accounts.properties.roles.description')}
+                      {t('apps.accounts.properties.roles.description')}
                     </FormDescription>
 
                     {allRoles.isFetched && (
@@ -146,7 +148,7 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
 
         <DialogFooter>
           <Button type='submit' form='account-roles-form' disabled={mutation.isPending}>
-            {i18n.t('common.save')}
+            {t('common.save')}
           </Button>
         </DialogFooter>
       </DialogContent>

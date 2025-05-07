@@ -11,7 +11,6 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import {
@@ -25,10 +24,12 @@ import {
 import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
 import { TablePagination } from '@/features/table/components/table-pagination.tsx'
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<Role>
 
 export function RolesTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -67,13 +68,13 @@ export function RolesTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.roles.toolbar.placeholder')}
+        placeholder={t('apps.roles.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('name') && (
             <TableFacetedFilter
               column={table.getColumn('name')}
-              title={i18n.t('apps.roles.properties.name.title')}
+              title={t('apps.roles.properties.name.title')}
               options={nameOptions}
             />
           )}
@@ -132,7 +133,7 @@ export function RolesTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

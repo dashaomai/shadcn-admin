@@ -11,7 +11,6 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n'
 import { DataTableProps, numberIn } from '@/lib/list-app'
 import { SelectOption } from '@/lib/option'
 import {
@@ -29,10 +28,12 @@ import {
   GameCatalogInfo,
   GameCatalogStatusDescriptions,
 } from '../data/game-catalog'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<GameCatalogInfo>
 
 export function GameCatalogsTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -66,7 +67,7 @@ export function GameCatalogsTable({ columns, data, total }: Props) {
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
       GameCatalogStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.game-catalogs.properties.status.${desc}`),
+        label: t(`apps.game-catalogs.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -76,13 +77,13 @@ export function GameCatalogsTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.game-catalogs.toolbar.placeholder')}
+        placeholder={t('apps.game-catalogs.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.game-catalogs.properties.status.title')}
+              title={t('apps.game-catalogs.properties.status.title')}
               options={allStatus}
             />
           )}
@@ -141,7 +142,7 @@ export function GameCatalogsTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

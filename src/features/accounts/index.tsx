@@ -5,15 +5,16 @@ import AccountsProvider from '@/features/accounts/context/accounts-context.tsx'
 import MainHeader from '@/components/layout/main-header.tsx'
 import { Main } from '@/components/layout/main.tsx'
 import MainTitleBar from '@/components/layout/main-title-bar.tsx'
-import { i18n } from '@/lib/i18n.ts'
 import { AccountsPrimaryButtons } from '@/features/accounts/components/accounts-primary-buttons.tsx'
 import MainContent from '@/components/layout/main-content.tsx'
 import { AccountsDialogs } from '@/features/accounts/components/accounts-dialogs.tsx'
 import { AccountsTable } from '@/features/accounts/components/accounts-table.tsx'
 import { columns } from '@/features/accounts/components/accounts-columns.tsx'
+import { useTranslation } from 'react-i18next'
 
 
 export default function AccountsPage() {
+  const { t } = useTranslation()
   const routeApi = getRouteApi('/_authenticated/accounts/')
   const { page, limit } = routeApi.useSearch()
 
@@ -28,8 +29,8 @@ export default function AccountsPage() {
 
       <Main>
         <MainTitleBar
-          title={i18n.t('layout.navigate.items.account')}
-          description={i18n.t('apps.accounts.description')}
+          title={t('layout.navigate.items.account')}
+          description={t('apps.accounts.description')}
           >
           <AccountsPrimaryButtons />
         </MainTitleBar>

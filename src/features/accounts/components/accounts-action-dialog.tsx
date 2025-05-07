@@ -15,6 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { PasswordInput } from "@/components/password-input"
 import { Separator } from "@/components/ui/separator"
 import { toast } from 'sonner'
+import { useTranslation } from "react-i18next"
 
 const accountFormSchema = z.object({
   loginName: z.string(),
@@ -30,6 +31,7 @@ const accountFormSchema = z.object({
 export type AccountForm = z.infer<typeof accountFormSchema>
 
 export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo>) {
+  const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -46,8 +48,8 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
 
         const title = isUpdate ? 'apps.accounts.toast.update.title' : 'apps.accounts.toast.create.title'
 
-        toast.success(i18n.t(title), {
-          description: i18n.t(
+        toast.success(t(title), {
+          description: t(
             isUpdate
               ? 'apps.accounts.toast.update.ed'
               : 'apps.accounts.toast.create.ed',
@@ -103,12 +105,12 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.accounts.update.title' : 'apps.accounts.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.accounts.update.description'
                 : 'apps.accounts.create.description'
@@ -129,7 +131,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.loginName.title')}
+                      {t('apps.accounts.properties.loginName.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -140,7 +142,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t(isUpdate ? 'apps.accounts.properties.loginName.updateDescription' : 'apps.accounts.properties.loginName.description')}
+                      {t(isUpdate ? 'apps.accounts.properties.loginName.updateDescription' : 'apps.accounts.properties.loginName.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -153,11 +155,11 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.profile.nickname.title')}
+                      {t('apps.accounts.properties.profile.nickname.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.accounts.properties.profile.nickname.placeholder'
                         )}
                         className='col-span-4'
@@ -176,7 +178,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.profile.email.title')}
+                      {t('apps.accounts.properties.profile.email.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -184,7 +186,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                         required={false}
                         className='col-span-4'
                         autoComplete='off'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.accounts.properties.profile.email.placeholder'
                         )}
                         {...field}
@@ -201,14 +203,14 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.profile.avatar.title')}
+                      {t('apps.accounts.properties.profile.avatar.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
                         required={false}
                         className='col-span-4'
                         autoComplete='off'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.accounts.properties.profile.avatar.placeholder'
                         )}
                         {...field}
@@ -227,14 +229,14 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.password.title')}
+                      {t('apps.accounts.properties.password.title')}
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
                         required={!isUpdate}
                         className='col-span-4'
                         autoComplete='off'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.accounts.properties.password.placeholder'
                         )}
                         {...field}
@@ -251,14 +253,14 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.accounts.properties.passwordConfirm.title')}
+                      {t('apps.accounts.properties.passwordConfirm.title')}
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
                         required={!isUpdate}
                         className='col-span-4'
                         autoComplete='off'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.accounts.properties.passwordConfirm.placeholder'
                         )}
                         {...field}
@@ -274,7 +276,7 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
 
         <DialogFooter>
           <Button type='submit' form='account-form' disabled={mutation.isPending}>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.accounts.update.submit' : 'apps.accounts.create.submit'
             )}
           </Button>

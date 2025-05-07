@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { createOrUpdateTag, TagActionPayload } from '@/api/system/tag'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -28,6 +28,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Textarea } from '@/components/ui/textarea'
 import { TagInfo } from '../data/tag'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const tagFormSchema = z.object({
   id: z.number().optional(),
@@ -38,6 +39,7 @@ const tagFormSchema = z.object({
 export type TagForm = z.infer<typeof tagFormSchema>
 
 export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
+  const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -54,12 +56,12 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
           })
           .then()
 
-        toast.success(i18n.t(
+        toast.success(t(
           isUpdate
             ? 'apps.tags.toast.update.title'
             : 'apps.tags.toast.create.title'
         ), {
-          description: i18n.t(
+          description: t(
             isUpdate
               ? 'apps.tags.toast.update.ed'
               : 'apps.tags.toast.create.ed',
@@ -105,12 +107,12 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.tags.update.title' : 'apps.tags.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.tags.update.description'
                 : 'apps.tags.create.description'
@@ -131,11 +133,11 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.tags.properties.name.title')}
+                      {t('apps.tags.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.tags.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -144,7 +146,7 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t('apps.tags.properties.name.createDescription')}
+                      {t('apps.tags.properties.name.createDescription')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -157,13 +159,13 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.tags.properties.description.title')}
+                      {t('apps.tags.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.tags.properties.description.placeholder'
                         )}
                         {...field}
@@ -179,7 +181,7 @@ export function TagsActionDialog(props: ListAppActionDialogProps<TagInfo>) {
 
         <DialogFooter>
           <Button type='submit' form='tag-form' disabled={mutation.isPending}>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.tags.update.submit' : 'apps.tags.create.submit'
             )}
           </Button>

@@ -6,7 +6,7 @@ import {
   createOrUpdateDeveloper,
   DeveloperActionPayload,
 } from '@/api/system/developer'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,6 +40,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { DeveloperInfo } from '../data/developer'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const developerFormSchema = z.object({
   id: z.number().optional(),
@@ -54,6 +55,7 @@ export type DeveloperForm = z.infer<typeof developerFormSchema>
 export function DevelopersActionDialog(
   props: ListAppActionDialogProps<DeveloperInfo>
 ) {
+  const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -71,12 +73,12 @@ export function DevelopersActionDialog(
           .invalidateQueries({ queryKey: ['developers-list', page, limit] })
           .then()
 
-        toast.success(i18n.t(
+        toast.success(t(
           isUpdate
             ? 'apps.developers.toast.update.title'
             : 'apps.developers.toast.create.title'
         ), {
-          description: i18n.t(
+          description: t(
             isUpdate
               ? 'apps.developers.toast.update.ed'
               : 'apps.developers.toast.create.ed',
@@ -124,14 +126,14 @@ export function DevelopersActionDialog(
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.developers.update.title'
                 : 'apps.developers.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.developers.update.description'
                 : 'apps.developers.create.description'
@@ -152,11 +154,11 @@ export function DevelopersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.developers.properties.name.title')}
+                      {t('apps.developers.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.developers.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -165,7 +167,7 @@ export function DevelopersActionDialog(
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t(
+                      {t(
                         'apps.developers.properties.name.createDescription'
                       )}
                     </FormDescription>
@@ -180,13 +182,13 @@ export function DevelopersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.developers.properties.description.title')}
+                      {t('apps.developers.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.developers.properties.description.placeholder'
                         )}
                         {...field}
@@ -203,7 +205,7 @@ export function DevelopersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.developers.properties.type.title')}
+                      {t('apps.developers.properties.type.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -212,7 +214,7 @@ export function DevelopersActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.developers.properties.type.placeholder'
                             )}
                           />
@@ -220,19 +222,19 @@ export function DevelopersActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.developers.properties.type.unknown')}
+                          {t('apps.developers.properties.type.unknown')}
                         </SelectItem>
                         <SelectGroup>
                           <SelectLabel>
-                            {i18n.t('apps.developers.properties.type.private')}
+                            {t('apps.developers.properties.type.private')}
                           </SelectLabel>
                           <SelectItem value='1'>
-                            {i18n.t(
+                            {t(
                               'apps.developers.properties.type.department'
                             )}
                           </SelectItem>
                           <SelectItem value='2'>
-                            {i18n.t(
+                            {t(
                               'apps.developers.properties.type.subsidiary'
                             )}
                           </SelectItem>
@@ -240,20 +242,20 @@ export function DevelopersActionDialog(
 
                         <SelectGroup>
                           <SelectLabel>
-                            {i18n.t(
+                            {t(
                               'apps.developers.properties.type.thirdparty'
                             )}
                           </SelectLabel>
                           <SelectItem value='3'>
-                            {i18n.t(
+                            {t(
                               'apps.developers.properties.type.individual'
                             )}
                           </SelectItem>
                           <SelectItem value='4'>
-                            {i18n.t('apps.developers.properties.type.studio')}
+                            {t('apps.developers.properties.type.studio')}
                           </SelectItem>
                           <SelectItem value='5'>
-                            {i18n.t('apps.developers.properties.type.company')}
+                            {t('apps.developers.properties.type.company')}
                           </SelectItem>
                         </SelectGroup>
                       </SelectContent>
@@ -268,7 +270,7 @@ export function DevelopersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.developers.properties.status.title')}
+                      {t('apps.developers.properties.status.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -277,7 +279,7 @@ export function DevelopersActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.developers.properties.status.placeholder'
                             )}
                           />
@@ -285,16 +287,16 @@ export function DevelopersActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.developers.properties.status.unknown')}
+                          {t('apps.developers.properties.status.unknown')}
                         </SelectItem>
                         <SelectItem value='1'>
-                          {i18n.t('apps.developers.properties.status.normal')}
+                          {t('apps.developers.properties.status.normal')}
                         </SelectItem>
                         <SelectItem value='2'>
-                          {i18n.t('apps.developers.properties.status.frozen')}
+                          {t('apps.developers.properties.status.frozen')}
                         </SelectItem>
                         <SelectItem value='3'>
-                          {i18n.t('apps.developers.properties.status.deleted')}
+                          {t('apps.developers.properties.status.deleted')}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -311,7 +313,7 @@ export function DevelopersActionDialog(
             form='developer-form'
             disabled={mutation.isPending}
           >
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.developers.update.submit'
                 : 'apps.developers.create.submit'
