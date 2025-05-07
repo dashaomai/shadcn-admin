@@ -91,6 +91,24 @@
       "no-results": "当前无数据内容。"
     }
   },
+  "settings": {
+    "profile": {
+      "title": "个人资料",
+      "description": "请在此处查看并修改你的个人资料"
+    },
+    "account": {
+
+    },
+    "appearance": {
+
+    },
+    "notification": {
+
+    },
+    "display": {
+
+    }
+  },
   "apps": {
     "table": {
       "toggle-columns": "数据列显示开关",
@@ -180,6 +198,9 @@
         "updateRoles": {
           "success": "角色更新完毕",
           "successDescription": "账号 {{loginName}} 的角色已经更新完毕"
+        },
+        "updateProfile": {
+          "submit": "更新个人资料"
         }
       },
       "description": "对系统内各个账号进行管理",
@@ -220,15 +241,18 @@
         "profile": {
           "nickname": {
             "title": "昵称",
-            "placeholder": "请输入账号的昵称"
+            "placeholder": "请输入账号的昵称",
+            "description": "系统中用户能互相看见对方的昵称。"
           },
           "email": {
             "title": "电子邮箱",
-            "placeholder": "请输入账号的电子邮箱"
+            "placeholder": "请输入账号的电子邮箱",
+            "description": "此电子邮箱为工作用途，请确保畅通。"
           },
           "avatar": {
             "title": "头像",
-            "placeholder": "请上传账号的头像"
+            "placeholder": "请上传账号的头像",
+            "description": "如果不设置头像，系统将会使用账号名生成默认头像。"
           }
         },
         "roles": {
