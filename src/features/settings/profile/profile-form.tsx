@@ -1,3 +1,4 @@
+import { getProfile, updateProfile } from '@/api/auth'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -11,9 +12,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { i18n } from '@/lib/i18n'
-import { showSubmittedData } from '@/utils/show-submitted-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const profileFormSchema = z.object({
@@ -25,23 +26,24 @@ const profileFormSchema = z.object({
   avatar: z.string().url().optional(),
 })
 
-type ProfileFormValues = z.infer<typeof profileFormSchema>
-
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-}
+export type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export default function ProfileForm() {
+  
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    defaultValues: async () => await getProfile() as ProfileFormValues,
     mode: 'onChange',
   })
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => showSubmittedData(data))}
+        onSubmit={form.handleSubmit((data) => {
+          updateProfile(data).then(() => {
+            toast.success(i18n.t('apps.accounts.actions.updateProfile.success'))
+          })
+        })}
         className='space-y-8'
       >
         <FormField
@@ -51,7 +53,7 @@ export default function ProfileForm() {
             <FormItem>
               <FormLabel>{i18n.t('apps.accounts.properties.profile.nickname.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={i18n.t('apps.accounts.properties.profile.nickname.placeholder')} readOnly {...field} />
+                <Input placeholder={i18n.t('apps.accounts.properties.profile.nickname.placeholder')} {...field} />
               </FormControl>
               <FormDescription>
                 {i18n.t('apps.accounts.properties.profile.nickname.description')}
@@ -67,7 +69,7 @@ export default function ProfileForm() {
             <FormItem>
               <FormLabel>{i18n.t('apps.accounts.properties.profile.email.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={i18n.t('apps.accounts.properties.profile.email.placeholder')} readOnly {...field} />
+                <Input placeholder={i18n.t('apps.accounts.properties.profile.email.placeholder')} {...field} />
               </FormControl>
               <FormDescription>
                 {i18n.t('apps.accounts.properties.profile.email.description')}

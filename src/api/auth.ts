@@ -10,6 +10,7 @@ import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
 import { AccountForm } from '@/features/accounts/components/accounts-action-dialog'
 import { AccountRolesForm } from '@/features/accounts/components/accounts-roles-dialog'
+import { ProfileFormValues } from '@/features/settings/profile/profile-form'
 
 export async function doSignIn(name: string, password: string) {
   const data = {
@@ -36,6 +37,13 @@ export async function doSignIn(name: string, password: string) {
 
 export const getProfile = async (accountId?: string) => {
   return getPersonalData<ConsoleProfile>('/account/profile/', accountId)
+}
+
+export const updateProfile = async (profile: ProfileFormValues, accountId?: string) => {
+  return fetchAuthed<ConsoleProfile>(`/account/profile/${accountId ?? ''}`, {
+    method: 'POST',
+    body: JSON.stringify(profile),
+  })
 }
 
 export const getRoles = async (accountId?: string) => {

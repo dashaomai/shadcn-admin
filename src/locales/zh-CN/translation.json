@@ -200,7 +200,9 @@
           "successDescription": "账号 {{loginName}} 的角色已经更新完毕"
         },
         "updateProfile": {
-          "submit": "更新个人资料"
+          "submit": "更新个人资料",
+          "success": "个人资料更新完毕",
+          "failed": "个人资料更新失败"
         }
       },
       "description": "对系统内各个账号进行管理",
