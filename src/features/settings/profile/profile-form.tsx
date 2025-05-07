@@ -1,4 +1,4 @@
-import { getProfile, updateProfile } from '@/api/auth'
+import { getProfile, updateProfile, useProfile } from '@/api/auth'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { queryClient } from '@/lib/client'
 import { i18n } from '@/lib/i18n'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -29,10 +30,13 @@ const profileFormSchema = z.object({
 export type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export default function ProfileForm() {
+
+  const profileQuery = useProfile()
   
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: async () => await getProfile() as ProfileFormValues,
+    // defaultValues: async () => await getProfile() as ProfileFormValues,
+    values: profileQuery.data,
     mode: 'onChange',
   })
 
@@ -41,6 +45,11 @@ export default function ProfileForm() {
       <form
         onSubmit={form.handleSubmit((data) => {
           updateProfile(data).then(() => {
+            setTimeout(() => {
+              queryClient.invalidateQueries({
+                queryKey: ['self-profile'],
+              })
+            }, 0)
             toast.success(i18n.t('apps.accounts.actions.updateProfile.success'))
           })
         })}
