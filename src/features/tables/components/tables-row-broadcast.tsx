@@ -2,6 +2,7 @@ import { FormEvent } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
 import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
 import { useVendorStore } from '@/stores/vendorStore.ts'
@@ -25,6 +26,10 @@ const simpleOutputs: string[] = [
   'apple_h264',
   'StreamAudioEncoder',
   'opus',
+  'RecEncoder',
+  'apple_h264',
+  'RecAudioEncoder',
+  'opus',
 ]
 
 const advOuts: string[] = [
@@ -47,6 +52,10 @@ export function TablesRowBroadcast({ row }: Props) {
 
   async function handleStartBroadcast(_event: FormEvent<HTMLElement>) {
     logger.info('handleBroadcast start', url)
+
+    if (!obs.identified) {
+      await obs.connect()
+    }
 
     await obs.call('SetStreamServiceSettings', {
       streamServiceType: 'whip_custom',
@@ -97,13 +106,27 @@ export function TablesRowBroadcast({ row }: Props) {
       }
 
       await broadcastStore.createBroadcast(request)
+
+      toast.info(t('apps.tables.properties.broadcast.started'), {
+        description: t('apps.tables.properties.broadcast.started-description'),
+      })
     }, 1000)
   }
 
   async function handleStopBroadcast(_event: FormEvent<HTMLElement>) {
+    if (!obs.identified) {
+      await obs.connect()
+    }
+
     await obs.call('StopStream')
 
+    await obs.disconnect()
+
     await broadcastStore.finishBroadcast()
+
+    toast.info(t('apps.tables.properties.broadcast.stopped'), {
+      description: t('apps.tables.properties.broadcast.stopped-description'),
+    })
   }
 
   return (

@@ -600,7 +600,11 @@
           "placeholder": "请输入游戏房的展示顺序"
         },
         "broadcast": {
-          "title": "直播"
+          "title": "直播",
+          "started": "直播已经开始",
+          "started-description": "直播已经开始，位于游戏房内的在线玩家能实时观看",
+          "stopped": "直播已经停止",
+          "stopped-description": "直播已经停止，位于游戏房内的在线玩家只能看到代替图片"
         },
         "status": {
           "title": "状态",
