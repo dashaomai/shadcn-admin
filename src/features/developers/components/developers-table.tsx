@@ -11,7 +11,6 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n'
 import { DataTableProps, numberIn } from '@/lib/list-app'
 import { SelectOption } from '@/lib/option'
 import {
@@ -30,10 +29,12 @@ import {
   DeveloperStatusDescriptions,
   DeveloperTypeDescriptions,
 } from '../data/developer'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<DeveloperInfo>
 
 export function DevelopersTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -67,7 +68,7 @@ export function DevelopersTable({ columns, data, total }: Props) {
   const allTypes = useMemo<SelectOption<number>[]>(
     () =>
       DeveloperTypeDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.developers.properties.type.${desc}`),
+        label: t(`apps.developers.properties.type.${desc}`),
         value: i,
       })),
     []
@@ -76,7 +77,7 @@ export function DevelopersTable({ columns, data, total }: Props) {
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
       DeveloperStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.developers.properties.status.${desc}`),
+        label: t(`apps.developers.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -86,13 +87,13 @@ export function DevelopersTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.developers.toolbar.placeholder')}
+        placeholder={t('apps.developers.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('type') && allTypes && (
             <TableFacetedFilter
               column={table.getColumn('type')}
-              title={i18n.t('apps.developers.properties.type.title')}
+              title={t('apps.developers.properties.type.title')}
               options={allTypes}
             />
           )}
@@ -100,7 +101,7 @@ export function DevelopersTable({ columns, data, total }: Props) {
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.developers.properties.status.title')}
+              title={t('apps.developers.properties.status.title')}
               options={allStatus}
             />
           )}
@@ -159,7 +160,7 @@ export function DevelopersTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

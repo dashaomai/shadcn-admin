@@ -7,14 +7,15 @@ import {
 } from '@/components/ui/dropdown-menu.tsx'
 import { useAccounts } from '@/features/accounts/context/accounts-context.tsx'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit, IconRecycle, IconUsersGroup } from '@tabler/icons-react'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableRowActionsProps<AccountInfo>
 
 export function AccountsRowActions({ row }: Props) {
+  const { t } = useTranslation()
   const { setOpen, setCurrentRow } = useAccounts()
 
   return (
@@ -27,7 +28,7 @@ export function AccountsRowActions({ row }: Props) {
           >
             <DotsHorizontalIcon className='h-4 w-4' />
             <span className='sr-only'>
-              {i18n.t('apps.table.actions.open-menu')}
+              {t('apps.table.actions.open-menu')}
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -39,7 +40,7 @@ export function AccountsRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-          {i18n.t('apps.accounts.actions.edit')}
+          {t('apps.accounts.actions.edit')}
           <DropdownMenuShortcut>
             <IconEdit size={16} />
           </DropdownMenuShortcut>
@@ -52,7 +53,7 @@ export function AccountsRowActions({ row }: Props) {
               setOpen('update-roles')
             }}
           >
-          {i18n.t('apps.accounts.actions.edit-roles')}
+          {t('apps.accounts.actions.edit-roles')}
           <DropdownMenuShortcut>
             <IconUsersGroup size={16} />
           </DropdownMenuShortcut>
@@ -67,7 +68,7 @@ export function AccountsRowActions({ row }: Props) {
             }}
             className='!text-red-500'
           >
-            {i18n.t('apps.accounts.actions.reset-password')}
+            {t('apps.accounts.actions.reset-password')}
             <DropdownMenuShortcut>
               <IconRecycle size={16} />
             </DropdownMenuShortcut>

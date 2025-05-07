@@ -1,6 +1,5 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit, IconUsersGroup } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n'
 import { DataTableRowActionsProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,10 +12,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { usePlatforms } from '../context/platforms-context'
 import { PlatformInfo } from '../data/platform'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableRowActionsProps<PlatformInfo>
 
 export function PlatformsRowActions({ row }: Props) {
+  const { t } = useTranslation()
   const { setOpen, setCurrentRow } = usePlatforms()
 
   return (
@@ -29,7 +30,7 @@ export function PlatformsRowActions({ row }: Props) {
           >
             <DotsHorizontalIcon className='h-4 w-4' />
             <span className='sr-only'>
-              {i18n.t('apps.table.actions.open-menu')}
+              {t('apps.table.actions.open-menu')}
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -41,7 +42,7 @@ export function PlatformsRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            {i18n.t('apps.platforms.actions.edit')}
+            {t('apps.platforms.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>

@@ -6,7 +6,7 @@ import {
   createOrUpdateGameCatalog,
   GameCatalogActionPayload,
 } from '@/api/system/game-catalog'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -38,6 +38,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { GameCatalogInfo } from '../data/game-catalog'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const gameCatalogFormSchema = z.object({
   id: z.number().optional(),
@@ -52,6 +53,8 @@ export type GameCatalogForm = z.infer<typeof gameCatalogFormSchema>
 export function GameCatalogsActionDialog(
   props: ListAppActionDialogProps<GameCatalogInfo>
 ) {
+  const { t } = useTranslation()
+  
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -71,12 +74,12 @@ export function GameCatalogsActionDialog(
           })
           .then()
 
-        toast.success(i18n.t(
+        toast.success(t(
           isUpdate
             ? 'apps.game-catalogs.toast.update.title'
             : 'apps.game-catalogs.toast.create.title'
         ), {
-          description: i18n.t(
+          description: t(
             isUpdate
               ? 'apps.game-catalogs.toast.update.ed'
               : 'apps.game-catalogs.toast.create.ed',
@@ -120,14 +123,14 @@ export function GameCatalogsActionDialog(
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.game-catalogs.update.title'
                 : 'apps.game-catalogs.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.game-catalogs.update.description'
                 : 'apps.game-catalogs.create.description'
@@ -148,11 +151,11 @@ export function GameCatalogsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.game-catalogs.properties.name.title')}
+                      {t('apps.game-catalogs.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.game-catalogs.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -161,7 +164,7 @@ export function GameCatalogsActionDialog(
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t(
+                      {t(
                         'apps.game-catalogs.properties.name.createDescription'
                       )}
                     </FormDescription>
@@ -176,7 +179,7 @@ export function GameCatalogsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t(
+                      {t(
                         'apps.game-catalogs.properties.description.title'
                       )}
                     </FormLabel>
@@ -184,7 +187,7 @@ export function GameCatalogsActionDialog(
                       <Textarea
                         rows={3}
                         className='col-span-4'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.game-catalogs.properties.description.placeholder'
                         )}
                         {...field}
@@ -201,7 +204,7 @@ export function GameCatalogsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t(
+                      {t(
                         'apps.game-catalogs.properties.displayOrder.title'
                       )}
                     </FormLabel>
@@ -222,7 +225,7 @@ export function GameCatalogsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.game-catalogs.properties.status.title')}
+                      {t('apps.game-catalogs.properties.status.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -231,7 +234,7 @@ export function GameCatalogsActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.game-catalogs.properties.status.placeholder'
                             )}
                           />
@@ -239,15 +242,15 @@ export function GameCatalogsActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.game-catalogs.properties.status.draft')}
+                          {t('apps.game-catalogs.properties.status.draft')}
                         </SelectItem>
                         <SelectItem value='1'>
-                          {i18n.t(
+                          {t(
                             'apps.game-catalogs.properties.status.published'
                           )}
                         </SelectItem>
                         <SelectItem value='2'>
-                          {i18n.t(
+                          {t(
                             'apps.game-catalogs.properties.status.deleted'
                           )}
                         </SelectItem>
@@ -266,7 +269,7 @@ export function GameCatalogsActionDialog(
             form='game-catalog-form'
             disabled={mutation.isPending}
           >
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.game-catalogs.update.submit'
                 : 'apps.game-catalogs.create.submit'

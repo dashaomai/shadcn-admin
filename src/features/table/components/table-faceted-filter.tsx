@@ -1,5 +1,4 @@
 import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableFacetedFilterProps } from '@/lib/list-app.ts'
 import { cn } from '@/lib/utils.ts'
 import { Badge } from '@/components/ui/badge.tsx'
@@ -19,12 +18,14 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
+import { useTranslation } from 'react-i18next'
 
 export function TableFacetedFilter<T, V, O>({
   column,
   title,
   options,
 }: DataTableFacetedFilterProps<T, V, O>) {
+  const { t } = useTranslation()
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as O[])
 
@@ -73,7 +74,7 @@ export function TableFacetedFilter<T, V, O>({
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
-            <CommandEmpty>{i18n.t('common.data.no-results')}</CommandEmpty>
+            <CommandEmpty>{t('common.data.no-results')}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
@@ -123,7 +124,7 @@ export function TableFacetedFilter<T, V, O>({
                     onSelect={() => column?.setFilterValue(undefined)}
                     className='justify-center text-center'
                   >
-                    {i18n.t('apps.table.faceted-filter.clear')}
+                    {t('apps.table.faceted-filter.clear')}
                   </CommandItem>
                 </CommandGroup>
               </>

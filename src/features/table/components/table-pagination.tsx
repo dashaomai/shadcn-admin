@@ -5,7 +5,6 @@ import {
   DoubleArrowRightIcon,
 } from '@radix-ui/react-icons'
 import { useRouter, useSearch } from '@tanstack/react-router'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTablePaginationProps } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
@@ -15,10 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-import logger from 'loglevel'
+import { useTranslation } from 'react-i18next'
 
 export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
-  logger.info('Table Pagination component')
+  const { t } = useTranslation()
 
   const router = useRouter()
   const pathname = router.latestLocation.pathname
@@ -47,7 +46,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
       style={{ overflowClipMargin: 1 }}
     >
       <div className='hidden flex-1 text-sm text-muted-foreground sm:block'>
-        {i18n.t('apps.table.pagination.selected', {
+        {t('apps.table.pagination.selected', {
           selected: table.getFilteredSelectedRowModel().rows.length,
           count: table.getFilteredRowModel().rows.length,
         })}
@@ -55,7 +54,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
       <div className='flex items-center sm:space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>
           <p className='hidden text-sm font-medium sm:block'>
-            {i18n.t('apps.table.pagination.rows')}
+            {t('apps.table.pagination.rows')}
           </p>
           <Select
             value={`${Number(limit)}`}
@@ -74,7 +73,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
           </Select>
         </div>
         <div className='flex w-[100px] items-center justify-center text-sm font-medium'>
-          {i18n.t('apps.table.pagination.page', {
+          {t('apps.table.pagination.page', {
             page,
             maxPage,
           })}
@@ -87,7 +86,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             disabled={!canPreviousPage}
           >
             <span className='sr-only'>
-              {i18n.t('apps.table.pagination.first-page')}
+              {t('apps.table.pagination.first-page')}
             </span>
             <DoubleArrowLeftIcon className='h-4 w-4' />
           </Button>
@@ -98,7 +97,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             disabled={!canPreviousPage}
           >
             <span className='sr-only'>
-              {i18n.t('apps.table.pagination.prev-page')}
+              {t('apps.table.pagination.prev-page')}
             </span>
             <ChevronLeftIcon className='h-4 w-4' />
           </Button>
@@ -109,7 +108,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             disabled={!canNextPage}
           >
             <span className='sr-only'>
-              {i18n.t('apps.table.pagination.next-page')}
+              {t('apps.table.pagination.next-page')}
             </span>
             <ChevronRightIcon className='h-4 w-4' />
           </Button>
@@ -120,7 +119,7 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             disabled={!canNextPage}
           >
             <span className='sr-only'>
-              {i18n.t('apps.table.pagination.last-page')}
+              {t('apps.table.pagination.last-page')}
             </span>
             <DoubleArrowRightIcon className='h-4 w-4' />
           </Button>

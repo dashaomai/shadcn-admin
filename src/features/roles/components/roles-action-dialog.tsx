@@ -5,7 +5,6 @@ import { getRouteApi } from '@tanstack/react-router'
 import { Role } from '@/schemas/role.ts'
 import { createOrUpdateRole } from '@/api/auth.ts'
 import { z } from '@/lib/i18n'
-import { i18n } from '@/lib/i18n.ts'
 import { ListAppActionDialogProps } from '@/lib/list-app.ts'
 import { CreateOrUpdateRoleResponse } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx'
@@ -30,6 +29,7 @@ import { Input } from '@/components/ui/input.tsx'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
 import { Textarea } from '@/components/ui/textarea.tsx'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const formSchema = z.object({
   name: z.string().min(3),
@@ -39,6 +39,7 @@ const formSchema = z.object({
 export type RoleForm = z.infer<typeof formSchema>
 
 export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
+  const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -56,8 +57,8 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
         const title = isUpdate ? 'apps.roles.toast.update.title' : 'apps.roles.toast.create.title'
         const description = isUpdate ? 'apps.roles.toast.update.ed' : 'apps.roles.toast.create.ed'
 
-        toast.success(i18n.t(title), {
-          description: i18n.t(
+        toast.success(t(title), {
+          description: t(
             description,
             { name: params.name }
           ),
@@ -103,12 +104,12 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.roles.update.title' : 'apps.roles.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.roles.update.description'
                 : 'apps.roles.create.description'
@@ -129,11 +130,11 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.roles.properties.name.title')}
+                      {t('apps.roles.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.roles.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -142,7 +143,7 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t('apps.roles.properties.name.description')}
+                      {t('apps.roles.properties.name.description')}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -155,14 +156,14 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.roles.properties.description.title')}
+                      {t('apps.roles.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
                         autoComplete='off'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.roles.properties.description.placeholder'
                         )}
                         {...field}
@@ -178,7 +179,7 @@ export function RolesActionDialog(props: ListAppActionDialogProps<Role>) {
 
         <DialogFooter>
           <Button type='submit' form='role-form' disabled={mutation.isPending}>
-            {i18n.t(
+            {t(
               isUpdate ? 'apps.roles.update.submit' : 'apps.roles.create.submit'
             )}
           </Button>

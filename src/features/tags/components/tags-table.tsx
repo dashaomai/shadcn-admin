@@ -11,7 +11,6 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n'
 import { DataTableProps, numberIn } from '@/lib/list-app'
 import {
   Table,
@@ -24,10 +23,12 @@ import {
 import { TablePagination } from '@/features/table/components/table-pagination'
 import { TableToolbar } from '@/features/table/components/table-toolbar'
 import { TagInfo } from '../data/tag'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<TagInfo>
 
 export function TagsTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -62,7 +63,7 @@ export function TagsTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.tags.toolbar.placeholder')}
+        placeholder={t('apps.tags.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'></div>
       </TableToolbar>
@@ -119,7 +120,7 @@ export function TagsTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

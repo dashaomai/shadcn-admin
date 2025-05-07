@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { listPlatforms } from '@/api/system/platform'
-import { i18n } from '@/lib/i18n'
 import { Main } from '@/components/layout/main'
 import MainContent from '@/components/layout/main-content'
 import MainHeader from '@/components/layout/main-header'
@@ -11,8 +10,11 @@ import { PlatformsDialogs } from './components/platforms-dialogs'
 import { PlatformsPrimaryButtons } from './components/platforms-primary-buttons'
 import { PlatformsTable } from './components/platforms-table'
 import PlatformsProvider from './context/platforms-context'
+import { useTranslation } from 'react-i18next'
 
 export default function PlatformsPage() {
+  const { t } = useTranslation()
+  
   const routeApi = getRouteApi('/_authenticated/platforms/')
   const { page, limit } = routeApi.useSearch()
 
@@ -27,8 +29,8 @@ export default function PlatformsPage() {
 
       <Main>
         <MainTitleBar
-          title={i18n.t('layout.navigate.items.platform')}
-          description={i18n.t('apps.platforms.description')}
+          title={t('layout.navigate.items.platform')}
+          description={t('apps.platforms.description')}
         >
           <PlatformsPrimaryButtons />
         </MainTitleBar>

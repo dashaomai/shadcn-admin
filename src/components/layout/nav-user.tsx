@@ -8,7 +8,6 @@ import {
 } from 'lucide-react'
 import { useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
-import { i18n } from '@/lib/i18n'
 import { getFallback } from '@/utils/avatar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -27,8 +26,10 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useTranslation } from 'react-i18next'
 
 export function NavUser() {
+  const { t } = useTranslation()
   const { isMobile } = useSidebar()
   const authStore = useAuthStore()
   const profileQuery = useProfile()
@@ -100,27 +101,27 @@ export function NavUser() {
               <DropdownMenuItem asChild>
                 <Link to='/settings/account'>
                   <BadgeCheck />
-                  {i18n.t('layout.account.profile')}
+                  {t('layout.account.profile')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings'>
                   <CreditCard />
-                  {i18n.t('layout.account.billing')}
+                  {t('layout.account.billing')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings/notifications'>
                   <Bell />
-                  {i18n.t('layout.account.settings')}
+                  {t('layout.account.settings')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link onClick={() => authStore.auth.reset()}>
+              <Link to="." onClick={() => authStore.auth.reset()}>
                 <LogOut />
-                {i18n.t('auth.signOut')}
+                {t('auth.signOut')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -1,6 +1,5 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { Role } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx'
@@ -13,10 +12,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx'
 import { useRoles } from '@/features/roles/context/roles-context.tsx'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableRowActionsProps<Role>
 
 export function RolesRowActions({ row }: Props) {
+  const { t } = useTranslation()
   const { setOpen, setCurrentRow } = useRoles()
 
   return (
@@ -29,7 +30,7 @@ export function RolesRowActions({ row }: Props) {
           >
             <DotsHorizontalIcon className='h-4 w-4' />
             <span className='sr-only'>
-              {i18n.t('apps.table.actions.open-menu')}
+              {t('apps.table.actions.open-menu')}
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -40,7 +41,7 @@ export function RolesRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            {i18n.t('apps.table.actions.edit')}
+            {t('apps.table.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>
@@ -53,7 +54,7 @@ export function RolesRowActions({ row }: Props) {
             }}
             className='!text-red-500'
           >
-            {i18n.t('apps.table.actions.delete')}
+            {t('apps.table.actions.delete')}
             <DropdownMenuShortcut>
               <IconTrash size={16} />
             </DropdownMenuShortcut>

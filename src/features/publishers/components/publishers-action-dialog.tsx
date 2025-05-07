@@ -6,7 +6,7 @@ import {
   createOrUpdatePublisher,
   PublisherActionPayload,
 } from '@/api/system/publisher'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,6 +40,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { PublisherInfo } from '../data/publisher'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const publisherFormSchema = z.object({
   id: z.number().optional(),
@@ -54,6 +55,8 @@ export type PublisherForm = z.infer<typeof publisherFormSchema>
 export function PublishersActionDialog(
   props: ListAppActionDialogProps<PublisherInfo>
 ) {
+  const { t } = useTranslation()
+  
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -73,12 +76,12 @@ export function PublishersActionDialog(
           })
           .then()
 
-        toast.success(i18n.t(
+        toast.success(t(
           isUpdate
             ? 'apps.publishers.toast.update.title'
             : 'apps.publishers.toast.create.title'
         ), {
-          description: i18n.t(
+          description: t(
             isUpdate
               ? 'apps.publishers.toast.update.ed'
               : 'apps.publishers.toast.create.ed',
@@ -126,14 +129,14 @@ export function PublishersActionDialog(
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.publishers.update.title'
                 : 'apps.publishers.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.publishers.update.description'
                 : 'apps.publishers.create.description'
@@ -154,11 +157,11 @@ export function PublishersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.publishers.properties.name.title')}
+                      {t('apps.publishers.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.publishers.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -167,7 +170,7 @@ export function PublishersActionDialog(
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t(
+                      {t(
                         'apps.publishers.properties.name.createDescription'
                       )}
                     </FormDescription>
@@ -182,13 +185,13 @@ export function PublishersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.publishers.properties.description.title')}
+                      {t('apps.publishers.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.publishers.properties.description.placeholder'
                         )}
                         {...field}
@@ -205,7 +208,7 @@ export function PublishersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.publishers.properties.type.title')}
+                      {t('apps.publishers.properties.type.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -214,7 +217,7 @@ export function PublishersActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.publishers.properties.type.placeholder'
                             )}
                           />
@@ -222,26 +225,26 @@ export function PublishersActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.publishers.properties.type.unknown')}
+                          {t('apps.publishers.properties.type.unknown')}
                         </SelectItem>
                         <SelectGroup>
                           <SelectLabel>
-                            {i18n.t('apps.publishers.properties.type.private')}
+                            {t('apps.publishers.properties.type.private')}
                           </SelectLabel>
                           <SelectItem value='1'>
-                            {i18n.t(
+                            {t(
                               'apps.publishers.properties.type.department'
                             )}
                           </SelectItem>
                           <SelectItem value='2'>
-                            {i18n.t(
+                            {t(
                               'apps.publishers.properties.type.subsidiary'
                             )}
                           </SelectItem>
                         </SelectGroup>
 
                         <SelectItem value='3'>
-                          {i18n.t('apps.publishers.properties.type.thirdparty')}
+                          {t('apps.publishers.properties.type.thirdparty')}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -255,7 +258,7 @@ export function PublishersActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.publishers.properties.status.title')}
+                      {t('apps.publishers.properties.status.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -264,7 +267,7 @@ export function PublishersActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.publishers.properties.status.placeholder'
                             )}
                           />
@@ -272,13 +275,13 @@ export function PublishersActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.publishers.properties.status.disabled')}
+                          {t('apps.publishers.properties.status.disabled')}
                         </SelectItem>
                         <SelectItem value='1'>
-                          {i18n.t('apps.publishers.properties.status.enabled')}
+                          {t('apps.publishers.properties.status.enabled')}
                         </SelectItem>
                         <SelectItem value='2'>
-                          {i18n.t('apps.publishers.properties.status.pending')}
+                          {t('apps.publishers.properties.status.pending')}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -295,7 +298,7 @@ export function PublishersActionDialog(
             form='platform-form'
             disabled={mutation.isPending}
           >
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.publishers.update.submit'
                 : 'apps.publishers.create.submit'
