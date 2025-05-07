@@ -1,4 +1,4 @@
-import { getProfile, updateProfile, useProfile } from '@/api/auth'
+import { updateProfile, useProfile } from '@/api/auth'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -12,11 +12,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { queryClient } from '@/lib/client'
-import { i18n } from '@/lib/i18n'
+import { i18n, z } from '@/lib/i18n'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 const profileFormSchema = z.object({
   nickname: z

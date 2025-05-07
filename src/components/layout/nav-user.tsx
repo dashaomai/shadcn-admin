@@ -118,7 +118,7 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link onClick={() => authStore.auth.reset()}>
+              <Link to="." onClick={() => authStore.auth.reset()}>
                 <LogOut />
                 {i18n.t('auth.signOut')}
               </Link>
