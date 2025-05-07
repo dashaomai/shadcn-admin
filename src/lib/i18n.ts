@@ -24,19 +24,33 @@ const resources = {
   },
 }
 
+const storedLng = localStorage.getItem('i18nextLng')
+const defaultLng = storedLng ? storedLng : 'zh-CN'
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'zh-CN',
-    fallbackLng: 'zh-CN',
+    lng: defaultLng,
+    fallbackLng: 'en',
 
     keySeparator: '.', // must use . as the separator, because zod map fixed as it.
     interpolation: {
       escapeValue: false,
     },
+
+    react: {
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed changed',
+    },
   })
   .then()
 z.setErrorMap(zodI18nMap)
 
-export { i18n, z }
+const setLanguage = (lng: string) => {
+  localStorage.setItem('i18nextLng', lng)
+
+  i18n.changeLanguage(lng).then()
+}
+
+export { i18n, z, setLanguage }

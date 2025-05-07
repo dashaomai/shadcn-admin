@@ -13,11 +13,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useTheme } from '@/context/theme-context'
 import { cn } from '@/lib/utils'
-import { showSubmittedData } from '@/utils/show-submitted-data'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
 import { useForm } from 'react-hook-form'
-import { i18n, z } from '@/lib/i18n'
+import { setLanguage, z } from '@/lib/i18n'
+import { useTranslation } from 'react-i18next'
 
 const languages = [
   { label: '繁體中文', value: 'zh-TW' },
@@ -34,6 +34,7 @@ type AppearanceFormValues = z.infer<typeof appearanceFormSchema>
 
 export function AppearanceForm() {
   const { theme, setTheme } = useTheme()
+  const { t } = useTranslation()
 
   // This can come from your database or API.
   const defaultValues: Partial<AppearanceFormValues> = {
@@ -49,7 +50,7 @@ export function AppearanceForm() {
   function onSubmit(data: AppearanceFormValues) {
     if (data.theme != theme) setTheme(data.theme)
 
-    showSubmittedData(data)
+    setLanguage(data.language)
   }
 
   return (
@@ -60,9 +61,9 @@ export function AppearanceForm() {
           name='theme'
           render={({ field }) => (
             <FormItem className='space-y-1'>
-              <FormLabel>{i18n.t('settings.appearance.theme.title')}</FormLabel>
+              <FormLabel>{t('settings.appearance.theme.title')}</FormLabel>
               <FormDescription>
-                {i18n.t('settings.appearance.theme.description')}
+                {t('settings.appearance.theme.description')}
               </FormDescription>
               <FormMessage />
               <RadioGroup
@@ -92,7 +93,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      {i18n.t('settings.appearance.theme.light')}
+                      {t('settings.appearance.theme.light')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -118,7 +119,7 @@ export function AppearanceForm() {
                       </div>
                     </div>
                     <span className='block w-full p-2 text-center font-normal'>
-                      {i18n.t('settings.appearance.theme.dark')}
+                      {t('settings.appearance.theme.dark')}
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -132,7 +133,7 @@ export function AppearanceForm() {
           name='language'
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel>{i18n.t('settings.appearance.language.title')}</FormLabel>
+              <FormLabel>{t('settings.appearance.language.title')}</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -155,8 +156,8 @@ export function AppearanceForm() {
                 </PopoverTrigger>
                 <PopoverContent className='w-[200px] p-0'>
                   <Command>
-                    <CommandInput placeholder={i18n.t('settings.appearance.language.search-placeholder')} />
-                    <CommandEmpty>{i18n.t('settings.appearance.language.no-results-found')}</CommandEmpty>
+                    <CommandInput placeholder={t('settings.appearance.language.search-placeholder')} />
+                    <CommandEmpty>{t('settings.appearance.language.no-results-found')}</CommandEmpty>
                     <CommandGroup>
                       <CommandList>
                         {languages.map((language) => (
@@ -184,14 +185,14 @@ export function AppearanceForm() {
                 </PopoverContent>
               </Popover>
               <FormDescription>
-                {i18n.t('settings.appearance.language.description')}
+                {t('settings.appearance.language.description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type='submit'>{i18n.t('settings.appearance.submit')}</Button>
+        <Button type='submit'>{t('settings.appearance.submit')}</Button>
       </form>
     </Form>
   )
