@@ -8,24 +8,15 @@ import {
 } from '@tabler/icons-react'
 import { i18n } from '@/lib/i18n'
 import { Separator } from '@/components/ui/separator'
-import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
-import { ProfileDropdown } from '@/components/profile-dropdown'
-import { Search } from '@/components/search'
-import { ThemeSwitch } from '@/components/theme-switch'
 import SidebarNav from './components/sidebar-nav'
+import MainHeader from '@/components/layout/main-header'
 
 export default function Settings() {
   return (
     <>
       {/* ===== Top Heading ===== */}
-      <Header>
-        <Search />
-        <div className='ml-auto flex items-center space-x-4'>
-          <ThemeSwitch />
-          <ProfileDropdown />
-        </div>
-      </Header>
+      <MainHeader inner={true} />
 
       <Main fixed>
         <div className='space-y-0.5'>
