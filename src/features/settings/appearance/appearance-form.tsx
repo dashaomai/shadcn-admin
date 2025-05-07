@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
 import { useForm } from 'react-hook-form'
-import { setLanguage, z } from '@/lib/i18n'
+import { getLanguage, setLanguage, z } from '@/lib/i18n'
 import { useTranslation } from 'react-i18next'
 
 const languages = [
@@ -39,7 +39,7 @@ export function AppearanceForm() {
   // This can come from your database or API.
   const defaultValues: Partial<AppearanceFormValues> = {
     theme: theme as 'light' | 'dark',
-    language: 'zh-CN',
+    language: getLanguage(),
   }
 
   const form = useForm<AppearanceFormValues>({

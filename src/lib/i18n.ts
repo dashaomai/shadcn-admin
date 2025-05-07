@@ -53,4 +53,8 @@ const setLanguage = (lng: string) => {
   i18n.changeLanguage(lng).then()
 }
 
-export { i18n, z, setLanguage }
+const getLanguage = (): string => {
+  return i18n.language
+}
+
+export { i18n, z, getLanguage, setLanguage }
