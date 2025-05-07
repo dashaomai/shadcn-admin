@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { listPublishers } from '@/api/system/publisher'
-import { i18n } from '@/lib/i18n'
 import { Main } from '@/components/layout/main'
 import MainContent from '@/components/layout/main-content'
 import MainHeader from '@/components/layout/main-header'
@@ -11,8 +10,11 @@ import { PublishersDialogs } from './components/publishers-dialogs'
 import { PublishersPrimaryButtons } from './components/publishers-primary-buttons'
 import { PublishersTable } from './components/publishers-table'
 import PublishersProvider from './context/publisher-context'
+import { useTranslation } from 'react-i18next'
 
 export default function PublishersPage() {
+  const { t } = useTranslation()
+  
   const routeApi = getRouteApi('/_authenticated/publishers/')
   const { page, limit } = routeApi.useSearch()
 
@@ -27,8 +29,8 @@ export default function PublishersPage() {
 
       <Main>
         <MainTitleBar
-          title={i18n.t('layout.navigate.items.publisher')}
-          description={i18n.t('apps.publishers.description')}
+          title={t('layout.navigate.items.publisher')}
+          description={t('apps.publishers.description')}
         >
           <PublishersPrimaryButtons />
         </MainTitleBar>

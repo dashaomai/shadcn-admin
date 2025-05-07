@@ -11,7 +11,6 @@ import {
   useReactTable,
   VisibilityState,
 } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n'
 import { DataTableProps, numberIn } from '@/lib/list-app'
 import { SelectOption } from '@/lib/option'
 import {
@@ -30,10 +29,12 @@ import {
   PublisherStatusDescriptions,
   PublisherTypeDescriptions,
 } from '../data/publisher'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<PublisherInfo>
 
 export function PublishersTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -67,7 +68,7 @@ export function PublishersTable({ columns, data, total }: Props) {
   const allTypes = useMemo<SelectOption<number>[]>(
     () =>
       PublisherTypeDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.publishers.properties.type.${desc}`),
+        label: t(`apps.publishers.properties.type.${desc}`),
         value: i,
       })),
     []
@@ -76,7 +77,7 @@ export function PublishersTable({ columns, data, total }: Props) {
   const allStatus = useMemo<SelectOption<number>[]>(
     () =>
       PublisherStatusDescriptions.map((desc, i) => ({
-        label: i18n.t(`apps.publishers.properties.status.${desc}`),
+        label: t(`apps.publishers.properties.status.${desc}`),
         value: i,
       })),
     []
@@ -86,13 +87,13 @@ export function PublishersTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.publishers.toolbar.placeholder')}
+        placeholder={t('apps.publishers.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('type') && allTypes && (
             <TableFacetedFilter
               column={table.getColumn('type')}
-              title={i18n.t('apps.publishers.properties.type.title')}
+              title={t('apps.publishers.properties.type.title')}
               options={allTypes}
             />
           )}
@@ -100,7 +101,7 @@ export function PublishersTable({ columns, data, total }: Props) {
           {table.getColumn('status') && allStatus && (
             <TableFacetedFilter
               column={table.getColumn('status')}
-              title={i18n.t('apps.publishers.properties.status.title')}
+              title={t('apps.publishers.properties.status.title')}
               options={allStatus}
             />
           )}
@@ -159,7 +160,7 @@ export function PublishersTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

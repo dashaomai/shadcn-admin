@@ -12,7 +12,6 @@ import {
   VisibilityState,
 } from '@tanstack/react-table'
 import { useAllRoles } from '@/api/auth.ts'
-import { i18n } from '@/lib/i18n.ts'
 import { DataTableProps } from '@/lib/list-app.ts'
 import { SelectOption } from '@/lib/option'
 import {
@@ -27,10 +26,12 @@ import { AccountInfo } from '@/features/accounts/data/account-info.ts'
 import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
 import { TablePagination } from '@/features/table/components/table-pagination.tsx'
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableProps<AccountInfo>
 
 export function AccountsTable({ columns, data, total }: Props) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -79,13 +80,13 @@ export function AccountsTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={i18n.t('apps.accounts.toolbar.placeholder')}
+        placeholder={t('apps.accounts.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           {table.getColumn('roles') && roleOptions && (
             <TableFacetedFilter
               column={table.getColumn('roles')}
-              title={i18n.t('apps.accounts.properties.roles.title')}
+              title={t('apps.accounts.properties.roles.title')}
               options={roleOptions}
             />
           )}
@@ -144,7 +145,7 @@ export function AccountsTable({ columns, data, total }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  {i18n.t('common.data.no-results')}
+                  {t('common.data.no-results')}
                 </TableCell>
               </TableRow>
             )}

@@ -12,9 +12,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { queryClient } from '@/lib/client'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 
 const profileFormSchema = z.object({
@@ -29,6 +30,7 @@ const profileFormSchema = z.object({
 export type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 export default function ProfileForm() {
+  const { t } = useTranslation()
 
   const profileQuery = useProfile()
   
@@ -49,7 +51,7 @@ export default function ProfileForm() {
                 queryKey: ['self-profile'],
               })
             }, 0)
-            toast.success(i18n.t('apps.accounts.actions.updateProfile.success'))
+            toast.success(t('apps.accounts.actions.updateProfile.success'))
           })
         })}
         className='space-y-8'
@@ -59,12 +61,12 @@ export default function ProfileForm() {
           name='nickname'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{i18n.t('apps.accounts.properties.profile.nickname.title')}</FormLabel>
+              <FormLabel>{t('apps.accounts.properties.profile.nickname.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={i18n.t('apps.accounts.properties.profile.nickname.placeholder')} {...field} />
+                <Input placeholder={t('apps.accounts.properties.profile.nickname.placeholder')} {...field} />
               </FormControl>
               <FormDescription>
-                {i18n.t('apps.accounts.properties.profile.nickname.description')}
+                {t('apps.accounts.properties.profile.nickname.description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -75,12 +77,12 @@ export default function ProfileForm() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{i18n.t('apps.accounts.properties.profile.email.title')}</FormLabel>
+              <FormLabel>{t('apps.accounts.properties.profile.email.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={i18n.t('apps.accounts.properties.profile.email.placeholder')} {...field} />
+                <Input placeholder={t('apps.accounts.properties.profile.email.placeholder')} {...field} />
               </FormControl>
               <FormDescription>
-                {i18n.t('apps.accounts.properties.profile.email.description')}
+                {t('apps.accounts.properties.profile.email.description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -91,23 +93,23 @@ export default function ProfileForm() {
           name='avatar'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{i18n.t('apps.accounts.properties.profile.avatar.title')}</FormLabel>
+              <FormLabel>{t('apps.accounts.properties.profile.avatar.title')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={i18n.t('apps.accounts.properties.profile.avatar.placeholder')}
+                  placeholder={t('apps.accounts.properties.profile.avatar.placeholder')}
                   className='resize-none'
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                {i18n.t('apps.accounts.properties.profile.avatar.description')}
+                {t('apps.accounts.properties.profile.avatar.description')}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         
-        <Button type='submit'>{i18n.t('apps.accounts.actions.updateProfile.submit')}</Button>
+        <Button type='submit'>{t('apps.accounts.actions.updateProfile.submit')}</Button>
       </form>
     </Form>
   )

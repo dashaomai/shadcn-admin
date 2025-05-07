@@ -6,7 +6,7 @@ import {
   createOrUpdatePlatform,
   PlatformActionPayload,
 } from '@/api/system/platform'
-import { i18n, z } from '@/lib/i18n'
+import { z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -40,6 +40,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { PlatformInfo } from '../data/platform'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
 const platformFormSchema = z.object({
   id: z.number().optional(),
@@ -54,6 +55,8 @@ export type PlatformForm = z.infer<typeof platformFormSchema>
 export function PlatformsActionDialog(
   props: ListAppActionDialogProps<PlatformInfo>
 ) {
+  const { t } = useTranslation()
+  
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
 
@@ -71,12 +74,12 @@ export function PlatformsActionDialog(
           .invalidateQueries({ queryKey: ['platforms-list', page, limit] })
           .then()
 
-        toast.success(i18n.t(
+        toast.success(t(
           isUpdate
             ? 'apps.platforms.toast.update.title'
             : 'apps.platforms.toast.create.title'
         ), {
-          description: i18n.t(
+          description: t(
             isUpdate
               ? 'apps.platforms.toast.update.ed'
               : 'apps.platforms.toast.create.ed',
@@ -124,14 +127,14 @@ export function PlatformsActionDialog(
       <DialogContent className='sm:max-w-lg'>
         <DialogHeader className='text-left'>
           <DialogTitle>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.platforms.update.title'
                 : 'apps.platforms.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.platforms.update.description'
                 : 'apps.platforms.create.description'
@@ -152,11 +155,11 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.name.title')}
+                      {t('apps.platforms.properties.name.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.platforms.properties.name.placeholder'
                         )}
                         className='col-span-4'
@@ -165,7 +168,7 @@ export function PlatformsActionDialog(
                       />
                     </FormControl>
                     <FormDescription>
-                      {i18n.t(
+                      {t(
                         'apps.platforms.properties.name.createDescription'
                       )}
                     </FormDescription>
@@ -180,13 +183,13 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.description.title')}
+                      {t('apps.platforms.properties.description.title')}
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         rows={3}
                         className='col-span-4'
-                        placeholder={i18n.t(
+                        placeholder={t(
                           'apps.platforms.properties.description.placeholder'
                         )}
                         {...field}
@@ -203,7 +206,7 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.type.title')}
+                      {t('apps.platforms.properties.type.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -212,7 +215,7 @@ export function PlatformsActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.platforms.properties.type.placeholder'
                             )}
                           />
@@ -220,16 +223,16 @@ export function PlatformsActionDialog(
                       </FormControl>
                       <SelectContent>
                         <SelectItem value='0'>
-                          {i18n.t('apps.platforms.properties.type.unknown')}
+                          {t('apps.platforms.properties.type.unknown')}
                         </SelectItem>
                         <SelectItem value='1'>
-                          {i18n.t('apps.platforms.properties.type.private')}
+                          {t('apps.platforms.properties.type.private')}
                         </SelectItem>
                         <SelectItem value='2'>
-                          {i18n.t('apps.platforms.properties.type.cooperate')}
+                          {t('apps.platforms.properties.type.cooperate')}
                         </SelectItem>
                         <SelectItem value='3'>
-                          {i18n.t('apps.platforms.properties.type.thirdparty')}
+                          {t('apps.platforms.properties.type.thirdparty')}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -243,7 +246,7 @@ export function PlatformsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {i18n.t('apps.platforms.properties.status.title')}
+                      {t('apps.platforms.properties.status.title')}
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -252,7 +255,7 @@ export function PlatformsActionDialog(
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue
-                            placeholder={i18n.t(
+                            placeholder={t(
                               'apps.platforms.properties.status.placeholder'
                             )}
                           />
@@ -261,32 +264,32 @@ export function PlatformsActionDialog(
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>
-                            {i18n.t(
+                            {t(
                               'apps.platforms.properties.status.unavailable'
                             )}
                           </SelectLabel>
                           <SelectItem value='0'>
-                            {i18n.t('apps.platforms.properties.status.offline')}
+                            {t('apps.platforms.properties.status.offline')}
                           </SelectItem>
                           <SelectItem value='1'>
-                            {i18n.t(
+                            {t(
                               'apps.platforms.properties.status.intention'
                             )}
                           </SelectItem>
                           <SelectItem value='2'>
-                            {i18n.t(
+                            {t(
                               'apps.platforms.properties.status.developing'
                             )}
                           </SelectItem>
                         </SelectGroup>
                         <SelectGroup>
                           <SelectLabel>
-                            {i18n.t(
+                            {t(
                               'apps.platforms.properties.status.available'
                             )}
                           </SelectLabel>
                           <SelectItem value='3'>
-                            {i18n.t('apps.platforms.properties.status.online')}
+                            {t('apps.platforms.properties.status.online')}
                           </SelectItem>
                         </SelectGroup>
                       </SelectContent>
@@ -304,7 +307,7 @@ export function PlatformsActionDialog(
             form='platform-form'
             disabled={mutation.isPending}
           >
-            {i18n.t(
+            {t(
               isUpdate
                 ? 'apps.platforms.update.submit'
                 : 'apps.platforms.create.submit'

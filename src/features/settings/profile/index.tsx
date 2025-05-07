@@ -1,12 +1,14 @@
-import { i18n } from '@/lib/i18n'
+import { useTranslation } from 'react-i18next'
 import ContentSection from '../components/content-section'
 import ProfileForm from './profile-form'
 
 export default function SettingsProfile() {
+  const { t } = useTranslation()
+  
   return (
     <ContentSection
-      title={i18n.t('settings.profile.title')}
-      desc={i18n.t('settings.profile.description')}
+      title={t('settings.profile.title')}
+      desc={t('settings.profile.description')}
     >
       <ProfileForm />
     </ContentSection>

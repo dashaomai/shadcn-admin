@@ -1,8 +1,8 @@
 import { IconSearch } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { useSearch } from '@/context/search-context'
 import { Button } from './ui/button'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   className?: string
@@ -14,6 +14,7 @@ export function Search({
   className = '',
   placeholder = 'layout.search.placeholder',
 }: Props) {
+  const { t } = useTranslation()
   const { setOpen } = useSearch()
   return (
     <Button
@@ -28,7 +29,7 @@ export function Search({
         aria-hidden='true'
         className='absolute top-1/2 left-1.5 -translate-y-1/2'
       />
-      <span className='ml-3'>{i18n.t(placeholder)}</span>
+      <span className='ml-3'>{t(placeholder)}</span>
       <kbd className='pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex'>
         <span className='text-xs'>⌘</span>K
       </kbd>

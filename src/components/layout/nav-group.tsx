@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 import { useRoles } from '@/api/auth'
-import { i18n } from '@/lib/i18n'
 import { rolesCheck } from '@/lib/role'
 import {
   Collapsible,
@@ -31,10 +30,12 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { NavCollapsible, type NavGroup, NavItem, NavLink } from './types'
+import { useTranslation } from 'react-i18next'
 
 export function NavGroup({ title, items }: NavGroup) {
   const { state } = useSidebar()
   const href = useLocation({ select: (location) => location.href })
+  const { t } = useTranslation()
   const rolesQuery = useRoles()
 
   if (rolesQuery.isFetching) {
@@ -45,7 +46,7 @@ export function NavGroup({ title, items }: NavGroup) {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>{i18n.t(title)}</SidebarGroupLabel>
+      <SidebarGroupLabel>{t(title)}</SidebarGroupLabel>
       <SidebarMenu>
         {items
           .filter((item) => rolesCheck(rolesQuery.data, item.roles))
@@ -77,16 +78,18 @@ const NavBadge = ({ children }: { children: ReactNode }) => (
 
 const SidebarMenuLink = ({ item, href }: { item: NavLink; href: string }) => {
   const { setOpenMobile } = useSidebar()
+  const { t } = useTranslation()
+
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         asChild
         isActive={checkIsActive(href, item)}
-        tooltip={i18n.t(item.title)}
+        tooltip={t(item.title)}
       >
         <Link to={item.url} onClick={() => setOpenMobile(false)}>
           {item.icon && <item.icon />}
-          <span>{i18n.t(item.title)}</span>
+          <span>{t(item.title)}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
       </SidebarMenuButton>
@@ -102,6 +105,7 @@ const SidebarMenuCollapsible = ({
   href: string
 }) => {
   const { setOpenMobile } = useSidebar()
+  const { t } = useTranslation()
   const rolesQuery = useRoles()
 
   return (
@@ -114,7 +118,7 @@ const SidebarMenuCollapsible = ({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
             {item.icon && <item.icon />}
-            <span>{i18n.t(item.title)}</span>
+            <span>{t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
@@ -124,14 +128,14 @@ const SidebarMenuCollapsible = ({
             {item.items
               .filter((subItem) => rolesCheck(rolesQuery.data, subItem.roles))
               .map((subItem) => (
-                <SidebarMenuSubItem key={i18n.t(subItem.title)}>
+                <SidebarMenuSubItem key={t(subItem.title)}>
                   <SidebarMenuSubButton
                     asChild
                     isActive={checkIsActive(href, subItem)}
                   >
                     <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
                       {subItem.icon && <subItem.icon />}
-                      <span>{i18n.t(subItem.title)}</span>
+                      <span>{t(subItem.title)}</span>
                       {subItem.badge && <NavBadge>{subItem.badge}</NavBadge>}
                     </Link>
                   </SidebarMenuSubButton>
@@ -151,6 +155,7 @@ const SidebarMenuCollapsedDropdown = ({
   item: NavCollapsible
   href: string
 }) => {
+  const { t } = useTranslation()
   const rolesQuery = useRoles()
 
   return (
@@ -158,18 +163,18 @@ const SidebarMenuCollapsedDropdown = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
-            tooltip={i18n.t(item.title)}
+            tooltip={t(item.title)}
             isActive={checkIsActive(href, item)}
           >
             {item.icon && <item.icon />}
-            <span>{i18n.t(item.title)}</span>
+            <span>{t(item.title)}</span>
             {item.badge && <NavBadge>{item.badge}</NavBadge>}
             <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent side='right' align='start' sideOffset={4}>
           <DropdownMenuLabel>
-            {i18n.t(item.title)} {item.badge ? `(${item.badge})` : ''}
+            {t(item.title)} {item.badge ? `(${item.badge})` : ''}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           {item.items
@@ -182,7 +187,7 @@ const SidebarMenuCollapsedDropdown = ({
                 >
                   {sub.icon && <sub.icon />}
                   <span className='max-w-52 text-wrap'>
-                    {i18n.t(sub.title)}
+                    {t(sub.title)}
                   </span>
                   {sub.badge && (
                     <span className='ml-auto text-xs'>{sub.badge}</span>

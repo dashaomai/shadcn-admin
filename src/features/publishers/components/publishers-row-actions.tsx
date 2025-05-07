@@ -1,6 +1,5 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { IconEdit } from '@tabler/icons-react'
-import { i18n } from '@/lib/i18n'
 import { DataTableRowActionsProps } from '@/lib/list-app'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,10 +11,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { usePublishers } from '../context/publisher-context'
 import { PublisherInfo } from '../data/publisher'
+import { useTranslation } from 'react-i18next'
 
 type Props = DataTableRowActionsProps<PublisherInfo>
 
 export function PublishersRowActions({ row }: Props) {
+  const { t } = useTranslation()
   const { setOpen, setCurrentRow } = usePublishers()
 
   return (
@@ -28,7 +29,7 @@ export function PublishersRowActions({ row }: Props) {
           >
             <DotsHorizontalIcon className='h-4 w-4' />
             <span className='sr-only'>
-              {i18n.t('apps.table.actions.open-menu')}
+              {t('apps.table.actions.open-menu')}
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -40,7 +41,7 @@ export function PublishersRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-            {i18n.t('apps.publishers.actions.edit')}
+            {t('apps.publishers.actions.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>

@@ -1,12 +1,14 @@
-import { i18n } from '@/lib/i18n'
+import { useTranslation } from 'react-i18next'
 import ContentSection from '../components/content-section'
 import { AccountForm } from './account-form'
 
 export default function SettingsAccount() {
+  const { t } = useTranslation()
+  
   return (
     <ContentSection
-      title={i18n.t('settings.account.title')}
-      desc={i18n.t('settings.account.description')}
+      title={t('settings.account.title')}
+      desc={t('settings.account.description')}
     >
       <AccountForm />
     </ContentSection>
