@@ -275,7 +275,10 @@
           "avatar": {
             "title": "头像",
             "placeholder": "请上传账号的头像",
-            "description": "如果不设置头像，系统将会使用账号名生成默认头像。"
+            "description": "如果不设置头像，系统将会使用账号名生成默认头像。",
+            "upload": "上传头像",
+            "uploaded": "头像上传成功",
+            "uploaded-description": "新头像已成功上传，但需执行更新操作，才会最终生效"
           }
         },
         "roles": {

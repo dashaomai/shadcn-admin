@@ -1,14 +1,10 @@
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
-import { apiBase } from '@/config/api.ts'
-import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { createOrUpdateAccount } from '@/api/auth'
-import { useAuthStore } from '@/stores/authStore.ts'
 import { CreateOrUpdateProfileResponse } from '@/lib/auth'
 import { i18n, z } from '@/lib/i18n'
 import { ListAppActionDialogProps } from '@/lib/list-app'
@@ -33,6 +29,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
+import AvatarUploader from '@/components/avatar-uploader.tsx'
 import { PasswordInput } from '@/components/password-input'
 import { AccountInfo } from '../data/account-info'
 
@@ -57,10 +54,6 @@ export function AccountsActionDialog(
   const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
-
-  const authStore = useAuthStore()
-
-  const ref = useRef<HTMLInputElement>(null)
 
   const api = getRouteApi('/_authenticated/accounts/')
   const { page, limit } = api.useSearch()
@@ -119,37 +112,6 @@ export function AccountsActionDialog(
       id: props.currentRow?.id,
       ...values,
     })
-  }
-
-  const onAvatarUpload = async () => {
-    if (ref.current?.files && ref.current.files.length > 0) {
-      const file = ref.current.files[0]
-      const formData = new FormData()
-      formData.set('avatar', file)
-
-      const response = await fetch(`${apiBase}/account/avatar`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${authStore.auth.accessToken}`,
-        },
-      })
-
-      if (response.status === 200) {
-        const url = await response.text()
-        if (url) {
-          form.setValue('profileAvatar', url)
-        }
-
-        toast.success('upload successfully.')
-      } else if (response.status === 401) {
-        await authStore.auth.refreshHandler()
-
-        return onAvatarUpload()
-      } else {
-        logger.error('failed to upload avatar')
-      }
-    }
   }
 
   return (
@@ -282,16 +244,7 @@ export function AccountsActionDialog(
                       />
                     </FormControl>
 
-                    <div className='flex w-full max-w-sm items-center space-x-2'>
-                      <img
-                        style={{ width: 48, height: 48, marginRight: 32 }}
-                        src={form.getValues('profileAvatar')}
-                      />
-                      <Input ref={ref} type='file' accept='image/*' />
-                      <Button type='button' onClick={onAvatarUpload}>
-                        Upload
-                      </Button>
-                    </div>
+                    <AvatarUploader form={form} field='profileAvatar' />
 
                     <FormMessage />
                   </FormItem>

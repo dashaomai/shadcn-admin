@@ -1,4 +1,10 @@
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
 import { updateProfile, useProfile } from '@/api/auth'
+import { queryClient } from '@/lib/client'
+import { z } from '@/lib/i18n'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -11,19 +17,11 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { queryClient } from '@/lib/client'
-import { z } from '@/lib/i18n'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'sonner'
+import AvatarUploader from '@/components/avatar-uploader.tsx'
 
 const profileFormSchema = z.object({
-  nickname: z
-    .string(),
-  email: z
-    .string()
-    .email(),
+  nickname: z.string(),
+  email: z.string().email(),
   avatar: z.string().url().optional(),
 })
 
@@ -33,7 +31,7 @@ export default function ProfileForm() {
   const { t } = useTranslation()
 
   const profileQuery = useProfile()
-  
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     // defaultValues: async () => await getProfile() as ProfileFormValues,
@@ -61,9 +59,16 @@ export default function ProfileForm() {
           name='nickname'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('apps.accounts.properties.profile.nickname.title')}</FormLabel>
+              <FormLabel>
+                {t('apps.accounts.properties.profile.nickname.title')}
+              </FormLabel>
               <FormControl>
-                <Input placeholder={t('apps.accounts.properties.profile.nickname.placeholder')} {...field} />
+                <Input
+                  placeholder={t(
+                    'apps.accounts.properties.profile.nickname.placeholder'
+                  )}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 {t('apps.accounts.properties.profile.nickname.description')}
@@ -77,9 +82,16 @@ export default function ProfileForm() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('apps.accounts.properties.profile.email.title')}</FormLabel>
+              <FormLabel>
+                {t('apps.accounts.properties.profile.email.title')}
+              </FormLabel>
               <FormControl>
-                <Input placeholder={t('apps.accounts.properties.profile.email.placeholder')} {...field} />
+                <Input
+                  placeholder={t(
+                    'apps.accounts.properties.profile.email.placeholder'
+                  )}
+                  {...field}
+                />
               </FormControl>
               <FormDescription>
                 {t('apps.accounts.properties.profile.email.description')}
@@ -93,10 +105,14 @@ export default function ProfileForm() {
           name='avatar'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('apps.accounts.properties.profile.avatar.title')}</FormLabel>
+              <FormLabel>
+                {t('apps.accounts.properties.profile.avatar.title')}
+              </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={t('apps.accounts.properties.profile.avatar.placeholder')}
+                  placeholder={t(
+                    'apps.accounts.properties.profile.avatar.placeholder'
+                  )}
                   className='resize-none'
                   {...field}
                 />
@@ -104,12 +120,17 @@ export default function ProfileForm() {
               <FormDescription>
                 {t('apps.accounts.properties.profile.avatar.description')}
               </FormDescription>
+
+              <AvatarUploader form={form} field='avatar' />
+
               <FormMessage />
             </FormItem>
           )}
         />
-        
-        <Button type='submit'>{t('apps.accounts.actions.updateProfile.submit')}</Button>
+
+        <Button type='submit'>
+          {t('apps.accounts.actions.updateProfile.submit')}
+        </Button>
       </form>
     </Form>
   )
