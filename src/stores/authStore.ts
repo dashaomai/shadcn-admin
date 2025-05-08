@@ -1,17 +1,24 @@
 import Cookies from 'js-cookie'
-import { jwtDecode } from 'jwt-decode'
 import { apiBase } from '@/config/api'
+import { Base64 } from 'js-base64'
+import { jwtDecode } from 'jwt-decode'
 import logger from 'loglevel'
 import { toast } from 'sonner'
 import { create } from 'zustand'
 import { SignInPayload } from '@/lib/auth'
+import { brokerConn } from '@/lib/broker_conn'
 import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { WrappedResponse } from '@/lib/response'
-import { brokerConn } from '@/lib/broker_conn'
 
 const ACCESS_TOKEN = 'sdfjas'
+
+type SubscriptionPush = {
+  topic: string
+  subject: string
+  payload: string
+}
 
 type UserInfo = {
   identity: string
@@ -40,11 +47,14 @@ export function connectToBroker(accountId: string, sessionId: string) {
     () => {
       logger.info('broker connected')
 
-      brokerConn.request('broker.subscriber.entry', {accountId, sessionId}, () => {
-        logger.info('broker subscriber entry successful.')
-
-      })
-    },
+      brokerConn.request(
+        'broker.subscriber.entry',
+        { accountId, sessionId },
+        () => {
+          logger.info('broker subscriber entry successful.')
+        }
+      )
+    }
   )
 }
 
@@ -76,6 +86,12 @@ export const useAuthStore = create<AuthState>()((set, get) => {
     }
   }, 1000)
 
+  brokerConn.emitter.on('onSubscribePush', (push: SubscriptionPush) => {
+    decode(push)
+
+    logger.info('broker pushed message:', push)
+  })
+
   return {
     auth: {
       accountId,
@@ -85,7 +101,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       setAccessToken: (accessToken: string, isRefresh: boolean) =>
         set((state) => {
           const decoded = jwtDecode<UserInfo>(accessToken)
-          console.log('decoded token: ', decoded)
 
           logger.info('set access token with expire: %d', decoded.expire)
 
@@ -144,7 +159,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       reset: () => {
         const state = get()
         state.auth.resetAccessToken()
-      }
+      },
     },
   }
 })
@@ -277,4 +292,8 @@ const clearSelfData = () => {
       queryKey: ['self-roles'],
     })
   }, 0)
+}
+
+const decode = (push: SubscriptionPush) => {
+  push.payload = Base64.decode(push.payload)
 }
