@@ -282,6 +282,7 @@ export const fetchAuthed = async <T>(
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        ...options?.headers,
       },
     })
   )
