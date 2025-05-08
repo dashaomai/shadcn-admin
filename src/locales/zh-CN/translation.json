@@ -18,7 +18,11 @@
       "tip": "请先登录，随后才能操作。",
       "footer": "Boller 版本所有"
     },
-    "signOut": "登出"
+    "signOut": "登出",
+    "duplication": {
+      "kick-off": "账号在别处登录",
+      "kick-off-description": "此账号已在别处成功登录，必须从此处下线。"
+    }
   },
   "layout": {
     "teams": {
