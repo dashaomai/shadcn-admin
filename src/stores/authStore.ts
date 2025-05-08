@@ -90,6 +90,17 @@ export const useAuthStore = create<AuthState>()((set, get) => {
     decode(push)
 
     logger.info('broker pushed message:', push)
+
+    const { accountId, sessionId } = get().auth
+    const topicPrefix = `boller.platform.player.${accountId}.`
+
+    if (push.subject.startsWith(topicPrefix)) {
+      // 个人消息
+      const route = push.subject.substring(topicPrefix.length)
+      processBrokerSubscription(accountId!, sessionId!, route, push, get)
+    } else {
+      // 其他消息
+    }
   })
 
   return {
@@ -227,7 +238,7 @@ const responseInterceptor = async <T>(
         // 自动执行 refresh 操作
         logger.error('access token is expired, need refresh or sign-out.')
 
-        useAuthStore.getState().auth.refreshHandler()
+        await useAuthStore.getState().auth.refreshHandler()
 
         break
       }
@@ -240,10 +251,6 @@ const responseInterceptor = async <T>(
         })
 
         useAuthStore.getState().auth.reset()
-
-        setTimeout(() => {
-          window.location.reload()
-        }, 10)
 
         break
       }
@@ -291,9 +298,44 @@ const clearSelfData = () => {
     queryClient.invalidateQueries({
       queryKey: ['self-roles'],
     })
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 5)
   }, 0)
 }
 
 const decode = (push: SubscriptionPush) => {
   push.payload = Base64.decode(push.payload)
+}
+
+const processBrokerSubscription = (
+  accountId: string,
+  sessionId: string,
+  route: string,
+  push: SubscriptionPush,
+  get: () => AuthState
+) => {
+  switch (route) {
+    case 'signIn': {
+      const signInSessionId = push.payload
+
+      if (sessionId !== signInSessionId) {
+        logger.info(
+          'account %s was signed in another session: %s -> %s',
+          accountId,
+          sessionId,
+          signInSessionId
+        )
+
+        /* toast.warning(i18n.t('auth.duplication.kick-off'), {
+          description: i18n.t('auth.duplication.kick-off-description'),
+        }) */
+
+        get().auth.resetAccessToken()
+      }
+
+      break
+    }
+  }
 }
