@@ -3,6 +3,7 @@ import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
+import { useAllGames } from '@/api/bridge/game.ts'
 import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
 import { useVendorStore } from '@/stores/vendorStore.ts'
@@ -47,11 +48,39 @@ export function TablesRowBroadcast({ row }: Props) {
   const { t } = useTranslation()
   const vendorStore = useVendorStore()
   const broadcastStore = useBroadcastStore()
+  const allGames = useAllGames()
 
   const url = `/${row.original.name}`
 
   async function handleStartBroadcast(_event: FormEvent<HTMLElement>) {
     logger.info('handleStartBroadcast', url)
+
+    let gameName: string = ''
+
+    if (!allGames.isFetched) {
+      logger.warn('handleStartBroadcast games not fetch')
+
+      toast.error(t('apps.tables.properties.broadcast.api-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.api-error-description'
+        ),
+      })
+    } else {
+      const gameInfo = allGames.data?.find(
+        (info) => info.id === row.original.gameId
+      )
+      if (gameInfo) {
+        gameName = gameInfo.name
+      } else {
+        logger.error('game info not found', row.original.gameId)
+
+        toast.error(t('apps.tables.properties.broadcast.api-error'), {
+          description: t(
+            'apps.tables.properties.broadcast.api-error-description'
+          ),
+        })
+      }
+    }
 
     try {
       if (!obs.identified) {
@@ -106,11 +135,12 @@ export function TablesRowBroadcast({ row }: Props) {
 
     try {
       const expiredAt = new Date(Date.now() + 24 * 3600 * 1000)
+
       const request: CreateBroadcastRequest = {
         vendorName: vendorStore.vendor?.name ?? '',
         domain: 'testput.leopardcat.live',
         gameId: row.original.gameId,
-        gameName: 'bc_baccarat',
+        gameName: gameName,
         tableId: row.original.id,
         tableName: row.original.name,
         expiredAt: expiredAt.toISOString(),
