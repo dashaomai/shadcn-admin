@@ -1,39 +1,66 @@
-import { ListAppActionDialogProps } from "@/lib/list-app"
-import { i18n, z } from '@/lib/i18n'
-import { getRouteApi } from "@tanstack/react-router"
-import { createOrUpdateAccount } from "@/api/auth"
-import { CreateOrUpdateProfileResponse } from "@/lib/auth"
-import { useQueryClient, useMutation } from "@tanstack/react-query"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { DialogHeader, DialogFooter, Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage, Form } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { AccountInfo } from "../data/account-info"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { PasswordInput } from "@/components/password-input"
-import { Separator } from "@/components/ui/separator"
+import { useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { getRouteApi } from '@tanstack/react-router'
+import { apiBase } from '@/config/api.ts'
+import logger from 'loglevel'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
-import { useTranslation } from "react-i18next"
+import { createOrUpdateAccount } from '@/api/auth'
+import { useAuthStore } from '@/stores/authStore.ts'
+import { CreateOrUpdateProfileResponse } from '@/lib/auth'
+import { i18n, z } from '@/lib/i18n'
+import { ListAppActionDialogProps } from '@/lib/list-app'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
+import { PasswordInput } from '@/components/password-input'
+import { AccountInfo } from '../data/account-info'
 
-const accountFormSchema = z.object({
-  loginName: z.string(),
-  password: z.string().transform(value => value.trim()),
-  passwordConfirm: z.string().transform(value => value.trim()),
-  profileNickname: z.string().max(30),
-  profileEmail: z.string().email().optional(),
-  profileAvatar: z.string().optional(),
-}).refine(data => data.password === data.passwordConfirm, {
-  message: i18n.t('apps.accounts.properties.passwordConfirm.not-equal'),
-})
+const accountFormSchema = z
+  .object({
+    loginName: z.string(),
+    password: z.string().transform((value) => value.trim()),
+    passwordConfirm: z.string().transform((value) => value.trim()),
+    profileNickname: z.string().max(30),
+    profileEmail: z.string().email().optional(),
+    profileAvatar: z.string().optional(),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: i18n.t('apps.accounts.properties.passwordConfirm.not-equal'),
+  })
 
 export type AccountForm = z.infer<typeof accountFormSchema>
 
-export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo>) {
+export function AccountsActionDialog(
+  props: ListAppActionDialogProps<AccountInfo>
+) {
   const { t } = useTranslation()
   const isUpdate = !!props.currentRow
   const queryClient = useQueryClient()
+
+  const authStore = useAuthStore()
+
+  const ref = useRef<HTMLInputElement>(null)
 
   const api = getRouteApi('/_authenticated/accounts/')
   const { page, limit } = api.useSearch()
@@ -46,7 +73,9 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
           .invalidateQueries({ queryKey: ['accounts-list', page, limit] })
           .then()
 
-        const title = isUpdate ? 'apps.accounts.toast.update.title' : 'apps.accounts.toast.create.title'
+        const title = isUpdate
+          ? 'apps.accounts.toast.update.title'
+          : 'apps.accounts.toast.create.title'
 
         toast.success(t(title), {
           description: t(
@@ -55,7 +84,6 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
               : 'apps.accounts.toast.create.ed',
             { name: params.profileNickname }
           ),
-
         })
 
         form.reset()
@@ -74,15 +102,15 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
           profileNickname: props.currentRow?.profile.nickname,
           profileEmail: props.currentRow?.profile.email,
           profileAvatar: props.currentRow?.profile.avatar,
-      }
+        }
       : {
-        loginName: '',
-        password: '',
-        passwordConfirm: '',
-        profileNickname: '',
-        profileEmail: '',
-        profileAvatar: '',
-      },
+          loginName: '',
+          password: '',
+          passwordConfirm: '',
+          profileNickname: '',
+          profileEmail: '',
+          profileAvatar: '',
+        },
     mode: 'onChange',
   })
 
@@ -91,6 +119,37 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
       id: props.currentRow?.id,
       ...values,
     })
+  }
+
+  const onAvatarUpload = async () => {
+    if (ref.current?.files && ref.current.files.length > 0) {
+      const file = ref.current.files[0]
+      const formData = new FormData()
+      formData.set('avatar', file)
+
+      const response = await fetch(`${apiBase}/account/avatar`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${authStore.auth.accessToken}`,
+        },
+      })
+
+      if (response.status === 200) {
+        const url = await response.text()
+        if (url) {
+          form.setValue('profileAvatar', url)
+        }
+
+        toast.success('upload successfully.')
+      } else if (response.status === 401) {
+        await authStore.auth.refreshHandler()
+
+        return onAvatarUpload()
+      } else {
+        logger.error('failed to upload avatar')
+      }
+    }
   }
 
   return (
@@ -106,7 +165,9 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
         <DialogHeader className='text-left'>
           <DialogTitle>
             {t(
-              isUpdate ? 'apps.accounts.update.title' : 'apps.accounts.create.title'
+              isUpdate
+                ? 'apps.accounts.update.title'
+                : 'apps.accounts.create.title'
             )}
           </DialogTitle>
           <DialogDescription>
@@ -142,7 +203,11 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                       />
                     </FormControl>
                     <FormDescription>
-                      {t(isUpdate ? 'apps.accounts.properties.loginName.updateDescription' : 'apps.accounts.properties.loginName.description')}
+                      {t(
+                        isUpdate
+                          ? 'apps.accounts.properties.loginName.updateDescription'
+                          : 'apps.accounts.properties.loginName.description'
+                      )}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -216,12 +281,24 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
                         {...field}
                       />
                     </FormControl>
+
+                    <div className='flex w-full max-w-sm items-center space-x-2'>
+                      <img
+                        style={{ width: 48, height: 48, marginRight: 32 }}
+                        src={form.getValues('profileAvatar')}
+                      />
+                      <Input ref={ref} type='file' accept='image/*' />
+                      <Button type='button' onClick={onAvatarUpload}>
+                        Upload
+                      </Button>
+                    </div>
+
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <Separator style={{marginTop: '2.3rem'}} />
+              <Separator style={{ marginTop: '2.3rem' }} />
 
               <FormField
                 control={form.control}
@@ -275,9 +352,15 @@ export function AccountsActionDialog(props: ListAppActionDialogProps<AccountInfo
         </ScrollArea>
 
         <DialogFooter>
-          <Button type='submit' form='account-form' disabled={mutation.isPending}>
+          <Button
+            type='submit'
+            form='account-form'
+            disabled={mutation.isPending}
+          >
             {t(
-              isUpdate ? 'apps.accounts.update.submit' : 'apps.accounts.create.submit'
+              isUpdate
+                ? 'apps.accounts.update.submit'
+                : 'apps.accounts.create.submit'
             )}
           </Button>
         </DialogFooter>
