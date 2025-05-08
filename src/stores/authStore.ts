@@ -92,7 +92,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
     logger.info('broker pushed message:', push)
 
     const { accountId, sessionId } = get().auth
-    const topicPrefix = `boller.platform.player.${accountId}.`
+    const topicPrefix = `cyber.vod.account.${accountId}.`
 
     if (push.subject.startsWith(topicPrefix)) {
       // 个人消息
