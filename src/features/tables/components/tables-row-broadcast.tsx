@@ -2,6 +2,8 @@ import { FormEvent } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
+import { useAllGames } from '@/api/bridge/game.ts'
 import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
 import { useVendorStore } from '@/stores/vendorStore.ts'
@@ -25,6 +27,10 @@ const simpleOutputs: string[] = [
   'apple_h264',
   'StreamAudioEncoder',
   'opus',
+  'RecEncoder',
+  'apple_h264',
+  'RecAudioEncoder',
+  'opus',
 ]
 
 const advOuts: string[] = [
@@ -42,68 +48,168 @@ export function TablesRowBroadcast({ row }: Props) {
   const { t } = useTranslation()
   const vendorStore = useVendorStore()
   const broadcastStore = useBroadcastStore()
+  const allGames = useAllGames()
 
   const url = `/${row.original.name}`
 
   async function handleStartBroadcast(_event: FormEvent<HTMLElement>) {
-    logger.info('handleBroadcast start', url)
+    logger.info('handleStartBroadcast', url)
 
-    await obs.call('SetStreamServiceSettings', {
-      streamServiceType: 'whip_custom',
-      streamServiceSettings: {
-        server: 'https://webrtcpush.tlivewebrtcpush.com/webrtc/v2/whip',
-        bearer_token:
-          'webrtc://testput.leopardcat.live/live/tput101?txSecret=481d6a5a106edf19cd028b7e24bcad9e&txTime=7AC4FEB7',
-      },
-    })
+    let gameName: string = ''
 
-    for (let i = 0; i < outputs.length; i += 2) {
-      await obs.call('SetProfileParameter', {
-        parameterCategory: 'Output',
-        parameterName: outputs[i],
-        parameterValue: outputs[i + 1],
+    if (!allGames.isFetched) {
+      logger.warn('handleStartBroadcast games not fetch')
+
+      toast.error(t('apps.tables.properties.broadcast.api-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.api-error-description'
+        ),
       })
+
+      return
+    } else {
+      const gameInfo = allGames.data?.find(
+        (info) => info.id === row.original.gameId
+      )
+      if (gameInfo) {
+        gameName = gameInfo.name
+      } else {
+        logger.error('game info not found', row.original.gameId)
+
+        toast.error(t('apps.tables.properties.broadcast.api-error'), {
+          description: t(
+            'apps.tables.properties.broadcast.api-error-description'
+          ),
+        })
+
+        return
+      }
     }
 
-    for (let i = 0; i < simpleOutputs.length; i += 2) {
-      await obs.call('SetProfileParameter', {
-        parameterCategory: 'SimpleOutput',
-        parameterName: simpleOutputs[i],
-        parameterValue: simpleOutputs[i + 1],
-      })
-    }
+    try {
+      if (!obs.identified) {
+        await obs.connect()
+      }
 
-    for (let i = 0; i < advOuts.length; i += 2) {
-      await obs.call('SetProfileParameter', {
-        parameterCategory: 'AdvOut',
-        parameterName: advOuts[i],
-        parameterValue: advOuts[i + 1],
+      await obs.call('SetStreamServiceSettings', {
+        streamServiceType: 'whip_custom',
+        streamServiceSettings: {
+          server: 'https://webrtcpush.tlivewebrtcpush.com/webrtc/v2/whip',
+          bearer_token:
+            'webrtc://testput.leopardcat.live/live/tput101?txSecret=481d6a5a106edf19cd028b7e24bcad9e&txTime=7AC4FEB7',
+        },
       })
-    }
 
-    setTimeout(async () => {
+      for (let i = 0; i < outputs.length; i += 2) {
+        await obs.call('SetProfileParameter', {
+          parameterCategory: 'Output',
+          parameterName: outputs[i],
+          parameterValue: outputs[i + 1],
+        })
+      }
+
+      for (let i = 0; i < simpleOutputs.length; i += 2) {
+        await obs.call('SetProfileParameter', {
+          parameterCategory: 'SimpleOutput',
+          parameterName: simpleOutputs[i],
+          parameterValue: simpleOutputs[i + 1],
+        })
+      }
+
+      for (let i = 0; i < advOuts.length; i += 2) {
+        await obs.call('SetProfileParameter', {
+          parameterCategory: 'AdvOut',
+          parameterName: advOuts[i],
+          parameterValue: advOuts[i + 1],
+        })
+      }
+
       await obs.call('StartStream')
-      logger.info('handleBroadcast finished')
+    } catch (e) {
+      logger.error('handleStartBroadcast obs error', e)
 
+      toast.error(t('apps.tables.properties.broadcast.start-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.start-error-description'
+        ),
+      })
+
+      return
+    }
+
+    try {
       const expiredAt = new Date(Date.now() + 24 * 3600 * 1000)
+
       const request: CreateBroadcastRequest = {
         vendorName: vendorStore.vendor?.name ?? '',
         domain: 'testput.leopardcat.live',
         gameId: row.original.gameId,
-        gameName: 'bc_baccarat',
+        gameName: gameName,
         tableId: row.original.id,
         tableName: row.original.name,
         expiredAt: expiredAt.toISOString(),
       }
 
       await broadcastStore.createBroadcast(request)
-    }, 1000)
+    } catch (e) {
+      logger.error('handleStartBroadcast api error', e)
+
+      toast.error(t('apps.tables.properties.broadcast.api-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.api-error-description'
+        ),
+      })
+
+      await obs.call('StopStream')
+
+      return
+    }
+
+    logger.info('handleStartBroadcast finished')
+
+    toast.info(t('apps.tables.properties.broadcast.started'), {
+      description: t('apps.tables.properties.broadcast.started-description'),
+    })
   }
 
   async function handleStopBroadcast(_event: FormEvent<HTMLElement>) {
-    await obs.call('StopStream')
+    logger.info('handleStopBroadcast')
 
-    await broadcastStore.finishBroadcast()
+    try {
+      if (!obs.identified) {
+        await obs.connect()
+      }
+
+      await obs.call('StopStream')
+
+      await obs.disconnect()
+    } catch (e) {
+      logger.error('handleStopBroadcast obs error', e)
+
+      toast.error(t('apps.tables.properties.broadcast.stop-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.stop-error-description'
+        ),
+      })
+    }
+
+    try {
+      await broadcastStore.finishBroadcast()
+    } catch (e) {
+      logger.error('handleStopBroadcast api error', e)
+
+      toast.error(t('apps.tables.properties.broadcast.api-error'), {
+        description: t(
+          'apps.tables.properties.broadcast.api-error-description'
+        ),
+      })
+
+      return
+    }
+
+    toast.info(t('apps.tables.properties.broadcast.stopped'), {
+      description: t('apps.tables.properties.broadcast.stopped-description'),
+    })
   }
 
   return (
