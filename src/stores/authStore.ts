@@ -23,7 +23,7 @@ type SubscriptionPush = {
 type UserInfo = {
   identity: string
   sid: string
-  expire: number
+  exp: number
 }
 
 interface AuthState {
@@ -72,7 +72,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
     const decoded = jwtDecode<UserInfo>(initToken)
     accountId = decoded.identity
     sessionId = decoded.sid
-    expire = decoded.expire
+    expire = decoded.exp
 
     connectToBroker(accountId, sessionId)
   }
@@ -113,7 +113,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
         set((state) => {
           const decoded = jwtDecode<UserInfo>(accessToken)
 
-          logger.info('set access token with expire: %d', decoded.expire)
+          logger.info('set access token with expire: %d', decoded.exp)
 
           Cookies.set(ACCESS_TOKEN, accessToken)
           clearSelfData()
@@ -129,7 +129,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
               accountId: decoded.identity,
               sessionId: decoded.sid,
               accessToken,
-              expire,
+              expire: decoded.exp,
             },
           }
         }),
