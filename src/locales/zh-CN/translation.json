@@ -602,9 +602,15 @@
         "broadcast": {
           "title": "直播",
           "started": "直播已经开始",
-          "started-description": "直播已经开始，位于游戏房内的在线玩家能实时观看",
+          "started-description": "位于游戏房内的在线玩家能实时观看你推送的视讯内容",
+          "start-error": "直播无法开始",
+          "start-error-description": "请检查 OBS Studio 是否正常运行，并开启了 WebSocket 接口",
           "stopped": "直播已经停止",
-          "stopped-description": "直播已经停止，位于游戏房内的在线玩家只能看到代替图片"
+          "stopped-description": "位于游戏房内的在线玩家只能看到代替图片",
+          "stop-error": "直播无法停止",
+          "stop-error-description": "请检查 OBS Studio 是否正常运行，并开启了 WebSocket 接口",
+          "api-error": "直播 API 服务异常",
+          "api-error-description": "请检查网络连接是否正常，或通知技术支持人员"
         },
         "status": {
           "title": "状态",
