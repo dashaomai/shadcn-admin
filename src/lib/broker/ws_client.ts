@@ -131,7 +131,7 @@ export namespace PitayaClient {
       if (this.isPinging) {
         return
       }
-      let obj = Package.encode(PackageType.HEARTBEAT)
+      const obj = Package.encode(PackageType.HEARTBEAT)
       this.heartbeatId = setInterval(() => {
         if (this.socket && this.isConnected) {
           this.send(obj)
@@ -163,7 +163,7 @@ export namespace PitayaClient {
       }
       this.lastTime = Date.now()
 
-      let packet = Package.encode(PackageType.HEARTBEAT)
+      const packet = Package.encode(PackageType.HEARTBEAT)
       if (this.heartbeatTimeoutId) {
         clearTimeout(this.heartbeatTimeoutId)
         this.heartbeatTimeoutId = undefined
@@ -188,7 +188,7 @@ export namespace PitayaClient {
      * 心跳超时
      */
     private heartbeatTimeoutCb(): void {
-      let gap = this.nextHeartbeatTimeout - Date.now()
+      const gap = this.nextHeartbeatTimeout - Date.now()
       if (gap > this.gapThreshold) {
         this.heartbeatTimeoutId = setTimeout(() => {
           this.heartbeatTimeoutCb()
@@ -217,7 +217,7 @@ export namespace PitayaClient {
 
       this.handshakeInit(response)
 
-      let packet = Package.encode(PackageType.HANDSHAKE_ACK)
+      const packet = Package.encode(PackageType.HANDSHAKE_ACK)
       this.send(packet)
 
       if (this.initCallback) {
@@ -256,7 +256,7 @@ export namespace PitayaClient {
 
       // msg.body.isShowLoading = this.isShowLoads[msg.id]
       //if have a id then find the callback function with the request
-      let cb = this.callbacks[msg.id]
+      const cb = this.callbacks[msg.id]
       delete this.callbacks[msg.id]
 
       if (typeof cb === 'function') {
@@ -271,7 +271,7 @@ export namespace PitayaClient {
      * @param packet 服务器推送的数据
      */
     private onData(packet: Uint8Array): void {
-      let msg = this.messageDecode(packet)
+      const msg = this.messageDecode(packet)
       this.processMessage(msg)
     }
 
@@ -357,7 +357,7 @@ export namespace PitayaClient {
     private onOpen(): void {
       this.reset()
 
-      let packet: Uint8Array = Package.encode(
+      const packet: Uint8Array = Package.encode(
         PackageType.HANDSHAKE,
         Protocol.strEncode(JSON.stringify(HandshakeBuffer))
       )
@@ -479,7 +479,7 @@ export namespace PitayaClient {
      * @param msg 请求的数据
      */
     private sendMessage(reqId: number, route: string, msg: unknown): void {
-      let newMsg = this.messageEncode(reqId, route, msg)
+      const newMsg = this.messageEncode(reqId, route, msg)
       this.send(Package.encode(PackageType.DATA, newMsg))
     }
 
@@ -530,7 +530,7 @@ export namespace PitayaClient {
      * @returns
      */
     private messageDecode(data: ArrayBufferLike): MessageData | undefined {
-      let msg = Message.decode(data)
+      const msg = Message.decode(data)
       if (msg.id > 0) {
         msg.route = this.routeMap[msg.id]
         delete this.routeMap[msg.id]

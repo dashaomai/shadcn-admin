@@ -18,7 +18,11 @@
       "tip": "请先登录，随后才能操作。",
       "footer": "Cyber Games 版权所有"
     },
-    "signOut": "登出"
+    "signOut": "登出",
+    "duplication": {
+      "kick-off": "账号在别处登录",
+      "kick-off-description": "此账号已在别处成功登录，必须从此处下线。"
+    }
   },
   "layout": {
     "teams": {
@@ -274,7 +278,10 @@
           "avatar": {
             "title": "头像",
             "placeholder": "请上传账号的头像",
-            "description": "如果不设置头像，系统将会使用账号名生成默认头像。"
+            "description": "如果不设置头像，系统将会使用账号名生成默认头像。",
+            "upload": "上传头像",
+            "uploaded": "头像上传成功",
+            "uploaded-description": "新头像已成功上传，但需执行更新操作，才会最终生效"
           }
         },
         "roles": {
