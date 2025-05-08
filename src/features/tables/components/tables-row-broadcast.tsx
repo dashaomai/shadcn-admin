@@ -65,6 +65,8 @@ export function TablesRowBroadcast({ row }: Props) {
           'apps.tables.properties.broadcast.api-error-description'
         ),
       })
+
+      return
     } else {
       const gameInfo = allGames.data?.find(
         (info) => info.id === row.original.gameId
@@ -79,6 +81,8 @@ export function TablesRowBroadcast({ row }: Props) {
             'apps.tables.properties.broadcast.api-error-description'
           ),
         })
+
+        return
       }
     }
 
