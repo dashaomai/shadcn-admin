@@ -4,7 +4,7 @@ import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { useAllGames } from '@/api/bridge/game.ts'
-import { CreateBroadcastRequest } from '@/api/vod/broadcast.ts'
+import { CreateBroadcastRequest, generateUrl } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
 import { useVendorStore } from '@/stores/vendorStore.ts'
 import { DataTableRowActionsProps } from '@/lib/list-app.ts'
@@ -56,6 +56,7 @@ export function TablesRowBroadcast({ row }: Props) {
     logger.info('handleStartBroadcast', url)
 
     let gameName: string = ''
+    const tableName: string = row.original.name
 
     if (!allGames.isFetched) {
       logger.warn('handleStartBroadcast games not fetch')
@@ -86,6 +87,11 @@ export function TablesRowBroadcast({ row }: Props) {
       }
     }
 
+    const response = await generateUrl(gameName, tableName)
+    if (!response) {
+      return
+    }
+
     try {
       if (!obs.identified) {
         await obs.connect()
@@ -95,8 +101,7 @@ export function TablesRowBroadcast({ row }: Props) {
         streamServiceType: 'whip_custom',
         streamServiceSettings: {
           server: 'https://webrtcpush.tlivewebrtcpush.com/webrtc/v2/whip',
-          bearer_token:
-            'webrtc://testput.leopardcat.live/live/tput101?txSecret=481d6a5a106edf19cd028b7e24bcad9e&txTime=7AC4FEB7',
+          bearer_token: response.push,
         },
       })
 
@@ -142,7 +147,7 @@ export function TablesRowBroadcast({ row }: Props) {
 
       const request: CreateBroadcastRequest = {
         vendorName: vendorStore.vendor?.name ?? '',
-        domain: 'testput.leopardcat.live',
+        domain: '',
         gameId: row.original.gameId,
         gameName: gameName,
         tableId: row.original.id,

@@ -43,3 +43,25 @@ export const finishBroadcast = async () => {
     method: 'POST',
   })
 }
+
+export type GenerateUrlRequest = {
+  gameName: string
+  tableName: string
+}
+
+export type GenerateUrlResponse = {
+  push: string
+  pull: string
+}
+
+export const generateUrl = async (gameName: string, tableName: string) => {
+  const request: GenerateUrlRequest = {
+    gameName,
+    tableName,
+  }
+
+  return fetchAuthed<GenerateUrlResponse>('/broadcast/url', {
+    method: 'POST',
+    body: JSON.stringify(request),
+  })
+}
