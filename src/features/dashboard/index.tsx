@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -34,9 +33,7 @@ export default function Dashboard() {
       <Main>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
-          <div className='flex items-center space-x-2'>
-            <Button>Download</Button>
-          </div>
+          <div className='flex items-center space-x-2'></div>
         </div>
         <Tabs orientation='vertical' defaultValue='today' className='space-y-4'>
           <div className='w-full overflow-x-auto pb-2'>
@@ -57,7 +54,7 @@ export default function Dashboard() {
                   <CardTitle>Today Overview</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
-                  <Overview />
+                  <Overview date='today' />
                 </CardContent>
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
@@ -68,7 +65,7 @@ export default function Dashboard() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <TopAnchors />
+                  <TopAnchors date='today' />
                 </CardContent>
               </Card>
             </div>
@@ -85,7 +82,7 @@ export default function Dashboard() {
                   <CardTitle>Yesterday Overview</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
-                  <Overview />
+                  <Overview date='yesterday' />
                 </CardContent>
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
@@ -96,7 +93,7 @@ export default function Dashboard() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <TopAnchors />
+                  <TopAnchors date='yesterday' />
                 </CardContent>
               </Card>
             </div>
@@ -113,23 +110,5 @@ const topNav = [
     href: 'dashboard/overview',
     isActive: true,
     disabled: false,
-  },
-  {
-    title: 'Customers',
-    href: 'dashboard/customers',
-    isActive: false,
-    disabled: true,
-  },
-  {
-    title: 'Products',
-    href: 'dashboard/products',
-    isActive: false,
-    disabled: true,
-  },
-  {
-    title: 'Settings',
-    href: 'dashboard/settings',
-    isActive: false,
-    disabled: true,
   },
 ]

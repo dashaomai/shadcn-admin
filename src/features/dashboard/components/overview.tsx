@@ -8,11 +8,23 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { ListRequest, useHourlySummary } from '@/api/statistics/summary.ts'
+import {
+  ListRequest,
+  SummaryDate,
+  useHourlySummary,
+} from '@/api/statistics/summary.ts'
 
-export function Overview() {
-  const end = DateTime.now().startOf('hour')
+export type OverviewProps = {
+  date: SummaryDate
+}
+
+export function Overview({ date }: OverviewProps) {
+  const end =
+    date === 'today'
+      ? DateTime.now().startOf('hour')
+      : DateTime.now().startOf('hour').minus({ day: 1 })
   const begin = end.minus({ hours: 12 })
+
   const param: ListRequest = {
     begin: begin.toISO(),
     end: end.toISO(),

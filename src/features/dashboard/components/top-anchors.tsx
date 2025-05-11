@@ -1,16 +1,23 @@
 import { DateTime } from 'luxon'
 import { useTopAnchors } from '@/api/statistics/anchor.ts'
-import { ListRequest } from '@/api/statistics/summary.ts'
+import { ListRequest, SummaryDate } from '@/api/statistics/summary.ts'
 import { getFallback } from '@/utils/avatar.ts'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-export function TopAnchors() {
-  const end = DateTime.now().startOf('hour')
-  const begin = end.minus({ hours: 12 })
+export type TopAnchorsProps = {
+  date: SummaryDate
+}
+
+export function TopAnchors({ date }: TopAnchorsProps) {
+  const end =
+    date === 'today'
+      ? DateTime.now().startOf('hour')
+      : DateTime.now().startOf('day').minus({ day: 1 })
+  const begin = end.startOf('day').minus({ day: 1 })
   const param: ListRequest = {
     begin: begin.toISO(),
     end: end.toISO(),
-    limit: 12,
+    limit: 5,
   }
 
   const topAnchors = useTopAnchors(param)
