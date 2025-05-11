@@ -15,7 +15,7 @@ import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import SummaryCards from '@/features/dashboard/components/summary.tsx'
 import { Overview } from './components/overview'
-import { RecentSales } from './components/recent-sales'
+import { TopAnchors } from './components/top-anchors.tsx'
 
 export default function Dashboard() {
   return (
@@ -38,26 +38,15 @@ export default function Dashboard() {
             <Button>Download</Button>
           </div>
         </div>
-        <Tabs
-          orientation='vertical'
-          defaultValue='overview'
-          className='space-y-4'
-        >
+        <Tabs orientation='vertical' defaultValue='today' className='space-y-4'>
           <div className='w-full overflow-x-auto pb-2'>
             <TabsList>
-              <TabsTrigger value='overview'>Overview</TabsTrigger>
-              <TabsTrigger value='analytics' disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value='reports' disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value='notifications' disabled>
-                Notifications
-              </TabsTrigger>
+              <TabsTrigger value='today'>Today</TabsTrigger>
+              <TabsTrigger value='yesterday'>Yesterday</TabsTrigger>
             </TabsList>
           </div>
-          <TabsContent value='overview' className='space-y-4'>
+
+          <TabsContent value='today' className='space-y-4'>
             <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <SummaryCards date='today' />
             </div>
@@ -65,7 +54,7 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>
-                  <CardTitle>Overview</CardTitle>
+                  <CardTitle>Today Overview</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
                   <Overview />
@@ -79,7 +68,35 @@ export default function Dashboard() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <TopAnchors />
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value='yesterday' className='space-y-4'>
+            <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+              <SummaryCards date='yesterday' />
+            </div>
+
+            <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
+              <Card className='col-span-1 lg:col-span-4'>
+                <CardHeader>
+                  <CardTitle>Yesterday Overview</CardTitle>
+                </CardHeader>
+                <CardContent className='pl-2'>
+                  <Overview />
+                </CardContent>
+              </Card>
+              <Card className='col-span-1 lg:col-span-3'>
+                <CardHeader>
+                  <CardTitle>Recent Sales</CardTitle>
+                  <CardDescription>
+                    You made 265 sales this month.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <TopAnchors />
                 </CardContent>
               </Card>
             </div>
