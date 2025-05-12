@@ -135,15 +135,16 @@
       "overview": "总览",
       "today": {
         "title": "今日",
-        "overview": "今日总览"
+        "overview": "今日 12 小时总览"
       },
       "yesterday": {
         "title": "昨日",
-        "overview": "昨日总览"
+        "overview": "昨日 12 小时总览"
       },
       "top-anchors": {
-        "title": "直播趋势",
-        "description": "12 小时直播量趋势图表"
+        "title": "最活跃主播",
+        "description": "主播活跃排行榜",
+        "score": "直播 {{amount}} 次，共 {{duration}} 秒"
       },
       "anchor": {
         "amount": "活跃主播人数",
