@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   IconBroadcast,
   IconClockHour10,
@@ -10,6 +11,7 @@ import {
   SummaryDate,
   useDailySummary,
 } from '@/api/statistics/summary.ts'
+import { getMarkOfTime, secondToTime } from '@/utils/time'
 import {
   Card,
   CardContent,
@@ -25,6 +27,27 @@ export default function SummaryCards({ date }: SummaryCardsProps) {
   const { t } = useTranslation()
   const dailySummary = useDailySummary(date)
   const prevDailySummary = useDailySummary(getPrevDate(date))
+
+  const [duration, setDuration] = useState<string>('')
+  const [durationDiff, setDurationDiff] = useState<string>('')
+
+  useEffect(() => {
+    if (dailySummary.isFetched && prevDailySummary.isFetched) {
+      const meta = secondToTime(dailySummary.data!.broadcastDuration)
+      const mark = getMarkOfTime(meta)
+      const duration = t(`common.time.${mark}`, meta)
+      setDuration(duration)
+
+      const diff =
+        dailySummary.data!.broadcastDuration -
+        prevDailySummary.data!.broadcastDuration
+      const metaDiff = secondToTime(diff)
+      const markDiff = getMarkOfTime(metaDiff)
+
+      const durationDiff = t(`common.time.${markDiff}`, metaDiff)
+      setDurationDiff(durationDiff)
+    }
+  }, [dailySummary, prevDailySummary, t])
 
   if (!dailySummary.isFetched || !prevDailySummary.isFetched) {
     return <>Loading...</>
@@ -100,14 +123,10 @@ export default function SummaryCards({ date }: SummaryCardsProps) {
           <IconClockHour10 />
         </CardHeader>
         <CardContent>
-          <div className='text-2xl font-bold'>
-            {dailySummary.data?.broadcastDuration}
-          </div>
+          <div className='text-2xl font-bold'>{duration}</div>
           <p className='text-muted-foreground text-xs'>
             {t('apps.dashboard.broadcast-duration.diff-from', {
-              diff:
-                dailySummary.data!.broadcastDuration -
-                prevDailySummary.data!.broadcastDuration,
+              diff: durationDiff,
             })}
           </p>
         </CardContent>
