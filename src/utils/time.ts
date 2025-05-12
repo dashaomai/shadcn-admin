@@ -38,3 +38,12 @@ export const getMarkOfTime = (meta: TimeMeta): MarkOfTime => {
     return 'second'
   }
 }
+
+export const translateSeconds = (
+  seconds: number,
+  t: (key: string, meta: TimeMeta) => string
+): string => {
+  const meta = secondToTime(seconds)
+  const mark = getMarkOfTime(meta)
+  return t(`common.time.${mark}`, meta)
+}

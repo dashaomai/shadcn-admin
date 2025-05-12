@@ -150,7 +150,7 @@
       "top-anchors": {
         "title": "最活跃主播",
         "description": "主播活跃排行榜",
-        "score": "直播 {{amount}} 次，共 {{duration}} 秒"
+        "score": "直播 {{amount}} 次，共 {{duration}}"
       },
       "anchor": {
         "amount": "活跃主播人数",

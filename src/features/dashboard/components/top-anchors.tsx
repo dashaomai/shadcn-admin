@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useTopAnchors } from '@/api/statistics/anchor.ts'
 import { ListRequest, SummaryDate } from '@/api/statistics/summary.ts'
 import { getFallback } from '@/utils/avatar.ts'
+import { translateSeconds } from '@/utils/time'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export type TopAnchorsProps = {
@@ -46,7 +47,7 @@ export function TopAnchors({ date }: TopAnchorsProps) {
             <div className='font-medium'>
               {t('apps.dashboard.top-anchors.score', {
                 amount: anchor.broadcastAmount,
-                duration: anchor.broadcastDuration,
+                duration: translateSeconds(anchor.broadcastDuration, t),
               })}
             </div>
           </div>
