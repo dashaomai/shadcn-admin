@@ -141,7 +141,7 @@
       "overview": "总览",
       "recharts": {
         "tooltip": "时段统计信息",
-        "anchorAmount": "主播活跃人数",
+        "anchorAmount": "活跃主播人数",
         "gameAmount": "直播游戏数",
         "broadcastAmount": "直播次数",
         "broadcastDuration": "直播时长"
