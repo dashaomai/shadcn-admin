@@ -144,6 +144,22 @@
       "top-anchors": {
         "title": "直播趋势",
         "description": "12 小时直播量趋势图表"
+      },
+      "anchor": {
+        "amount": "活跃主播人数",
+        "diff-from": "相比前一天变化了 {{diff}} 人"
+      },
+      "game": {
+        "amount": "合计直播游戏数",
+        "diff-from": "相比前一天变化了 {{diff}} 款"
+      },
+      "broadcast-amount": {
+        "title": "合计直播次数",
+        "diff-from": "相比前一天变化了 {{diff}} 次"
+      },
+      "broadcast-duration": {
+        "title": "合计直播时长",
+        "diff-from": "相比前一天变化了 {{diff}}"
       }
     },
     "table": {
