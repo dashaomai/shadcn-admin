@@ -157,15 +157,15 @@
         "diff-from": "相比前一天变化了 {{diff}} 人"
       },
       "game": {
-        "amount": "合计直播游戏数",
+        "amount": "直播的游戏总数",
         "diff-from": "相比前一天变化了 {{diff}} 款"
       },
       "broadcast-amount": {
-        "title": "合计直播次数",
+        "title": "直播总次数",
         "diff-from": "相比前一天变化了 {{diff}} 次"
       },
       "broadcast-duration": {
-        "title": "合计直播时长",
+        "title": "直播总时长",
         "diff-from": "相比前一天变化了 {{diff}}"
       }
     },
