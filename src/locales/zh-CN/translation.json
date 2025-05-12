@@ -126,14 +126,26 @@
       },
       "submit": "更新外观设置"
     },
-    "notification": {
-
-    },
-    "display": {
-
-    }
+    "notification": {},
+    "display": {}
   },
   "apps": {
+    "dashboard": {
+      "title": "统计面板",
+      "overview": "总览",
+      "today": {
+        "title": "今日",
+        "overview": "今日总览"
+      },
+      "yesterday": {
+        "title": "昨日",
+        "overview": "昨日总览"
+      },
+      "top-anchors": {
+        "title": "直播趋势",
+        "description": "12 小时直播量趋势图表"
+      }
+    },
     "table": {
       "toggle-columns": "数据列显示开关",
       "faceted-filter": {

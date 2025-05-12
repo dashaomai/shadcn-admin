@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+import { i18n } from '@/lib/i18n.ts'
 import {
   Card,
   CardContent,
@@ -17,6 +19,8 @@ import { Overview } from './components/overview'
 import { TopAnchors } from './components/top-anchors.tsx'
 
 export default function Dashboard() {
+  const { t } = useTranslation()
+
   return (
     <>
       {/* ===== Top Heading ===== */}
@@ -32,14 +36,20 @@ export default function Dashboard() {
       {/* ===== Main ===== */}
       <Main>
         <div className='mb-2 flex items-center justify-between space-y-2'>
-          <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
+          <h1 className='text-2xl font-bold tracking-tight'>
+            {t('apps.dashboard.title')}
+          </h1>
           <div className='flex items-center space-x-2'></div>
         </div>
         <Tabs orientation='vertical' defaultValue='today' className='space-y-4'>
           <div className='w-full overflow-x-auto pb-2'>
             <TabsList>
-              <TabsTrigger value='today'>Today</TabsTrigger>
-              <TabsTrigger value='yesterday'>Yesterday</TabsTrigger>
+              <TabsTrigger value='today'>
+                {t('apps.dashboard.today.title')}
+              </TabsTrigger>
+              <TabsTrigger value='yesterday'>
+                {t('apps.dashboard.yesterday.title')}
+              </TabsTrigger>
             </TabsList>
           </div>
 
@@ -51,7 +61,7 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>
-                  <CardTitle>Today Overview</CardTitle>
+                  <CardTitle>{t('apps.dashboard.today.overview')}</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
                   <Overview date='today' />
@@ -59,9 +69,9 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>{t('apps.dashboard.top-anchors.title')}</CardTitle>
                   <CardDescription>
-                    You made 265 sales this month.
+                    {t('apps.dashboard.top-anchors.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -79,7 +89,9 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
               <Card className='col-span-1 lg:col-span-4'>
                 <CardHeader>
-                  <CardTitle>Yesterday Overview</CardTitle>
+                  <CardTitle>
+                    {t('apps.dashboard.yesterday.overview')}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
                   <Overview date='yesterday' />
@@ -87,9 +99,9 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>{t('apps.dashboard.top-anchors.title')}</CardTitle>
                   <CardDescription>
-                    You made 265 sales this month.
+                    {t('apps.dashboard.top-anchors.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -106,7 +118,7 @@ export default function Dashboard() {
 
 const topNav = [
   {
-    title: 'Overview',
+    title: i18n.t('apps.dashboard.overview'),
     href: 'dashboard/overview',
     isActive: true,
     disabled: false,
