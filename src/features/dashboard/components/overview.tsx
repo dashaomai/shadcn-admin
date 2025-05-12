@@ -1,21 +1,59 @@
 import { DateTime } from 'luxon'
+import { useTranslation } from 'react-i18next'
 import {
   Bar,
   BarChart,
-  Legend,
   ResponsiveContainer,
   Tooltip,
+  TooltipProps,
   XAxis,
   YAxis,
 } from 'recharts'
+import {
+  NameType,
+  ValueType,
+} from 'recharts/types/component/DefaultTooltipContent'
 import {
   ListRequest,
   SummaryDate,
   useHourlySummary,
 } from '@/api/statistics/summary.ts'
+import { translateSeconds } from '@/utils/time'
 
 export type OverviewProps = {
   date: SummaryDate
+}
+
+function MyTooltip<TValue extends ValueType, TName extends NameType>({
+  payload,
+  label,
+  active,
+}: TooltipProps<TValue, TName>) {
+  const { t } = useTranslation()
+  const date = new Date(label)
+
+  if (active) {
+    return (
+      <div className='rounded-lg border-2 bg-gray-100 p-6 dark:bg-auto'>
+        <p className='text-black'>{`${date.toLocaleString()}`}</p>
+        <p className='pb-1 text-sm text-gray-500'>
+          {t(`apps.dashboard.recharts.tooltip`)}
+        </p>
+        <ul className='text-xs text-gray-400'>
+          {payload!.map((p) => (
+            <li key={p.dataKey}>
+              {t(`apps.dashboard.recharts.${p.dataKey}`)}:&nbsp;
+              {p.dataKey === 'broadcastDuration'
+                ? translateSeconds(p.payload[p.dataKey!], t)
+                : p.payload[p.dataKey!]}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  } else {
+    return null
+  }
 }
 
 export function Overview({ date }: OverviewProps) {
@@ -46,32 +84,71 @@ export function Overview({ date }: OverviewProps) {
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          tickFormatter={(value) => new Date(value).toLocaleTimeString()}
         />
         <YAxis
           stroke='#888888'
+          yAxisId='anchor'
+          hide
           fontSize={12}
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
         />
-        <Tooltip />
-        <Legend />
+        <YAxis
+          stroke='#888888'
+          yAxisId='game'
+          hide
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `${value}`}
+        />
+        <YAxis
+          stroke='#888888'
+          yAxisId='amount'
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `${value}`}
+        />
+        <YAxis
+          stroke='#888888'
+          hide
+          yAxisId='duration'
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `${value}`}
+        />
+        <Tooltip content={<MyTooltip />} />
         <Bar
           dataKey='anchorAmount'
+          yAxisId='anchor'
           fill='currentColor'
           radius={[4, 4, 0, 0]}
           className='fill-primary'
           label='Total'
         />
         <Bar
-          dataKey='broadcastAmount'
+          dataKey='gameAmount'
+          yAxisId='game'
           fill='currentColor'
           radius={[4, 4, 0, 0]}
           className='fill-secondary'
+          label='Game'
+        />
+        <Bar
+          dataKey='broadcastAmount'
+          yAxisId='amount'
+          fill='currentColor'
+          radius={[4, 4, 0, 0]}
+          className='fill-primary'
           label='Min'
         />
         <Bar
           dataKey='broadcastDuration'
+          yAxisId='duration'
           fill='currentColor'
           radius={[4, 4, 0, 0]}
           className='fill-secondary'
