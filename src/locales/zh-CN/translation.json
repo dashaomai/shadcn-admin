@@ -97,6 +97,12 @@
     "save": "保存",
     "data": {
       "no-results": "当前无数据内容。"
+    },
+    "time": {
+      "day": "{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
+      "hour": "{{hours}}时{{minutes}}分{{seconds}}秒",
+      "minute": "{{minutes}}分{{seconds}}秒",
+      "second": "{{seconds}}秒"
     }
   },
   "settings": {
@@ -126,14 +132,50 @@
       },
       "submit": "更新外观设置"
     },
-    "notification": {
-
-    },
-    "display": {
-
-    }
+    "notification": {},
+    "display": {}
   },
   "apps": {
+    "dashboard": {
+      "title": "统计面板",
+      "overview": "总览",
+      "recharts": {
+        "tooltip": "时段统计信息",
+        "anchorAmount": "活跃主播人数",
+        "gameAmount": "直播游戏数",
+        "broadcastAmount": "直播次数",
+        "broadcastDuration": "直播时长"
+      },
+      "today": {
+        "title": "今日",
+        "overview": "今日 12 小时总览"
+      },
+      "yesterday": {
+        "title": "昨日",
+        "overview": "昨日 12 小时总览"
+      },
+      "top-anchors": {
+        "title": "最活跃主播",
+        "description": "主播活跃排行榜",
+        "score": "直播 {{amount}} 次，共 {{duration}}"
+      },
+      "anchor": {
+        "amount": "活跃主播人数",
+        "diff-from": "相比前一天变化了 {{diff}} 人"
+      },
+      "game": {
+        "amount": "直播的游戏总数",
+        "diff-from": "相比前一天变化了 {{diff}} 款"
+      },
+      "broadcast-amount": {
+        "title": "直播总次数",
+        "diff-from": "相比前一天变化了 {{diff}} 次"
+      },
+      "broadcast-duration": {
+        "title": "直播总时长",
+        "diff-from": "相比前一天变化了 {{diff}}"
+      }
+    },
     "table": {
       "toggle-columns": "数据列显示开关",
       "faceted-filter": {

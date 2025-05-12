@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
+import { useTranslation } from 'react-i18next'
 import { useTopAnchors } from '@/api/statistics/anchor.ts'
 import { ListRequest, SummaryDate } from '@/api/statistics/summary.ts'
 import { getFallback } from '@/utils/avatar.ts'
+import { translateSeconds } from '@/utils/time'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export type TopAnchorsProps = {
@@ -9,6 +11,7 @@ export type TopAnchorsProps = {
 }
 
 export function TopAnchors({ date }: TopAnchorsProps) {
+  const { t } = useTranslation()
   const end =
     date === 'today'
       ? DateTime.now().startOf('hour')
@@ -42,7 +45,10 @@ export function TopAnchors({ date }: TopAnchorsProps) {
               <p className='text-muted-foreground text-sm'>{anchor.email}</p>
             </div>
             <div className='font-medium'>
-              {anchor.broadcastAmount} - {anchor.broadcastDuration}
+              {t('apps.dashboard.top-anchors.score', {
+                amount: anchor.broadcastAmount,
+                duration: translateSeconds(anchor.broadcastDuration, t),
+              })}
             </div>
           </div>
         </div>
