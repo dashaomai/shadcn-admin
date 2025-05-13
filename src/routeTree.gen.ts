@@ -32,6 +32,7 @@ import { Route as AuthenticatedSettingsIndexImport } from './routes/_authenticat
 import { Route as AuthenticatedRolesIndexImport } from './routes/_authenticated/roles/index'
 import { Route as AuthenticatedPublishersIndexImport } from './routes/_authenticated/publishers/index'
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
+import { Route as AuthenticatedOperationsIndexImport } from './routes/_authenticated/operations/index'
 import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
@@ -186,6 +187,17 @@ const AuthenticatedPlatformsIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/platforms/index.lazy').then((d) => d.Route),
+  )
+
+const AuthenticatedOperationsIndexRoute =
+  AuthenticatedOperationsIndexImport.update({
+    id: '/operations/',
+    path: '/operations/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/operations/index.lazy').then(
+      (d) => d.Route,
+    ),
   )
 
 const AuthenticatedHelpCenterIndexRoute =
@@ -432,6 +444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/operations/': {
+      id: '/_authenticated/operations/'
+      path: '/operations'
+      fullPath: '/operations'
+      preLoaderRoute: typeof AuthenticatedOperationsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/platforms/': {
       id: '/_authenticated/platforms/'
       path: '/platforms'
@@ -525,6 +544,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
+  AuthenticatedOperationsIndexRoute: typeof AuthenticatedOperationsIndexRoute
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
   AuthenticatedPublishersIndexRoute: typeof AuthenticatedPublishersIndexRoute
   AuthenticatedRolesIndexRoute: typeof AuthenticatedRolesIndexRoute
@@ -543,6 +563,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
+  AuthenticatedOperationsIndexRoute: AuthenticatedOperationsIndexRoute,
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
   AuthenticatedPublishersIndexRoute: AuthenticatedPublishersIndexRoute,
   AuthenticatedRolesIndexRoute: AuthenticatedRolesIndexRoute,
@@ -579,6 +600,7 @@ export interface FileRoutesByFullPath {
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
@@ -611,6 +633,7 @@ export interface FileRoutesByTo {
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
+  '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
   '/publishers': typeof AuthenticatedPublishersIndexRoute
   '/roles': typeof AuthenticatedRolesIndexRoute
@@ -646,6 +669,7 @@ export interface FileRoutesById {
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
+  '/_authenticated/operations/': typeof AuthenticatedOperationsIndexRoute
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
   '/_authenticated/publishers/': typeof AuthenticatedPublishersIndexRoute
   '/_authenticated/roles/': typeof AuthenticatedRolesIndexRoute
@@ -682,6 +706,7 @@ export interface FileRouteTypes {
     | '/developers'
     | '/game-catalogs'
     | '/help-center'
+    | '/operations'
     | '/platforms'
     | '/publishers'
     | '/roles'
@@ -713,6 +738,7 @@ export interface FileRouteTypes {
     | '/developers'
     | '/game-catalogs'
     | '/help-center'
+    | '/operations'
     | '/platforms'
     | '/publishers'
     | '/roles'
@@ -746,6 +772,7 @@ export interface FileRouteTypes {
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
     | '/_authenticated/help-center/'
+    | '/_authenticated/operations/'
     | '/_authenticated/platforms/'
     | '/_authenticated/publishers/'
     | '/_authenticated/roles/'
@@ -819,6 +846,7 @@ export const routeTree = rootRoute
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
         "/_authenticated/help-center/",
+        "/_authenticated/operations/",
         "/_authenticated/platforms/",
         "/_authenticated/publishers/",
         "/_authenticated/roles/",
@@ -911,6 +939,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/help-center/": {
       "filePath": "_authenticated/help-center/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/operations/": {
+      "filePath": "_authenticated/operations/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/platforms/": {
