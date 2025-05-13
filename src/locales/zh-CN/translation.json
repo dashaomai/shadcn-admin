@@ -334,6 +334,20 @@
           "description": "请选择账号的角色信息后，点击“保存”按钮",
           "empty": "当前账号无角色"
         }
+      },
+      "toast": {
+        "create": {
+          "title": "创建新账号",
+          "ed": "成功创建新的账号 {{name}}"
+        },
+        "update": {
+          "title": "修改账号",
+          "ed": "成功修改账号 {{name}}"
+        },
+        "delete": {
+          "title": "删除账号",
+          "ed": "成功删除账号 {{name}}"
+        }
       }
     },
     "platforms": {
