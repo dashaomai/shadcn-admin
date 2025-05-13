@@ -59,6 +59,7 @@
         "hall": "厅馆",
         "broadcast": "直播",
         "table": "游戏房",
+        "bc_baccarat": "区块链百家乐",
         "maintain": "维护",
         "game-records": "游戏记录",
         "settings": "设置",
@@ -670,6 +671,9 @@
       },
       "toolbar": {
         "placeholder": "过滤游戏房"
+      },
+      "tip": {
+        "broadcast": "{{nickname}} 正在直播"
       },
       "toast": {
         "create": {

@@ -1,3 +1,12 @@
+export type BroadcastInfo = {
+  accountId: string
+  nickname: string
+  email: string
+  avatar: string
+  tableId: number
+  createdAt: string
+}
+
 export type TableInfo = {
   id: number
   gameId: number
@@ -5,6 +14,7 @@ export type TableInfo = {
   createdAt: string
   orders: number
   name: string
+  broadcast: BroadcastInfo | null
 }
 
 /** 桌状态 */

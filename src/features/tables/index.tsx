@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { useAllGames } from '@/api/bridge/game.ts'
-import { listTables } from '@/api/bridge/table.ts'
+import { useTableStore } from '@/stores/tableStore'
 import MainContent from '@/components/layout/main-content.tsx'
 import MainHeader from '@/components/layout/main-header.tsx'
 import MainTitleBar from '@/components/layout/main-title-bar.tsx'
@@ -19,10 +18,7 @@ export default function TablesPage() {
   const routeApi = getRouteApi('/_authenticated/tables/')
   const { gameId, page, limit } = routeApi.useSearch()
 
-  const query = useQuery({
-    queryKey: ['tables-list', gameId, page, limit],
-    queryFn: async () => await listTables({ gameId, page, limit }),
-  })
+  const tableStore = useTableStore()
 
   const allGames = useAllGames()
 
@@ -34,7 +30,11 @@ export default function TablesPage() {
 
       setGame(game)
     }
-  }, [allGames.isFetched, setGame])
+  }, [allGames.data, allGames.isFetched, gameId, setGame])
+
+  useEffect(() => {
+    tableStore.broadcast.setParams(gameId, page, limit)
+  }, [gameId, page, limit])
 
   return (
     <TablesProvider>
@@ -53,15 +53,13 @@ export default function TablesPage() {
         </MainTitleBar>
 
         <MainContent>
-          {query.isFetched && query.data && (
-            <TablesTable
-              columns={columns}
-              data={query.data.data}
-              page={page}
-              limit={limit}
-              total={query.data.total}
-            />
-          )}
+          <TablesTable
+            columns={columns}
+            data={tableStore.broadcast.tables}
+            page={page}
+            limit={limit}
+            total={tableStore.broadcast.total}
+          />
         </MainContent>
       </Main>
     </TablesProvider>

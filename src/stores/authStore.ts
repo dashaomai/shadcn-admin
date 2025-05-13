@@ -11,6 +11,8 @@ import { queryClient } from '@/lib/client'
 import { Code } from '@/lib/code.ts'
 import { i18n } from '@/lib/i18n.ts'
 import { WrappedResponse } from '@/lib/response'
+import { BroadcastInfo } from '@/features/tables/data/table'
+import { useTableStore } from './tableStore'
 
 const ACCESS_TOKEN = 'sdfjas'
 
@@ -52,6 +54,17 @@ export function connectToBroker(accountId: string, sessionId: string) {
         { accountId, sessionId },
         () => {
           logger.info('broker subscriber entry successful.')
+
+          // pub
+          const req = {
+            topics: [
+              'cyber.vod.table.*.broadcast.start',
+              'cyber.vod.table.*.broadcast.stop',
+            ],
+          }
+          brokerConn.request('broker.subscriber.subscribe', req, () => {
+            logger.info('broker subscriber subscribe successful.')
+          })
         }
       )
     }
@@ -92,12 +105,34 @@ export const useAuthStore = create<AuthState>()((set, get) => {
     logger.info('broker pushed message:', push)
 
     const { accountId, sessionId } = get().auth
-    const topicPrefix = `cyber.vod.account.${accountId}.`
+    const personalTopicPrefix = `cyber.vod.account.${accountId}.`
+    const tableTopicPrefix = 'cyber.vod.table.'
 
-    if (push.subject.startsWith(topicPrefix)) {
+    if (push.subject.startsWith(personalTopicPrefix)) {
       // 个人消息
-      const route = push.subject.substring(topicPrefix.length)
+      const route = push.subject.substring(personalTopicPrefix.length)
       processBrokerSubscription(accountId!, sessionId!, route, push, get)
+    } else if (push.subject.startsWith(tableTopicPrefix)) {
+      // 直播消息
+      const route = push.subject.substring(tableTopicPrefix.length)
+      const startSuffix = '.broadcast.start'
+      const stopSuffix = '.broadcast.stop'
+
+      let tableId: number = 0
+      let info: BroadcastInfo | null = null
+
+      if (route.endsWith(startSuffix)) {
+        const id = route.substring(0, route.length - startSuffix.length)
+        tableId = parseInt(id)
+        info = JSON.parse(push.payload)
+      } else if (route.endsWith(stopSuffix)) {
+        const id = route.substring(0, route.length - stopSuffix.length)
+        tableId = parseInt(id)
+      }
+
+      if (tableId > 0) {
+        useTableStore.getState().broadcast.matchId(tableId, info)
+      }
     } else {
       // 其他消息
     }

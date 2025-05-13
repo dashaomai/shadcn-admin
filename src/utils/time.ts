@@ -12,6 +12,7 @@ export type TimeMeta = {
 export const secondToTime = (seconds: number): TimeMeta => {
   const days = Math.floor(seconds / day)
   seconds %= day
+  seconds = Math.abs(seconds)
   const hours = Math.floor(seconds / hour)
   seconds %= hour
   const minutes = Math.floor(seconds / minute)

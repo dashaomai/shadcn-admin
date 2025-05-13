@@ -3,6 +3,7 @@ import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
+import { useProfile } from '@/api/auth'
 import { useAllGames } from '@/api/bridge/game.ts'
 import { CreateBroadcastRequest, generateUrl } from '@/api/vod/broadcast.ts'
 import { useBroadcastStore } from '@/stores/broadcastStore.ts'
@@ -14,7 +15,7 @@ import { TableInfo } from '@/features/tables/data/table.ts'
 
 type Props = DataTableRowActionsProps<TableInfo>
 
-const outputs: string[] = ['DelayEnable', 'false', 'LowLatencyEnable', 'false']
+/* const outputs: string[] = ['DelayEnable', 'false', 'LowLatencyEnable', 'false']
 
 const simpleOutputs: string[] = [
   'VBitrate',
@@ -42,10 +43,11 @@ const advOuts: string[] = [
   'com.apple.videotoolbox.videoencoder.ave.avc',
   'RecEncoder',
   'com.apple.video.toolbox.videoencoder.ave.avc',
-]
+] */
 
 export function TablesRowBroadcast({ row }: Props) {
   const { t } = useTranslation()
+  const profile = useProfile()
   const vendorStore = useVendorStore()
   const broadcastStore = useBroadcastStore()
   const allGames = useAllGames()
@@ -105,7 +107,7 @@ export function TablesRowBroadcast({ row }: Props) {
         },
       })
 
-      for (let i = 0; i < outputs.length; i += 2) {
+      /* for (let i = 0; i < outputs.length; i += 2) {
         await obs.call('SetProfileParameter', {
           parameterCategory: 'Output',
           parameterName: outputs[i],
@@ -127,7 +129,7 @@ export function TablesRowBroadcast({ row }: Props) {
           parameterName: advOuts[i],
           parameterValue: advOuts[i + 1],
         })
-      }
+        } */
 
       await obs.call('StartStream')
     } catch (e) {
@@ -217,20 +219,27 @@ export function TablesRowBroadcast({ row }: Props) {
     })
   }
 
-  return (
-    <>
-      {broadcastStore.broadcast?.tableId === row.original.id && (
-        <Button variant='secondary' onClick={handleStopBroadcast}>
-          <IconBroadcast className='h-4 w-4' />
-          <span>{t('apps.tables.actions.stop-broadcast')}</span>
-        </Button>
-      )}
-      {!broadcastStore.broadcast && (
-        <Button variant='default' onClick={handleStartBroadcast}>
-          <IconBroadcast className='h-4 w-4' />
-          <span>{t('apps.tables.actions.start-broadcast')}</span>
-        </Button>
-      )}
-    </>
-  )
+  if (row.original.broadcast === null) {
+    return (
+      <Button variant='default' onClick={handleStartBroadcast}>
+        <IconBroadcast className='h-4 w-4' />
+        <span>{t('apps.tables.actions.start-broadcast')}</span>
+      </Button>
+    )
+  } else if (row.original.broadcast.accountId === profile.data?.accountId) {
+    return (
+      <Button variant='secondary' onClick={handleStopBroadcast}>
+        <IconBroadcast className='h-4 w-4' />
+        <span>{t('apps.tables.actions.stop-broadcast')}</span>
+      </Button>
+    )
+  } else {
+    return (
+      <p>
+        {t('apps.tables.tip.broadcast', {
+          nickname: row.original.broadcast.nickname,
+        })}
+      </p>
+    )
+  }
 }

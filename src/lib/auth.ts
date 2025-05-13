@@ -1,4 +1,4 @@
-import { Role } from "./role"
+import { Role } from './role'
 
 export type SignInRequest = {
   type: number
@@ -18,7 +18,7 @@ export type ConsoleInfo = {
 }
 
 export type ConsoleProfile = {
-  id: string
+  accountId: string
   nickname: string
   email: string
   avatar: string
