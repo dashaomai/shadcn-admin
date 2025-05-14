@@ -1,7 +1,469 @@
 {
+  "title": "Cyber 直播管理後台",
   "auth": {
     "signIn": {
-      "failed": "登录失败，请检查账号与密码后重试。"
+      "welcome": "歡迎使用直播管理後台。它是為 Cyber Games 的直播系統設計，可用於管理、帳戶、直播、數據報告及眾多管理功能。",
+      "title": "登入",
+      "description": "在下方輸入你的帳號和密碼，以便登入你的帳號。",
+      "name": {
+        "label": "帳號",
+        "placeholder": "你的登入帳號"
+      },
+      "password": {
+        "label": "密碼",
+        "placeholder": "你的登入密碼"
+      },
+      "failed": "登入失敗，請檢查帳號與密碼後重試。",
+      "submit": "登入",
+      "tip": "請先登錄，隨後才能操作。",
+      "footer": "Cyber Games 版權所有"
+    },
+    "signOut": "登出",
+    "duplication": {
+      "kick-off": "帳號在別處登入",
+      "kick-off-description": "此帳號已在別處成功登錄，必須從此處下線。"
+    }
+  },
+  "layout": {
+    "teams": {
+      "title": "所屬平台",
+      "name": "cyber.vod"
+    },
+    "plans": {
+      "startup": "標準版"
+    },
+    "navigate": {
+      "groups": {
+        "normal": "常規管理",
+        "authorize": "登入管理",
+        "system": "系統管理",
+        "player": "玩家管理",
+        "records": "記錄查詢",
+        "broadcast": "直播管理",
+        "personal": "個人設定"
+      },
+      "items": {
+        "dashboard": "數據面板",
+        "console-account": "管理後台帳號",
+        "account": "帳號",
+        "role": "角色",
+        "player": "玩家",
+        "base": "基礎資料管理",
+        "platform": "平台",
+        "developer": "開發商",
+        "publisher": "發行商",
+        "game-hall": "遊戲 & 廳館管理",
+        "game": "游戏",
+        "game-catalog": "游戏分类",
+        "tag": "标签",
+        "hall": "厅馆",
+        "broadcast": "直播",
+        "table": "遊戲房",
+        "bc_baccarat": "區塊鏈百家樂",
+        "maintain": "維護",
+        "game-records": "遊戲記錄",
+        "operation-logs": "操作記錄",
+        "settings": "設定",
+        "settings-description": "管理你的管理後台帳號並設定電子郵件地址等信息",
+        "profile": "個人資料",
+        "account-setting": "帳號",
+        "appearance": "外觀",
+        "notifications": "通知",
+        "display": "顯示",
+        "help-center": "幫助中心"
+      }
+    },
+    "dialog": {
+      "cancel": "取消"
+    },
+    "search": {
+      "placeholder": "功能搜尋",
+      "input-placeholder": "輸入命令或模組名以搜尋 ...",
+      "no-results-found": "無相關功能。"
+    },
+    "theme": {
+      "title": "主題",
+      "description": "切換主題",
+      "light": "亮色調",
+      "dark": "暗色調",
+      "system": "跟隨系統配置"
+    },
+    "account": {
+      "profile": "個人資料",
+      "billing": "支付訊息",
+      "settings": "設定",
+      "appearance": "外觀"
+    }
+  },
+  "common": {
+    "save": "儲存",
+    "data": {
+      "no-results": "目前無數據內容。"
+    },
+    "time": {
+      "day": "{{days}}天{{hours}}時{{minutes}}分{{seconds}}秒",
+      "hour": "{{hours}}時{{minutes}}分{{seconds}}秒",
+      "minute": "{{minutes}}分{{seconds}}秒",
+      "second": "{{seconds}}秒"
+    }
+  },
+  "settings": {
+    "profile": {
+      "title": "個人資料",
+      "description": "請在此處查看並修改你的個人資料"
+    },
+    "account": {
+      "title": "帳號資訊",
+      "description": "請在此處查看並修改你的帳號信息"
+    },
+    "appearance": {
+      "title": "外觀設定",
+      "description": "在此可以更改外觀及主題設置",
+      "theme": {
+        "title": "主題",
+        "description": "選擇你喜歡的主題",
+        "light": "亮色調",
+        "dark": "暗色調",
+        "system": "跟隨系統配置"
+      },
+      "language": {
+        "title": "語言",
+        "description": "選擇你喜歡的語言",
+        "search-placeholder": "輸入語言名稱以搜尋 ...",
+        "no-results-found": "無相關語言。"
+      },
+      "submit": "更新外觀設定"
+    },
+    "notification": {},
+    "display": {}
+  },
+  "apps": {
+    "dashboard": {
+      "title": "統計面板",
+      "overview": "總覽",
+      "recharts": {
+        "tooltip": "時段統計資訊",
+        "anchorAmount": "活躍主播數",
+        "gameAmount": "直播遊戲數",
+        "broadcastAmount": "直播次數",
+        "broadcastDuration": "直播時長"
+      },
+      "today": {
+        "title": "今日",
+        "overview": "今日 12 小時總覽"
+      },
+      "yesterday": {
+        "title": "昨天",
+        "overview": "昨天 12 小時總覽"
+      },
+      "top-anchors": {
+        "title": "最活躍主播",
+        "description": "主播活躍排行榜",
+        "score": "直播 {{amount}} 次，共 {{duration}}"
+      },
+      "anchor": {
+        "amount": "活躍主播數",
+        "diff-from": "相較於前一天變化了 {{diff}} 人"
+      },
+      "game": {
+        "amount": "直播的遊戲總數",
+        "diff-from": "相較於前一天變化了 {{diff}} 款"
+      },
+      "broadcast-amount": {
+        "title": "直播總次數",
+        "diff-from": "相較於前一天變化了 {{diff}} 次"
+      },
+      "broadcast-duration": {
+        "title": "直播總時長",
+        "diff-from": "相較於前一天變化了 {{diff}}"
+      }
+    },
+    "table": {
+      "toggle-columns": "資料列顯示開關",
+      "faceted-filter": {
+        "clear": "清除過濾條件"
+      },
+      "view": "視圖控制",
+      "row": {
+        "select-all": "選擇全部資料行",
+        "select": "選擇資料行"
+      },
+      "actions": {
+        "open-menu": "開啟選單",
+        "edit": "修改",
+        "delete": "刪除"
+      },
+      "pagination": {
+        "selected": "選中了 {{selected}} / {{count}} 項",
+        "page": "第 {{page}} / {{maxPage}} 頁",
+        "rows": "每頁行數",
+        "first-page": "前往第一頁",
+        "last-page": "前往最後頁",
+        "prev-page": "前一頁",
+        "next-page": "後一頁"
+      }
+    },
+    "roles": {
+      "description": "對系統內各個角色/安全群組進行管理",
+      "create": {
+        "title": "創建新角色",
+        "description": "錄入新角色的屬性，隨後點選「創建」按鈕",
+        "submit": "創建"
+      },
+      "update": {
+        "title": "修改角色",
+        "description": "修改目前角色的屬性，隨後點選「儲存」按鈕",
+        "submit": "儲存"
+      },
+      "delete": {
+        "confirm0": "你是否確認要刪除 ",
+        "confirm1": "？",
+        "confirm2": "此操作將會從管理後台永久刪除角色 ",
+        "confirm3": "，無法被撤銷。",
+        "placeholder": "請輸入角色名，以確認刪除。",
+        "warning": "警告！！！",
+        "careful": "請注意，這項操作無法被撤回。",
+        "submit": "刪除"
+      },
+      "properties": {
+        "name": {
+          "title": "角色名",
+          "placeholder": "請指定角色名",
+          "description": "角色名由至少 3 個字元構成，且不能與其它角色重名"
+        },
+        "description": {
+          "title": "角色備註",
+          "placeholder": "請輸入目前角色的備註訊息"
+        }
+      },
+      "toolbar": {
+        "placeholder": "過濾 角色 訊息"
+      },
+      "toast": {
+        "create": {
+          "title": "創造新角色",
+          "ed": "成功創造新的角色 {{name}}"
+        },
+        "update": {
+          "title": "修改角色",
+          "ed": "成功修改角色 {{name}}"
+        },
+        "delete": {
+          "title": "刪除角色",
+          "ed": "刪除角色 {{name}}"
+        }
+      },
+      "button": {
+        "create": "創造角色"
+      }
+    },
+    "accounts": {
+      "actions": {
+        "create": "建立新帳號",
+        "edit": "修改帳號資訊",
+        "edit-roles": "角色調整",
+        "reset-password": "重設密碼",
+        "updateRoles": {
+          "success": "角色更新完畢",
+          "successDescription": "账号 {{loginName}} 的角色已經更新完畢"
+        },
+        "updateProfile": {
+          "submit": "更新個人資料",
+          "success": "個人檔案更新完畢",
+          "failed": "個人資料更新失敗"
+        }
+      },
+      "description": "對系統內各個帳號進行管理",
+      "create": {
+        "title": "建立新帳號",
+        "description": "錄入新帳號的屬性，隨後點選「建立」按鈕",
+        "submit": "建立"
+      },
+      "update": {
+        "title": "修改帳號",
+        "description": "修改目前帳號的屬性，隨後點選「儲存」按鈕",
+        "submit": "儲存"
+      },
+      "updateRoles": {
+        "title": "對帳號 {{loginName}} 的角色進行調整",
+        "description": "調整目前帳號的角色訊息，將會決定該帳號在管理後台的操作權限。"
+      },
+      "toolbar": {
+        "placeholder": "過濾 帳號 訊息"
+      },
+      "properties": {
+        "loginName": {
+          "title": "登入名",
+          "placeholder": "請指定登入名",
+          "description": "登入名稱由至少 3 個字元構成，且不能與其它帳號重名",
+          "updateDescription": "登入名不可修改"
+        },
+        "password": {
+          "title": "密碼",
+          "placeholder": "請指定登入密碼",
+          "description": "密碼由至少 6 個字元構成"
+        },
+        "passwordConfirm": {
+          "title": "確認密碼",
+          "placeholder": "請再次輸入登入密碼",
+          "notEqual": "兩次輸入的密碼不一致"
+        },
+        "profile": {
+          "nickname": {
+            "title": "暱稱",
+            "placeholder": "請輸入帳號的暱稱",
+            "description": "系統中使用者能互相看見對方的暱稱。"
+          },
+          "email": {
+            "title": "電子郵件信箱",
+            "placeholder": "請輸入帳號的電子郵件信箱",
+            "description": "此電子郵件為工作用途，請確保暢通。"
+          },
+          "avatar": {
+            "title": "頭像",
+            "placeholder": "請上傳帳號的頭像",
+            "description": "如果不設定頭像，系統將會使用帳號名稱產生預設頭像。",
+            "upload": "上傳頭像",
+            "uploaded": "頭像上傳成功",
+            "uploaded-description": "新頭像已成功上傳，但需執行更新操作，才會最終生效"
+          }
+        },
+        "roles": {
+          "title": "角色",
+          "placeholder": "請選擇帳號的角色",
+          "updateTitle": "調整該帳號的角色",
+          "description": "請選擇帳號的角色資訊後，點選「儲存」按鈕",
+          "empty": "目前帳號無角色"
+        }
+      },
+      "toast": {
+        "create": {
+          "title": "建立新帳號",
+          "ed": "成功建立新的帳號 {{name}}"
+        },
+        "update": {
+          "title": "修改帳號",
+          "ed": "成功修改帳號 {{name}}"
+        },
+        "delete": {
+          "title": "刪除帳號",
+          "ed": "成功刪除帳號 {{name}}"
+        }
+      }
+    },
+    "games": {
+      "name": {
+        "bc_baccarat": "區塊鏈百家樂"
+      }
+    },
+    "tables": {
+      "actions": {
+        "edit": "修改遊戲桌",
+        "start-broadcast": "開始直播",
+        "stop-broadcast": "停止直播"
+      },
+      "description": "查看遊戲桌並進行直播",
+      "create": {
+        "title": "創建新遊戲桌",
+        "description": "錄入新遊戲桌的各項資料，然後點選「建立」按鈕",
+        "submit": "建立"
+      },
+      "update": {
+        "title": "修改遊戲桌",
+        "description": "修改遊戲桌的資料，然後點選「儲存」按鈕",
+        "submit": "儲存"
+      },
+      "properties": {
+        "name": {
+          "title": "遊戲桌名",
+          "description": "遊戲桌的名稱",
+          "placeholder": "請輸入遊戲桌的名稱",
+          "updateDescription": "遊戲桌名稱不可修改",
+          "createDescription": "請輸入遊戲桌名稱，不可與其它遊戲桌重名。"
+        },
+        "description": {
+          "title": "遊戲桌備註",
+          "placeholder": "請輸入遊戲桌的詳細資料"
+        },
+        "orders": {
+          "title": "展示順序",
+          "placeholder": "請輸入遊戲桌的展示順序"
+        },
+        "broadcast": {
+          "title": "直播",
+          "started": "直播已經開始",
+          "started-description": "位於遊戲桌內的線上玩家可以即時觀看你推播的視訊內容",
+          "start-error": "直播無法開始",
+          "start-error-description": "請檢查 OBS Studio 是否正常運作，並開啟了 WebSocket 介面",
+          "stopped": "直播已經停止",
+          "stopped-description": "位於遊戲桌內的線上玩家只能看到代替圖片",
+          "stop-error": "直播無法停止",
+          "stop-error-description": "請檢查 OBS Studio 是否正常運作，並開啟了 WebSocket 介面",
+          "api-error": "直播 API 服務異常",
+          "api-error-description": "請檢查網路連線是否正常，或通知技術支援人員"
+        },
+        "status": {
+          "title": "狀態",
+          "placeholder": "請選擇遊戲桌的狀態",
+          "online": "營運中",
+          "offline": "已下線"
+        }
+      },
+      "toolbar": {
+        "placeholder": "過濾遊戲桌"
+      },
+      "tip": {
+        "broadcast": "{{nickname}} 正在直播"
+      },
+      "toast": {
+        "create": {
+          "title": "創建新的遊戲桌",
+          "ed": "成功創造新的遊戲桌 {{name}}"
+        },
+        "update": {
+          "title": "修改遊戲桌",
+          "ed": "成功修改遊戲桌 {{name}}"
+        }
+      }
+    },
+    "operations": {
+      "i18n": {
+        "signIn": "{{nickname}} 登入了目前管理系統",
+        "signOut": "{{nickname}} 登出了目前管理系統",
+        "createAccount": "{{nickname}} 建立了新帳號 {{nickname2}}",
+        "updateAccount": "{{nickname}} 修改了帳號 {{nickname2}} 的資料",
+        "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
+        "startBroadcast": "{{nickname}} 開啟了遊戲 {{gameName}} 中 {{tableName}} 桌的直播",
+        "endBroadcast": "{{nickname}} 結束了遊戲 {{gameName}} 中 {{tableName}} 桌的直播"
+      },
+      "description": "瀏覽各帳號在管理系統內的操作日誌",
+      "toolbar": {
+        "placeholder": "過濾操作日誌"
+      },
+      "properties": {
+        "i18n": {
+          "title": "內容"
+        },
+        "createdAt": {
+          "title": "時間"
+        }
+      }
+    }
+  },
+  "errors": {
+    "forbidden": {
+      "title": "權限不足",
+      "description": "你的帳號無權執行目前操作"
+    },
+    "duplicated": {
+      "login": {
+        "title": "登入資訊重複",
+        "description": "登入資訊重複，請更換後再試"
+      },
+      "role": {
+        "title": "角色訊息重複",
+        "description": "角色資訊重複，請更換後再試"
+      }
     }
   }
 }

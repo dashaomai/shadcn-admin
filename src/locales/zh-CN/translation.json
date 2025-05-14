@@ -58,7 +58,7 @@
         "tag": "标签",
         "hall": "厅馆",
         "broadcast": "直播",
-        "table": "游戏房",
+        "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
         "maintain": "维护",
         "game-records": "游戏记录",
@@ -633,45 +633,45 @@
     },
     "tables": {
       "actions": {
-        "edit": "修改游戏房",
+        "edit": "修改游戏桌",
         "start-broadcast": "开始直播",
         "stop-broadcast": "停止直播"
       },
-      "description": "查看游戏房并进行直播",
+      "description": "查看游戏桌并进行直播",
       "create": {
-        "title": "创建新游戏房",
-        "description": "录入新游戏房的各项资料，然后点击“创建”按钮",
+        "title": "创建新游戏桌",
+        "description": "录入新游戏桌的各项资料，然后点击“创建”按钮",
         "submit": "创建"
       },
       "update": {
-        "title": "修改游戏房",
-        "description": "修改游戏房的资料，然后点击“保存”按钮",
+        "title": "修改游戏桌",
+        "description": "修改游戏桌的资料，然后点击“保存”按钮",
         "submit": "保存"
       },
       "properties": {
         "name": {
-          "title": "游戏房名",
-          "description": "游戏房的名称",
-          "placeholder": "请输入游戏房的名称",
-          "updateDescription": "游戏房名称不可修改",
-          "createDescription": "请输入游戏房名称，不可与其它游戏房重名。"
+          "title": "游戏桌名",
+          "description": "游戏桌的名称",
+          "placeholder": "请输入游戏桌的名称",
+          "updateDescription": "游戏桌名称不可修改",
+          "createDescription": "请输入游戏桌名称，不可与其它游戏桌重名。"
         },
         "description": {
-          "title": "游戏房备注",
-          "placeholder": "请输入游戏房的详细资料"
+          "title": "游戏桌备注",
+          "placeholder": "请输入游戏桌的详细资料"
         },
         "orders": {
           "title": "展示顺序",
-          "placeholder": "请输入游戏房的展示顺序"
+          "placeholder": "请输入游戏桌的展示顺序"
         },
         "broadcast": {
           "title": "直播",
           "started": "直播已经开始",
-          "started-description": "位于游戏房内的在线玩家能实时观看你推送的视讯内容",
+          "started-description": "位于游戏桌内的在线玩家能实时观看你推送的视讯内容",
           "start-error": "直播无法开始",
           "start-error-description": "请检查 OBS Studio 是否正常运行，并开启了 WebSocket 接口",
           "stopped": "直播已经停止",
-          "stopped-description": "位于游戏房内的在线玩家只能看到代替图片",
+          "stopped-description": "位于游戏桌内的在线玩家只能看到代替图片",
           "stop-error": "直播无法停止",
           "stop-error-description": "请检查 OBS Studio 是否正常运行，并开启了 WebSocket 接口",
           "api-error": "直播 API 服务异常",
@@ -679,25 +679,25 @@
         },
         "status": {
           "title": "状态",
-          "placeholder": "请选择游戏房的状态",
+          "placeholder": "请选择游戏桌的状态",
           "online": "运营中",
           "offline": "已下线"
         }
       },
       "toolbar": {
-        "placeholder": "过滤游戏房"
+        "placeholder": "过滤游戏桌"
       },
       "tip": {
         "broadcast": "{{nickname}} 正在直播"
       },
       "toast": {
         "create": {
-          "title": "创建新的游戏房",
-          "ed": "成功创建新的游戏房 {{name}}"
+          "title": "创建新的游戏桌",
+          "ed": "成功创建新的游戏桌 {{name}}"
         },
         "update": {
-          "title": "修改游戏房",
-          "ed": "成功修改游戏房 {{name}}"
+          "title": "修改游戏桌",
+          "ed": "成功修改游戏桌 {{name}}"
         }
       }
     },
