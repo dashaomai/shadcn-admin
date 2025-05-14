@@ -1,11 +1,7 @@
 import { Link } from '@tanstack/react-router'
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-} from 'lucide-react'
+import { IconPalette, IconUser } from '@tabler/icons-react'
+import { ChevronsUpDown, LogOut } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { getFallback } from '@/utils/avatar'
@@ -26,7 +22,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useTranslation } from 'react-i18next'
 
 export function NavUser() {
   const { t } = useTranslation()
@@ -99,27 +94,21 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link to='/settings/account'>
-                  <BadgeCheck />
+                <Link to='/settings'>
+                  <IconUser />
                   {t('layout.account.profile')}
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link to='/settings'>
-                  <CreditCard />
-                  {t('layout.account.billing')}
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to='/settings/notifications'>
-                  <Bell />
-                  {t('layout.account.settings')}
+                <Link to='/settings/appearance'>
+                  <IconPalette />
+                  {t('layout.account.appearance')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link to="." onClick={() => authStore.auth.reset()}>
+              <Link to='.' onClick={() => authStore.auth.reset()}>
                 <LogOut />
                 {t('auth.signOut')}
               </Link>

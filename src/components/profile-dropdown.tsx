@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 import { useProfile } from '@/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { getFallback } from '@/utils/avatar'
@@ -15,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useTranslation } from 'react-i18next'
 
 export function ProfileDropdown() {
   const { t } = useTranslation()
@@ -46,10 +46,10 @@ export function ProfileDropdown() {
       <DropdownMenuContent className='w-56' align='end' forceMount>
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>
+            <p className='text-sm leading-none font-medium'>
               {profileQuery.data?.nickname}
             </p>
-            <p className='text-xs leading-none text-muted-foreground'>
+            <p className='text-muted-foreground text-xs leading-none'>
               {profileQuery.data?.email}
             </p>
           </div>
@@ -63,15 +63,9 @@ export function ProfileDropdown() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to='/settings'>
-              {t('layout.account.billing')}
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link to='/settings'>
-              {t('layout.account.settings')}
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link to='/settings/appearance'>
+              {t('layout.account.appearance')}
+              <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

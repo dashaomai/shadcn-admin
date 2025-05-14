@@ -1,20 +1,14 @@
 import { Outlet } from '@tanstack/react-router'
-import {
-  IconBrowserCheck,
-  IconNotification,
-  IconPalette,
-  IconTool,
-  IconUser,
-} from '@tabler/icons-react'
+import { IconPalette, IconUser } from '@tabler/icons-react'
+import { useTranslation } from 'react-i18next'
 import { Separator } from '@/components/ui/separator'
 import { Main } from '@/components/layout/main'
-import SidebarNav from './components/sidebar-nav'
 import MainHeader from '@/components/layout/main-header'
-import { useTranslation } from 'react-i18next'
+import SidebarNav from './components/sidebar-nav'
 
 export default function Settings() {
   const { t } = useTranslation()
-  
+
   return (
     <>
       {/* ===== Top Heading ===== */}
@@ -50,23 +44,8 @@ const sidebarNavItems = [
     href: '/settings',
   },
   {
-    title: 'layout.navigate.items.account-setting',
-    icon: <IconTool size={18} />,
-    href: '/settings/account',
-  },
-  {
     title: 'layout.navigate.items.appearance',
     icon: <IconPalette size={18} />,
     href: '/settings/appearance',
-  },
-  {
-    title: 'layout.navigate.items.notifications',
-    icon: <IconNotification size={18} />,
-    href: '/settings/notifications',
-  },
-  {
-    title: 'layout.navigate.items.display',
-    icon: <IconBrowserCheck size={18} />,
-    href: '/settings/display',
   },
 ]

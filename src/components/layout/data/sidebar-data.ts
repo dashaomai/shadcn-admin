@@ -1,16 +1,13 @@
 import {
   IconBrandYoutube,
-  IconBrowserCheck,
   IconCheckupList,
   IconHelp,
   IconLayoutDashboard,
   IconLockAccess,
   IconLogs,
-  IconNotification,
   IconPalette,
   IconSettings,
   IconSpade,
-  IconTool,
   IconUserCog,
   IconUsers,
 } from '@tabler/icons-react'
@@ -104,7 +101,7 @@ export const sidebarData: SidebarData = {
           icon: IconSettings,
           items: [
             {
-              title: 'layout.navigate.items.settings',
+              title: 'layout.navigate.items.profile',
               url: '/settings',
               icon: IconUserCog,
             },
