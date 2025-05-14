@@ -28,7 +28,7 @@ export namespace PitayaClient {
   }
 
   const DefaultConnectorOptions: Partial<ConnectorOptions> = {
-    maxReconnectAttempts: 10,
+    maxReconnectAttempts: 65535,
     reconnect: true,
   }
 
@@ -423,12 +423,21 @@ export namespace PitayaClient {
 
     private onError(): void {
       this.isConnected = false
+
+      this.tryReconnect()
     }
 
     private onClose(event: CloseEvent): void {
       this.isConnected = false
 
       logger.info('socket close: ', event)
+
+      this.tryReconnect()
+
+      this.disconnect()
+    }
+
+    private tryReconnect(): void {
 
       if (
         this.params?.reconnect &&
@@ -437,15 +446,15 @@ export namespace PitayaClient {
       ) {
         this.reconnect = true
         this.reconnectAttempts++
+
+        logger.info('%d reconnecting...', this.reconnectAttempts)
+
+        setTimeout(() => {
+          this.reconnect = false
+          this.connect(this.params!, this.params!.wsUrl)
+        }, 1000)
       }
 
-      this.disconnect()
-    }
-
-    reconnectMob(cb?: Function) {
-      this.reconnectCallback = cb
-
-      this.connect(this.params!, this.params!.wsUrl)
     }
 
     /**
