@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-import { apiBase } from '@/config/api'
 import { Base64 } from 'js-base64'
 import { jwtDecode } from 'jwt-decode'
 import logger from 'loglevel'
@@ -44,7 +43,7 @@ interface AuthState {
 export function connectToBroker(accountId: string, sessionId: string) {
   brokerConn.init(
     {
-      wsUrl: 'ws://localhost:7799',
+      wsUrl: import.meta.env.VITE_BROKER_URL,
     },
     () => {
       logger.info('broker connected')
@@ -312,7 +311,7 @@ export const fetchAuthed = async <T>(
   options?: RequestInit
 ): Promise<T | undefined> => {
   const request = requestInterceptor(
-    new Request(`${apiBase}${url}`, {
+    new Request(`${import.meta.env.VITE_API_HOST}${url}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',

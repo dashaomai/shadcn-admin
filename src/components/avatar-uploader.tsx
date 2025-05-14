@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { FieldValues, Path, UseFormReturn } from 'react-hook-form'
-import { apiBase } from '@/config/api.ts'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
@@ -28,13 +27,16 @@ export default function AvatarUploader<T extends FieldValues>({
       const formData = new FormData()
       formData.set('avatar', file)
 
-      const response = await fetch(`${apiBase}/account/avatar`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${authStore.auth.accessToken}`,
-        },
-      })
+      const response = await fetch(
+        `${import.meta.env.VITE_API_HOST}/account/avatar`,
+        {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${authStore.auth.accessToken}`,
+          },
+        }
+      )
 
       if (response.status === 200) {
         const url = await response.text()

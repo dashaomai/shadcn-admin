@@ -34,12 +34,9 @@ function MyTooltip<TValue extends ValueType, TName extends NameType>({
 
   if (active) {
     return (
-      <div className='rounded-lg border-2 bg-gray-100 p-6 dark:bg-auto'>
-        <p className='text-black'>{`${date.toLocaleString()}`}</p>
-        <p className='pb-1 text-sm text-gray-500'>
-          {t(`apps.dashboard.recharts.tooltip`)}
-        </p>
-        <ul className='text-xs text-gray-400'>
+      <div className='bg-primary rounded-lg border-1 p-6'>
+        <p className='text-primary-foreground'>{`${date.toLocaleString()}`}</p>
+        <ul className='text-secondary dark:text-secondary-foreground text-xs'>
           {payload!.map((p) => (
             <li key={p.dataKey}>
               {t(`apps.dashboard.recharts.${p.dataKey}`)}:&nbsp;

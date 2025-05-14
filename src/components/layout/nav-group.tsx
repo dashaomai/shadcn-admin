@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useRoles } from '@/api/auth'
 import { rolesCheck } from '@/lib/role'
 import {
@@ -30,7 +31,6 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { NavCollapsible, type NavGroup, NavItem, NavLink } from './types'
-import { useTranslation } from 'react-i18next'
 
 export function NavGroup({ title, items }: NavGroup) {
   const { state } = useSidebar()
@@ -186,9 +186,7 @@ const SidebarMenuCollapsedDropdown = ({
                   className={`${checkIsActive(href, sub) ? 'bg-secondary' : ''}`}
                 >
                   {sub.icon && <sub.icon />}
-                  <span className='max-w-52 text-wrap'>
-                    {t(sub.title)}
-                  </span>
+                  <span className='max-w-52 text-wrap'>{t(sub.title)}</span>
                   {sub.badge && (
                     <span className='ml-auto text-xs'>{sub.badge}</span>
                   )}
@@ -209,11 +207,29 @@ function checkIsActive(href: string, item: NavItem, mainNav = false) {
   }
 
   return (
-    href === item.url || // /endpint?search=param
+    pathMatch(href, item.url as string) || // /endpint?search=param
     // href.split('?')[0] === item.url || // endpoint
-    !!item?.items?.filter((i) => i.url === href).length || // if child nav is active
+    !!item?.items?.filter((i) => pathMatch(href, i.url as string)).length || // if child nav is active
     (mainNav &&
       href.split('/')[1] !== '' &&
-      href.split('/')[1] === item?.url?.split('/')[1])
+      pathMatch(href.split('/')[1], item?.url?.split('/')[1] as string))
   )
+}
+
+function pathMatch(url0: string, url1: string): boolean {
+  if (!url0 || !url1) {
+    return false
+  }
+
+  const pos0 = url0.lastIndexOf('?')
+  if (pos0 > -1) {
+    url0 = url0.substring(0, pos0)
+  }
+
+  const pos1 = url1.lastIndexOf('?')
+  if (pos1 > -1) {
+    url1 = url1.substring(0, pos1)
+  }
+
+  return url0 === url1
 }

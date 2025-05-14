@@ -13,10 +13,15 @@ import { TablesPrimaryButtons } from '@/features/tables/components/tables-primar
 import { TablesTable } from '@/features/tables/components/tables-table.tsx'
 import TablesProvider from '@/features/tables/context/tables-context.tsx'
 
-export default function TablesPage() {
+export type Props = {
+  gameId: number
+  path: string
+}
+
+export default function TablesPage({ gameId, path }: Props) {
   const { t } = useTranslation()
-  const routeApi = getRouteApi('/_authenticated/tables/')
-  const { gameId, page, limit } = routeApi.useSearch()
+  const routeApi = getRouteApi(path)
+  const { page, limit } = routeApi.useSearch()
 
   const tableStore = useTableStore()
 
@@ -48,9 +53,7 @@ export default function TablesPage() {
               : t('layout.navigate.items.table')
           }
           description={t('apps.tables.description')}
-        >
-          <TablesPrimaryButtons />
-        </MainTitleBar>
+        ></MainTitleBar>
 
         <MainContent>
           <TablesTable

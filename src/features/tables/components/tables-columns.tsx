@@ -111,9 +111,4 @@ export const columns: ColumnDef<TableInfo>[] = [
     ),
     cell: TablesRowBroadcast,
   },
-
-  {
-    id: 'actions',
-    cell: TablesRowActions,
-  },
 ]

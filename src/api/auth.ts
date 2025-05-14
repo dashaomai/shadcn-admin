@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { apiBase } from '@/config/api'
 import logger from 'loglevel'
 import { fetchAuthed } from '@/stores/authStore'
 import {
@@ -24,7 +23,7 @@ export async function doSignIn(name: string, password: string) {
     password,
   }
 
-  const response = await fetch(`${apiBase}/auth/signIn`, {
+  const response = await fetch(`${import.meta.env.VITE_API_HOST}/auth/signIn`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

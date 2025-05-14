@@ -1,5 +1,19 @@
+import { useForm } from 'react-hook-form'
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
+import { getLanguage, setLanguage, z } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
+import { useTheme } from '@/context/theme-context'
 import { Button } from '@/components/ui/button'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
 import {
   Form,
   FormControl,
@@ -9,15 +23,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { useTheme } from '@/context/theme-context'
-import { cn } from '@/lib/utils'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons'
-import { useForm } from 'react-hook-form'
-import { getLanguage, setLanguage, z } from '@/lib/i18n'
-import { useTranslation } from 'react-i18next'
 
 const languages = [
   { label: '繁體中文', value: 'zh-TW' },
@@ -56,6 +67,76 @@ export function AppearanceForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <FormField
+          control={form.control}
+          name='language'
+          render={({ field }) => (
+            <FormItem className='flex flex-col'>
+              <FormLabel>{t('settings.appearance.language.title')}</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant='outline'
+                      role='combobox'
+                      className={cn(
+                        'w-[200px] justify-between',
+                        !field.value && 'text-muted-foreground'
+                      )}
+                    >
+                      {field.value
+                        ? languages.find(
+                            (language) => language.value === field.value
+                          )?.label
+                        : 'Select language'}
+                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className='w-[200px] p-0'>
+                  <Command>
+                    <CommandInput
+                      placeholder={t(
+                        'settings.appearance.language.search-placeholder'
+                      )}
+                    />
+                    <CommandEmpty>
+                      {t('settings.appearance.language.no-results-found')}
+                    </CommandEmpty>
+                    <CommandGroup>
+                      <CommandList>
+                        {languages.map((language) => (
+                          <CommandItem
+                            value={language.label}
+                            key={language.value}
+                            onSelect={() => {
+                              form.setValue('language', language.value)
+                            }}
+                          >
+                            <CheckIcon
+                              className={cn(
+                                'mr-2 h-4 w-4',
+                                language.value === field.value
+                                  ? 'opacity-100'
+                                  : 'opacity-0'
+                              )}
+                            />
+                            {language.label}
+                          </CommandItem>
+                        ))}
+                      </CommandList>
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <FormDescription>
+                {t('settings.appearance.language.description')}
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name='theme'
@@ -124,70 +205,6 @@ export function AppearanceForm() {
                   </FormLabel>
                 </FormItem>
               </RadioGroup>
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name='language'
-          render={({ field }) => (
-            <FormItem className='flex flex-col'>
-              <FormLabel>{t('settings.appearance.language.title')}</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant='outline'
-                      role='combobox'
-                      className={cn(
-                        'w-[200px] justify-between',
-                        !field.value && 'text-muted-foreground'
-                      )}
-                    >
-                      {field.value
-                        ? languages.find(
-                            (language) => language.value === field.value
-                          )?.label
-                        : 'Select language'}
-                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className='w-[200px] p-0'>
-                  <Command>
-                    <CommandInput placeholder={t('settings.appearance.language.search-placeholder')} />
-                    <CommandEmpty>{t('settings.appearance.language.no-results-found')}</CommandEmpty>
-                    <CommandGroup>
-                      <CommandList>
-                        {languages.map((language) => (
-                          <CommandItem
-                            value={language.label}
-                            key={language.value}
-                            onSelect={() => {
-                              form.setValue('language', language.value)
-                            }}
-                          >
-                            <CheckIcon
-                              className={cn(
-                                'mr-2 h-4 w-4',
-                                language.value === field.value
-                                  ? 'opacity-100'
-                                  : 'opacity-0'
-                              )}
-                            />
-                            {language.label}
-                          </CommandItem>
-                        ))}
-                      </CommandList>
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <FormDescription>
-                {t('settings.appearance.language.description')}
-              </FormDescription>
-              <FormMessage />
             </FormItem>
           )}
         />

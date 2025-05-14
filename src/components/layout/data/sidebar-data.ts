@@ -1,16 +1,12 @@
 import {
   IconBrandYoutube,
-  IconBrowserCheck,
   IconCheckupList,
-  IconHelp,
   IconLayoutDashboard,
   IconLockAccess,
   IconLogs,
-  IconNotification,
   IconPalette,
   IconSettings,
   IconSpade,
-  IconTool,
   IconUserCog,
   IconUsers,
 } from '@tabler/icons-react'
@@ -78,7 +74,7 @@ export const sidebarData: SidebarData = {
           items: [
             {
               title: 'layout.navigate.items.bc_baccarat',
-              url: '/tables?gameId=1',
+              url: '/bc-baccarat-tables',
               icon: IconSpade,
             },
           ],
@@ -104,36 +100,16 @@ export const sidebarData: SidebarData = {
           icon: IconSettings,
           items: [
             {
-              title: 'layout.navigate.items.settings',
+              title: 'layout.navigate.items.profile',
               url: '/settings',
               icon: IconUserCog,
-            },
-            {
-              title: 'layout.navigate.items.account-setting',
-              url: '/settings/account',
-              icon: IconTool,
             },
             {
               title: 'layout.navigate.items.appearance',
               url: '/settings/appearance',
               icon: IconPalette,
             },
-            {
-              title: 'layout.navigate.items.notifications',
-              url: '/settings/notifications',
-              icon: IconNotification,
-            },
-            {
-              title: 'layout.navigate.items.display',
-              url: '/settings/display',
-              icon: IconBrowserCheck,
-            },
           ],
-        },
-        {
-          title: 'layout.navigate.items.help-center',
-          url: '/help-center',
-          icon: IconHelp,
         },
       ],
     },

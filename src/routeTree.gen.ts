@@ -37,6 +37,7 @@ import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authentic
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_authenticated/settings/notifications'
@@ -235,6 +236,17 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
+const AuthenticatedBcBaccaratTablesIndexRoute =
+  AuthenticatedBcBaccaratTablesIndexImport.update({
+    id: '/bc-baccarat-tables/',
+    path: '/bc-baccarat-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-baccarat-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexImport.update({
   id: '/apps/',
   path: '/apps/',
@@ -416,6 +428,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bc-baccarat-tables/': {
+      id: '/_authenticated/bc-baccarat-tables/'
+      path: '/bc-baccarat-tables'
+      fullPath: '/bc-baccarat-tables'
+      preLoaderRoute: typeof AuthenticatedBcBaccaratTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -540,6 +559,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
@@ -559,6 +579,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedBcBaccaratTablesIndexRoute:
+    AuthenticatedBcBaccaratTablesIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
@@ -596,6 +618,7 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -629,6 +652,7 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -665,6 +689,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
@@ -702,6 +727,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/apps'
+    | '/bc-baccarat-tables'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -734,6 +760,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/apps'
+    | '/bc-baccarat-tables'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -768,6 +795,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
     | '/_authenticated/apps/'
+    | '/_authenticated/bc-baccarat-tables/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
@@ -842,6 +870,7 @@ export const routeTree = rootRoute
         "/_authenticated/",
         "/_authenticated/accounts/",
         "/_authenticated/apps/",
+        "/_authenticated/bc-baccarat-tables/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
@@ -923,6 +952,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/apps/": {
       "filePath": "_authenticated/apps/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-baccarat-tables/": {
+      "filePath": "_authenticated/bc-baccarat-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/chats/": {
