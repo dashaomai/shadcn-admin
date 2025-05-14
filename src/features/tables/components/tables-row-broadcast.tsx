@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
@@ -179,7 +179,7 @@ export function TablesRowBroadcast({ row }: Props) {
     })
   }
 
-  async function handleStopBroadcast(_event: FormEvent<HTMLElement>) {
+  async function handleStopBroadcast(_event: FormEvent<HTMLElement> | null) {
     logger.info('handleStopBroadcast')
 
     try {
@@ -218,6 +218,36 @@ export function TablesRowBroadcast({ row }: Props) {
       description: t('apps.tables.properties.broadcast.stopped-description'),
     })
   }
+
+  useEffect(() => {
+    if (
+      row.original.broadcast &&
+      row.original.broadcast.accountId === profile.data?.accountId
+    ) {
+      const timer = setTimeout(async () => {
+        try {
+          if (!obs.identified) {
+            await obs.connect()
+          }
+
+          const status = await obs.call('GetStreamStatus')
+          logger.info('OBS Stream status:', status)
+
+          const { outputActive } = status
+
+          if (!outputActive) {
+            logger.warn('OBS Stream failed many times, stopping...')
+            handleStopBroadcast(null)
+          }
+        } catch (err) {
+          logger.error('OBS operation failed:', err)
+          handleStopBroadcast(null)
+        }
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [row.original.broadcast, profile.data])
 
   if (row.original.broadcast === null) {
     return (
