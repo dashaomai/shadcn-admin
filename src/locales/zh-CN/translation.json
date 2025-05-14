@@ -708,8 +708,8 @@
         "createAccount": "{{nickname}} 创建了新账号 {{nickname2}}",
         "updateAccount": "{{nickname}} 修改了账号 {{nickname2}} 的资料",
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
-        "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 的 {{tableName}} 桌的直播",
-        "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 的 {{tableName}} 桌的直播"
+        "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 中 {{tableName}} 桌的直播",
+        "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 中 {{tableName}} 桌的直播"
       }
     }
   },

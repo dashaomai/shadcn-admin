@@ -10,6 +10,10 @@ export function OperationsRowI18n({ row }: Props) {
 
   const params = JSON.parse(Base64.decode(row.original.params))
 
+  if (params.gameName) {
+    params.gameName = t(`apps.games.name.${params.gameName}`)
+  }
+
   return (
     <p className='w-fit'>
       {t(`apps.operations.i18n.${row.original.i18n}`, params)}
