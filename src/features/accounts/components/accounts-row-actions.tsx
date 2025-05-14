@@ -1,16 +1,18 @@
+import { DotsHorizontalIcon } from '@radix-ui/react-icons'
+import { IconEdit, IconUsersGroup } from '@tabler/icons-react'
+import { useTranslation } from 'react-i18next'
+import { DataTableRowActionsProps } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu.tsx'
 import { useAccounts } from '@/features/accounts/context/accounts-context.tsx'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
-import { DataTableRowActionsProps } from '@/lib/list-app.ts'
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { IconEdit, IconRecycle, IconUsersGroup } from '@tabler/icons-react'
-import { useTranslation } from 'react-i18next'
 
 type Props = DataTableRowActionsProps<AccountInfo>
 
@@ -24,12 +26,10 @@ export function AccountsRowActions({ row }: Props) {
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
-            className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
+            className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
           >
             <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>
-              {t('apps.table.actions.open-menu')}
-            </span>
+            <span className='sr-only'>{t('apps.table.actions.open-menu')}</span>
           </Button>
         </DropdownMenuTrigger>
 
@@ -40,37 +40,22 @@ export function AccountsRowActions({ row }: Props) {
               setOpen('update')
             }}
           >
-          {t('apps.accounts.actions.edit')}
-          <DropdownMenuShortcut>
-            <IconEdit size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
+            {t('apps.accounts.actions.edit')}
+            <DropdownMenuShortcut>
+              <IconEdit size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
               setCurrentRow(row.original)
               setOpen('update-roles')
             }}
           >
-          {t('apps.accounts.actions.edit-roles')}
-          <DropdownMenuShortcut>
-            <IconUsersGroup size={16} />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
-
-        <DropdownMenuSeparator />
-
-          <DropdownMenuItem
-            onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('reset-password')
-            }}
-            className='!text-red-500'
-          >
-            {t('apps.accounts.actions.reset-password')}
+            {t('apps.accounts.actions.edit-roles')}
             <DropdownMenuShortcut>
-              <IconRecycle size={16} />
+              <IconUsersGroup size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
