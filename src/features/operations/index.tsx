@@ -29,8 +29,8 @@ export default function OperationsPage() {
 
       <Main>
         <MainTitleBar
-          title={t('layout.navigate.items.table')}
-          description={t('apps.tables.description')}
+          title={t('layout.navigate.items.operation-logs')}
+          description={t('apps.operations.description')}
         >
           <OperationsPrimaryButtons />
         </MainTitleBar>

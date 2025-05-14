@@ -43,7 +43,7 @@ export const columns: ColumnDef<OperationInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.tables.properties.name.title')}
+        title={i18n.t('apps.operations.properties.i18n.title')}
       />
     ),
     cell: OperationsRowI18n,
@@ -53,7 +53,7 @@ export const columns: ColumnDef<OperationInfo>[] = [
         'bg-background transition-colors duration-200 group-hover/row:bg-muted group-data-[state=selected]/row:bg-muted',
         'sticky left-6 md:table-cell'
       ),
-      displayTag: i18n.t('apps.tables.properties.name.title'),
+      displayTag: i18n.t('apps.operations.properties.i18n.title'),
     },
     enableHiding: false,
   },
@@ -63,12 +63,14 @@ export const columns: ColumnDef<OperationInfo>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.tables.properties.orders.title')}
+        title={i18n.t('apps.operations.properties.createdAt.title')}
       />
     ),
-    cell: ({ row }) => <p>{row.getValue<string>('createdAt')}</p>,
+    cell: ({ row }) => (
+      <p>{new Date(row.getValue<string>('createdAt')).toLocaleString()}</p>
+    ),
     meta: {
-      displayTag: i18n.t('apps.tables.properties.orders.title'),
+      displayTag: i18n.t('apps.operations.properties.createdAt.title'),
     },
   },
 ]

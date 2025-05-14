@@ -710,6 +710,18 @@
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
         "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 中 {{tableName}} 桌的直播",
         "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 中 {{tableName}} 桌的直播"
+      },
+      "description": "浏览各账号在管理系统内的操作日志",
+      "toolbar": {
+        "placeholder": "过滤操作日志"
+      },
+      "properties": {
+        "i18n": {
+          "title": "内容"
+        },
+        "createdAt": {
+          "title": "时间"
+        }
       }
     }
   },

@@ -60,7 +60,7 @@ export function OperationsTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={t('apps.tables.toolbar.placeholder')}
+        placeholder={t('apps.operations.toolbar.placeholder')}
       ></TableToolbar>
 
       <div className='rounded-md border'>
