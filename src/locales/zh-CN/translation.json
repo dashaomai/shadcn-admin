@@ -62,6 +62,7 @@
         "bc_baccarat": "区块链百家乐",
         "maintain": "维护",
         "game-records": "游戏记录",
+        "operation-logs": "操作记录",
         "settings": "设置",
         "settings-description": "管理你的管理后台账号并设置电子邮箱地址等信息",
         "profile": "个人资料",
@@ -697,6 +698,29 @@
         "update": {
           "title": "修改游戏房",
           "ed": "成功修改游戏房 {{name}}"
+        }
+      }
+    },
+    "operations": {
+      "i18n": {
+        "signIn": "{{nickname}} 登入了当前管理系统",
+        "signOut": "{{nickname}} 登出了当前管理系统",
+        "createAccount": "{{nickname}} 创建了新账号 {{nickname2}}",
+        "updateAccount": "{{nickname}} 修改了账号 {{nickname2}} 的资料",
+        "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
+        "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 中 {{tableName}} 桌的直播",
+        "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 中 {{tableName}} 桌的直播"
+      },
+      "description": "浏览各账号在管理系统内的操作日志",
+      "toolbar": {
+        "placeholder": "过滤操作日志"
+      },
+      "properties": {
+        "i18n": {
+          "title": "内容"
+        },
+        "createdAt": {
+          "title": "时间"
         }
       }
     }

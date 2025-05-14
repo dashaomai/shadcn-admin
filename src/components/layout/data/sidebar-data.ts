@@ -5,6 +5,7 @@ import {
   IconHelp,
   IconLayoutDashboard,
   IconLockAccess,
+  IconLogs,
   IconNotification,
   IconPalette,
   IconSettings,
@@ -81,6 +82,17 @@ export const sidebarData: SidebarData = {
               icon: IconSpade,
             },
           ],
+        },
+      ],
+    },
+    {
+      title: 'layout.navigate.groups.system',
+      roles: gteAdmin,
+      items: [
+        {
+          title: 'layout.navigate.items.operation-logs',
+          icon: IconLogs,
+          url: '/operations',
         },
       ],
     },
