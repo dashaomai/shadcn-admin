@@ -25,7 +25,7 @@ const resources = {
 }
 
 const storedLng = localStorage.getItem('i18nextLng')
-const defaultLng = storedLng ? storedLng : 'zh-CN'
+const defaultLng = storedLng ? storedLng : 'zh-TW'
 
 i18n
   .use(initReactI18next)
