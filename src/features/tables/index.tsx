@@ -53,9 +53,7 @@ export default function TablesPage({ gameId, path }: Props) {
               : t('layout.navigate.items.table')
           }
           description={t('apps.tables.description')}
-        >
-          <TablesPrimaryButtons />
-        </MainTitleBar>
+        ></MainTitleBar>
 
         <MainContent>
           <TablesTable
