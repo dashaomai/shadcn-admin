@@ -1,7 +1,6 @@
 import {
   IconBrandYoutube,
   IconCheckupList,
-  IconHelp,
   IconLayoutDashboard,
   IconLockAccess,
   IconLogs,
@@ -75,7 +74,7 @@ export const sidebarData: SidebarData = {
           items: [
             {
               title: 'layout.navigate.items.bc_baccarat',
-              url: '/tables?gameId=1',
+              url: '/bc-baccarat-tables',
               icon: IconSpade,
             },
           ],
