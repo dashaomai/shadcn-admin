@@ -78,9 +78,4 @@ export const columns: ColumnDef<Role>[] = [
       displayTag: i18n.t('apps.roles.properties.description.title'),
     },
   },
-
-  {
-    id: 'actions',
-    cell: RolesRowActions,
-  },
 ]
