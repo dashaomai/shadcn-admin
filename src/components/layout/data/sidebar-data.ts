@@ -109,24 +109,9 @@ export const sidebarData: SidebarData = {
               icon: IconUserCog,
             },
             {
-              title: 'layout.navigate.items.account-setting',
-              url: '/settings/account',
-              icon: IconTool,
-            },
-            {
               title: 'layout.navigate.items.appearance',
               url: '/settings/appearance',
               icon: IconPalette,
-            },
-            {
-              title: 'layout.navigate.items.notifications',
-              url: '/settings/notifications',
-              icon: IconNotification,
-            },
-            {
-              title: 'layout.navigate.items.display',
-              url: '/settings/display',
-              icon: IconBrowserCheck,
             },
           ],
         },
