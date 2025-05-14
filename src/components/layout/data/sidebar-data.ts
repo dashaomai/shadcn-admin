@@ -112,11 +112,6 @@ export const sidebarData: SidebarData = {
             },
           ],
         },
-        {
-          title: 'layout.navigate.items.help-center',
-          url: '/help-center',
-          icon: IconHelp,
-        },
       ],
     },
   ],
