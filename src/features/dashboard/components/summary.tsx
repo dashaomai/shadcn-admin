@@ -11,7 +11,7 @@ import {
   SummaryDate,
   useDailySummary,
 } from '@/api/statistics/summary.ts'
-import { getMarkOfTime, secondToTime } from '@/utils/time'
+import { translateSeconds } from '@/utils/time'
 import {
   Card,
   CardContent,
@@ -33,18 +33,13 @@ export default function SummaryCards({ date }: SummaryCardsProps) {
 
   useEffect(() => {
     if (dailySummary.isFetched && prevDailySummary.isFetched) {
-      const meta = secondToTime(dailySummary.data!.broadcastDuration)
-      const mark = getMarkOfTime(meta)
-      const duration = t(`common.time.${mark}`, meta)
+      const duration = translateSeconds(dailySummary.data!.broadcastDuration, t)
       setDuration(duration)
 
       const diff =
         dailySummary.data!.broadcastDuration -
         prevDailySummary.data!.broadcastDuration
-      const metaDiff = secondToTime(diff)
-      const markDiff = getMarkOfTime(metaDiff)
-
-      const durationDiff = t(`common.time.${markDiff}`, metaDiff)
+      const durationDiff = translateSeconds(diff, t)
       setDurationDiff(durationDiff)
     }
   }, [dailySummary, prevDailySummary, t])
