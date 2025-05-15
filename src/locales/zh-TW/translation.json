@@ -436,8 +436,8 @@
     },
     "operations": {
       "i18n": {
-        "signIn": "{{nickname}} 登入了目前管理系統",
-        "signOut": "{{nickname}} 登出了目前管理系統",
+        "signIn": "{{nickname}} 登入了直播管理系統",
+        "signOut": "{{nickname}} 登出了直播管理系統",
         "createAccount": "{{nickname}} 建立了新帳號 {{nickname2}}",
         "updateAccount": "{{nickname}} 修改了帳號 {{nickname2}} 的資料",
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
