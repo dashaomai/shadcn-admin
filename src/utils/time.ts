@@ -3,6 +3,7 @@ const hour: number = 3600
 const minute: number = 60
 
 export type TimeMeta = {
+  positive: boolean
   days: number
   hours: number
   minutes: number
@@ -10,6 +11,11 @@ export type TimeMeta = {
 }
 
 export const secondToTime = (seconds: number): TimeMeta => {
+  const positive = seconds >= 0
+  if (!positive) {
+    seconds = -seconds
+  }
+
   const days = Math.floor(seconds / day)
   seconds %= day
   seconds = Math.abs(seconds)
@@ -19,6 +25,7 @@ export const secondToTime = (seconds: number): TimeMeta => {
   seconds %= minute
 
   return {
+    positive,
     days,
     hours,
     minutes,
@@ -46,5 +53,5 @@ export const translateSeconds = (
 ): string => {
   const meta = secondToTime(seconds)
   const mark = getMarkOfTime(meta)
-  return t(`common.time.${mark}`, meta)
+  return t(`common.time.${meta.positive ? 'positive' : 'negative'}.${mark}`, meta)
 }

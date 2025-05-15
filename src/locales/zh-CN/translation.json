@@ -101,10 +101,18 @@
       "no-results": "当前无数据内容。"
     },
     "time": {
-      "day": "{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
-      "hour": "{{hours}}时{{minutes}}分{{seconds}}秒",
-      "minute": "{{minutes}}分{{seconds}}秒",
-      "second": "{{seconds}}秒"
+      "positive": {
+        "day": "{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
+        "hour": "{{hours}}时{{minutes}}分{{seconds}}秒",
+        "minute": "{{minutes}}分{{seconds}}秒",
+        "second": "{{seconds}}秒"
+      },
+      "negative": {
+        "day": "-{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
+        "hour": "-{{hours}}时{{minutes}}分{{seconds}}秒",
+        "minute": "-{{minutes}}分{{seconds}}秒",
+        "second": "-{{seconds}}秒"
+      }
     }
   },
   "settings": {
