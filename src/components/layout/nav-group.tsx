@@ -231,5 +231,5 @@ function pathMatch(url0: string, url1: string): boolean {
     url1 = url1.substring(0, pos1)
   }
 
-  return url0 === url1
+  return url0.endsWith(url1)
 }
