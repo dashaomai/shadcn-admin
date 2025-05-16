@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { DateTime } from 'luxon'
 import { fetchAuthed } from '@/stores/authStore.ts'
 
 export type DailySummary = {
@@ -21,8 +22,47 @@ export const getPrevDate = (data: SummaryDate): SummaryDate => {
   }
 }
 
+const getRangeBySummary = (
+  date: SummaryDate
+): { begin: string; end: string } => {
+  let begin: DateTime
+  let end: DateTime
+
+  switch (date) {
+    case 'today': {
+      end = DateTime.now()
+      begin = end.startOf('day')
+
+      break
+    }
+
+    case 'yesterday': {
+      end = DateTime.now().startOf('day')
+      begin = end.minus({ day: 1 })
+
+      break
+    }
+
+    case 'twodaysago': {
+      end = DateTime.now().startOf('day').minus({ days: 1 })
+      begin = end.minus({ day: 1 })
+
+      break
+    }
+  }
+
+  return {
+    begin: begin?.toISO() || '',
+    end: end.toISO() || '',
+  }
+}
+
 export const getDailySummary = async (date: SummaryDate) => {
-  return fetchAuthed<DailySummary>(`/stats/${date}`)
+  const range = getRangeBySummary(date)
+  const sp = new URLSearchParams()
+  sp.set('begin', range.begin)
+  sp.set('end', range.end)
+  return fetchAuthed<DailySummary>(`/stats/range?${sp.toString()}`)
 }
 
 export const useDailySummary = (date: SummaryDate) =>
