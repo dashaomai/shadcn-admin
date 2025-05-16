@@ -9,7 +9,6 @@ import MainTitleBar from '@/components/layout/main-title-bar.tsx'
 import { Main } from '@/components/layout/main.tsx'
 import { GameInfo } from '@/features/games/data/game.ts'
 import { columns } from '@/features/tables/components/tables-columns.tsx'
-import { TablesPrimaryButtons } from '@/features/tables/components/tables-primary-buttons.tsx'
 import { TablesTable } from '@/features/tables/components/tables-table.tsx'
 import TablesProvider from '@/features/tables/context/tables-context.tsx'
 

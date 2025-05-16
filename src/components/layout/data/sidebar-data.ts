@@ -77,6 +77,16 @@ export const sidebarData: SidebarData = {
               url: '/bc-baccarat-tables',
               icon: IconSpade,
             },
+            {
+              title: 'layout.navigate.items.bc_niuniu',
+              url: '/bc-niuniu-tables',
+              icon: IconSpade,
+            },
+            {
+              title: 'layout.navigate.items.bc_pushdots',
+              url: '/bc-pushdots-tables',
+              icon: IconSpade,
+            },
           ],
         },
       ],
