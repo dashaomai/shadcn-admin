@@ -109,11 +109,7 @@ const SidebarMenuCollapsible = ({
   const rolesQuery = useRoles()
 
   return (
-    <Collapsible
-      asChild
-      defaultOpen={checkIsActive(href, item, true)}
-      className='group/collapsible'
-    >
+    <Collapsible asChild defaultOpen={true} className='group/collapsible'>
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
           <SidebarMenuButton tooltip={item.title}>
