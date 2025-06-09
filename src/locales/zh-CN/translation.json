@@ -61,6 +61,7 @@
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
         "bc_niuniu": "区块链牛牛",
+        "bc_niuniu_s": "区块链庄闲牛牛",
         "bc_pushdots": "区块链推筒子",
         "maintain": "维护",
         "game-records": "游戏记录",
@@ -640,6 +641,7 @@
       "name": {
         "bc_baccarat": "区块链百家乐",
         "bc_niuniu": "区块链牛牛",
+        "bc_niuniu_s": "区块链庄闲牛牛",
         "bc_pushdots": "区块链推筒子"
       }
     },

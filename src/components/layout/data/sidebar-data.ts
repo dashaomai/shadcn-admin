@@ -78,7 +78,7 @@ export const sidebarData: SidebarData = {
               icon: IconSpade,
             },
             {
-              title: 'layout.navigate.items.bc_niuniu',
+              title: 'layout.navigate.items.bc_niuniu_s',
               url: '/bc-niuniu-tables',
               icon: IconSpade,
             },
