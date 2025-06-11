@@ -1,0 +1,34 @@
+Subject: [PATCH] conf: 游戏 server 发版配置。
+---
+Index: src/lib/client.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/lib/client.ts b/src/lib/client.ts
+--- a/src/lib/client.ts	(revision 8ec62748e4b95ee07c67f215044d91fe630afb6c)
++++ b/src/lib/client.ts	(date 1749653055431)
+@@ -63,7 +63,7 @@
+   context: { queryClient },
+   defaultPreload: 'intent',
+   defaultPreloadStaleTime: 0,
+-  basepath: '/',
++  basepath: '/vod.console/',
+ })
+ 
+ export { queryClient, router }
+Index: vite.config.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vite.config.ts b/vite.config.ts
+--- a/vite.config.ts	(revision 8ec62748e4b95ee07c67f215044d91fe630afb6c)
++++ b/vite.config.ts	(date 1749652968611)
+@@ -23,5 +23,5 @@
+       '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
+     },
+   },
+-  base: './',
++  base: '/vod.console/',
+ })
