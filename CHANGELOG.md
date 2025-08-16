@@ -1,3 +1,33 @@
+## v1.4.2 (2025-07-23)
+
+### Fix
+
+- remove unnecessary transitions in table (#176)
+- overflow background in tables (#175)
+
+## v1.4.1 (2025-06-25)
+
+### Fix
+
+- user list overflow in chat (#160)
+- prevent showing collapsed menu on mobile (#155)
+- white background select dropdown in dark mode (#149)
+
+### Refactor
+
+- update font config guide in fonts.ts (#164)
+
+## v1.4.0 (2025-05-25)
+
+### Feat
+
+- **clerk**: add Clerk for auth and protected route (#146)
+
+### Fix
+
+- add an indicator for nested pages in search (#147)
+- update faded-bottom color with css variable (#139)
+
 ## v1.3.0 (2025-04-16)
 
 ### Fix
