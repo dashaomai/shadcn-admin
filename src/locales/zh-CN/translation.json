@@ -100,6 +100,9 @@
   },
   "common": {
     "save": "保存",
+    "asc": "正序",
+    "desc": "逆序",
+    "hide": "隐藏",
     "data": {
       "no-results": "当前无数据内容。"
     },
