@@ -44,6 +44,7 @@ const accountFormSchema = z
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: i18n.t('apps.accounts.properties.passwordConfirm.not-equal'),
+    path: ['passwordConfirm'],
   })
 
 export type AccountForm = z.infer<typeof accountFormSchema>
