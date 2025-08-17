@@ -119,7 +119,7 @@ export default function Dashboard() {
 const topNav = [
   {
     title: i18n.t('apps.dashboard.overview'),
-    href: 'dashboard/overview',
+    href: './',
     isActive: true,
     disabled: false,
   },
