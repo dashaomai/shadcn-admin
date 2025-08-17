@@ -33,7 +33,6 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 const languages = [
   { label: '繁體中文', value: 'zh-TW' },
   { label: '简体中文', value: 'zh-CN' },
-  { label: 'English', value: 'en' },
 ] as const
 
 const appearanceFormSchema = z.object({
