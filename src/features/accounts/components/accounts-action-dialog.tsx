@@ -43,7 +43,7 @@ const accountFormSchema = z
     profileAvatar: z.string().optional(),
   })
   .refine((data) => data.password === data.passwordConfirm, {
-    message: i18n.t('apps.accounts.properties.passwordConfirm.not-equal'),
+    message: i18n.t('apps.accounts.properties.passwordConfirm.notEqual'),
     path: ['passwordConfirm'],
   })
 
@@ -142,7 +142,7 @@ export function AccountsActionDialog(
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className='-mr-4 max-h-[30rem] w-full py-1 pr-4'>
+        <ScrollArea className='-mr-4 max-h-[38rem] w-full py-1 pr-4'>
           <Form {...form}>
             <form
               id='account-form'
