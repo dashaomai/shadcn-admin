@@ -60,8 +60,8 @@
         "broadcast": "直播",
         "table": "遊戲房",
         "bc_baccarat": "區塊鏈百家樂",
-        "bc_niuniu": "區塊鏈牛牛",
-        "bc_niuniu_s": "區塊鏈莊閒牛牛",
+        "bc_niuniu": "區塊鏈妞妞",
+        "bc_niuniu_s": "區塊鏈百家妞妞",
         "bc_pushdots": "區塊鏈推筒子",
         "maintain": "維護",
         "game-records": "遊戲記錄",
@@ -368,8 +368,8 @@
     "games": {
       "name": {
         "bc_baccarat": "區塊鏈百家樂",
-        "bc_niuniu": "區塊鏈牛牛",
-        "bc_niuniu_s": "區塊鏈莊閒牛牛",
+        "bc_niuniu": "區塊鏈妞妞",
+        "bc_niuniu_s": "區塊鏈百家妞妞",
         "bc_pushdots": "區塊鏈推筒子"
       }
     },
