@@ -63,7 +63,7 @@ const router = createRouter({
   context: { queryClient },
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
-  basepath: '/',
+  basepath: import.meta.env.BASE_URL,
 })
 
 export { queryClient, router }
