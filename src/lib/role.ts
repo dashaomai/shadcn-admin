@@ -1,5 +1,20 @@
 import { TinyRoles } from './auth'
 
+// 至少是主播
+export const gteAnchor = ['superadmin', 'admin', 'anchor_manager', 'anchor']
+
+// 至少是管理员
+export const gteAdmin = ['superadmin', 'admin']
+
+// 至少是主播管理员
+export const gteAnchorManager = ['superadmin', 'admin', 'anchor_manager']
+
+// 必须是主播管理员
+export const isAnchorManager = ['anchor_manager']
+
+// 必须是主播
+export const isAnchor = ['anchor']
+
 export type Role = {
   id: number
   name: string
