@@ -4,9 +4,12 @@ import { ChevronDownIcon } from 'lucide-react';
 import { DateRange } from 'react-day-picker';
 import { Button } from '@/components/ui/button.tsx';
 import { Calendar } from '@/components/ui/calendar.tsx';
+import { useTranslation } from 'react-i18next'
 
 
 export function RangeDatePicker() {
+  const { t } = useTranslation()
+
   const [open, setOpen] = useState(false)
   const [begin, setBegin] = useState<Date | undefined>(new Date())
   const [end, setEnd] = useState<Date | undefined>()
@@ -20,7 +23,7 @@ export function RangeDatePicker() {
             id='begin'
             className='w-54 justify-between font-normal'
             >
-            {begin?.toLocaleDateString()} - {end?.toLocaleDateString()}
+            {begin?.toLocaleDateString()} {t('common.time.to')} {end?.toLocaleDateString()}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
@@ -44,12 +47,12 @@ export function RangeDatePicker() {
 
         </PopoverContent>
       </Popover>
-      <Button variant='outline'>Yesterday</Button>
-      <Button variant='default'>Today</Button>
-      <Button variant='secondary'>Last Week</Button>
-      <Button variant='default'>This Week</Button>
-      <Button variant='default'>Last Month</Button>
-      <Button variant='default'>This Month</Button>
+      <Button variant='outline'>{t('common.time.yesterday')}</Button>
+      <Button variant='default'>{t('common.time.today')}</Button>
+      <Button variant='secondary'>{t('common.time.lastWeek')}</Button>
+      <Button variant='default'>{t('common.time.thisWeek')}</Button>
+      <Button variant='default'>{t('common.time.lastMonth')}</Button>
+      <Button variant='default'>{t('common.time.thisMonth')}</Button>
     </div>
   )
 }

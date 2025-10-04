@@ -107,6 +107,13 @@
       "no-results": "当前无数据内容。"
     },
     "time": {
+      "to": "至",
+      "today": "今日",
+      "yesterday": "昨日",
+      "thisWeek": "本周",
+      "lastWeek": "上周",
+      "thisMonth": "本月",
+      "lastMonth": "上月",
       "positive": {
         "day": "{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
         "hour": "{{hours}}时{{minutes}}分{{seconds}}秒",
