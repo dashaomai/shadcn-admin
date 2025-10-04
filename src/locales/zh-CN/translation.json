@@ -740,6 +740,34 @@
           "title": "时间"
         }
       }
+    },
+    "anchorSummaries": {
+      "properties": {
+        "nickname": {
+          "title": "主播"
+        },
+        "broadcastStatus": {
+          "title": "状态"
+        },
+        "lastBroadcast": {
+          "title": "最近上下播时间"
+        },
+        "lastGame": {
+          "title": "最近上播游戏"
+        },
+        "broadcastCount": {
+          "title": "直播总次数"
+        },
+        "broadcastDuration": {
+          "title": "直播总时长"
+        },
+        "giftCount": {
+          "title": "累计礼物数量"
+        },
+        "giftValue": {
+          "title": "累计礼物金额"
+        }
+      }
     }
   },
   "errors": {

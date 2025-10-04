@@ -42,7 +42,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.nickname.title')}
+        title={i18n.t('apps.anchorSummaries.properties.nickname.title')}
       />
     ),
     cell: ({ row }) => (
@@ -50,7 +50,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.nickname.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.nickname.title'),
     },
     enableHiding: false,
   },
@@ -60,7 +60,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.broadcastStatus.title')}
+        title={i18n.t('apps.anchorSummaries.properties.broadcastStatus.title')}
       />
     ),
     cell: ({ row }) => (
@@ -68,7 +68,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.broadcastStatus.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastStatus.title'),
     },
   },
 
@@ -77,7 +77,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.lastBroadcast.title')}
+        title={i18n.t('apps.anchorSummaries.properties.lastBroadcast.title')}
       />
     ),
     cell: ({ row }) => (
@@ -85,7 +85,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.lastBroadcast.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.lastBroadcast.title'),
     },
   },
 
@@ -94,7 +94,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.lastGame.title')}
+        title={i18n.t('apps.anchorSummaries.properties.lastGame.title')}
       />
     ),
     cell: ({ row }) => (
@@ -102,7 +102,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.lastGame.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.lastGame.title'),
     },
   },
 
@@ -111,7 +111,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.broadcastCount.title')}
+        title={i18n.t('apps.anchorSummaries.properties.broadcastCount.title')}
       />
     ),
     cell: ({ row }) => (
@@ -119,7 +119,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.broadcastCount.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastCount.title'),
     },
   },
 
@@ -128,7 +128,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.broadcastDuration.title')}
+        title={i18n.t('apps.anchorSummaries.properties.broadcastDuration.title')}
       />
     ),
     cell: ({ row }) => (
@@ -136,7 +136,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.broadcastDuration.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastDuration.title'),
     },
   },
 
@@ -145,7 +145,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.giftCount.title')}
+        title={i18n.t('apps.anchorSummaries.properties.giftCount.title')}
       />
     ),
     cell: ({ row }) => (
@@ -153,7 +153,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.giftCount.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.giftCount.title'),
     },
   },
 
@@ -162,7 +162,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchor-summaries.properties.giftValue.title')}
+        title={i18n.t('apps.anchorSummaries.properties.giftValue.title')}
       />
     ),
     cell: ({ row }) => (
@@ -170,7 +170,7 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchor-summaries.properties.giftValue.title'),
+      displayTag: i18n.t('apps.anchorSummaries.properties.giftValue.title'),
     },
   },
 
