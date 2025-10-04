@@ -39,6 +39,7 @@
         "system": "系统管理",
         "player": "玩家管理",
         "records": "记录查询",
+        "anchor": "主播管理",
         "broadcast": "直播管理",
         "personal": "个人设置"
       },
@@ -57,6 +58,7 @@
         "game-catalog": "游戏分类",
         "tag": "标签",
         "hall": "厅馆",
+        "summaries": "统计报表",
         "broadcast": "直播",
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
@@ -749,6 +751,8 @@
       }
     },
     "anchorSummaries": {
+      "description": "查询所有主播上、下播状态与收礼记录",
+      "export": "检索并导出",
       "properties": {
         "nickname": {
           "title": "主播"
@@ -774,6 +778,9 @@
         "giftValue": {
           "title": "累计礼物金额"
         }
+      },
+      "toolbar": {
+        "placeholder": "过滤主播"
       }
     }
   },

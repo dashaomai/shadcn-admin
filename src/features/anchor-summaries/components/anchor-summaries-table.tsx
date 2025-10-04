@@ -62,14 +62,14 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         table={table}
-        placeholder={t('apps.accounts.toolbar.placeholder')}
+        placeholder={t('apps.anchorSummaries.toolbar.placeholder')}
       >
         <div className='flex gap-x-2'>
           <RangeDatePicker />
           {table.getColumn('lastGame') && gameOptions && (
             <TableFacetedFilter
               column={table.getColumn('lastGame')}
-              title={t('apps.accounts.properties.roles.title')}
+              title={t('apps.anchorSummaries.properties.lastGame.title')}
               options={gameOptions}
             />
           )}

@@ -27,8 +27,8 @@ export default function AnchorSummariesPage() {
 
       <Main>
         <MainTitleBar
-          title={t('layout.navigate.items.account')}
-          description={t('apps.accounts.description')}
+          title={t('layout.navigate.items.summaries')}
+          description={t('apps.anchorSummaries.description')}
         >
           <AnchorSummariesPrimaryButtons />
         </MainTitleBar>
