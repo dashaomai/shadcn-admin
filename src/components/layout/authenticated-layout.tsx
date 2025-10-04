@@ -1,37 +1,42 @@
-import Cookies from 'js-cookie'
 import { Outlet } from '@tanstack/react-router'
+import { getCookie } from '@/lib/cookies'
 import { cn } from '@/lib/utils'
-import { SearchProvider } from '@/context/search-context'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { LayoutProvider } from '@/context/layout-provider'
+import { SearchProvider } from '@/context/search-provider'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/layout/app-sidebar'
-import SkipToMain from '@/components/skip-to-main'
+import { SkipToMain } from '@/components/skip-to-main'
 
-interface Props {
+type AuthenticatedLayoutProps = {
   children?: React.ReactNode
 }
 
-export function AuthenticatedLayout({ children }: Props) {
-  const defaultOpen = Cookies.get('sidebar_state') !== 'false'
+export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
+  const defaultOpen = getCookie('sidebar_state') !== 'false'
   return (
     <SearchProvider>
-      <SidebarProvider defaultOpen={defaultOpen}>
-        <SkipToMain />
-        <AppSidebar />
-        <div
-          id='content'
-          className={cn(
-            'ml-auto w-full max-w-full',
-            'peer-data-[state=collapsed]:w-[calc(100%-var(--sidebar-width-icon)-1rem)]',
-            'peer-data-[state=expanded]:w-[calc(100%-var(--sidebar-width))]',
-            'sm:transition-[width] sm:duration-200 sm:ease-linear',
-            'flex h-svh flex-col',
-            'group-data-[scroll-locked=1]/body:h-full',
-            'has-[main.fixed-main]:group-data-[scroll-locked=1]/body:h-svh'
-          )}
-        >
-          {children ? children : <Outlet />}
-        </div>
-      </SidebarProvider>
+      <LayoutProvider>
+        <SidebarProvider defaultOpen={defaultOpen}>
+          <SkipToMain />
+          <AppSidebar />
+          <SidebarInset
+            className={cn(
+              // Set content container, so we can use container queries
+              '@container/content',
+
+              // If layout is fixed, set the height
+              // to 100svh to prevent overflow
+              'has-[[data-layout=fixed]]:h-svh',
+
+              // If layout is fixed and sidebar is inset,
+              // set the height to 100svh - spacing (total margins) to prevent overflow
+              'peer-data-[variant=inset]:has-[[data-layout=fixed]]:h-[calc(100svh-(var(--spacing)*4))]'
+            )}
+          >
+            {children ?? <Outlet />}
+          </SidebarInset>
+        </SidebarProvider>
+      </LayoutProvider>
     </SearchProvider>
   )
 }
