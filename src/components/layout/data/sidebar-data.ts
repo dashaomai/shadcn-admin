@@ -1,26 +1,8 @@
-import {
-  IconBrandYoutube,
-  IconCheckupList,
-  IconLayoutDashboard,
-  IconLockAccess,
-  IconLogs,
-  IconPalette,
-  IconSettings,
-  IconSpade,
-  IconUserCog,
-  IconUsers,
-} from '@tabler/icons-react'
-import { AudioWaveform } from 'lucide-react'
-import { type SidebarData } from '../types'
+import { IconBrandYoutube, IconCheckupList, IconLayoutDashboard, IconLockAccess, IconLogs, IconPalette, IconSettings, IconSpade, IconUserCog, IconUsers } from '@tabler/icons-react';
+import { AudioWaveform } from 'lucide-react';
+import { gteAdmin, gteAnchor, gteAnchorManager, isAnchor } from '@/lib/role.ts'
+import { type SidebarData } from '../types';
 
-// 至少是主播
-const gteAnchor = ['superadmin', 'admin', 'anchor']
-
-// 至少是管理员
-const gteAdmin = ['superadmin', 'admin']
-
-// 必须是主播
-const isAnchor = ['anchor']
 
 export const sidebarData: SidebarData = {
   teams: [
@@ -44,7 +26,7 @@ export const sidebarData: SidebarData = {
     },
     {
       title: 'layout.navigate.groups.authorize',
-      roles: gteAdmin,
+      roles: gteAnchorManager,
       items: [
         {
           title: 'layout.navigate.items.console-account',
@@ -53,6 +35,7 @@ export const sidebarData: SidebarData = {
             {
               title: 'layout.navigate.items.role',
               url: '/roles',
+              roles: gteAdmin,
               icon: IconCheckupList,
             },
             {
