@@ -1,11 +1,20 @@
+import { formatDate } from 'date-fns'
 import { ColumnDef } from '@tanstack/react-table'
-import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts'
-import { Checkbox } from '@/components/ui/checkbox.tsx'
 import { i18n } from '@/lib/i18n.ts'
 import { cn } from '@/lib/utils.ts'
+import { Checkbox } from '@/components/ui/checkbox.tsx'
+import {
+  AnchorSummary,
+  BroadcastStatus,
+} from '@/features/anchor-summaries/data/anchor-summary.ts'
+import { AnchorInfo } from '@/features/games/data/anchor.ts'
+import { GameInfo } from '@/features/games/data/game.ts'
 import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
 
-export const columns: ColumnDef<AnchorSummary>[] = [
+export const columns = (
+  games?: GameInfo[],
+  anchors?: AnchorInfo[]
+): ColumnDef<AnchorSummary>[] => [
   {
     id: 'select',
     header: ({ table }) => (
@@ -45,9 +54,20 @@ export const columns: ColumnDef<AnchorSummary>[] = [
         title={i18n.t('apps.anchorSummaries.properties.nickname.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('nickname')}</div>
-    ),
+    cell: ({ row }) => {
+      if (Array.isArray(anchors)) {
+        const { anchorId } = row.original
+        const anchor = anchors.find((a) => a.id === anchorId)
+
+        return (
+          <div className='w-fit text-nowrap overflow-ellipsis'>
+            {anchor ? anchor.nickname : '-'}
+          </div>
+        )
+      } else {
+        return <div>-</div>
+      }
+    },
 
     meta: {
       displayTag: i18n.t('apps.anchorSummaries.properties.nickname.title'),
@@ -64,11 +84,15 @@ export const columns: ColumnDef<AnchorSummary>[] = [
       />
     ),
     cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('broadcastStatus')}</div>
+      <div className='w-fit text-nowrap overflow-ellipsis'>
+        {row.getValue('broadcastStatus')}
+      </div>
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastStatus.title'),
+      displayTag: i18n.t(
+        'apps.anchorSummaries.properties.broadcastStatus.title'
+      ),
     },
   },
 
@@ -80,9 +104,18 @@ export const columns: ColumnDef<AnchorSummary>[] = [
         title={i18n.t('apps.anchorSummaries.properties.lastBroadcast.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('lastBroadcast')}</div>
-    ),
+    cell: ({ row }) => {
+      const { broadcastStatus, lastBegin, lastEnd } = row.original
+
+      const begin = formatDate(lastBegin, 'yyyy/MM/dd hh:mm:ss')
+      const end = broadcastStatus === BroadcastStatus.Finished ? formatDate(lastEnd, 'yyyy/MM/dd hh:mm:ss') : ''
+
+      return (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {begin} - {end}
+        </div>
+      )
+    },
 
     meta: {
       displayTag: i18n.t('apps.anchorSummaries.properties.lastBroadcast.title'),
@@ -90,16 +123,27 @@ export const columns: ColumnDef<AnchorSummary>[] = [
   },
 
   {
-    accessorKey: 'lastGame',
+    accessorKey: 'lastGameId',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
         title={i18n.t('apps.anchorSummaries.properties.lastGame.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('lastGame')}</div>
-    ),
+    cell: ({ row }) => {
+      if (Array.isArray(games)) {
+        const gameId = row.getValue('lastGameId') as number
+        const game = games.find((g) => g.id === gameId)
+
+        return (
+          <div className='w-fit text-nowrap overflow-ellipsis'>
+            {game ? i18n.t(`apps.games.name.${game.name}`) : '-'}
+          </div>
+        )
+      } else {
+        return <div>-</div>
+      }
+    },
 
     meta: {
       displayTag: i18n.t('apps.anchorSummaries.properties.lastGame.title'),
@@ -115,11 +159,15 @@ export const columns: ColumnDef<AnchorSummary>[] = [
       />
     ),
     cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('broadcastCount')}</div>
+      <div className='w-fit text-nowrap overflow-ellipsis'>
+        {row.getValue('broadcastCount')}
+      </div>
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastCount.title'),
+      displayTag: i18n.t(
+        'apps.anchorSummaries.properties.broadcastCount.title'
+      ),
     },
   },
 
@@ -128,15 +176,21 @@ export const columns: ColumnDef<AnchorSummary>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.broadcastDuration.title')}
+        title={i18n.t(
+          'apps.anchorSummaries.properties.broadcastDuration.title'
+        )}
       />
     ),
     cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('broadcastDuration')}</div>
+      <div className='w-fit text-nowrap overflow-ellipsis'>
+        {row.getValue('broadcastDuration')}
+      </div>
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.broadcastDuration.title'),
+      displayTag: i18n.t(
+        'apps.anchorSummaries.properties.broadcastDuration.title'
+      ),
     },
   },
 
@@ -149,7 +203,9 @@ export const columns: ColumnDef<AnchorSummary>[] = [
       />
     ),
     cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('giftCount')}</div>
+      <div className='w-fit text-nowrap overflow-ellipsis'>
+        {row.getValue('giftCount')}
+      </div>
     ),
 
     meta: {
@@ -166,12 +222,13 @@ export const columns: ColumnDef<AnchorSummary>[] = [
       />
     ),
     cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>{row.getValue('giftValue')}</div>
+      <div className='w-fit text-nowrap overflow-ellipsis'>
+        {row.getValue('giftValue')}
+      </div>
     ),
 
     meta: {
       displayTag: i18n.t('apps.anchorSummaries.properties.giftValue.title'),
     },
   },
-
 ]

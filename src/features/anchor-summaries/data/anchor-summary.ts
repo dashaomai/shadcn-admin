@@ -1,19 +1,20 @@
 export const enum BroadcastStatus {
-  /** 离线 */
-  Offline,
+  /** 未知 */
+  Unknown,
   /** 直播中 */
   Online,
+  /** 已完结 */
+  Finished,
 }
 
 export type AnchorSummary = {
-  id: string
-  nickname: string
+  anchorId: string
   broadcastStatus: BroadcastStatus
-  lastBegin: Date
-  lastEnd?: Date
-  lastGame: string
+  lastBegin: string
+  lastEnd: string
+  lastGameId: number
   broadcastCount: number
   broadcastDuration: number
   giftCount: number
-  giftValue: number
+  giftValue: string
 }

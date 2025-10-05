@@ -80,9 +80,9 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
       >
         <div className='flex gap-x-2'>
           <RangeDatePicker />
-          {table.getColumn('lastGame') && gameOptions && gameOptions.length > 0 && (
+          {table.getColumn('lastGameId') && gameOptions && gameOptions.length > 0 && (
             <TableFacetedFilter
-              column={table.getColumn('lastGame')}
+              column={table.getColumn('lastGameId')}
               title={t('apps.anchorSummaries.properties.lastGame.title')}
               options={gameOptions}
             />

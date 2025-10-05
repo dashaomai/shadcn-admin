@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { ListRequest } from '@/api/statistics/summary.ts'
 import { fetchAuthed } from '@/stores/authStore.ts'
+import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts'
 
 export type AnchorStatInfo = {
   id: string
@@ -25,3 +26,22 @@ export const useTopAnchors = (param: ListRequest) =>
     queryKey: ['top-anchors', param],
     queryFn: async () => listAnchorStat(param),
   })
+
+export type PageListAnchorSummariesRequest = {
+  page: number
+  limit: number
+  begin: string
+  end: string
+  gameIds: number[]
+  anchorIds: string[]
+}
+
+export const pageListAnchorSummaries = (params: PageListAnchorSummariesRequest) => {
+  return fetchAuthed<AnchorSummary[]>('/anchor/summaries', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+}
