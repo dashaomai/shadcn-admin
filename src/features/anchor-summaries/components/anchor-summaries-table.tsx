@@ -10,6 +10,7 @@ import { TableFacetedFilter } from '@/features/table/components/table-faceted-fi
 import { TablePagination } from '@/features/table/components/table-pagination.tsx';
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx';
 import { RangeDatePicker } from '@/components/range-date-picker.tsx'
+import { useAllAnchors } from '@/api/bridge/anchor.ts'
 
 
 type Props = DataTableProps<AnchorSummary>
@@ -44,8 +45,10 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   })
 
   const allGames = useAllGames()
-
   const [gameOptions, setGameOptions] = useState<SelectOption<string>[] | undefined>([])
+
+  const allAnchors = useAllAnchors()
+  const [anchorOptions, setAnchorOptions] = useState<SelectOption<string>[] | undefined>([])
 
   useEffect(() => {
     if (allGames.isFetched) {
@@ -58,6 +61,17 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
     }
   }, [allGames.isFetched, setGameOptions])
 
+  useEffect(() => {
+    if (allAnchors.isFetched) {
+      const options = allAnchors.data?.map(anchor => ({
+        label: anchor.nickname,
+        value: anchor.id,
+      }))
+
+      setAnchorOptions(options)
+    }
+  }, [allAnchors.isFetched, setAnchorOptions])
+
   return (
     <div className='space-y-4'>
       <TableToolbar
@@ -66,13 +80,22 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
       >
         <div className='flex gap-x-2'>
           <RangeDatePicker />
-          {table.getColumn('lastGame') && gameOptions && (
+          {table.getColumn('lastGame') && gameOptions && gameOptions.length > 0 && (
             <TableFacetedFilter
               column={table.getColumn('lastGame')}
               title={t('apps.anchorSummaries.properties.lastGame.title')}
               options={gameOptions}
             />
           )}
+          {
+            table.getColumn('nickname') && anchorOptions && anchorOptions.length > 0 && (
+              <TableFacetedFilter
+                column={table.getColumn('nickname')}
+                title={t('apps.anchorSummaries.properties.nickname.title')}
+                options={anchorOptions}
+              />
+            )
+          }
         </div>
       </TableToolbar>
 
