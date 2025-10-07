@@ -1,4 +1,5 @@
 import {
+  formatDate,
   startOfMonth,
   startOfWeek,
 } from 'date-fns'
@@ -80,3 +81,5 @@ export const getBeginOfMonth = (date: Date): Date => {
 export const dateEqual = (a: Date, b: Date): boolean => {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
 }
+
+export const formatToDateOnly = (date: Date): string => formatDate(date, 'yyyy-MM-dd')
