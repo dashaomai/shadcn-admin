@@ -7,18 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { dateEqual, getBeginOfMonth, getBeginOfWeek, getToday } from '@/utils/time.ts';
 import { Button } from '@/components/ui/button.tsx';
 import { Calendar } from '@/components/ui/calendar.tsx';
+import { useRangeDate } from '@/components/range-date-context.tsx'
 
 
 export function RangeDatePicker() {
   const { t } = useTranslation()
+
+  const { begin, setBegin, end, setEnd } = useRangeDate()
 
   const today = useMemo(() => getToday(), [])
   const tomorrow = useMemo(() => addDays(today, 1), [today])
   const yesterday = useMemo(() => subDays(today, 1), [today])
 
   const [open, setOpen] = useState(false)
-  const [begin, setBegin] = useState<Date>(today)
-  const [end, setEnd] = useState<Date>(tomorrow)
 
   const beginOfThisWeek = useMemo(() => getBeginOfWeek(today), [today])
   const beginOfNextWeek = useMemo(() => addWeeks(beginOfThisWeek, 1), [beginOfThisWeek])
