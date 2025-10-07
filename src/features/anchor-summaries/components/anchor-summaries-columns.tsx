@@ -10,6 +10,8 @@ import {
 import { AnchorInfo } from '@/features/games/data/anchor.ts'
 import { GameInfo } from '@/features/games/data/game.ts'
 import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
+import { translateSeconds } from '@/utils/time.ts'
+import { currencyToString } from '@/utils/currency.ts'
 
 export const columns = (
   games?: GameInfo[],
@@ -85,7 +87,7 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('broadcastStatus')}
+        {i18n.t(`common.broadcast.status.${row.getValue('broadcastStatus')}`)}
       </div>
     ),
 
@@ -183,7 +185,7 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('broadcastDuration')}
+        {translateSeconds(row.getValue('broadcastDuration'), i18n.t)}
       </div>
     ),
 
@@ -223,7 +225,7 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('giftValue')}
+        {currencyToString(row.getValue('giftValue'))}
       </div>
     ),
 

@@ -130,6 +130,13 @@
         "minute": "-{{minutes}}分{{seconds}}秒",
         "second": "-{{seconds}}秒"
       }
+    },
+    "broadcast": {
+      "status": {
+        "0": "未知",
+        "1": "上播",
+        "2": "離線"
+      }
     }
   },
   "settings": {
