@@ -42,6 +42,7 @@ export type DataTableRowActionsProps<T> = {
 }
 
 export type DataTableToolbarProps<T> = {
+  disableQuickFilter?: boolean
   table: Table<T>
   placeholder?: string
   children?: ReactElement

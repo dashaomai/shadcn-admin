@@ -75,6 +75,7 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   return (
     <div className='space-y-4'>
       <TableToolbar
+        disableQuickFilter={true}
         table={table}
         placeholder={t('apps.anchorSummaries.toolbar.placeholder')}
       >
