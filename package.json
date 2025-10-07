@@ -51,6 +51,7 @@
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "loglevel": "^1.9.2",
+    "long": "^5.3.2",
     "lucide-react": "^0.488.0",
     "luxon": "^3.6.1",
     "obs-websocket-js": "^5.0.6",
