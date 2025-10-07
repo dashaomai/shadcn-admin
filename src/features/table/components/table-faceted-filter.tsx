@@ -1,24 +1,13 @@
-import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons'
-import { DataTableFacetedFilterProps } from '@/lib/list-app.ts'
-import { cn } from '@/lib/utils.ts'
-import { Badge } from '@/components/ui/badge.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@/components/ui/command.tsx'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover.tsx'
-import { Separator } from '@/components/ui/separator.tsx'
-import { useTranslation } from 'react-i18next'
+import { CheckIcon, PlusCircledIcon } from '@radix-ui/react-icons';
+import { useTranslation } from 'react-i18next';
+import { DataTableFacetedFilterProps } from '@/lib/list-app.ts';
+import { cn } from '@/lib/utils.ts';
+import { Badge } from '@/components/ui/badge.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/components/ui/command.tsx';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover.tsx';
+import { Separator } from '@/components/ui/separator.tsx';
+
 
 export function TableFacetedFilter<T, V, O>({
   column,
@@ -88,7 +77,7 @@ export function TableFacetedFilter<T, V, O>({
                       } else {
                         selectedValues.add(option.value)
                       }
-                      const filterValues = Array.from(selectedValues)
+                      const filterValues = Array.from(selectedValues).sort()
                       column?.setFilterValue(
                         filterValues.length ? filterValues : undefined
                       )
@@ -125,7 +114,13 @@ export function TableFacetedFilter<T, V, O>({
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => {
+                      column?.setFilterValue(undefined)
+
+                      if (setFilterValues) {
+                        setFilterValues([])
+                      }
+                    }}
                     className='justify-center text-center'
                   >
                     {t('apps.table.faceted-filter.clear')}
