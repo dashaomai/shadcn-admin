@@ -11,6 +11,8 @@ import { TablePagination } from '@/features/table/components/table-pagination.ts
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx';
 import { RangeDatePicker } from '@/components/range-date-picker.tsx'
 import { useAllAnchors } from '@/api/bridge/anchor.ts'
+import { useGameFilter } from '@/components/context/game-filter-context.tsx'
+import { useAnchorFilter } from '@/components/context/anchor-filter-context.tsx'
 
 
 type Props = DataTableProps<AnchorSummary>
@@ -21,6 +23,9 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+
+  const { setValues: setGameIds } = useGameFilter()
+  const { setValues: setAnchorIds } = useAnchorFilter()
 
   const table = useReactTable({
     data,
@@ -45,10 +50,10 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   })
 
   const allGames = useAllGames()
-  const [gameOptions, setGameOptions] = useState<SelectOption<number>[] | undefined>([])
+  const [gameOptions, setGameOptions] = useState<SelectOption<number>[]>([])
 
   const allAnchors = useAllAnchors()
-  const [anchorOptions, setAnchorOptions] = useState<SelectOption<string>[] | undefined>([])
+  const [anchorOptions, setAnchorOptions] = useState<SelectOption<string>[]>([])
 
   useEffect(() => {
     if (allGames.isFetched) {
@@ -57,7 +62,8 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
         value: game.id,
       }))
 
-      setGameOptions(options)
+      if (options)
+        setGameOptions(options)
     }
   }, [allGames.isFetched, setGameOptions])
 
@@ -68,7 +74,8 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
         value: anchor.id,
       }))
 
-      setAnchorOptions(options)
+      if (options)
+        setAnchorOptions(options)
     }
   }, [allAnchors.isFetched, setAnchorOptions])
 
@@ -86,6 +93,7 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
               column={table.getColumn('lastGameId')}
               title={t('apps.anchorSummaries.properties.lastGame.title')}
               options={gameOptions}
+              setFilterValues={setGameIds}
             />
           )}
           {
@@ -94,6 +102,7 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
                 column={table.getColumn('anchorId')}
                 title={t('apps.anchorSummaries.properties.nickname.title')}
                 options={anchorOptions}
+                setFilterValues={setAnchorIds}
               />
             )
           }

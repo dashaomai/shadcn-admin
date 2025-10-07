@@ -6,7 +6,6 @@ import {
   useContext,
 } from 'react'
 
-
 type RangeDateProps = {
   begin: Date
   setBegin: Dispatch<SetStateAction<Date>>

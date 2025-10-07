@@ -9,6 +9,8 @@ const anchorSummariesListSchema = z.object({
   end: z.string().default(formatToDateOnly(addDays(getToday(), 1))),
   page: z.number().default(1),
   limit: z.number().default(10),
+  games: z.array(z.number()).default([]),
+  anchors: z.array(z.string()).default([]),
 })
 
 export const Route = createFileRoute('/_authenticated/anchorSummaries/')({

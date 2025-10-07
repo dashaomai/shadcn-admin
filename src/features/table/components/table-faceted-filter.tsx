@@ -24,6 +24,7 @@ export function TableFacetedFilter<T, V, O>({
   column,
   title,
   options,
+  setFilterValues = undefined,
 }: DataTableFacetedFilterProps<T, V, O>) {
   const { t } = useTranslation()
   const facets = column?.getFacetedUniqueValues()
@@ -91,6 +92,9 @@ export function TableFacetedFilter<T, V, O>({
                       column?.setFilterValue(
                         filterValues.length ? filterValues : undefined
                       )
+                      if (setFilterValues) {
+                        setFilterValues(filterValues)
+                      }
                     }}
                   >
                     <div
