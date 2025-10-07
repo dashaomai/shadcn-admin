@@ -14,11 +14,16 @@ import { useAllGames } from '@/api/bridge/game.ts'
 import { useAllAnchors } from '@/api/bridge/anchor.ts'
 import { pageListAnchorSummaries } from '@/api/statistics/anchor.ts'
 import { formatRFC3339 } from 'date-fns'
+import { useState } from 'react'
+import RangeDateProvider from '@/components/range-date-context.tsx'
 
 export default function AnchorSummariesPage() {
   const { t } = useTranslation()
   const routeApi = getRouteApi('/_authenticated/anchorSummaries/')
-  const { page, limit } = routeApi.useSearch()
+  const { begin, end, page, limit } = routeApi.useSearch()
+
+  const [be, setBe] = useState<Date>(new Date(begin))
+  const [en, setEn] = useState<Date>(new Date(end))
 
   const query = useQuery({
     queryKey: ['anchorSummaries-list', page, limit],
@@ -35,7 +40,12 @@ export default function AnchorSummariesPage() {
   const allAnchors = useAllAnchors()
 
   return (
-    <>
+    <RangeDateProvider
+      begin={be}
+      setBegin={setBe}
+      end={en}
+      setEnd={setEn}
+    >
       <MainHeader />
 
       <Main>
@@ -58,6 +68,6 @@ export default function AnchorSummariesPage() {
           )}
         </MainContent>
       </Main>
-    </>
+    </RangeDateProvider>
   )
 }
