@@ -45,7 +45,7 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   })
 
   const allGames = useAllGames()
-  const [gameOptions, setGameOptions] = useState<SelectOption<string>[] | undefined>([])
+  const [gameOptions, setGameOptions] = useState<SelectOption<number>[] | undefined>([])
 
   const allAnchors = useAllAnchors()
   const [anchorOptions, setAnchorOptions] = useState<SelectOption<string>[] | undefined>([])
@@ -53,8 +53,8 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   useEffect(() => {
     if (allGames.isFetched) {
       const options = allGames.data?.map(game => ({
-        label: game.description,
-        value: game.name,
+        label: t(`apps.games.name.${game.name}`),
+        value: game.id,
       }))
 
       setGameOptions(options)
@@ -89,9 +89,9 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
             />
           )}
           {
-            table.getColumn('nickname') && anchorOptions && anchorOptions.length > 0 && (
+            table.getColumn('anchorId') && anchorOptions && anchorOptions.length > 0 && (
               <TableFacetedFilter
-                column={table.getColumn('nickname')}
+                column={table.getColumn('anchorId')}
                 title={t('apps.anchorSummaries.properties.nickname.title')}
                 options={anchorOptions}
               />

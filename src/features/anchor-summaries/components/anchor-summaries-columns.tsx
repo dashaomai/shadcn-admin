@@ -47,7 +47,7 @@ export const columns = (
   },
 
   {
-    accessorKey: 'nickname',
+    accessorKey: 'anchorId',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
