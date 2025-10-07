@@ -49,6 +49,11 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
+  const onReset = () => {
+    setGameIds([])
+    setAnchorIds([])
+  }
+
   const gameColumn = table.getColumn('lastGameId')
   const anchorColumn = table.getColumn('anchorId')
 
@@ -94,6 +99,7 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
     <div className='space-y-4'>
       <TableToolbar
         disableQuickFilter={true}
+        onReset={onReset}
         table={table}
         placeholder={t('apps.anchorSummaries.toolbar.placeholder')}
       >

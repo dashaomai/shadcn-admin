@@ -7,6 +7,7 @@ import { TableViewOptions } from '@/features/table/components/table-view-options
 
 export function TableToolbar<T>({
   disableQuickFilter = false,
+  onReset = undefined,
   children,
   placeholder,
   table,
@@ -35,7 +36,11 @@ export function TableToolbar<T>({
         {isFiltered && (
           <Button
             variant='ghost'
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              table.resetColumnFilters()
+
+              if (onReset) onReset()
+            }}
             className='h-8 px-2 lg:px-3'
           >
             Reset
