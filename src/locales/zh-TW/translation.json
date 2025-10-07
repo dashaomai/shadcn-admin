@@ -105,6 +105,8 @@
     "asc": "正序",
     "desc": "逆序",
     "hide": "隱藏",
+    "query": "檢索",
+    "export": "檢索並導出",
     "data": {
       "no-results": "目前無數據內容。"
     },
@@ -484,7 +486,6 @@
     },
     "anchorSummaries": {
       "description": "查詢所有主播上、下播狀態與收禮記錄",
-      "export": "檢索並導出",
       "properties": {
         "nickname": {
           "title": "主播"
