@@ -34,10 +34,10 @@ export default function AnchorSummariesPage() {
     queryKey: ['anchorSummaries-list', page, limit],
     queryFn: async () => pageListAnchorSummaries({
       page, limit,
-      begin: formatRFC3339(new Date(2025, 0, 1)),
-      end: formatRFC3339(new Date(2026, 0, 1)),
-      gameIds: [],
-      anchorIds: [],
+      begin: formatRFC3339(be),
+      end: formatRFC3339(en),
+      gameIds,
+      anchorIds,
     }),
   })
 
