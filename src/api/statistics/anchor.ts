@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ListRequest } from '@/api/statistics/summary.ts'
 import { fetchAuthed } from '@/stores/authStore.ts'
 import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts'
+import { PageResponse } from '@/lib/response.ts'
 
 export type AnchorStatInfo = {
   id: string
@@ -37,7 +38,7 @@ export type PageListAnchorSummariesRequest = {
 }
 
 export const pageListAnchorSummaries = (params: PageListAnchorSummariesRequest) => {
-  return fetchAuthed<AnchorSummary[]>('/anchor/summaries', {
+  return fetchAuthed<PageResponse<AnchorSummary>>('/anchor/summaries', {
     method: 'POST',
     body: JSON.stringify(params),
     headers: {
