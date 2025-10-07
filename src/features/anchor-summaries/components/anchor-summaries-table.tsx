@@ -24,8 +24,8 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const { setValues: setGameIds } = useGameFilter()
-  const { setValues: setAnchorIds } = useAnchorFilter()
+  const { values: gameIds, setValues: setGameIds } = useGameFilter()
+  const { values: anchorIds, setValues: setAnchorIds } = useAnchorFilter()
 
   const table = useReactTable({
     data,
@@ -48,6 +48,17 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+
+  const gameColumn = table.getColumn('lastGameId')
+  const anchorColumn = table.getColumn('anchorId')
+
+  useEffect(() => {
+    gameColumn?.setFilterValue(gameIds)
+  }, [gameColumn, gameIds])
+
+  useEffect(() => {
+    anchorColumn?.setFilterValue(anchorIds)
+  }, [anchorColumn, anchorIds])
 
   const allGames = useAllGames()
   const [gameOptions, setGameOptions] = useState<SelectOption<number>[]>([])
@@ -88,18 +99,18 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
       >
         <div className='flex gap-x-2'>
           <RangeDatePicker />
-          {table.getColumn('lastGameId') && gameOptions && gameOptions.length > 0 && (
+          {gameColumn && gameOptions && gameOptions.length > 0 && (
             <TableFacetedFilter
-              column={table.getColumn('lastGameId')}
+              column={gameColumn}
               title={t('apps.anchorSummaries.properties.lastGame.title')}
               options={gameOptions}
               setFilterValues={setGameIds}
             />
           )}
           {
-            table.getColumn('anchorId') && anchorOptions && anchorOptions.length > 0 && (
+            anchorColumn && anchorOptions && anchorOptions.length > 0 && (
               <TableFacetedFilter
-                column={table.getColumn('anchorId')}
+                column={anchorColumn}
                 title={t('apps.anchorSummaries.properties.nickname.title')}
                 options={anchorOptions}
                 setFilterValues={setAnchorIds}
