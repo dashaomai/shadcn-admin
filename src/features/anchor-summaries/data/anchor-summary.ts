@@ -18,3 +18,14 @@ export type AnchorSummary = {
   giftCount: number
   giftValue: string
 }
+
+export type AnchorSummaryRow = {
+  anchor: string
+  status: string
+  lastTime: string
+  lastGame: string
+  broadcastCount: number
+  broadcastDuration: string
+  giftCount: number
+  giftValue: string
+}

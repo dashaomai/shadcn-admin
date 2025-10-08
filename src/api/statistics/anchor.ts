@@ -42,7 +42,24 @@ export const pageListAnchorSummaries = (params: PageListAnchorSummariesRequest) 
     method: 'POST',
     body: JSON.stringify(params),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export type ListAnchorSummariesRequest = {
+  begin: string
+  end: string
+  gameIds: number[]
+  anchorIds: string[]
+}
+
+export const listAnchorSummaries = (params: ListAnchorSummariesRequest) => {
+  return fetchAuthed<AnchorSummary[]>('/anchor/summaries_all', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
     },
   })
 }

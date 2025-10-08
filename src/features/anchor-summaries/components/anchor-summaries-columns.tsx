@@ -1,17 +1,14 @@
-import { formatDate } from 'date-fns'
-import { ColumnDef } from '@tanstack/react-table'
-import { i18n } from '@/lib/i18n.ts'
-import { cn } from '@/lib/utils.ts'
-import { Checkbox } from '@/components/ui/checkbox.tsx'
-import {
-  AnchorSummary,
-  BroadcastStatus,
-} from '@/features/anchor-summaries/data/anchor-summary.ts'
-import { AnchorInfo } from '@/features/games/data/anchor.ts'
+import { ColumnDef } from '@tanstack/react-table';
+import { i18n } from '@/lib/i18n.ts';
+import { cn } from '@/lib/utils.ts';
+import { currencyToString } from '@/utils/currency.ts';
+import { formatToDate, translateSeconds } from '@/utils/time.ts';
+import { Checkbox } from '@/components/ui/checkbox.tsx';
+import { AnchorSummary, BroadcastStatus } from '@/features/anchor-summaries/data/anchor-summary.ts';
+import { AnchorInfo } from '@/features/games/data/anchor.ts';
 import { GameInfo } from '@/features/games/data/game.ts'
 import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
-import { translateSeconds } from '@/utils/time.ts'
-import { currencyToString } from '@/utils/currency.ts'
+
 
 export const columns = (
   games?: GameInfo[],
@@ -109,8 +106,8 @@ export const columns = (
     cell: ({ row }) => {
       const { broadcastStatus, lastBegin, lastEnd } = row.original
 
-      const begin = formatDate(lastBegin, 'yyyy/MM/dd hh:mm:ss')
-      const end = broadcastStatus === BroadcastStatus.Finished ? formatDate(lastEnd, 'yyyy/MM/dd hh:mm:ss') : ''
+      const begin = formatToDate(lastBegin)
+      const end = broadcastStatus === BroadcastStatus.Finished ? formatToDate(lastEnd) : ''
 
       return (
         <div className='w-fit text-nowrap overflow-ellipsis'>

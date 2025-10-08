@@ -1,9 +1,4 @@
-import {
-  formatDate,
-  startOfMonth,
-  startOfWeek,
-} from 'date-fns'
-
+import { DateArg, formatDate, startOfMonth, startOfWeek } from 'date-fns'
 
 const day: number = 24 * 3600
 const hour: number = 3600
@@ -60,7 +55,10 @@ export const translateSeconds = (
 ): string => {
   const meta = secondToTime(seconds)
   const mark = getMarkOfTime(meta)
-  return t(`common.time.${meta.positive ? 'positive' : 'negative'}.${mark}`, meta)
+  return t(
+    `common.time.${meta.positive ? 'positive' : 'negative'}.${mark}`,
+    meta
+  )
 }
 
 export const getToday = (): Date => {
@@ -79,7 +77,14 @@ export const getBeginOfMonth = (date: Date): Date => {
 }
 
 export const dateEqual = (a: Date, b: Date): boolean => {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  )
 }
 
-export const formatToDateOnly = (date: Date): string => formatDate(date, 'yyyy-MM-dd')
+export const formatToDate = (date: DateArg<Date>): string =>
+  formatDate(date, 'yyyy-MM-dd HH:mm:ss')
+export const formatToDateOnly = (date: DateArg<Date>): string =>
+  formatDate(date, 'yyyy-MM-dd')
