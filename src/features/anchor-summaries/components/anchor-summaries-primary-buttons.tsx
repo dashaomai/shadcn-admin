@@ -57,7 +57,24 @@ export function AnchorSummariesPrimaryButtons() {
 
       const title = t('layout.navigate.items.summaries')
 
-      const worksheet = XLSX.utils.json_to_sheet(rows)
+      const headers = [
+        t('apps.anchorSummaries.properties.nickname.title'),
+        t('apps.anchorSummaries.properties.broadcastStatus.title'),
+        t('apps.anchorSummaries.properties.lastBroadcast.title'),
+        t('apps.anchorSummaries.properties.lastGame.title'),
+        t('apps.anchorSummaries.properties.broadcastCount.title'),
+        t('apps.anchorSummaries.properties.broadcastDuration.title'),
+        t('apps.anchorSummaries.properties.giftCount.title'),
+        t('apps.anchorSummaries.properties.giftValue.title'),
+      ]
+      const keys = [
+        'anchor', 'status', 'lastTime', 'lastGame', 'broadcastCount', 'broadcastDuration', 'giftCount', 'giftValue',
+      ]
+
+      const finalData = rows.map(row => keys.map(k => (row as any)[k]))
+      finalData.unshift(headers)
+
+      const worksheet = XLSX.utils.aoa_to_sheet(finalData)
       const workbook = XLSX.utils.book_new()
       XLSX.utils.book_append_sheet(workbook, worksheet, title)
 
