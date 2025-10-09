@@ -59,6 +59,7 @@
         "tag": "标签",
         "hall": "厅馆",
         "summaries": "统计报表",
+        "broadcasts": "上、下播记录",
         "broadcast": "直播",
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
@@ -797,6 +798,32 @@
       },
       "toolbar": {
         "placeholder": "过滤主播"
+      }
+    },
+    "broadcasts": {
+      "description": "查询所有主播的上、下播记录",
+      "properties": {
+        "anchor": {
+          "title": "主播"
+        },
+        "broadcast": {
+          "title": "上下播时间"
+        },
+        "game": {
+          "title": "上播游戏"
+        },
+        "table": {
+          "title": "台号"
+        },
+        "duration": {
+          "title": "直播总时长"
+        },
+        "giftCount": {
+          "title": "累计礼物数量"
+        },
+        "giftValue": {
+          "title": "累计礼物金额"
+        }
       }
     }
   },

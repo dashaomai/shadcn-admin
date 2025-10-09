@@ -18,7 +18,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.broadcasts.properties.nickname.title')}
+        title={i18n.t('apps.broadcasts.properties.anchor.title')}
       />
     ),
     cell: ({ row }) => {
@@ -37,7 +37,7 @@ export const columns = (
     },
 
     meta: {
-      displayTag: i18n.t('apps.broadcasts.properties.nickname.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.anchor.title'),
     },
     enableHiding: false,
   },

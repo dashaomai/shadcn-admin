@@ -59,6 +59,7 @@
         "tag": "标签",
         "hall": "廳館",
         "summaries": "統計報表",
+        "broadcasts": "上、下播記錄",
         "broadcast": "直播",
         "table": "遊戲房",
         "bc_baccarat": "區塊鏈百家樂",
@@ -521,6 +522,32 @@
       },
       "toolbar": {
         "placeholder": "過濾主播"
+      }
+    },
+    "broadcasts": {
+      "description": "查詢所有主播的上、下播記錄",
+      "properties": {
+        "anchor": {
+          "title": "主播"
+        },
+        "broadcast": {
+          "title": "上下播時間"
+        },
+        "game": {
+          "title": "上播遊戲"
+        },
+        "table": {
+          "title": "台號"
+        },
+        "duration": {
+          "title": "直播總時長"
+        },
+        "giftCount": {
+          "title": "累積禮物數量"
+        },
+        "giftValue": {
+          "title": "累積禮物金額"
+        }
       }
     }
   },
