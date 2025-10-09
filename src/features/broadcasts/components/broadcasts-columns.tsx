@@ -1,24 +1,24 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { BroadcastStatus } from '@/lib/broadcast.ts';
 import { i18n } from '@/lib/i18n.ts';
-import { currencyToString } from '@/utils/currency.ts';
 import { formatToDate, translateSeconds } from '@/utils/time.ts';
-import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts';
+import { Broadcast } from '@/features/broadcasts/data/broadcast.ts';
 import { AnchorInfo } from '@/features/games/data/anchor.ts';
 import { GameInfo } from '@/features/games/data/game.ts'
 import { DataTableColumnHeader } from '@/features/users/components/data-table-column-header.tsx'
-import { BroadcastStatus } from '@/lib/broadcast.ts'
+import { currencyToString } from '@/utils/currency.ts'
 
 export const columns = (
   games?: GameInfo[],
-  anchors?: AnchorInfo[]
-): ColumnDef<AnchorSummary>[] => [
+  anchors?: AnchorInfo[],
+): ColumnDef<Broadcast>[] => [
 
   {
     accessorKey: 'anchorId',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.nickname.title')}
+        title={i18n.t('apps.broadcasts.properties.nickname.title')}
       />
     ),
     cell: ({ row }) => {
@@ -37,69 +37,48 @@ export const columns = (
     },
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.nickname.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.nickname.title'),
     },
     enableHiding: false,
   },
 
   {
-    accessorKey: 'broadcastStatus',
+    accessorKey: 'status',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.broadcastStatus.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {i18n.t(`common.broadcast.status.${row.getValue('broadcastStatus')}`)}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.anchorSummaries.properties.broadcastStatus.title'
-      ),
-    },
-  },
-
-  {
-    accessorKey: 'lastBroadcast',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.anchorSummaries.properties.lastBroadcast.title')}
+        title={i18n.t('apps.broadcasts.properties.broadcast.title')}
       />
     ),
     cell: ({ row }) => {
-      const { broadcastStatus, lastBegin, lastEnd } = row.original
+      const { status, begin, end } = row.original
 
-      const begin = formatToDate(lastBegin)
-      const end = broadcastStatus === BroadcastStatus.Finished ? formatToDate(lastEnd) : ''
+      const be = formatToDate(begin)
+      const en = status === BroadcastStatus.Finished ? formatToDate(end) : ''
 
       return (
         <div className='w-fit text-nowrap overflow-ellipsis'>
-          {begin} - {end}
+          {be} - {en}
         </div>
       )
     },
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.lastBroadcast.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.broadcast.title'),
     },
   },
 
   {
-    accessorKey: 'lastGameId',
+    accessorKey: 'gameId',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.lastGame.title')}
+        title={i18n.t('apps.broadcasts.properties.game.title')}
       />
     ),
     cell: ({ row }) => {
       if (Array.isArray(games)) {
-        const gameId = row.getValue('lastGameId') as number
+        const gameId = row.getValue('gameId') as number
         const game = games.find((g) => g.id === gameId)
 
         return (
@@ -113,50 +92,60 @@ export const columns = (
     },
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.lastGame.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.game.title'),
     },
   },
 
   {
-    accessorKey: 'broadcastCount',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.anchorSummaries.properties.broadcastCount.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('broadcastCount')}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.anchorSummaries.properties.broadcastCount.title'
-      ),
-    },
-  },
-
-  {
-    accessorKey: 'broadcastDuration',
+    accessorKey: 'table',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
         title={i18n.t(
-          'apps.anchorSummaries.properties.broadcastDuration.title'
+          'apps.broadcasts.properties.table.title'
         )}
       />
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap overflow-ellipsis'>
-        {translateSeconds(row.getValue('broadcastDuration'), i18n.t)}
+        {row.getValue('table')}
       </div>
     ),
 
     meta: {
       displayTag: i18n.t(
-        'apps.anchorSummaries.properties.broadcastDuration.title'
+        'apps.broadcasts.properties.table.title'
+      ),
+    },
+  },
+
+  {
+    accessorKey: 'duration',
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title={i18n.t(
+          'apps.broadcasts.properties.duration.title'
+        )}
+      />
+    ),
+    cell: ({ row }) => {
+      const {status, begin, end} = row.original
+
+      const output = status === BroadcastStatus.Finished ?
+        translateSeconds((new Date(end).getTime() - new Date(begin).getTime()) / 1000, i18n.t) :
+        '-'
+
+      return (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {output}
+        </div>
+      )
+    },
+
+    meta: {
+      displayTag: i18n.t(
+        'apps.broadcasts.properties.duration.title'
       ),
     },
   },
@@ -166,7 +155,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.giftCount.title')}
+        title={i18n.t('apps.broadcasts.properties.giftCount.title')}
       />
     ),
     cell: ({ row }) => (
@@ -176,7 +165,7 @@ export const columns = (
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.giftCount.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.giftCount.title'),
     },
   },
 
@@ -185,7 +174,7 @@ export const columns = (
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={i18n.t('apps.anchorSummaries.properties.giftValue.title')}
+        title={i18n.t('apps.broadcasts.properties.giftValue.title')}
       />
     ),
     cell: ({ row }) => (
@@ -195,7 +184,7 @@ export const columns = (
     ),
 
     meta: {
-      displayTag: i18n.t('apps.anchorSummaries.properties.giftValue.title'),
+      displayTag: i18n.t('apps.broadcasts.properties.giftValue.title'),
     },
   },
 ]

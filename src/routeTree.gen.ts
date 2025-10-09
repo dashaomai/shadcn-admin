@@ -37,6 +37,7 @@ import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authentic
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedBroadcastsIndexImport } from './routes/_authenticated/broadcasts/index'
 import { Route as AuthenticatedBcPushdotsTablesIndexImport } from './routes/_authenticated/bc-pushdots-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
@@ -238,6 +239,17 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+
+const AuthenticatedBroadcastsIndexRoute =
+  AuthenticatedBroadcastsIndexImport.update({
+    id: '/broadcasts/',
+    path: '/broadcasts/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/broadcasts/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AuthenticatedBcPushdotsTablesIndexRoute =
   AuthenticatedBcPushdotsTablesIndexImport.update({
@@ -492,6 +504,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcPushdotsTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/broadcasts/': {
+      id: '/_authenticated/broadcasts/'
+      path: '/broadcasts'
+      fullPath: '/broadcasts'
+      preLoaderRoute: typeof AuthenticatedBroadcastsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -620,6 +639,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
   AuthenticatedBcPushdotsTablesIndexRoute: typeof AuthenticatedBcPushdotsTablesIndexRoute
+  AuthenticatedBroadcastsIndexRoute: typeof AuthenticatedBroadcastsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
@@ -646,6 +666,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBcNiuniuTablesIndexRoute: AuthenticatedBcNiuniuTablesIndexRoute,
   AuthenticatedBcPushdotsTablesIndexRoute:
     AuthenticatedBcPushdotsTablesIndexRoute,
+  AuthenticatedBroadcastsIndexRoute: AuthenticatedBroadcastsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
@@ -687,6 +708,7 @@ export interface FileRoutesByFullPath {
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdots-tables': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -724,6 +746,7 @@ export interface FileRoutesByTo {
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdots-tables': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -764,6 +787,7 @@ export interface FileRoutesById {
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/_authenticated/bc-pushdots-tables/': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/_authenticated/broadcasts/': typeof AuthenticatedBroadcastsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
@@ -805,6 +829,7 @@ export interface FileRouteTypes {
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
     | '/bc-pushdots-tables'
+    | '/broadcasts'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -841,6 +866,7 @@ export interface FileRouteTypes {
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
     | '/bc-pushdots-tables'
+    | '/broadcasts'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -879,6 +905,7 @@ export interface FileRouteTypes {
     | '/_authenticated/bc-baccarat-tables/'
     | '/_authenticated/bc-niuniu-tables/'
     | '/_authenticated/bc-pushdots-tables/'
+    | '/_authenticated/broadcasts/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
@@ -957,6 +984,7 @@ export const routeTree = rootRoute
         "/_authenticated/bc-baccarat-tables/",
         "/_authenticated/bc-niuniu-tables/",
         "/_authenticated/bc-pushdots-tables/",
+        "/_authenticated/broadcasts/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
@@ -1054,6 +1082,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/bc-pushdots-tables/": {
       "filePath": "_authenticated/bc-pushdots-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/broadcasts/": {
+      "filePath": "_authenticated/broadcasts/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/chats/": {
