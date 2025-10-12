@@ -116,7 +116,7 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
             anchorColumn && anchorOptions && anchorOptions.length > 0 && (
               <TableFacetedFilter
                 column={anchorColumn}
-                title={t('apps.giftRecords.properties.nickname.title')}
+                title={t('apps.giftRecords.properties.receiver.title')}
                 options={anchorOptions}
                 setFilterValues={setAnchorIds}
               />

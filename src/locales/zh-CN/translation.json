@@ -61,6 +61,7 @@
         "summaries": "统计报表",
         "broadcasts": "上、下播记录",
         "broadcast": "直播",
+        "giftRecords": "赠礼记录",
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
         "bc_niuniu": "区块链妞妞",
@@ -137,6 +138,15 @@
         "0": "未知",
         "1": "上播",
         "2": "离线"
+      }
+    },
+    "order": {
+      "status": {
+        "0": "未知",
+        "1": "已成单",
+        "2": "待结算",
+        "3": "失败",
+        "10": "待确认"
       }
     }
   },
@@ -823,6 +833,41 @@
         },
         "giftValue": {
           "title": "累计礼物金额"
+        }
+      }
+    },
+    "giftRecords": {
+      "description": "查询各项赠礼记录",
+      "properties": {
+        "orderId": {
+          "title": "赠礼订单号"
+        },
+        "player": {
+          "title": "玩家"
+        },
+        "receiver": {
+          "title": "赠礼对象"
+        },
+        "time": {
+          "title": "赠礼时间"
+        },
+        "game": {
+          "title": "上播游戏"
+        },
+        "roundId": {
+          "title": "局号"
+        },
+        "tableName": {
+          "title": "台号"
+        },
+        "giftName": {
+          "title": "礼物名称"
+        },
+        "giftValue": {
+          "title": "礼物金额"
+        },
+        "orderStatus": {
+          "title": "订单状态"
         }
       }
     }

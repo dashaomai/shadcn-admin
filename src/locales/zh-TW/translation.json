@@ -61,6 +61,7 @@
         "summaries": "統計報表",
         "broadcasts": "上、下播記錄",
         "broadcast": "直播",
+        "giftRecords": "贈禮記錄",
         "table": "遊戲房",
         "bc_baccarat": "區塊鏈百家樂",
         "bc_niuniu": "區塊鏈妞妞",
@@ -137,6 +138,15 @@
         "0": "未知",
         "1": "上播",
         "2": "離線"
+      }
+    },
+    "order": {
+      "status": {
+        "0": "未知",
+        "1": "已成單",
+        "2": "待結算",
+        "3": "失敗",
+        "10": "待確認"
       }
     }
   },
@@ -547,6 +557,41 @@
         },
         "giftValue": {
           "title": "累積禮物金額"
+        }
+      }
+    },
+    "giftRecords": {
+      "description": "查詢各項贈禮記錄",
+      "properties": {
+        "orderId": {
+          "title": "贈禮訂單號"
+        },
+        "player": {
+          "title": "玩家"
+        },
+        "receiver": {
+          "title": "贈禮對象"
+        },
+        "time": {
+          "title": "贈禮時間"
+        },
+        "game": {
+          "title": "上播遊戲"
+        },
+        "roundId": {
+          "title": "局號"
+        },
+        "tableName": {
+          "title": "台號"
+        },
+        "giftName": {
+          "title": "禮物名稱"
+        },
+        "giftValue": {
+          "title": "禮物金額"
+        },
+        "orderStatus": {
+          "title": "訂單狀態"
         }
       }
     }
