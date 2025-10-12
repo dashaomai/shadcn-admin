@@ -34,6 +34,7 @@ import { Route as AuthenticatedPublishersIndexImport } from './routes/_authentic
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
 import { Route as AuthenticatedOperationsIndexImport } from './routes/_authenticated/operations/index'
 import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authenticated/help-center/index'
+import { Route as AuthenticatedGiftRecordsIndexImport } from './routes/_authenticated/giftRecords/index'
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
@@ -211,6 +212,17 @@ const AuthenticatedHelpCenterIndexRoute =
     path: '/help-center/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+
+const AuthenticatedGiftRecordsIndexRoute =
+  AuthenticatedGiftRecordsIndexImport.update({
+    id: '/giftRecords/',
+    path: '/giftRecords/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/giftRecords/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AuthenticatedGameCatalogsIndexRoute =
   AuthenticatedGameCatalogsIndexImport.update({
@@ -532,6 +544,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGameCatalogsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/giftRecords/': {
+      id: '/_authenticated/giftRecords/'
+      path: '/giftRecords'
+      fullPath: '/giftRecords'
+      preLoaderRoute: typeof AuthenticatedGiftRecordsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/help-center/': {
       id: '/_authenticated/help-center/'
       path: '/help-center'
@@ -643,6 +662,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
+  AuthenticatedGiftRecordsIndexRoute: typeof AuthenticatedGiftRecordsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedOperationsIndexRoute: typeof AuthenticatedOperationsIndexRoute
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
@@ -670,6 +690,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
+  AuthenticatedGiftRecordsIndexRoute: AuthenticatedGiftRecordsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedOperationsIndexRoute: AuthenticatedOperationsIndexRoute,
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
@@ -712,6 +733,7 @@ export interface FileRoutesByFullPath {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
+  '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
@@ -750,6 +772,7 @@ export interface FileRoutesByTo {
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
+  '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
@@ -791,6 +814,7 @@ export interface FileRoutesById {
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
+  '/_authenticated/giftRecords/': typeof AuthenticatedGiftRecordsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/operations/': typeof AuthenticatedOperationsIndexRoute
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
@@ -833,6 +857,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/developers'
     | '/game-catalogs'
+    | '/giftRecords'
     | '/help-center'
     | '/operations'
     | '/platforms'
@@ -870,6 +895,7 @@ export interface FileRouteTypes {
     | '/chats'
     | '/developers'
     | '/game-catalogs'
+    | '/giftRecords'
     | '/help-center'
     | '/operations'
     | '/platforms'
@@ -909,6 +935,7 @@ export interface FileRouteTypes {
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
+    | '/_authenticated/giftRecords/'
     | '/_authenticated/help-center/'
     | '/_authenticated/operations/'
     | '/_authenticated/platforms/'
@@ -988,6 +1015,7 @@ export const routeTree = rootRoute
         "/_authenticated/chats/",
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
+        "/_authenticated/giftRecords/",
         "/_authenticated/help-center/",
         "/_authenticated/operations/",
         "/_authenticated/platforms/",
@@ -1098,6 +1126,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/game-catalogs/": {
       "filePath": "_authenticated/game-catalogs/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/giftRecords/": {
+      "filePath": "_authenticated/giftRecords/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/help-center/": {
