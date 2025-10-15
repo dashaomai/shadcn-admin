@@ -68,7 +68,9 @@ export const listAnchorSummaries = (params: ListAnchorSummariesRequest) => {
 export type PageListAnchorsRequest = {
   page: number
   limit: number
-  anchorIds: string[]
+  filteredAccountIds: string[]
+  filteredAccountStatus: number[]
+  filteredSpecialStatus: number[]
 }
 
 export const pageListAnchors = (params: PageListAnchorsRequest) => {
