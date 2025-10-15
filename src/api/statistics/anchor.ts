@@ -3,6 +3,7 @@ import { ListRequest } from '@/api/statistics/summary.ts'
 import { fetchAuthed } from '@/stores/authStore.ts'
 import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts'
 import { PageResponse } from '@/lib/response.ts'
+import { AnchorConfiguration } from '@/features/anchors/data/anchor-info.ts'
 
 export type AnchorStatInfo = {
   id: string
@@ -56,6 +57,22 @@ export type ListAnchorSummariesRequest = {
 
 export const listAnchorSummaries = (params: ListAnchorSummariesRequest) => {
   return fetchAuthed<AnchorSummary[]>('/anchor/summaries_all', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export type PageListAnchorsRequest = {
+  page: number
+  limit: number
+  anchorIds: string[]
+}
+
+export const pageListAnchors = (params: PageListAnchorsRequest) => {
+  return fetchAuthed<PageResponse<AnchorConfiguration>>('/account/anchors', {
     method: 'POST',
     body: JSON.stringify(params),
     headers: {

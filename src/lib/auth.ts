@@ -1,5 +1,10 @@
 import { Role } from './role'
 
+export enum AccountStatus {
+  Disabled,
+  Enabled,
+}
+
 export type SignInRequest = {
   type: number
   name: string

@@ -13,6 +13,7 @@ import { CreateOrUpdateRoleResponse, Role } from '@/lib/role.ts'
 import { AccountForm } from '@/features/accounts/components/accounts-action-dialog'
 import { AccountRolesForm } from '@/features/accounts/components/accounts-roles-dialog'
 import { AccountInfo } from '@/features/accounts/data/account-info.ts'
+import { AnchorsForm } from '@/features/anchors/components/anchors-action-dialog.tsx'
 import { RoleForm } from '@/features/roles/components/roles-action-dialog.tsx'
 import { ProfileFormValues } from '@/features/settings/profile/profile-form'
 
@@ -197,6 +198,21 @@ export const createOrUpdateAccount = async (
   } else {
     const { id, ...data } = values
     return updateAccount(id, data)
+  }
+}
+
+export const updateAnchor = async ({
+  id,
+  ...values
+}: AnchorsForm & { id?: string }) => {
+  if (!id) {
+    return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/anchor/${id}`, {
+      method: 'POST',
+      body: JSON.stringify(values),
+    })
+  } else {
+    console.error('failed to receive id for anchor.')
+    return
   }
 }
 

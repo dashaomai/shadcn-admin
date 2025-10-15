@@ -43,6 +43,7 @@ import { Route as AuthenticatedBcPushdotsTablesIndexImport } from './routes/_aut
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
+import { Route as AuthenticatedAnchorsIndexImport } from './routes/_authenticated/anchors/index'
 import { Route as AuthenticatedAnchorSummariesIndexImport } from './routes/_authenticated/anchorSummaries/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_authenticated/settings/notifications'
@@ -302,6 +303,14 @@ const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
+const AuthenticatedAnchorsIndexRoute = AuthenticatedAnchorsIndexImport.update({
+  id: '/anchors/',
+  path: '/anchors/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any).lazy(() =>
+  import('./routes/_authenticated/anchors/index.lazy').then((d) => d.Route),
+)
+
 const AuthenticatedAnchorSummariesIndexRoute =
   AuthenticatedAnchorSummariesIndexImport.update({
     id: '/anchorSummaries/',
@@ -488,6 +497,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAnchorSummariesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/anchors/': {
+      id: '/_authenticated/anchors/'
+      path: '/anchors'
+      fullPath: '/anchors'
+      preLoaderRoute: typeof AuthenticatedAnchorsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/apps/': {
       id: '/_authenticated/apps/'
       path: '/apps'
@@ -654,6 +670,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
   AuthenticatedAnchorSummariesIndexRoute: typeof AuthenticatedAnchorSummariesIndexRoute
+  AuthenticatedAnchorsIndexRoute: typeof AuthenticatedAnchorsIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
@@ -680,6 +697,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
   AuthenticatedAnchorSummariesIndexRoute:
     AuthenticatedAnchorSummariesIndexRoute,
+  AuthenticatedAnchorsIndexRoute: AuthenticatedAnchorsIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedBcBaccaratTablesIndexRoute:
     AuthenticatedBcBaccaratTablesIndexRoute,
@@ -725,6 +743,7 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/anchorSummaries': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/anchors': typeof AuthenticatedAnchorsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
@@ -764,6 +783,7 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/anchorSummaries': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/anchors': typeof AuthenticatedAnchorsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
@@ -806,6 +826,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
   '/_authenticated/anchorSummaries/': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/_authenticated/anchors/': typeof AuthenticatedAnchorsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
@@ -849,6 +870,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/anchorSummaries'
+    | '/anchors'
     | '/apps'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
@@ -887,6 +909,7 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/anchorSummaries'
+    | '/anchors'
     | '/apps'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
@@ -927,6 +950,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
     | '/_authenticated/anchorSummaries/'
+    | '/_authenticated/anchors/'
     | '/_authenticated/apps/'
     | '/_authenticated/bc-baccarat-tables/'
     | '/_authenticated/bc-niuniu-tables/'
@@ -1007,6 +1031,7 @@ export const routeTree = rootRoute
         "/_authenticated/",
         "/_authenticated/accounts/",
         "/_authenticated/anchorSummaries/",
+        "/_authenticated/anchors/",
         "/_authenticated/apps/",
         "/_authenticated/bc-baccarat-tables/",
         "/_authenticated/bc-niuniu-tables/",
@@ -1094,6 +1119,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/anchorSummaries/": {
       "filePath": "_authenticated/anchorSummaries/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/anchors/": {
+      "filePath": "_authenticated/anchors/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/apps/": {
