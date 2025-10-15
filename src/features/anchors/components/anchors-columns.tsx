@@ -34,6 +34,7 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
       displayTag: i18n.t('apps.anchors.properties.nickname.title'),
     },
     enableHiding: false,
+    filterFn: 'arrIncludesSome',
   },
 
   {
@@ -73,7 +74,7 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
     meta: {
       displayTag: i18n.t('apps.anchors.properties.status.title'),
     },
-    enableHiding: false,
+    filterFn: 'arrIncludesSome',
   },
 
   {
@@ -95,7 +96,7 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
     meta: {
       displayTag: i18n.t('apps.anchors.properties.specialStatus.title'),
     },
-    enableHiding: false,
+    filterFn: 'arrIncludesSome',
   },
 
   {
