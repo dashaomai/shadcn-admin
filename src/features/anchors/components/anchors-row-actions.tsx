@@ -40,7 +40,7 @@ export function AnchorsRowActions({ row }: Props) {
                 setOpen('update')
               }}
             >
-              {t('apps.accounts.actions.edit')}
+              {t('apps.anchors.actions.edit')}
               <DropdownMenuShortcut>
                 <IconEdit size={16} />
               </DropdownMenuShortcut>

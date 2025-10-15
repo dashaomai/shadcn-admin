@@ -62,6 +62,7 @@
         "broadcasts": "上、下播记录",
         "broadcast": "直播",
         "giftRecords": "赠礼记录",
+        "anchors": "主播资料设定",
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
         "bc_niuniu": "区块链妞妞",
@@ -147,6 +148,22 @@
         "2": "待结算",
         "3": "失败",
         "10": "待确认"
+      }
+    },
+    "accounts": {
+      "properties": {
+        "status": {
+          "0": "关闭",
+          "1": "开启"
+        }
+      }
+    },
+    "anchors": {
+      "properties": {
+        "specialStatus": {
+          "0": "无",
+          "1": "优先显示"
+        }
       }
     }
   },
@@ -868,6 +885,29 @@
         },
         "orderStatus": {
           "title": "订单状态"
+        }
+      }
+    },
+    "anchors": {
+      "description": "对各位主播业务参数进行设置",
+      "actions": {
+        "edit": "设置"
+      },
+      "properties": {
+        "anchor": {
+          "title": "选择主播"
+        },
+        "nickname": {
+          "title": "主播"
+        },
+        "avatar": {
+          "title": "照片"
+        },
+        "status": {
+          "title": "状态"
+        },
+        "specialStatus": {
+          "title": "特殊设置"
         }
       }
     }

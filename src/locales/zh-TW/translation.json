@@ -62,6 +62,7 @@
         "broadcasts": "上、下播記錄",
         "broadcast": "直播",
         "giftRecords": "贈禮記錄",
+        "anchors": "主播資料設定",
         "table": "遊戲房",
         "bc_baccarat": "區塊鏈百家樂",
         "bc_niuniu": "區塊鏈妞妞",
@@ -147,6 +148,22 @@
         "2": "待結算",
         "3": "失敗",
         "10": "待確認"
+      }
+    },
+    "accounts": {
+      "properties": {
+        "status": {
+          "0": "關閉",
+          "1": "開啟"
+        }
+      }
+    },
+    "anchors": {
+      "properties": {
+        "specialStatus": {
+          "0": "無",
+          "1": "優先顯示"
+        }
       }
     }
   },
@@ -592,6 +609,29 @@
         },
         "orderStatus": {
           "title": "訂單狀態"
+        }
+      }
+    },
+    "anchors": {
+      "description": "對各位主播業務參數進行設定",
+      "actions": {
+        "edit": "設定"
+      },
+      "properties": {
+        "anchor": {
+          "title": "選擇主播"
+        },
+        "nickname": {
+          "title": "主播"
+        },
+        "avatar": {
+          "title": "照片"
+        },
+        "status": {
+          "title": "狀態"
+        },
+        "specialStatus": {
+          "title": "特殊設定"
         }
       }
     }
