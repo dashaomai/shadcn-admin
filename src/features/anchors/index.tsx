@@ -15,6 +15,7 @@ import AccountStatusFilterProvider from '@/components/context/account-status-fil
 import SpecialStatusFilterProvider from '@/components/context/special-status-filter-context.tsx'
 import AnchorsProvider from '@/features/anchors/context/anchors-context.tsx'
 import { useAllAnchors } from '@/api/bridge/anchor.ts'
+import { AnchorsDialogs } from '@/features/anchors/components/anchors-dialogs.tsx'
 
 export default function AnchorsPage() {
   const { t } = useTranslation()
@@ -66,6 +67,8 @@ export default function AnchorsPage() {
                 )}
               </MainContent>
             </Main>
+
+            <AnchorsDialogs />
           </SpecialStatusFilterProvider>
         </AccountStatusFilterProvider>
       </AnchorFilterProvider>
