@@ -25,7 +25,7 @@ export const useSpecialStatusFilter = () => {
   const context = useContext(SpecialStatusFilterContext)
 
   if (!context) {
-    throw new Error('useSpecialStatusFilter must be used within <AccountStatusFilterContext>')
+    throw new Error('useSpecialStatusFilter must be used within <SpecialStatusFilterContext>')
   }
 
   return context

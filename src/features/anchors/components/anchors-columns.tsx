@@ -74,7 +74,6 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
     meta: {
       displayTag: i18n.t('apps.anchors.properties.status.title'),
     },
-    filterFn: 'arrIncludesSome',
   },
 
   {
@@ -96,7 +95,6 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
     meta: {
       displayTag: i18n.t('apps.anchors.properties.specialStatus.title'),
     },
-    filterFn: 'arrIncludesSome',
   },
 
   {
