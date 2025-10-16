@@ -45,11 +45,27 @@ export const columns = (anchors?: AnchorInfo[]): ColumnDef<AnchorConfiguration>[
         title={i18n.t('apps.anchors.properties.avatar.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('avatar')}
-      </div>
-    ),
+    cell: ({ row }) => {
+      const avatar = row.getValue<string>('avatar')
+
+      return (
+        <div className='w-fit text-center overflow-ellipsis'>
+          {!!avatar && (
+            <img
+              style={{ width: '173px', height: '220px' }}
+              src={avatar}
+              alt='avatar'
+            />
+          )}
+          {!avatar && (
+            <div className='min-w-[173px]'>
+              <p>{i18n.t('apps.anchors.properties.avatar.tip')}</p>
+              <p>{i18n.t('apps.anchors.properties.avatar.pixels')}</p>
+            </div>
+          )}
+        </div>
+      )
+    },
 
     meta: {
       displayTag: i18n.t('apps.anchors.properties.avatar.title'),

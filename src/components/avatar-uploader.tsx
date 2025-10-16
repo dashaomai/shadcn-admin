@@ -64,6 +64,7 @@ export default function AvatarUploader<T extends FieldValues>({
       <img
         style={{ width: 48, height: 48, marginRight: 16 }}
         src={form.getValues(field)}
+        alt='avatar'
       />
       <Input ref={ref} type='file' accept='image/*' className='file:bg-primary file:p-1 file:text-white' />
       <Button type='button' onClick={onAvatarUpload}>

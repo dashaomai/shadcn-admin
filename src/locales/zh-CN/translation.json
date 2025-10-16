@@ -902,7 +902,9 @@
           "title": "主播"
         },
         "avatar": {
-          "title": "照片"
+          "title": "照片",
+          "tip": "请上传照片",
+          "pixels": "（173 x 220）"
         },
         "status": {
           "title": "状态",
