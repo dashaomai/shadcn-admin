@@ -37,9 +37,10 @@ import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authentic
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
-import { Route as AuthenticatedBcPushdotsTablesIndexImport } from './routes/_authenticated/bc-pushdots-tables/index'
+import { Route as AuthenticatedBcPushdotTablesIndexImport } from './routes/_authenticated/bc-pushdot-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
+import { Route as AuthenticatedBcBaccaratSqzTablesIndexImport } from './routes/_authenticated/bc-baccarat-sqz-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_authenticated/settings/notifications'
@@ -238,13 +239,13 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
-const AuthenticatedBcPushdotsTablesIndexRoute =
-  AuthenticatedBcPushdotsTablesIndexImport.update({
-    id: '/bc-pushdots-tables/',
-    path: '/bc-pushdots-tables/',
+const AuthenticatedBcPushdotTablesIndexRoute =
+  AuthenticatedBcPushdotTablesIndexImport.update({
+    id: '/bc-pushdot-tables/',
+    path: '/bc-pushdot-tables/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
-    import('./routes/_authenticated/bc-pushdots-tables/index.lazy').then(
+    import('./routes/_authenticated/bc-pushdot-tables/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -267,6 +268,17 @@ const AuthenticatedBcBaccaratTablesIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/bc-baccarat-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcBaccaratSqzTablesIndexRoute =
+  AuthenticatedBcBaccaratSqzTablesIndexImport.update({
+    id: '/bc-baccarat-sqz-tables/',
+    path: '/bc-baccarat-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-baccarat-sqz-tables/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -452,6 +464,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bc-baccarat-sqz-tables/': {
+      id: '/_authenticated/bc-baccarat-sqz-tables/'
+      path: '/bc-baccarat-sqz-tables'
+      fullPath: '/bc-baccarat-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcBaccaratSqzTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/bc-baccarat-tables/': {
       id: '/_authenticated/bc-baccarat-tables/'
       path: '/bc-baccarat-tables'
@@ -466,11 +485,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcNiuniuTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
-    '/_authenticated/bc-pushdots-tables/': {
-      id: '/_authenticated/bc-pushdots-tables/'
-      path: '/bc-pushdots-tables'
-      fullPath: '/bc-pushdots-tables'
-      preLoaderRoute: typeof AuthenticatedBcPushdotsTablesIndexImport
+    '/_authenticated/bc-pushdot-tables/': {
+      id: '/_authenticated/bc-pushdot-tables/'
+      path: '/bc-pushdot-tables'
+      fullPath: '/bc-pushdot-tables'
+      preLoaderRoute: typeof AuthenticatedBcPushdotTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/chats/': {
@@ -597,9 +616,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
+  AuthenticatedBcBaccaratSqzTablesIndexRoute: typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
-  AuthenticatedBcPushdotsTablesIndexRoute: typeof AuthenticatedBcPushdotsTablesIndexRoute
+  AuthenticatedBcPushdotTablesIndexRoute: typeof AuthenticatedBcPushdotTablesIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
@@ -619,11 +639,13 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
+  AuthenticatedBcBaccaratSqzTablesIndexRoute:
+    AuthenticatedBcBaccaratSqzTablesIndexRoute,
   AuthenticatedBcBaccaratTablesIndexRoute:
     AuthenticatedBcBaccaratTablesIndexRoute,
   AuthenticatedBcNiuniuTablesIndexRoute: AuthenticatedBcNiuniuTablesIndexRoute,
-  AuthenticatedBcPushdotsTablesIndexRoute:
-    AuthenticatedBcPushdotsTablesIndexRoute,
+  AuthenticatedBcPushdotTablesIndexRoute:
+    AuthenticatedBcPushdotTablesIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
@@ -661,9 +683,10 @@ export interface FileRoutesByFullPath {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
-  '/bc-pushdots-tables': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -697,9 +720,10 @@ export interface FileRoutesByTo {
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
+  '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
-  '/bc-pushdots-tables': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
@@ -736,9 +760,10 @@ export interface FileRoutesById {
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
+  '/_authenticated/bc-baccarat-sqz-tables/': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
-  '/_authenticated/bc-pushdots-tables/': typeof AuthenticatedBcPushdotsTablesIndexRoute
+  '/_authenticated/bc-pushdot-tables/': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
@@ -776,9 +801,10 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/apps'
+    | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
-    | '/bc-pushdots-tables'
+    | '/bc-pushdot-tables'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -811,9 +837,10 @@ export interface FileRouteTypes {
     | '/settings/notifications'
     | '/accounts'
     | '/apps'
+    | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
-    | '/bc-pushdots-tables'
+    | '/bc-pushdot-tables'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
@@ -848,9 +875,10 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
     | '/_authenticated/apps/'
+    | '/_authenticated/bc-baccarat-sqz-tables/'
     | '/_authenticated/bc-baccarat-tables/'
     | '/_authenticated/bc-niuniu-tables/'
-    | '/_authenticated/bc-pushdots-tables/'
+    | '/_authenticated/bc-pushdot-tables/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
@@ -925,9 +953,10 @@ export const routeTree = rootRoute
         "/_authenticated/",
         "/_authenticated/accounts/",
         "/_authenticated/apps/",
+        "/_authenticated/bc-baccarat-sqz-tables/",
         "/_authenticated/bc-baccarat-tables/",
         "/_authenticated/bc-niuniu-tables/",
-        "/_authenticated/bc-pushdots-tables/",
+        "/_authenticated/bc-pushdot-tables/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
@@ -1011,6 +1040,10 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/apps/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/bc-baccarat-sqz-tables/": {
+      "filePath": "_authenticated/bc-baccarat-sqz-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/bc-baccarat-tables/": {
       "filePath": "_authenticated/bc-baccarat-tables/index.tsx",
       "parent": "/_authenticated"
@@ -1019,8 +1052,8 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/bc-niuniu-tables/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_authenticated/bc-pushdots-tables/": {
-      "filePath": "_authenticated/bc-pushdots-tables/index.tsx",
+    "/_authenticated/bc-pushdot-tables/": {
+      "filePath": "_authenticated/bc-pushdot-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/chats/": {

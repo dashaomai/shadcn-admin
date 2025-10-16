@@ -1,8 +1,21 @@
-import { IconBrandYoutube, IconCheckupList, IconLayoutDashboard, IconLockAccess, IconLogs, IconPalette, IconSettings, IconSpade, IconUserCog, IconUsers } from '@tabler/icons-react';
-import { AudioWaveform } from 'lucide-react';
+import {
+  IconBrandYoutube,
+  IconCheckupList,
+  IconClubs,
+  IconDice3,
+  IconLayoutDashboard,
+  IconLockAccess,
+  IconLogs,
+  IconPalette,
+  IconSettings,
+  IconSpade,
+  IconSpadeFilled,
+  IconUserCog,
+  IconUsers,
+} from '@tabler/icons-react'
+import { AudioWaveform } from 'lucide-react'
 import { gteAdmin, gteAnchor, gteAnchorManager, isAnchor } from '@/lib/role.ts'
-import { type SidebarData } from '../types';
-
+import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   teams: [
@@ -56,19 +69,24 @@ export const sidebarData: SidebarData = {
           icon: IconBrandYoutube,
           items: [
             {
-              title: 'layout.navigate.items.bc_baccarat',
+              title: 'apps.games.name.bc_baccarat',
               url: '/bc-baccarat-tables',
               icon: IconSpade,
             },
             {
-              title: 'layout.navigate.items.bc_niuniu_s',
-              url: '/bc-niuniu-tables',
-              icon: IconSpade,
+              title: 'apps.games.name.bc_baccarat_sqz',
+              url: '/bc-baccarat-sqz-tables',
+              icon: IconSpadeFilled,
             },
             {
-              title: 'layout.navigate.items.bc_pushdots',
-              url: '/bc-pushdots-tables',
-              icon: IconSpade,
+              title: 'apps.games.name.bc_niuniu_s',
+              url: '/bc-niuniu-tables',
+              icon: IconClubs,
+            },
+            {
+              title: 'apps.games.name.bc_pushdot',
+              url: '/bc-pushdot-tables',
+              icon: IconDice3,
             },
           ],
         },
