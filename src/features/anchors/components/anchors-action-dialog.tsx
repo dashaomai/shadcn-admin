@@ -163,8 +163,8 @@ export function AnchorsActionDialog(
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value='1'>开启</SelectItem>
-                            <SelectItem value='0'>停止</SelectItem>
+                            <SelectItem value='1'>{t('common.accounts.properties.status.1')}</SelectItem>
+                            <SelectItem value='0'>{t('common.accounts.properties.status.0')}</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
@@ -196,8 +196,8 @@ export function AnchorsActionDialog(
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            <SelectItem value='0'>无</SelectItem>
-                            <SelectItem value='1'>优先显示</SelectItem>
+                            <SelectItem value='0'>{t('common.anchors.properties.specialStatus.0')}</SelectItem>
+                            <SelectItem value='1'>{t('common.anchors.properties.specialStatus.1')}</SelectItem>
                           </SelectGroup>
                         </SelectContent>
                       </Select>
