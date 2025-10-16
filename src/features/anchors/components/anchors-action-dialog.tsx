@@ -118,7 +118,7 @@ export function AnchorsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t('apps.anchors.properties.profile.avatar.title')}
+                      {t('apps.anchors.properties.avatar.title')}
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -126,7 +126,7 @@ export function AnchorsActionDialog(
                         className='col-span-4'
                         autoComplete='off'
                         placeholder={t(
-                          'apps.anchors.properties.profile.avatar.placeholder'
+                          'apps.accounts.properties.profile.avatar.placeholder'
                         )}
                         {...field}
                       />

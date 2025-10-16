@@ -905,10 +905,23 @@
           "title": "照片"
         },
         "status": {
-          "title": "状态"
+          "title": "状态",
+          "placeholder": "请选择主播的账号状态"
         },
         "specialStatus": {
-          "title": "特殊设置"
+          "title": "特殊设置",
+          "placeholder": "请选择主播的特殊设置"
+        }
+      },
+      "update": {
+        "title": "更新主播资料设置",
+        "description": "为主播 {{name}} 上传新的头像或修改各项设置，然后点“更新”按钮",
+        "submit": "更新"
+      },
+      "toast": {
+        "update": {
+          "title": "更新主播资料设置",
+          "ed": "成功更新主播 {{name}} 的资料设置"
         }
       }
     }
