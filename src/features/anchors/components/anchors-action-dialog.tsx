@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { updateAnchor } from '@/api/auth.ts'
-import { AccountStatus, CreateOrUpdateProfileResponse } from '@/lib/auth.ts'
+import { CreateOrUpdateProfileResponse } from '@/lib/auth.ts'
 import { z } from '@/lib/i18n.ts'
 import { ListAppActionDialogProps } from '@/lib/list-app.ts'
 import { Button } from '@/components/ui/button.tsx'
@@ -26,17 +26,21 @@ import {
 } from '@/components/ui/form.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { ScrollArea } from '@/components/ui/scroll-area.tsx'
+import {
+  Select,
+  SelectContent, SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
 import AvatarUploader from '@/components/avatar-uploader.tsx'
-import {
-  AnchorConfiguration,
-  SpecialStatus,
-} from '@/features/anchors/data/anchor-info.ts'
+import { AnchorConfiguration } from '@/features/anchors/data/anchor-info.ts'
 
 const anchorFormSchema = z.object({
   avatar: z.string().url(),
-  status: z.nativeEnum(AccountStatus),
-  specialStatus: z.nativeEnum(SpecialStatus),
+  status: z.union([z.number(), z.string()]),
+  specialStatus: z.union([z.number(), z.string()]),
 })
 
 export type AnchorsForm = z.infer<typeof anchorFormSchema>
@@ -146,14 +150,24 @@ export function AnchorsActionDialog(
                       {t('apps.anchors.properties.status.title')}
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder={t(
-                          'apps.anchors.properties.status.placeholder'
-                        )}
-                        className='col-span-4'
-                        autoComplete='off'
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={String(field.value)}
+                      >
+                        <SelectTrigger className='w-full'>
+                          <SelectValue
+                            placeholder={t(
+                              'apps.anchors.properties.status.placeholder'
+                            )}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value='1'>开启</SelectItem>
+                            <SelectItem value='0'>停止</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,16 +183,24 @@ export function AnchorsActionDialog(
                       {t('apps.anchors.properties.specialStatus.title')}
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type='email'
-                        required={false}
-                        className='col-span-4'
-                        autoComplete='off'
-                        placeholder={t(
-                          'apps.anchors.properties.specialStatus.placeholder'
-                        )}
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={String(field.value)}
+                      >
+                        <SelectTrigger className='w-full'>
+                          <SelectValue
+                            placeholder={t(
+                              'apps.anchors.properties.specialStatus.placeholder'
+                            )}
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value='0'>无</SelectItem>
+                            <SelectItem value='1'>优先显示</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -191,7 +213,7 @@ export function AnchorsActionDialog(
         <DialogFooter>
           <Button
             type='submit'
-            form='account-form'
+            form='anchor-form'
             disabled={mutation.isPending}
           >
             {t('apps.anchors.update.submit')}

@@ -778,6 +778,7 @@
         "signOut": "{{nickname}} 登出了当前管理系统",
         "createAccount": "{{nickname}} 创建了新账号 {{nickname2}}",
         "updateAccount": "{{nickname}} 修改了账号 {{nickname2}} 的资料",
+        "updateAnchor": "{{nickname}} 修改了主播 {{nickname2}} 的设置",
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
         "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 中 {{tableName}} 桌的直播",
         "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 中 {{tableName}} 桌的直播"

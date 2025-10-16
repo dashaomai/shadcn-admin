@@ -1,6 +1,6 @@
 import { AccountStatus } from '@/lib/auth.ts'
 
-export enum SpecialStatus {
+export const enum SpecialStatus {
   /** 普通展示顺序 */
   Normal,
   /** 优先显示 */

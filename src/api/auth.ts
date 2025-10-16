@@ -205,10 +205,14 @@ export const updateAnchor = async ({
   id,
   ...values
 }: AnchorsForm & { id?: string }) => {
-  if (!id) {
+  if (id) {
     return fetchAuthed<CreateOrUpdateProfileResponse>(`/account/anchor/${id}`, {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify({
+        ...values,
+        status: Number(values.status),
+        specialStatus: Number(values.specialStatus),
+      }),
     })
   } else {
     console.error('failed to receive id for anchor.')

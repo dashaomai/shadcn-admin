@@ -1,6 +1,6 @@
 import { Role } from './role'
 
-export enum AccountStatus {
+export const enum AccountStatus {
   Disabled,
   Enabled,
 }
