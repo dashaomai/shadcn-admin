@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select.tsx'
 import { useTranslation } from 'react-i18next'
 
-export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
+export function TablePagination<T>({ total, table }: DataTablePaginationProps<T>) {
   const { t } = useTranslation()
 
   const router = useRouter()
@@ -26,8 +26,8 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
     strict: false,
   })
 
-  const total = table.getRowCount()
-  const maxPage = Math.ceil(Number(total) / Number(limit))
+  const count = table.getRowCount()
+  const maxPage = Math.ceil(Number(count) / Number(limit))
   const canPreviousPage = Number(page) > 1
   const canNextPage = Number(page) < maxPage
 
@@ -123,6 +123,11 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             </span>
             <DoubleArrowRightIcon className='h-4 w-4' />
           </Button>
+        </div>
+        <div className='flex w-auto items-center justify-center text-sm font-medium'>
+          {t('apps.table.pagination.total', {
+            total,
+          })}
         </div>
       </div>
     </div>

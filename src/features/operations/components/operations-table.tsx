@@ -22,7 +22,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { TablePagination } from '@/features/table/components/table-pagination'
-import { TableToolbar } from '@/features/table/components/table-toolbar'
 import { OperationInfo } from '../data/operation'
 
 type Props = DataTableProps<OperationInfo>
@@ -118,7 +117,7 @@ export function OperationsTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <TablePagination table={table} />
+      <TablePagination total={total} table={table} />
     </div>
   )
 }

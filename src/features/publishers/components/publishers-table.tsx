@@ -168,7 +168,7 @@ export function PublishersTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <TablePagination table={table} />
+      <TablePagination total={total} table={table} />
     </div>
   )
 }

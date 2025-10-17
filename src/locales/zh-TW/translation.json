@@ -256,6 +256,7 @@
       "pagination": {
         "selected": "選中了 {{selected}} / {{count}} 項",
         "page": "第 {{page}} / {{maxPage}} 頁",
+        "total": "總共 {{total}} 筆",
         "rows": "每頁行數",
         "first-page": "前往第一頁",
         "last-page": "前往最後頁",

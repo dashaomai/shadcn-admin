@@ -62,6 +62,7 @@ export type DataTableViewOptions<T> = {
 }
 
 export type DataTablePaginationProps<T> = {
+  total: number
   table: Table<T>
 }
 
