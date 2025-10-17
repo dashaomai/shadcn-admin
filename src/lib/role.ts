@@ -10,10 +10,10 @@ export const gteAdmin = ['superadmin', 'admin']
 export const gteAnchorManager = ['superadmin', 'admin', 'anchor_manager']
 
 // 必须是主播管理员
-export const isAnchorManager = ['anchor_manager']
+export const eqAnchorManager = ['anchor_manager']
 
 // 必须是主播
-export const isAnchor = ['anchor']
+export const eqAnchor = ['anchor']
 
 export type Role = {
   id: number
