@@ -15,8 +15,13 @@ import {
   SelectValue,
 } from '@/components/ui/select.tsx'
 import { useTranslation } from 'react-i18next'
+import { useMemo } from 'react'
 
-export function TablePagination<T>({ total, table }: DataTablePaginationProps<T>) {
+export function TablePagination<T>({ total, limits, table }: DataTablePaginationProps<T>) {
+  if (!limits) {
+    limits = useMemo(() => [10, 15, 20, 30, 50], [])
+  }
+
   const { t } = useTranslation()
 
   const router = useRouter()
@@ -60,11 +65,11 @@ export function TablePagination<T>({ total, table }: DataTablePaginationProps<T>
             value={`${Number(limit)}`}
             onValueChange={(value) => gotoPage(page, value)}
           >
-            <SelectTrigger className='h-8 w-[70px]'>
+            <SelectTrigger className='h-8 min-w-[70px]'>
               <SelectValue placeholder={Number(limit)} />
             </SelectTrigger>
             <SelectContent side='top'>
-              {[10, 15, 20, 30, 50].map((limit) => (
+              {limits.map((limit) => (
                 <SelectItem key={limit} value={`${limit}`}>
                   {limit}
                 </SelectItem>

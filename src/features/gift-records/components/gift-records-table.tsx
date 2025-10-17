@@ -185,7 +185,7 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <TablePagination total={total} table={table} />
+      <TablePagination total={total} limits={[50, 100, 200, 500]} table={table} />
     </div>
   )
 }

@@ -8,7 +8,7 @@ const giftRecordsListSchema = z.object({
   begin: z.string().default(formatToDateOnly(getToday())),
   end: z.string().default(formatToDateOnly(addDays(getToday(), 1))),
   page: z.number().default(1),
-  limit: z.number().default(10),
+  limit: z.number().default(50),
   games: z.array(z.number()).default([]),
   anchors: z.array(z.string()).default([]),
 })
