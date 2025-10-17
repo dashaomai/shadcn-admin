@@ -943,6 +943,12 @@
         "title": "角色信息重复",
         "description": "角色信息重复，请更换后再试"
       }
+    },
+    "specialStatus": {
+      "overflowed": {
+        "title": "优先显示超出",
+        "description": "优先显示的主播不允许超出 3 名"
+      }
     }
   }
 }

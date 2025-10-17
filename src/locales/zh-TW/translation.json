@@ -667,6 +667,12 @@
         "title": "角色訊息重複",
         "description": "角色資訊重複，請更換後再試"
       }
+    },
+    "specialStatus": {
+      "overflowed": {
+        "title": "優先顯示超出",
+        "description": "優先顯示的主播不允許超出 3 名"
+      }
     }
   }
 }
