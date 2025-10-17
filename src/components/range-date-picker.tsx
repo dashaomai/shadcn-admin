@@ -65,7 +65,7 @@ export function RangeDatePicker() {
           <Button
             variant='outline'
             id='begin'
-            className='w-54 justify-between font-normal'
+            className='w-auto justify-between font-normal'
             >
             {begin?.toLocaleDateString()} {t('common.time.to')} {end?.toLocaleDateString()}
             <ChevronDownIcon />
