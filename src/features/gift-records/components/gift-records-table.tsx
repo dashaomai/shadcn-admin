@@ -1,22 +1,50 @@
 import { useEffect, useState } from 'react'
-import { ColumnFiltersState, flexRender, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from '@tanstack/react-table';
-import { useTranslation } from 'react-i18next';
-import { useAllGames } from '@/api/bridge/game.ts';
-import { DataTableProps } from '@/lib/list-app.ts';
-import { SelectOption } from '@/lib/option.ts';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx';
-import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx';
-import { TablePagination } from '@/features/table/components/table-pagination.tsx';
-import { TableToolbar } from '@/features/table/components/table-toolbar.tsx';
-import { RangeDatePicker } from '@/components/range-date-picker.tsx'
+import {
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from '@tanstack/react-table'
+import { useTranslation } from 'react-i18next'
 import { useAllAnchors } from '@/api/bridge/anchor.ts'
-import { useGameFilter } from '@/components/context/game-filter-context.tsx'
+import { useAllGames } from '@/api/bridge/game.ts'
+import { DataTableProps } from '@/lib/list-app.ts'
+import { SelectOption } from '@/lib/option.ts'
+import { currencyToString } from '@/utils/currency.ts'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table.tsx'
 import { useAnchorFilter } from '@/components/context/anchor-filter-context.tsx'
+import { useGameFilter } from '@/components/context/game-filter-context.tsx'
+import { RangeDatePicker } from '@/components/range-date-picker.tsx'
 import { GiftRecord } from '@/features/gift-records/data/gift-record.ts'
+import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx'
+import { TablePagination } from '@/features/table/components/table-pagination.tsx'
+import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 
-type Props = DataTableProps<GiftRecord>
+type Props = DataTableProps<GiftRecord> & {
+  summaryBet: string
+  totalBet: string
+}
 
-export function GiftRecordsTable({ columns, data, total }: Props) {
+export function GiftRecordsTable({
+  columns,
+  data,
+  total,
+  summaryBet,
+  totalBet,
+}: Props) {
   const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -72,25 +100,23 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
 
   useEffect(() => {
     if (allGames.isFetched) {
-      const options = allGames.data?.map(game => ({
+      const options = allGames.data?.map((game) => ({
         label: t(`apps.games.name.${game.name}`),
         value: game.id,
       }))
 
-      if (options)
-        setGameOptions(options)
+      if (options) setGameOptions(options)
     }
   }, [allGames.isFetched, setGameOptions])
 
   useEffect(() => {
     if (allAnchors.isFetched) {
-      const options = allAnchors.data?.map(anchor => ({
+      const options = allAnchors.data?.map((anchor) => ({
         label: anchor.nickname,
         value: anchor.id,
       }))
 
-      if (options)
-        setAnchorOptions(options)
+      if (options) setAnchorOptions(options)
     }
   }, [allAnchors.isFetched, setAnchorOptions])
 
@@ -112,18 +138,39 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
               setFilterValues={setGameIds}
             />
           )}
-          {
-            anchorColumn && anchorOptions && anchorOptions.length > 0 && (
-              <TableFacetedFilter
-                column={anchorColumn}
-                title={t('apps.giftRecords.properties.receiver.title')}
-                options={anchorOptions}
-                setFilterValues={setAnchorIds}
-              />
-            )
-          }
+          {anchorColumn && anchorOptions && anchorOptions.length > 0 && (
+            <TableFacetedFilter
+              column={anchorColumn}
+              title={t('apps.giftRecords.properties.receiver.title')}
+              options={anchorOptions}
+              setFilterValues={setAnchorIds}
+            />
+          )}
         </div>
       </TableToolbar>
+
+      <div className='flex flex-row justify-end'>
+        <div className='float-right mr-8 grid w-auto grid-cols-3 gap-x-4 text-sm'>
+          <p>{t('apps.giftRecords.total')}</p>
+          <p>
+            {t('apps.giftRecords.count')}
+            {total}
+          </p>
+          <p>
+            {t('apps.giftRecords.bet')}
+            {currencyToString(totalBet)}
+          </p>
+          <p>{t('apps.giftRecords.summary')}</p>
+          <p>
+            {t('apps.giftRecords.count')}
+            {data.length}
+          </p>
+          <p>
+            {t('apps.giftRecords.bet')}
+            {currencyToString(summaryBet)}
+          </p>
+        </div>
+      </div>
 
       <div className='rounded-md border'>
         <Table>
@@ -140,9 +187,9 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
                   )
                 })}
@@ -185,7 +232,11 @@ export function GiftRecordsTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <TablePagination total={total} limits={[50, 100, 200, 500]} table={table} />
+      <TablePagination
+        total={total}
+        limits={[50, 100, 200, 500]}
+        table={table}
+      />
     </div>
   )
 }

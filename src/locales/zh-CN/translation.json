@@ -857,6 +857,10 @@
     },
     "giftRecords": {
       "description": "查询各项赠礼记录",
+      "total": "总计",
+      "summary": "小计",
+      "count": "数量：",
+      "bet": "总金额：",
       "properties": {
         "orderId": {
           "title": "赠礼订单号"

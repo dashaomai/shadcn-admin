@@ -1,5 +1,4 @@
 import { fetchAuthed } from '@/stores/authStore.ts'
-import { PageResponse } from '@/lib/response.ts'
 import { GiftRecord } from '@/features/gift-records/data/gift-record.ts'
 
 export type PageListGiftRecordsRequest = {
@@ -11,8 +10,17 @@ export type PageListGiftRecordsRequest = {
   anchorIds: string[]
 }
 
+export type PageListGiftRecordsResponse = {
+  page: number
+  limit: number
+  total: number
+  data: GiftRecord[]
+  summaryBet: string
+  totalBet: string
+}
+
 export const pageListGiftRecords = (params: PageListGiftRecordsRequest) => {
-  return fetchAuthed<PageResponse<GiftRecord>>('/gift/list', {
+  return fetchAuthed<PageListGiftRecordsResponse>('/gift/list', {
     method: 'POST',
     body: JSON.stringify(params),
     headers: {

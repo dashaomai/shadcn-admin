@@ -70,6 +70,8 @@ export default function GiftRecordsPage() {
                   page={page}
                   limit={limit}
                   total={query.data.total}
+                  summaryBet={query.data.summaryBet}
+                  totalBet={query.data.totalBet}
                 />
               )}
             </MainContent>
