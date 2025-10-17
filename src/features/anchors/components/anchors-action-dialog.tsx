@@ -118,7 +118,7 @@ export function AnchorsActionDialog(
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      {t('apps.anchors.properties.avatar.title')}
+                      {t('apps.anchors.properties.avatar.title')}{t('apps.anchors.properties.avatar.pixels')}
                     </FormLabel>
                     <FormControl>
                       <Input
