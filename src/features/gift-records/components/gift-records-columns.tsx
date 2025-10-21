@@ -81,6 +81,7 @@ export const columns = (
       displayTag: i18n.t('apps.giftRecords.properties.receiver.title'),
     },
     enableHiding: false,
+    filterFn: 'arrIncludesSome',
   },
 
   {

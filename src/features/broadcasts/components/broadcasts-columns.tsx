@@ -40,6 +40,7 @@ export const columns = (
       displayTag: i18n.t('apps.broadcasts.properties.anchor.title'),
     },
     enableHiding: false,
+    filterFn: 'arrIncludesSome',
   },
 
   {
