@@ -31,7 +31,7 @@ export default function AnchorSummariesPage() {
   const [anchorIds, setAnchorIds] = useState(anchors)
 
   const query = useQuery({
-    queryKey: ['anchorSummaries-list', be, en, page, limit, gameIds, anchorIds],
+    queryKey: ['anchorSummaries-list', be, en, page, limit],
     queryFn: async () => pageListAnchorSummaries({
       page, limit,
       begin: formatRFC3339(be),

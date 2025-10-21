@@ -40,7 +40,6 @@ export const columns = (
       displayTag: i18n.t('apps.anchorSummaries.properties.nickname.title'),
     },
     enableHiding: false,
-    filterFn: 'arrIncludesSome',
   },
 
   {
@@ -116,7 +115,6 @@ export const columns = (
     meta: {
       displayTag: i18n.t('apps.anchorSummaries.properties.lastGame.title'),
     },
-    filterFn: 'arrIncludesSome',
   },
 
   {

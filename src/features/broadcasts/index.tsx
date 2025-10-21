@@ -29,7 +29,7 @@ export default function BroadcastsPage() {
   const [anchorIds, setAnchorIds] = useState(anchors)
 
   const query = useQuery({
-    queryKey: ['broadcasts-list', be, en, page, limit, gameIds, anchorIds],
+    queryKey: ['broadcasts-list', be, en, page, limit],
     queryFn: async () => pageListBroadcasts({
       page, limit,
       begin: formatRFC3339(be),

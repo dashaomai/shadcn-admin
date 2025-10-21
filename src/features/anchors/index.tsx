@@ -27,7 +27,7 @@ export default function AnchorsPage() {
   const [specialStatusFilter, setSpecialStatusFilter] = useState(specialStatus)
 
   const query = useQuery({
-    queryKey: ['anchors-list', page, limit, anchorIds, accountStatusFilter, specialStatusFilter],
+    queryKey: ['anchors-list', page, limit, accountStatusFilter],
     queryFn: async () =>
       pageListAnchors({
         page,
