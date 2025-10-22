@@ -39,7 +39,7 @@ export function AccountsRolesActionDialog(props: ListAppActionDialogProps<Accoun
           .then()
         
         // if is myself, reset my roles immediately
-        if (payload.id === selfProfile.data?.id) {
+        if (payload.id === selfProfile.data?.accountId) {
           queryClient.invalidateQueries({ queryKey: ['self-roles']}).then()
         }
 

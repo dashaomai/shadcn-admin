@@ -3,7 +3,7 @@ import { IconEdit, IconUsersGroup } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useRoles } from '@/api/auth.ts';
 import { DataTableRowActionsProps } from '@/lib/list-app.ts';
-import { gteAdmin, gteAnchorManager, isAnchor, rolesCheck } from '@/lib/role.ts'
+import { gteAdmin, gteAnchorManager, eqAnchor, rolesCheck } from '@/lib/role.ts'
 import { Button } from '@/components/ui/button.tsx';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from '@/components/ui/dropdown-menu.tsx';
 import { useAccounts } from '@/features/accounts/context/accounts-context.tsx';
@@ -21,7 +21,7 @@ export function AccountsRowActions({ row }: Props) {
   return (
     <>
       {
-        (rolesCheck(rolesQuery.data, gteAdmin) || (rolesCheck(rolesQuery.data, gteAnchorManager) && rolesCheck(row.original.roles, isAnchor))) && (
+        (rolesCheck(rolesQuery.data, gteAdmin) || (rolesCheck(rolesQuery.data, gteAnchorManager) && rolesCheck(row.original.roles, eqAnchor))) && (
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button

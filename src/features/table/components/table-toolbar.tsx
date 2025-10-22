@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input.tsx'
 import { TableViewOptions } from '@/features/table/components/table-view-options.tsx'
 
 export function TableToolbar<T>({
+  disableQuickFilter = false,
+  onReset = undefined,
   children,
   placeholder,
   table,
@@ -20,19 +22,25 @@ export function TableToolbar<T>({
   return (
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
-        <Input
-          placeholder={placeholder}
-          value={filter}
-          onChange={(event) => setFilter(event.target.value)}
-          className='h-8 w-[150px] lg:w-[250px]'
-        />
+        {!disableQuickFilter && (
+          <Input
+            placeholder={placeholder}
+            value={filter}
+            onChange={(event) => setFilter(event.target.value)}
+            className='h-8 w-[150px] lg:w-[250px]'
+          />
+        )}
 
         {children}
 
         {isFiltered && (
           <Button
             variant='ghost'
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              table.resetColumnFilters()
+
+              if (onReset) onReset()
+            }}
             className='h-8 px-2 lg:px-3'
           >
             Reset

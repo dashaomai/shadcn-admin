@@ -257,6 +257,14 @@ const responseInterceptor = async <T>(
 
           break
         }
+
+        case Code.CodeSpecialStatusOverflowed: {
+          // 优先显示数量超出
+          logger.error('special status overflowed')
+          toast.error(i18n.t('errors.specialStatus.overflowed.title'), {
+            description: i18n.t('errors.specialStatus.overflowed.description'),
+          })
+        }
       }
     }
   } else {

@@ -34,14 +34,18 @@ import { Route as AuthenticatedPublishersIndexImport } from './routes/_authentic
 import { Route as AuthenticatedPlatformsIndexImport } from './routes/_authenticated/platforms/index'
 import { Route as AuthenticatedOperationsIndexImport } from './routes/_authenticated/operations/index'
 import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authenticated/help-center/index'
+import { Route as AuthenticatedGiftRecordsIndexImport } from './routes/_authenticated/giftRecords/index'
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
+import { Route as AuthenticatedBroadcastsIndexImport } from './routes/_authenticated/broadcasts/index'
 import { Route as AuthenticatedBcPushdotTablesIndexImport } from './routes/_authenticated/bc-pushdot-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
 import { Route as AuthenticatedBcBaccaratSqzTablesIndexImport } from './routes/_authenticated/bc-baccarat-sqz-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
+import { Route as AuthenticatedAnchorsIndexImport } from './routes/_authenticated/anchors/index'
+import { Route as AuthenticatedAnchorSummariesIndexImport } from './routes/_authenticated/anchorSummaries/index'
 import { Route as AuthenticatedAccountsIndexImport } from './routes/_authenticated/accounts/index'
 import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_authenticated/settings/notifications'
 import { Route as AuthenticatedSettingsDisplayImport } from './routes/_authenticated/settings/display'
@@ -211,6 +215,17 @@ const AuthenticatedHelpCenterIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
+const AuthenticatedGiftRecordsIndexRoute =
+  AuthenticatedGiftRecordsIndexImport.update({
+    id: '/giftRecords/',
+    path: '/giftRecords/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/giftRecords/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedGameCatalogsIndexRoute =
   AuthenticatedGameCatalogsIndexImport.update({
     id: '/game-catalogs/',
@@ -238,6 +253,17 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+
+const AuthenticatedBroadcastsIndexRoute =
+  AuthenticatedBroadcastsIndexImport.update({
+    id: '/broadcasts/',
+    path: '/broadcasts/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/broadcasts/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AuthenticatedBcPushdotTablesIndexRoute =
   AuthenticatedBcPushdotTablesIndexImport.update({
@@ -288,6 +314,25 @@ const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexImport.update({
   path: '/apps/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+
+const AuthenticatedAnchorsIndexRoute = AuthenticatedAnchorsIndexImport.update({
+  id: '/anchors/',
+  path: '/anchors/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any).lazy(() =>
+  import('./routes/_authenticated/anchors/index.lazy').then((d) => d.Route),
+)
+
+const AuthenticatedAnchorSummariesIndexRoute =
+  AuthenticatedAnchorSummariesIndexImport.update({
+    id: '/anchorSummaries/',
+    path: '/anchorSummaries/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/anchorSummaries/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AuthenticatedAccountsIndexRoute = AuthenticatedAccountsIndexImport.update(
   {
@@ -457,6 +502,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/anchorSummaries/': {
+      id: '/_authenticated/anchorSummaries/'
+      path: '/anchorSummaries'
+      fullPath: '/anchorSummaries'
+      preLoaderRoute: typeof AuthenticatedAnchorSummariesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/anchors/': {
+      id: '/_authenticated/anchors/'
+      path: '/anchors'
+      fullPath: '/anchors'
+      preLoaderRoute: typeof AuthenticatedAnchorsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/apps/': {
       id: '/_authenticated/apps/'
       path: '/apps'
@@ -492,6 +551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcPushdotTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/broadcasts/': {
+      id: '/_authenticated/broadcasts/'
+      path: '/broadcasts'
+      fullPath: '/broadcasts'
+      preLoaderRoute: typeof AuthenticatedBroadcastsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -511,6 +577,13 @@ declare module '@tanstack/react-router' {
       path: '/game-catalogs'
       fullPath: '/game-catalogs'
       preLoaderRoute: typeof AuthenticatedGameCatalogsIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/giftRecords/': {
+      id: '/_authenticated/giftRecords/'
+      path: '/giftRecords'
+      fullPath: '/giftRecords'
+      preLoaderRoute: typeof AuthenticatedGiftRecordsIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/help-center/': {
@@ -615,14 +688,18 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAccountsIndexRoute: typeof AuthenticatedAccountsIndexRoute
+  AuthenticatedAnchorSummariesIndexRoute: typeof AuthenticatedAnchorSummariesIndexRoute
+  AuthenticatedAnchorsIndexRoute: typeof AuthenticatedAnchorsIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedBcBaccaratSqzTablesIndexRoute: typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
   AuthenticatedBcPushdotTablesIndexRoute: typeof AuthenticatedBcPushdotTablesIndexRoute
+  AuthenticatedBroadcastsIndexRoute: typeof AuthenticatedBroadcastsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
+  AuthenticatedGiftRecordsIndexRoute: typeof AuthenticatedGiftRecordsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedOperationsIndexRoute: typeof AuthenticatedOperationsIndexRoute
   AuthenticatedPlatformsIndexRoute: typeof AuthenticatedPlatformsIndexRoute
@@ -638,6 +715,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAccountsIndexRoute: AuthenticatedAccountsIndexRoute,
+  AuthenticatedAnchorSummariesIndexRoute:
+    AuthenticatedAnchorSummariesIndexRoute,
+  AuthenticatedAnchorsIndexRoute: AuthenticatedAnchorsIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedBcBaccaratSqzTablesIndexRoute:
     AuthenticatedBcBaccaratSqzTablesIndexRoute,
@@ -646,9 +726,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBcNiuniuTablesIndexRoute: AuthenticatedBcNiuniuTablesIndexRoute,
   AuthenticatedBcPushdotTablesIndexRoute:
     AuthenticatedBcPushdotTablesIndexRoute,
+  AuthenticatedBroadcastsIndexRoute: AuthenticatedBroadcastsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
+  AuthenticatedGiftRecordsIndexRoute: AuthenticatedGiftRecordsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedOperationsIndexRoute: AuthenticatedOperationsIndexRoute,
   AuthenticatedPlatformsIndexRoute: AuthenticatedPlatformsIndexRoute,
@@ -682,14 +764,18 @@ export interface FileRoutesByFullPath {
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
+  '/anchorSummaries': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/anchors': typeof AuthenticatedAnchorsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
+  '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
@@ -719,14 +805,18 @@ export interface FileRoutesByTo {
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/accounts': typeof AuthenticatedAccountsIndexRoute
+  '/anchorSummaries': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/anchors': typeof AuthenticatedAnchorsIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
+  '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/operations': typeof AuthenticatedOperationsIndexRoute
   '/platforms': typeof AuthenticatedPlatformsIndexRoute
@@ -759,14 +849,18 @@ export interface FileRoutesById {
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
   '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/_authenticated/accounts/': typeof AuthenticatedAccountsIndexRoute
+  '/_authenticated/anchorSummaries/': typeof AuthenticatedAnchorSummariesIndexRoute
+  '/_authenticated/anchors/': typeof AuthenticatedAnchorsIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/bc-baccarat-sqz-tables/': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/_authenticated/bc-pushdot-tables/': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/_authenticated/broadcasts/': typeof AuthenticatedBroadcastsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
+  '/_authenticated/giftRecords/': typeof AuthenticatedGiftRecordsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/operations/': typeof AuthenticatedOperationsIndexRoute
   '/_authenticated/platforms/': typeof AuthenticatedPlatformsIndexRoute
@@ -800,14 +894,18 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/accounts'
+    | '/anchorSummaries'
+    | '/anchors'
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
     | '/bc-pushdot-tables'
+    | '/broadcasts'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
+    | '/giftRecords'
     | '/help-center'
     | '/operations'
     | '/platforms'
@@ -836,14 +934,18 @@ export interface FileRouteTypes {
     | '/settings/display'
     | '/settings/notifications'
     | '/accounts'
+    | '/anchorSummaries'
+    | '/anchors'
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
     | '/bc-niuniu-tables'
     | '/bc-pushdot-tables'
+    | '/broadcasts'
     | '/chats'
     | '/developers'
     | '/game-catalogs'
+    | '/giftRecords'
     | '/help-center'
     | '/operations'
     | '/platforms'
@@ -874,14 +976,18 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/display'
     | '/_authenticated/settings/notifications'
     | '/_authenticated/accounts/'
+    | '/_authenticated/anchorSummaries/'
+    | '/_authenticated/anchors/'
     | '/_authenticated/apps/'
     | '/_authenticated/bc-baccarat-sqz-tables/'
     | '/_authenticated/bc-baccarat-tables/'
     | '/_authenticated/bc-niuniu-tables/'
     | '/_authenticated/bc-pushdot-tables/'
+    | '/_authenticated/broadcasts/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
     | '/_authenticated/game-catalogs/'
+    | '/_authenticated/giftRecords/'
     | '/_authenticated/help-center/'
     | '/_authenticated/operations/'
     | '/_authenticated/platforms/'
@@ -952,14 +1058,18 @@ export const routeTree = rootRoute
         "/_authenticated/settings",
         "/_authenticated/",
         "/_authenticated/accounts/",
+        "/_authenticated/anchorSummaries/",
+        "/_authenticated/anchors/",
         "/_authenticated/apps/",
         "/_authenticated/bc-baccarat-sqz-tables/",
         "/_authenticated/bc-baccarat-tables/",
         "/_authenticated/bc-niuniu-tables/",
         "/_authenticated/bc-pushdot-tables/",
+        "/_authenticated/broadcasts/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
         "/_authenticated/game-catalogs/",
+        "/_authenticated/giftRecords/",
         "/_authenticated/help-center/",
         "/_authenticated/operations/",
         "/_authenticated/platforms/",
@@ -1036,6 +1146,14 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/accounts/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/anchorSummaries/": {
+      "filePath": "_authenticated/anchorSummaries/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/anchors/": {
+      "filePath": "_authenticated/anchors/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/apps/": {
       "filePath": "_authenticated/apps/index.tsx",
       "parent": "/_authenticated"
@@ -1056,6 +1174,10 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/bc-pushdot-tables/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/broadcasts/": {
+      "filePath": "_authenticated/broadcasts/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/chats/": {
       "filePath": "_authenticated/chats/index.tsx",
       "parent": "/_authenticated"
@@ -1066,6 +1188,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/game-catalogs/": {
       "filePath": "_authenticated/game-catalogs/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/giftRecords/": {
+      "filePath": "_authenticated/giftRecords/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/help-center/": {

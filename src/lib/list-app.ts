@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react'
+import React, { Dispatch, ReactElement, SetStateAction } from 'react'
 import { Column, ColumnDef, Row, Table } from '@tanstack/react-table'
+import { SelectOption } from '@/lib/option.ts'
 
 export type ListAppsDialogType = 'create' | 'update' | 'delete'
 
@@ -42,6 +43,8 @@ export type DataTableRowActionsProps<T> = {
 }
 
 export type DataTableToolbarProps<T> = {
+  disableQuickFilter?: boolean
+  onReset?: () => void
   table: Table<T>
   placeholder?: string
   children?: ReactElement
@@ -50,11 +53,8 @@ export type DataTableToolbarProps<T> = {
 export type DataTableFacetedFilterProps<T, V, O> = {
   column?: Column<T, V>
   title?: string
-  options: {
-    label: string
-    value: O
-    icon?: React.ComponentType<{ className?: string }>
-  }[]
+  options: SelectOption<O>[]
+  setFilterValues?: Dispatch<SetStateAction<O[]>>
 }
 
 export type DataTableViewOptions<T> = {
@@ -62,6 +62,8 @@ export type DataTableViewOptions<T> = {
 }
 
 export type DataTablePaginationProps<T> = {
+  total: number
+  limits?: number[]
   table: Table<T>
 }
 

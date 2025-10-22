@@ -39,6 +39,7 @@
         "system": "系統管理",
         "player": "玩家管理",
         "records": "記錄查詢",
+        "anchor": "主播管理",
         "broadcast": "直播管理",
         "personal": "個人設定"
       },
@@ -56,8 +57,12 @@
         "game": "游戏",
         "game-catalog": "游戏分类",
         "tag": "标签",
-        "hall": "厅馆",
+        "hall": "廳館",
+        "summaries": "統計報表",
+        "broadcasts": "上、下播記錄",
         "broadcast": "直播",
+        "giftRecords": "贈禮記錄",
+        "anchors": "主播資料設定",
         "table": "遊戲房",
         "maintain": "維護",
         "game-records": "遊戲記錄",
@@ -99,10 +104,19 @@
     "asc": "正序",
     "desc": "逆序",
     "hide": "隱藏",
+    "query": "檢索",
+    "export": "檢索並導出",
     "data": {
       "no-results": "目前無數據內容。"
     },
     "time": {
+      "to": "至",
+      "today": "今日",
+      "yesterday": "昨日",
+      "thisWeek": "本週",
+      "lastWeek": "上週",
+      "thisMonth": "本月",
+      "lastMonth": "上月",
       "positive": {
         "day": "{{days}}天{{hours}}時{{minutes}}分{{seconds}}秒",
         "hour": "{{hours}}時{{minutes}}分{{seconds}}秒",
@@ -114,6 +128,38 @@
         "hour": "-{{hours}}時{{minutes}}分{{seconds}}秒",
         "minute": "-{{minutes}}分{{seconds}}秒",
         "second": "-{{seconds}}秒"
+      }
+    },
+    "broadcast": {
+      "status": {
+        "0": "未知",
+        "1": "上播",
+        "2": "離線"
+      }
+    },
+    "order": {
+      "status": {
+        "0": "未知",
+        "1": "已成單",
+        "2": "待結算",
+        "3": "失敗",
+        "10": "待確認"
+      }
+    },
+    "accounts": {
+      "properties": {
+        "status": {
+          "0": "關閉",
+          "1": "開啟"
+        }
+      }
+    },
+    "anchors": {
+      "properties": {
+        "specialStatus": {
+          "0": "無",
+          "1": "優先顯示"
+        }
       }
     }
   },
@@ -206,6 +252,7 @@
       "pagination": {
         "selected": "選中了 {{selected}} / {{count}} 項",
         "page": "第 {{page}} / {{maxPage}} 頁",
+        "total": "總共 {{total}} 筆",
         "rows": "每頁行數",
         "first-page": "前往第一頁",
         "last-page": "前往最後頁",
@@ -364,10 +411,17 @@
     "games": {
       "name": {
         "bc_baccarat": "區塊鏈百家樂",
-        "bc_baccarat_sqz": "區塊鏈瞇牌百家樂",
+        "bc_baccarat_sqz": "區塊鏈眯牌百家樂",
         "bc_niuniu": "區塊鏈妞妞",
         "bc_niuniu_s": "區塊鏈百家妞妞",
-        "bc_pushdot": "區塊鏈推筒子"
+        "bc_niuniu_s_sqz": "區塊鏈眯牌百家妞妞",
+        "bc_pushdot": "區塊鏈推筒子",
+        "bc_pushdot_sqz": "區塊鏈眯牌推筒子",
+        "bc_blackjack": "區塊鏈 21 點",
+        "bc_tiengow_f": "區塊鏈天九",
+        "bc_tiengow_f_sqz": "區塊鏈眯牌天九",
+        "bc_tiengow_d": "區塊鏈兩張天九",
+        "bc_tiengow_d_sqz": "區塊鏈眯牌兩張天九"
       }
     },
     "tables": {
@@ -446,6 +500,7 @@
         "signOut": "{{nickname}} 登出了直播管理系統",
         "createAccount": "{{nickname}} 建立了新帳號 {{nickname2}}",
         "updateAccount": "{{nickname}} 修改了帳號 {{nickname2}} 的資料",
+        "updateAnchor": "{{nickname}} 修改了主播 {{nickname2}} 的設定",
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
         "startBroadcast": "{{nickname}} 開啟了遊戲 {{gameName}} 中 {{tableName}} 桌的直播",
         "endBroadcast": "{{nickname}} 結束了遊戲 {{gameName}} 中 {{tableName}} 桌的直播"
@@ -460,6 +515,141 @@
         },
         "createdAt": {
           "title": "時間"
+        }
+      }
+    },
+    "anchorSummaries": {
+      "description": "查詢所有主播上、下播狀態與收禮記錄",
+      "properties": {
+        "nickname": {
+          "title": "主播"
+        },
+        "broadcastStatus": {
+          "title": "狀態"
+        },
+        "lastBroadcast": {
+          "title": "最近上下播時間"
+        },
+        "lastGame": {
+          "title": "最近上播遊戲"
+        },
+        "broadcastCount": {
+          "title": "直播總次數"
+        },
+        "broadcastDuration": {
+          "title": "直播總時長"
+        },
+        "giftCount": {
+          "title": "累積禮物數量"
+        },
+        "giftValue": {
+          "title": "累積禮物金額"
+        }
+      },
+      "toolbar": {
+        "placeholder": "過濾主播"
+      }
+    },
+    "broadcasts": {
+      "description": "查詢所有主播的上、下播記錄",
+      "properties": {
+        "anchor": {
+          "title": "主播"
+        },
+        "broadcast": {
+          "title": "上下播時間"
+        },
+        "game": {
+          "title": "上播遊戲"
+        },
+        "table": {
+          "title": "台號"
+        },
+        "duration": {
+          "title": "直播總時長"
+        },
+        "giftCount": {
+          "title": "累積禮物數量"
+        },
+        "giftValue": {
+          "title": "累積禮物金額"
+        }
+      }
+    },
+    "giftRecords": {
+      "description": "查詢各項贈禮記錄",
+      "total": "總計",
+      "summary": "小計",
+      "count": "數量：",
+      "bet": "總金額：",
+      "properties": {
+        "orderId": {
+          "title": "贈禮訂單號"
+        },
+        "player": {
+          "title": "玩家"
+        },
+        "receiver": {
+          "title": "贈禮對象"
+        },
+        "time": {
+          "title": "贈禮時間"
+        },
+        "game": {
+          "title": "上播遊戲"
+        },
+        "roundId": {
+          "title": "局號"
+        },
+        "tableName": {
+          "title": "台號"
+        },
+        "giftName": {
+          "title": "禮物名稱"
+        },
+        "giftValue": {
+          "title": "禮物金額"
+        },
+        "orderStatus": {
+          "title": "訂單狀態"
+        }
+      }
+    },
+    "anchors": {
+      "description": "對各位主播業務參數進行設定",
+      "actions": {
+        "edit": "設定"
+      },
+      "properties": {
+        "anchor": {
+          "title": "選擇主播"
+        },
+        "nickname": {
+          "title": "主播"
+        },
+        "avatar": {
+          "title": "照片",
+          "tip": "請上傳照片",
+          "pixels": "（173 x 220）"
+        },
+        "status": {
+          "title": "狀態",
+          "placeholder": "請選擇主播的帳號狀態"
+        },
+        "specialStatus": {
+          "title": "特殊設定",
+          "placeholder": "請選擇主播的特殊設置"
+        }
+      },
+      "update": {
+        "title": "更新主播資料設置",
+        "description": "為主播 {{name}} 上傳新的頭像或修改各項設置，然後點選「更新」按鈕",
+        "submit": "更新"
+      },
+      "toast": {
+        "update": {
+          "title": "更新主播資料設置",
+          "ed": "成功更新主播 {{name}} 的資料設置"
         }
       }
     }
@@ -477,6 +667,12 @@
       "role": {
         "title": "角色訊息重複",
         "description": "角色資訊重複，請更換後再試"
+      }
+    },
+    "specialStatus": {
+      "overflowed": {
+        "title": "優先顯示超出",
+        "description": "優先顯示的主播不允許超出 3 名"
       }
     }
   }

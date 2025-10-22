@@ -15,8 +15,13 @@ import {
   SelectValue,
 } from '@/components/ui/select.tsx'
 import { useTranslation } from 'react-i18next'
+import { useMemo } from 'react'
 
-export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
+export function TablePagination<T>({ total, limits, table }: DataTablePaginationProps<T>) {
+  if (!limits) {
+    limits = useMemo(() => [10, 15, 20, 30, 50], [])
+  }
+
   const { t } = useTranslation()
 
   const router = useRouter()
@@ -26,8 +31,8 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
     strict: false,
   })
 
-  const total = table.getRowCount()
-  const maxPage = Math.ceil(Number(total) / Number(limit))
+  const count = table.getRowCount()
+  const maxPage = Math.ceil(Number(count) / Number(limit))
   const canPreviousPage = Number(page) > 1
   const canNextPage = Number(page) < maxPage
 
@@ -60,11 +65,11 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             value={`${Number(limit)}`}
             onValueChange={(value) => gotoPage(page, value)}
           >
-            <SelectTrigger className='h-8 w-[70px]'>
+            <SelectTrigger className='h-8 min-w-[70px]'>
               <SelectValue placeholder={Number(limit)} />
             </SelectTrigger>
             <SelectContent side='top'>
-              {[10, 15, 20, 30, 50].map((limit) => (
+              {limits.map((limit) => (
                 <SelectItem key={limit} value={`${limit}`}>
                   {limit}
                 </SelectItem>
@@ -123,6 +128,11 @@ export function TablePagination<T>({ table }: DataTablePaginationProps<T>) {
             </span>
             <DoubleArrowRightIcon className='h-4 w-4' />
           </Button>
+        </div>
+        <div className='flex w-auto items-center justify-center text-sm font-medium'>
+          {t('apps.table.pagination.total', {
+            total,
+          })}
         </div>
       </div>
     </div>

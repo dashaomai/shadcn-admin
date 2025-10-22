@@ -16,6 +16,32 @@ import {
 import { AudioWaveform } from 'lucide-react'
 import { gteAdmin, gteAnchor, gteAnchorManager, isAnchor } from '@/lib/role.ts'
 import { type SidebarData } from '../types'
+import {
+  IconBrandYoutube,
+  IconBroadcast,
+  IconCheckupList,
+  IconGift,
+  IconLaurelWreath,
+  IconLaurelWreath1,
+  IconLayoutDashboard,
+  IconLockAccess,
+  IconLogs,
+  IconPalette,
+  IconSettings,
+  IconSpade,
+  IconUserCog,
+  IconUsers,
+  IconWoman,
+} from '@tabler/icons-react'
+import { AudioWaveform } from 'lucide-react'
+import {
+  gteAdmin,
+  gteAnchor,
+  gteAnchorManager,
+  eqAnchor,
+  eqAnchorManager,
+} from '@/lib/role.ts'
+import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   teams: [
@@ -61,8 +87,34 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
+      title: 'layout.navigate.groups.anchor',
+      roles: eqAnchorManager,
+      items: [
+        {
+          title: 'layout.navigate.items.anchors',
+          icon: IconWoman,
+          url: '/anchors',
+        },
+        {
+          title: 'layout.navigate.items.summaries',
+          icon: IconLaurelWreath1,
+          url: '/anchorSummaries',
+        },
+        {
+          title: 'layout.navigate.items.broadcasts',
+          icon: IconBroadcast,
+          url: '/broadcasts',
+        },
+        {
+          title: 'layout.navigate.items.giftRecords',
+          icon: IconGift,
+          url: '/giftRecords',
+        },
+      ],
+    },
+    {
       title: 'layout.navigate.groups.broadcast',
-      roles: isAnchor,
+      roles: eqAnchor,
       items: [
         {
           title: 'layout.navigate.items.broadcast',

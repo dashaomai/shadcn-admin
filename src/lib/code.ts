@@ -17,4 +17,6 @@ export const enum Code {
 
   CodeLoginDuplicated = 600, // 登录信息重复
   CodeRoleNameDuplicated = 601, // 角色信息重复
+
+  CodeSpecialStatusOverflowed = 700, // 优先显示超出限制
 }

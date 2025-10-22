@@ -41,7 +41,7 @@ export default function AvatarUploader<T extends FieldValues>({
       if (response.status === 200) {
         const url = await response.text()
         if (url) {
-          form.setValue(field, url)
+          form.setValue(field, url as any)
         }
 
         toast.success(t('apps.accounts.properties.profile.avatar.uploaded'), {
@@ -61,10 +61,16 @@ export default function AvatarUploader<T extends FieldValues>({
 
   return (
     <div className='flex w-full max-w-sm items-center space-x-2 pt-2'>
-      <img
-        style={{ width: 48, height: 48, marginRight: 16 }}
-        src={form.getValues(field)}
-      />
+      {form.getValues(field) && (
+        <img
+          style={{ width: 51, height: 66, marginRight: 16 }}
+          src={form.getValues(field)}
+          alt='avatar'
+        />
+      )}
+      {!form.getValues(field) && (
+        <p style={{ width: '6rem', height: 66, marginRight: 16 }} className='text-sm'>{t('apps.accounts.properties.profile.avatar.placeholder')}</p>
+      )}
       <Input ref={ref} type='file' accept='image/*' className='file:bg-primary file:p-1 file:text-white' />
       <Button type='button' onClick={onAvatarUpload}>
         {t('apps.accounts.properties.profile.avatar.upload')}

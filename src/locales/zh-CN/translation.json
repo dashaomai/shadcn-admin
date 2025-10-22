@@ -39,6 +39,7 @@
         "system": "系统管理",
         "player": "玩家管理",
         "records": "记录查询",
+        "anchor": "主播管理",
         "broadcast": "直播管理",
         "personal": "个人设置"
       },
@@ -57,7 +58,11 @@
         "game-catalog": "游戏分类",
         "tag": "标签",
         "hall": "厅馆",
+        "summaries": "统计报表",
+        "broadcasts": "上、下播记录",
         "broadcast": "直播",
+        "giftRecords": "赠礼记录",
+        "anchors": "主播资料设定",
         "table": "游戏桌",
         "bc_baccarat": "区块链百家乐",
         "bc_niuniu": "区块链妞妞",
@@ -103,10 +108,19 @@
     "asc": "正序",
     "desc": "逆序",
     "hide": "隐藏",
+    "query": "查询",
+    "export": "查询并导出",
     "data": {
       "no-results": "当前无数据内容。"
     },
     "time": {
+      "to": "至",
+      "today": "今日",
+      "yesterday": "昨日",
+      "thisWeek": "本周",
+      "lastWeek": "上周",
+      "thisMonth": "本月",
+      "lastMonth": "上月",
       "positive": {
         "day": "{{days}}天{{hours}}时{{minutes}}分{{seconds}}秒",
         "hour": "{{hours}}时{{minutes}}分{{seconds}}秒",
@@ -118,6 +132,38 @@
         "hour": "-{{hours}}时{{minutes}}分{{seconds}}秒",
         "minute": "-{{minutes}}分{{seconds}}秒",
         "second": "-{{seconds}}秒"
+      }
+    },
+    "broadcast": {
+      "status": {
+        "0": "未知",
+        "1": "上播",
+        "2": "离线"
+      }
+    },
+    "order": {
+      "status": {
+        "0": "未知",
+        "1": "已成单",
+        "2": "待结算",
+        "3": "失败",
+        "10": "待确认"
+      }
+    },
+    "accounts": {
+      "properties": {
+        "status": {
+          "0": "关闭",
+          "1": "开启"
+        }
+      }
+    },
+    "anchors": {
+      "properties": {
+        "specialStatus": {
+          "0": "无",
+          "1": "优先显示"
+        }
       }
     }
   },
@@ -210,6 +256,7 @@
       "pagination": {
         "selected": "选中了 {{selected}} / {{count}} 项",
         "page": "第 {{page}} / {{maxPage}} 页",
+        "total": "总共 {{total}} 笔",
         "rows": "每页行数",
         "first-page": "前往第一页",
         "last-page": "前往最后页",
@@ -646,7 +693,14 @@
         "bc_baccarat_sqz": "区块链眯牌百家乐",
         "bc_niuniu": "区块链妞妞",
         "bc_niuniu_s": "区块链百家妞妞",
-        "bc_pushdot": "区块链推筒子"
+        "bc_niuniu_s_sqz": "区块链眯牌百家妞妞",
+        "bc_pushdot": "区块链推筒子",
+        "bc_pushdot_sqz": "区块链眯牌推筒子",
+        "bc_blackjack": "区块链 21 点",
+        "bc_tiengow_f": "区块链天九",
+        "bc_tiengow_f_sqz": "区块链眯牌天九",
+        "bc_tiengow_d": "区块链两张天九",
+        "bc_tiengow_d_sqz": "区块链眯牌两张天九"
       }
     },
     "tables": {
@@ -725,6 +779,7 @@
         "signOut": "{{nickname}} 登出了当前管理系统",
         "createAccount": "{{nickname}} 创建了新账号 {{nickname2}}",
         "updateAccount": "{{nickname}} 修改了账号 {{nickname2}} 的资料",
+        "updateAnchor": "{{nickname}} 修改了主播 {{nickname2}} 的设置",
         "deleteAccount": "{{nickname}} 删除了账号 {{nickname2}}",
         "startBroadcast": "{{nickname}} 开启了游戏 {{gameName}} 中 {{tableName}} 桌的直播",
         "endBroadcast": "{{nickname}} 结束了游戏 {{gameName}} 中 {{tableName}} 桌的直播"
@@ -739,6 +794,141 @@
         },
         "createdAt": {
           "title": "时间"
+        }
+      }
+    },
+    "anchorSummaries": {
+      "description": "查询所有主播上、下播状态与收礼记录",
+      "properties": {
+        "nickname": {
+          "title": "主播"
+        },
+        "broadcastStatus": {
+          "title": "状态"
+        },
+        "lastBroadcast": {
+          "title": "最近上下播时间"
+        },
+        "lastGame": {
+          "title": "最近上播游戏"
+        },
+        "broadcastCount": {
+          "title": "直播总次数"
+        },
+        "broadcastDuration": {
+          "title": "直播总时长"
+        },
+        "giftCount": {
+          "title": "累计礼物数量"
+        },
+        "giftValue": {
+          "title": "累计礼物金额"
+        }
+      },
+      "toolbar": {
+        "placeholder": "过滤主播"
+      }
+    },
+    "broadcasts": {
+      "description": "查询所有主播的上、下播记录",
+      "properties": {
+        "anchor": {
+          "title": "主播"
+        },
+        "broadcast": {
+          "title": "上下播时间"
+        },
+        "game": {
+          "title": "上播游戏"
+        },
+        "table": {
+          "title": "台号"
+        },
+        "duration": {
+          "title": "直播总时长"
+        },
+        "giftCount": {
+          "title": "累计礼物数量"
+        },
+        "giftValue": {
+          "title": "累计礼物金额"
+        }
+      }
+    },
+    "giftRecords": {
+      "description": "查询各项赠礼记录",
+      "total": "总计",
+      "summary": "小计",
+      "count": "数量：",
+      "bet": "总金额：",
+      "properties": {
+        "orderId": {
+          "title": "赠礼订单号"
+        },
+        "player": {
+          "title": "玩家"
+        },
+        "receiver": {
+          "title": "赠礼对象"
+        },
+        "time": {
+          "title": "赠礼时间"
+        },
+        "game": {
+          "title": "上播游戏"
+        },
+        "roundId": {
+          "title": "局号"
+        },
+        "tableName": {
+          "title": "台号"
+        },
+        "giftName": {
+          "title": "礼物名称"
+        },
+        "giftValue": {
+          "title": "礼物金额"
+        },
+        "orderStatus": {
+          "title": "订单状态"
+        }
+      }
+    },
+    "anchors": {
+      "description": "对各位主播业务参数进行设置",
+      "actions": {
+        "edit": "设置"
+      },
+      "properties": {
+        "anchor": {
+          "title": "选择主播"
+        },
+        "nickname": {
+          "title": "主播"
+        },
+        "avatar": {
+          "title": "照片",
+          "tip": "请上传照片",
+          "pixels": "（173 x 220）"
+        },
+        "status": {
+          "title": "状态",
+          "placeholder": "请选择主播的账号状态"
+        },
+        "specialStatus": {
+          "title": "特殊设置",
+          "placeholder": "请选择主播的特殊设置"
+        }
+      },
+      "update": {
+        "title": "更新主播资料设置",
+        "description": "为主播 {{name}} 上传新的头像或修改各项设置，然后点“更新”按钮",
+        "submit": "更新"
+      },
+      "toast": {
+        "update": {
+          "title": "更新主播资料设置",
+          "ed": "成功更新主播 {{name}} 的资料设置"
         }
       }
     }
@@ -756,6 +946,12 @@
       "role": {
         "title": "角色信息重复",
         "description": "角色信息重复，请更换后再试"
+      }
+    },
+    "specialStatus": {
+      "overflowed": {
+        "title": "优先显示超出",
+        "description": "优先显示的主播不允许超出 3 名"
       }
     }
   }

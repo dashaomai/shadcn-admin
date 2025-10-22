@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { ListRequest } from '@/api/statistics/summary.ts'
 import { fetchAuthed } from '@/stores/authStore.ts'
+import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts'
+import { PageResponse } from '@/lib/response.ts'
+import { AnchorConfiguration } from '@/features/anchors/data/anchor-info.ts'
 
 export type AnchorStatInfo = {
   id: string
@@ -25,3 +28,57 @@ export const useTopAnchors = (param: ListRequest) =>
     queryKey: ['top-anchors', param],
     queryFn: async () => listAnchorStat(param),
   })
+
+export type PageListAnchorSummariesRequest = {
+  page: number
+  limit: number
+  begin: string
+  end: string
+  gameIds: number[]
+  anchorIds: string[]
+}
+
+export const pageListAnchorSummaries = (params: PageListAnchorSummariesRequest) => {
+  return fetchAuthed<PageResponse<AnchorSummary>>('/anchor/summaries', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export type ListAnchorSummariesRequest = {
+  begin: string
+  end: string
+  gameIds: number[]
+  anchorIds: string[]
+}
+
+export const listAnchorSummaries = (params: ListAnchorSummariesRequest) => {
+  return fetchAuthed<AnchorSummary[]>('/anchor/summaries_all', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+
+export type PageListAnchorsRequest = {
+  page: number
+  limit: number
+  filteredAccountIds: string[]
+  filteredAccountStatus: number[]
+  filteredSpecialStatus: number[]
+}
+
+export const pageListAnchors = (params: PageListAnchorsRequest) => {
+  return fetchAuthed<PageResponse<AnchorConfiguration>>('/account/anchors', {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
