@@ -27,12 +27,14 @@ export function TablePagination<T>({ total, limits, noSelectionHint, table }: Da
   const router = useRouter()
   const pathname = router.latestLocation.pathname
 
-  const { page, limit } = useSearch({
+  let { page, limit } = useSearch({
     strict: false,
   })
 
-  const count = table.getRowCount()
-  const maxPage = Math.ceil(Number(count) / Number(limit))
+  // const count = table.getRowCount()
+  const maxPage = Math.ceil(Number(total) / Number(limit))
+  page = Math.min(Number(page), maxPage)
+
   const canPreviousPage = Number(page) > 1
   const canNextPage = Number(page) < maxPage
 
