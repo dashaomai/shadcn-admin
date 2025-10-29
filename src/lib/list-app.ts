@@ -64,6 +64,7 @@ export type DataTableViewOptions<T> = {
 export type DataTablePaginationProps<T> = {
   total: number
   limits?: number[]
+  noSelectionHint?: boolean
   table: Table<T>
 }
 
