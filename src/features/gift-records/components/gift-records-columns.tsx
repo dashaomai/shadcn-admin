@@ -52,6 +52,7 @@ export const columns = (
         'apps.giftRecords.properties.player.title'
       ),
     },
+    enableSorting: false,
   },
 
   {
@@ -81,6 +82,7 @@ export const columns = (
       displayTag: i18n.t('apps.giftRecords.properties.receiver.title'),
     },
     enableHiding: false,
+    enableSorting: false,
     filterFn: 'arrIncludesSome',
   },
 
@@ -155,6 +157,7 @@ export const columns = (
         'apps.giftRecords.properties.roundId.title'
       ),
     },
+    enableSorting: false,
   },
 
   {
@@ -178,6 +181,8 @@ export const columns = (
         'apps.giftRecords.properties.tableName.title'
       ),
     },
+
+    sortingFn: 'alphanumeric',
   },
 
   {
