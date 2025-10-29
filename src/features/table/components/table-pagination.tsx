@@ -17,7 +17,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useMemo } from 'react'
 
-export function TablePagination<T>({ total, limits, table }: DataTablePaginationProps<T>) {
+export function TablePagination<T>({ total, limits, noSelectionHint, table }: DataTablePaginationProps<T>) {
   if (!limits) {
     limits = useMemo(() => [10, 15, 20, 30, 50], [])
   }
@@ -51,10 +51,12 @@ export function TablePagination<T>({ total, limits, table }: DataTablePagination
       style={{ overflowClipMargin: 1 }}
     >
       <div className='hidden flex-1 text-sm text-muted-foreground sm:block'>
-        {t('apps.table.pagination.selected', {
+      {!noSelectionHint &&
+        t('apps.table.pagination.selected', {
           selected: table.getFilteredSelectedRowModel().rows.length,
           count: table.getFilteredRowModel().rows.length,
-        })}
+        })
+      }
       </div>
       <div className='flex items-center sm:space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>
