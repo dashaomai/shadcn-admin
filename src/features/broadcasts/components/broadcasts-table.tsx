@@ -186,7 +186,7 @@ export function BroadcastsTable({ columns, data, total }: Props) {
         </Table>
       </div>
 
-      <TablePagination total={total} table={table} />
+      <TablePagination total={total} table={table} noSelectionHint={true} />
     </div>
   )
 }

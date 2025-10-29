@@ -235,6 +235,7 @@ export function GiftRecordsTable({
       <TablePagination
         total={total}
         limits={[50, 100, 200, 500]}
+        noSelectionHint={true}
         table={table}
       />
     </div>
