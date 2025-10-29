@@ -12,7 +12,22 @@ export function TableToolbar<T>({
   placeholder,
   table,
 }: DataTableToolbarProps<T>) {
-  const isFiltered = table.getState().columnFilters.length > 0
+  let isFiltered = false
+
+  for (const columnFilter of table.getState().columnFilters) {
+    if (columnFilter.value) {
+      if (Array.isArray(columnFilter.value)) {
+        if (columnFilter.value.length > 0) {
+          isFiltered = true
+          break
+        }
+      } else {
+        isFiltered = true
+        break
+      }
+    }
+  }
+
   const [filter, setFilter] = useState<string>('')
 
   useEffect(() => {
