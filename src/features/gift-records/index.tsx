@@ -29,7 +29,7 @@ export default function GiftRecordsPage() {
   const [anchorIds, setAnchorIds] = useState(anchors)
 
   const query = useQuery({
-    queryKey: ['giftRecords-list', be, en, page, limit],
+    queryKey: ['giftRecords-list', be, en, page, limit, gameIds, anchorIds],
     queryFn: async () => pageListGiftRecords({
       page, limit,
       begin: formatRFC3339(be),
