@@ -64,6 +64,7 @@ export const columns: ColumnDef<AccountInfo>[] = [
       displayTag: i18n.t('apps.accounts.properties.loginName.title'),
     },
     enableHiding: false,
+    enableSorting: false,
   },
 
   {
@@ -82,6 +83,8 @@ export const columns: ColumnDef<AccountInfo>[] = [
     meta: {
       displayTag: i18n.t('apps.accounts.properties.profile.nickname.title'),
     },
+
+    enableSorting: false,
   },
 
   {

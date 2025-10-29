@@ -40,6 +40,7 @@ export const columns = (
       displayTag: i18n.t('apps.broadcasts.properties.anchor.title'),
     },
     enableHiding: false,
+    enableSorting: false,
     filterFn: 'arrIncludesSome',
   },
 
@@ -67,6 +68,7 @@ export const columns = (
     meta: {
       displayTag: i18n.t('apps.broadcasts.properties.broadcast.title'),
     },
+    enableSorting: false,
   },
 
   {
@@ -118,6 +120,7 @@ export const columns = (
         'apps.broadcasts.properties.table.title'
       ),
     },
+    sortingFn: 'alphanumeric',
   },
 
   {
@@ -149,6 +152,7 @@ export const columns = (
         'apps.broadcasts.properties.duration.title'
       ),
     },
+    enableSorting: false,
   },
 
   {
