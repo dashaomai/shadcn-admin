@@ -1,8 +1,11 @@
-import { z } from 'zod'
-import { createFileRoute } from '@tanstack/react-router'
-import { zodValidator } from '@tanstack/zod-adapter'
-import { formatToDateOnly, getToday } from '@/utils/time.ts'
+import { z } from 'zod';
 import { addDays } from 'date-fns'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { zodValidator } from '@tanstack/zod-adapter';
+import { getRoles } from '@/api/auth.ts';
+import { gteAnchorManager, rolesCheck } from '@/lib/role.ts';
+import { formatToDateOnly, getToday } from '@/utils/time.ts';
+
 
 const anchorSummariesListSchema = z.object({
   begin: z.string().default(formatToDateOnly(getToday())),
@@ -15,4 +18,15 @@ const anchorSummariesListSchema = z.object({
 
 export const Route = createFileRoute('/_authenticated/anchorSummaries/')({
   validateSearch: zodValidator(anchorSummariesListSchema),
+  beforeLoad: async (_options) => {
+    const roles = await getRoles()
+    if (!rolesCheck(roles, gteAnchorManager)) {
+      throw redirect({
+        to: '/',
+        search: {
+          redirect: location.href,
+        },
+      })
+    }
+  },
 })
