@@ -34,8 +34,8 @@ import { TablePagination } from '@/features/table/components/table-pagination.ts
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx'
 
 type Props = DataTableProps<GiftRecord> & {
-  summaryBet: string
-  totalBet: string
+  summaryBet?: string
+  totalBet?: string
 }
 
 export function GiftRecordsTable({
@@ -54,10 +54,13 @@ export function GiftRecordsTable({
   const { values: gameIds, setValues: setGameIds } = useGameFilter()
   const { values: anchorIds, setValues: setAnchorIds } = useAnchorFilter()
 
+  const [rows, setRows] = useState<GiftRecord[]>([])
+  const [rowCount, setRowCount] = useState<number>(0)
+
   const table = useReactTable({
-    data,
+    data: rows,
     columns,
-    rowCount: total,
+    rowCount,
     state: {
       sorting,
       columnVisibility,
@@ -120,6 +123,22 @@ export function GiftRecordsTable({
     }
   }, [allAnchors.isFetched, setAnchorOptions])
 
+  useEffect(() => {
+    if (data !== undefined) {
+      setRows(data)
+    } else {
+      setRows([])
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (total !== undefined) {
+      setRowCount(total)
+    } else {
+      setRowCount(0)
+    }
+  }, [total])
+
   return (
     <div className='space-y-4'>
       <TableToolbar
@@ -163,7 +182,7 @@ export function GiftRecordsTable({
           <p>{t('apps.giftRecords.summary')}</p>
           <p>
             {t('apps.giftRecords.count')}
-            {data.length}
+            {data?.length ?? 0}
           </p>
           <p>
             {t('apps.giftRecords.bet')}
