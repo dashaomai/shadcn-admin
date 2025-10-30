@@ -32,10 +32,10 @@ export interface ListAppsDeleteDialogProps<E> {
 
 export type DataTableProps<T> = {
   columns: ColumnDef<T>[]
-  data: T[]
+  data?: T[]
   page: number
   limit: number
-  total: number
+  total?: number
 }
 
 export type DataTableRowActionsProps<T> = {
@@ -62,7 +62,7 @@ export type DataTableViewOptions<T> = {
 }
 
 export type DataTablePaginationProps<T> = {
-  total: number
+  total?: number
   limits?: number[]
   noSelectionHint?: boolean
   table: Table<T>
