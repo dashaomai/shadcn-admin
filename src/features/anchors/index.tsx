@@ -26,7 +26,7 @@ export default function AnchorsPage() {
   const [accountStatusFilter, setAccountStatusFilter] = useState(accountStatus)
   const [specialStatusFilter, setSpecialStatusFilter] = useState(specialStatus)
 
-  const query = useQuery({
+  const {data, isError} = useQuery({
     queryKey: ['anchors-list', page, limit, anchorIds, accountStatusFilter, specialStatusFilter],
     queryFn: async () =>
       pageListAnchors({
@@ -56,13 +56,13 @@ export default function AnchorsPage() {
               </MainTitleBar>
 
               <MainContent>
-                {query.isFetched && query.data && (
+                {!isError && (
                   <AnchorsTable
                     columns={columns(allAnchors.data)}
-                    data={query.data.data}
+                    data={data?.data}
                     page={page}
                     limit={limit}
-                    total={query.data.total}
+                    total={data?.total}
                   />
                 )}
               </MainContent>

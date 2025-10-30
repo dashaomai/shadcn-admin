@@ -50,10 +50,13 @@ export function AnchorsTable({ columns, data, total }: Props) {
   const { values: specialStatusFilter, setValues: setSpecialStatusFilter } =
     useSpecialStatusFilter()
 
+  const [rows, setRows] = useState<AnchorConfiguration[]>([])
+  const [rowCount, setRowCount] = useState<number>(0)
+
   const table = useReactTable({
-    data,
+    data: rows,
     columns,
-    rowCount: total,
+    rowCount,
     state: {
       sorting,
       columnVisibility,
@@ -128,6 +131,22 @@ export function AnchorsTable({ columns, data, total }: Props) {
       if (options) setAnchorOptions(options)
     }
   }, [allAnchors.isFetched, setAnchorOptions])
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setRows(data)
+    } else {
+      setRows([])
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (total !== undefined) {
+      setRowCount(total)
+    } else {
+      setRowCount(0)
+    }
+  }, [total])
 
   return (
     <div className='space-y-4'>
