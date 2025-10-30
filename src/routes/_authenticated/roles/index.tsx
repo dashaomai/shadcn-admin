@@ -1,6 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { zodValidator } from '@tanstack/zod-adapter'
-import { z } from '@/lib/i18n'
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { zodValidator } from '@tanstack/zod-adapter';
+import { getRoles } from '@/api/auth.ts';
+import { z } from '@/lib/i18n';
+import { gteAdmin, rolesCheck } from '@/lib/role.ts'
+
 
 const roleListSchema = z.object({
   page: z.number().default(1),
@@ -9,4 +12,15 @@ const roleListSchema = z.object({
 
 export const Route = createFileRoute('/_authenticated/roles/')({
   validateSearch: zodValidator(roleListSchema),
+  beforeLoad: async (_options) => {
+    const roles = await getRoles()
+    if (!rolesCheck(roles, gteAdmin)) {
+      throw redirect({
+        to: '/',
+        search: {
+          redirect: location.href,
+        },
+      })
+    }
+  },
 })
