@@ -27,10 +27,13 @@ export function BroadcastsTable({ columns, data, total }: Props) {
   const { values: gameIds, setValues: setGameIds } = useGameFilter()
   const { values: anchorIds, setValues: setAnchorIds } = useAnchorFilter()
 
+  const [rows, setRows] = useState<Broadcast[]>([])
+  const [rowCount, setRowCount] = useState<number>(0)
+
   const table = useReactTable({
-    data,
+    data: rows,
     columns,
-    rowCount: total,
+    rowCount,
     state: {
       sorting,
       columnVisibility,
@@ -94,6 +97,22 @@ export function BroadcastsTable({ columns, data, total }: Props) {
         setAnchorOptions(options)
     }
   }, [allAnchors.isFetched, setAnchorOptions])
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setRows(data)
+    } else {
+      setRows([])
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (total !== undefined) {
+      setRowCount(total)
+    } else {
+      setRowCount(0)
+    }
+  }, [total])
 
   return (
     <div className='space-y-4'>

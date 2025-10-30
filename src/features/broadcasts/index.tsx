@@ -28,7 +28,7 @@ export default function BroadcastsPage() {
   const [gameIds, setGameIds] = useState(games)
   const [anchorIds, setAnchorIds] = useState(anchors)
 
-  const query = useQuery({
+  const {data, isError} = useQuery({
     queryKey: ['broadcasts-list', be, en, page, limit, gameIds, anchorIds],
     queryFn: async () => pageListBroadcasts({
       page, limit,
@@ -63,13 +63,13 @@ export default function BroadcastsPage() {
             </MainTitleBar>
 
             <MainContent>
-              {query.isFetched && query.data && (
+              {!isError && (
                 <BroadcastsTable
                   columns={columns(allGames.data, allAnchors.data)}
-                  data={query.data.data}
+                  data={data?.data}
                   page={page}
                   limit={limit}
-                  total={query.data.total}
+                  total={data?.total}
                 />
               )}
             </MainContent>
