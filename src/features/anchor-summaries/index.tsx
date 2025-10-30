@@ -30,7 +30,7 @@ export default function AnchorSummariesPage() {
   const [gameIds, setGameIds] = useState(games)
   const [anchorIds, setAnchorIds] = useState(anchors)
 
-  const query = useQuery({
+  const { data, isError } = useQuery({
     queryKey: ['anchorSummaries-list', be, en, page, limit, gameIds, anchorIds],
     queryFn: async () => pageListAnchorSummaries({
       page, limit,
@@ -65,13 +65,13 @@ export default function AnchorSummariesPage() {
             </MainTitleBar>
 
             <MainContent>
-              {query.isFetched && query.data && (
+              {!isError && (
                 <AnchorSummariesTable
                   columns={columns(allGames.data, allAnchors.data)}
-                  data={query.data.data}
+                  data={data?.data}
                   page={page}
                   limit={limit}
-                  total={query.data.total}
+                  total={data?.total}
                 />
               )}
             </MainContent>

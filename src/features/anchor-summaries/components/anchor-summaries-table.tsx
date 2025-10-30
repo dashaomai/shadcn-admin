@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { ColumnFiltersState, flexRender, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable, VisibilityState } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
+import { useAllAnchors } from '@/api/bridge/anchor.ts';
 import { useAllGames } from '@/api/bridge/game.ts';
 import { DataTableProps } from '@/lib/list-app.ts';
 import { SelectOption } from '@/lib/option.ts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx';
+import { useAnchorFilter } from '@/components/context/anchor-filter-context.tsx';
+import { useGameFilter } from '@/components/context/game-filter-context.tsx';
+import { RangeDatePicker } from '@/components/range-date-picker.tsx';
 import { AnchorSummary } from '@/features/anchor-summaries/data/anchor-summary.ts';
 import { TableFacetedFilter } from '@/features/table/components/table-faceted-filter.tsx';
 import { TablePagination } from '@/features/table/components/table-pagination.tsx';
 import { TableToolbar } from '@/features/table/components/table-toolbar.tsx';
-import { RangeDatePicker } from '@/components/range-date-picker.tsx'
-import { useAllAnchors } from '@/api/bridge/anchor.ts'
-import { useGameFilter } from '@/components/context/game-filter-context.tsx'
-import { useAnchorFilter } from '@/components/context/anchor-filter-context.tsx'
 
 
 type Props = DataTableProps<AnchorSummary>
@@ -24,13 +24,16 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
 
+  const [rows, setRows] = useState<AnchorSummary[]>([])
+  const [rowCount, setRowCount] = useState<number>(0)
+
   const { values: gameIds, setValues: setGameIds } = useGameFilter()
   const { values: anchorIds, setValues: setAnchorIds } = useAnchorFilter()
 
   const table = useReactTable({
-    data,
+    data: rows,
     columns,
-    rowCount: total,
+    rowCount,
     state: {
       sorting,
       columnVisibility,
@@ -94,6 +97,22 @@ export function AnchorSummariesTable({ columns, data, total }: Props) {
         setAnchorOptions(options)
     }
   }, [allAnchors.isFetched, setAnchorOptions])
+
+  useEffect(() => {
+    if (data !== undefined) {
+      setRows(data)
+    } else {
+      setRows([])
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (total !== undefined) {
+     setRowCount(total)
+    } else {
+      setRowCount(0)
+    }
+  }, [total])
 
   return (
     <div className='space-y-4'>
