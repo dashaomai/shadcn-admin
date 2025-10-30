@@ -28,7 +28,7 @@ export default function GiftRecordsPage() {
   const [gameIds, setGameIds] = useState(games)
   const [anchorIds, setAnchorIds] = useState(anchors)
 
-  const query = useQuery({
+  const {data, isError} = useQuery({
     queryKey: ['giftRecords-list', be, en, page, limit, gameIds, anchorIds],
     queryFn: async () => pageListGiftRecords({
       page, limit,
@@ -63,15 +63,15 @@ export default function GiftRecordsPage() {
             </MainTitleBar>
 
             <MainContent>
-              {query.isFetched && query.data && (
+              {!isError && (
                 <GiftRecordsTable
                   columns={columns(allGames.data, allAnchors.data)}
-                  data={query.data.data}
+                  data={data?.data}
                   page={page}
                   limit={limit}
-                  total={query.data.total}
-                  summaryBet={query.data.summaryBet}
-                  totalBet={query.data.totalBet}
+                  total={data?.total}
+                  summaryBet={data?.summaryBet}
+                  totalBet={data?.totalBet}
                 />
               )}
             </MainContent>
