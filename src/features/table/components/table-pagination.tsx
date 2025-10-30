@@ -32,7 +32,7 @@ export function TablePagination<T>({ total, limits, noSelectionHint, table }: Da
   })
 
   // const count = table.getRowCount()
-  const maxPage = Math.ceil(Number(total) / Number(limit))
+  const maxPage = Math.ceil(total ?? 0 / Number(limit))
   page = Math.min(Number(page), maxPage)
 
   const canPreviousPage = Number(page) > 1
