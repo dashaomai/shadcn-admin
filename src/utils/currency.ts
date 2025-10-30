@@ -1,6 +1,6 @@
 import Long from 'long'
 
-export const currencyToString = (value: string): string => {
+export const currencyToString = (value?: string): string => {
   if (!value) {
     return '0.0'
   }
