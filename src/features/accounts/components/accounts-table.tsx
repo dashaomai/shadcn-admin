@@ -38,7 +38,7 @@ export function AccountsTable({ columns, data, total }: Props) {
   const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
-    data,
+    data: data!,
     columns,
     rowCount: total,
     state: {
