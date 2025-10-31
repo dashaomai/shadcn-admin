@@ -31,6 +31,7 @@ export const columns = (
         'apps.giftRecords.properties.orderId.title'
       ),
     },
+    enableSorting: false,
   },
 
   {
@@ -209,7 +210,7 @@ export const columns = (
   },
 
   {
-    accessorKey: 'giftValue',
+    accessorKey: 'value',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -218,7 +219,7 @@ export const columns = (
     ),
     cell: ({ row }) => (
       <div className='w-fit text-nowrap overflow-ellipsis'>
-        {currencyToString(row.getValue('giftValue'))}
+        {currencyToString(row.getValue('value'))}
       </div>
     ),
 
