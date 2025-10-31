@@ -41,11 +41,15 @@ export const columns = (
         title={i18n.t('apps.giftRecords.properties.player.title')}
       />
     ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('nickname')} ({row.getValue('memberId')})
-      </div>
-    ),
+    cell: ({ row }) => {
+      const { memberId } = row.original
+
+      return (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {memberId} ({row.getValue('nickname')})
+        </div>
+      )
+    },
 
     meta: {
       displayTag: i18n.t(
