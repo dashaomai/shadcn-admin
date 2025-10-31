@@ -43,11 +43,12 @@ export const columns = (
       />
     ),
     cell: ({ row }) => {
-      const { memberId } = row.original
+      let { nickname, memberId } = row.original
+      nickname = nickname?.replace(/^"/g, '').replace(/"$/g, '')
 
       return (
         <div className='w-fit text-nowrap overflow-ellipsis'>
-          {memberId} ({row.getValue('nickname')})
+          {memberId} ({nickname})
         </div>
       )
     },
