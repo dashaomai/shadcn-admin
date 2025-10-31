@@ -56,7 +56,7 @@ export default function GiftRecordsPage() {
 
           <Main>
             <MainTitleBar
-              title={t('layout.navigate.items.summaries')}
+              title={t('layout.navigate.items.giftRecords')}
               description={t('apps.giftRecords.description')}
             >
               <GiftRecordsPrimaryButtons />
