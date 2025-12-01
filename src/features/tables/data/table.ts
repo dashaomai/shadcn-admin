@@ -10,11 +10,23 @@ export type BroadcastInfo = {
 export type TableInfo = {
   id: number
   gameId: number
+  type: number
   status: number
   createdAt: string
   orders: number
   name: string
   broadcast: BroadcastInfo | null
+}
+
+/** 桌类型 */
+export const enum TableType {
+  Unknown = 0,
+  // 正常桌
+  Normal = 1,
+  // 急速桌
+  Fast = 2,
+  // 超急速桌
+  UltraFast = 3,
 }
 
 /** 桌状态 */
