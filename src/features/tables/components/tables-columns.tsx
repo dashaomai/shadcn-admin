@@ -2,7 +2,6 @@ import { ColumnDef } from '@tanstack/react-table'
 import { i18n } from '@/lib/i18n.ts'
 import { cn } from '@/lib/utils.ts'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
-import { TablesRowActions } from '@/features/tables/components/tables-row-actions.tsx'
 import { TablesRowBroadcast } from '@/features/tables/components/tables-row-broadcast.tsx'
 import {
   TableInfo,
@@ -62,6 +61,22 @@ export const columns: ColumnDef<TableInfo>[] = [
       displayTag: i18n.t('apps.tables.properties.name.title'),
     },
     enableHiding: false,
+  },
+
+  {
+    accessorKey: 'type',
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title={i18n.t('apps.tables.properties.type.title')}
+      />
+    ),
+    cell: ({ row }) => (
+      <div className='w-fit'>{i18n.t(`common.tables.properties.type.${row.getValue<number>('type')}`)}</div>
+    ),
+    meta: {
+      displayTag: i18n.t('apps.tables.properties.type.title'),
+    },
   },
 
   {

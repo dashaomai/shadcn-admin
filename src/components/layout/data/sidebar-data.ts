@@ -1,8 +1,11 @@
 import {
   IconBrandYoutube,
+  IconBroadcast,
   IconCheckupList,
   IconClubs,
   IconDice3,
+  IconGift,
+  IconLaurelWreath1,
   IconLayoutDashboard,
   IconLockAccess,
   IconLogs,
@@ -12,34 +15,15 @@ import {
   IconSpadeFilled,
   IconUserCog,
   IconUsers,
-} from '@tabler/icons-react'
-import { AudioWaveform } from 'lucide-react'
-import { gteAdmin, gteAnchor, gteAnchorManager, isAnchor } from '@/lib/role.ts'
-import { type SidebarData } from '../types'
-import {
-  IconBrandYoutube,
-  IconBroadcast,
-  IconCheckupList,
-  IconGift,
-  IconLaurelWreath,
-  IconLaurelWreath1,
-  IconLayoutDashboard,
-  IconLockAccess,
-  IconLogs,
-  IconPalette,
-  IconSettings,
-  IconSpade,
-  IconUserCog,
-  IconUsers,
   IconWoman,
 } from '@tabler/icons-react'
 import { AudioWaveform } from 'lucide-react'
 import {
+  eqAnchor,
+  eqAnchorManager,
   gteAdmin,
   gteAnchor,
   gteAnchorManager,
-  eqAnchor,
-  eqAnchorManager,
 } from '@/lib/role.ts'
 import { type SidebarData } from '../types'
 
