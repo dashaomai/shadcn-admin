@@ -40,7 +40,9 @@ import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authentic
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedBroadcastsIndexImport } from './routes/_authenticated/broadcasts/index'
 import { Route as AuthenticatedBcPushdotTablesIndexImport } from './routes/_authenticated/bc-pushdot-tables/index'
+import { Route as AuthenticatedBcPushdotSqzTablesIndexImport } from './routes/_authenticated/bc-pushdot-sqz-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
+import { Route as AuthenticatedBcNiuniuSqzTablesIndexImport } from './routes/_authenticated/bc-niuniu-sqz-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
 import { Route as AuthenticatedBcBaccaratSqzTablesIndexImport } from './routes/_authenticated/bc-baccarat-sqz-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
@@ -276,6 +278,17 @@ const AuthenticatedBcPushdotTablesIndexRoute =
     ),
   )
 
+const AuthenticatedBcPushdotSqzTablesIndexRoute =
+  AuthenticatedBcPushdotSqzTablesIndexImport.update({
+    id: '/bc-pushdot-sqz-tables/',
+    path: '/bc-pushdot-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-pushdot-sqz-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedBcNiuniuTablesIndexRoute =
   AuthenticatedBcNiuniuTablesIndexImport.update({
     id: '/bc-niuniu-tables/',
@@ -283,6 +296,17 @@ const AuthenticatedBcNiuniuTablesIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/bc-niuniu-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcNiuniuSqzTablesIndexRoute =
+  AuthenticatedBcNiuniuSqzTablesIndexImport.update({
+    id: '/bc-niuniu-sqz-tables/',
+    path: '/bc-niuniu-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-niuniu-sqz-tables/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -537,11 +561,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcBaccaratTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bc-niuniu-sqz-tables/': {
+      id: '/_authenticated/bc-niuniu-sqz-tables/'
+      path: '/bc-niuniu-sqz-tables'
+      fullPath: '/bc-niuniu-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcNiuniuSqzTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/bc-niuniu-tables/': {
       id: '/_authenticated/bc-niuniu-tables/'
       path: '/bc-niuniu-tables'
       fullPath: '/bc-niuniu-tables'
       preLoaderRoute: typeof AuthenticatedBcNiuniuTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-pushdot-sqz-tables/': {
+      id: '/_authenticated/bc-pushdot-sqz-tables/'
+      path: '/bc-pushdot-sqz-tables'
+      fullPath: '/bc-pushdot-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcPushdotSqzTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/bc-pushdot-tables/': {
@@ -693,7 +731,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedBcBaccaratSqzTablesIndexRoute: typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
+  AuthenticatedBcNiuniuSqzTablesIndexRoute: typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
+  AuthenticatedBcPushdotSqzTablesIndexRoute: typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   AuthenticatedBcPushdotTablesIndexRoute: typeof AuthenticatedBcPushdotTablesIndexRoute
   AuthenticatedBroadcastsIndexRoute: typeof AuthenticatedBroadcastsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
@@ -723,7 +763,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedBcBaccaratSqzTablesIndexRoute,
   AuthenticatedBcBaccaratTablesIndexRoute:
     AuthenticatedBcBaccaratTablesIndexRoute,
+  AuthenticatedBcNiuniuSqzTablesIndexRoute:
+    AuthenticatedBcNiuniuSqzTablesIndexRoute,
   AuthenticatedBcNiuniuTablesIndexRoute: AuthenticatedBcNiuniuTablesIndexRoute,
+  AuthenticatedBcPushdotSqzTablesIndexRoute:
+    AuthenticatedBcPushdotSqzTablesIndexRoute,
   AuthenticatedBcPushdotTablesIndexRoute:
     AuthenticatedBcPushdotTablesIndexRoute,
   AuthenticatedBroadcastsIndexRoute: AuthenticatedBroadcastsIndexRoute,
@@ -769,7 +813,9 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/bc-niuniu-sqz-tables': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
@@ -810,7 +856,9 @@ export interface FileRoutesByTo {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/bc-niuniu-sqz-tables': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
@@ -854,7 +902,9 @@ export interface FileRoutesById {
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/bc-baccarat-sqz-tables/': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/_authenticated/bc-niuniu-sqz-tables/': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/_authenticated/bc-pushdot-sqz-tables/': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/_authenticated/bc-pushdot-tables/': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/_authenticated/broadcasts/': typeof AuthenticatedBroadcastsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
@@ -899,7 +949,9 @@ export interface FileRouteTypes {
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
+    | '/bc-niuniu-sqz-tables'
     | '/bc-niuniu-tables'
+    | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
     | '/broadcasts'
     | '/chats'
@@ -939,7 +991,9 @@ export interface FileRouteTypes {
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
+    | '/bc-niuniu-sqz-tables'
     | '/bc-niuniu-tables'
+    | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
     | '/broadcasts'
     | '/chats'
@@ -981,7 +1035,9 @@ export interface FileRouteTypes {
     | '/_authenticated/apps/'
     | '/_authenticated/bc-baccarat-sqz-tables/'
     | '/_authenticated/bc-baccarat-tables/'
+    | '/_authenticated/bc-niuniu-sqz-tables/'
     | '/_authenticated/bc-niuniu-tables/'
+    | '/_authenticated/bc-pushdot-sqz-tables/'
     | '/_authenticated/bc-pushdot-tables/'
     | '/_authenticated/broadcasts/'
     | '/_authenticated/chats/'
@@ -1063,7 +1119,9 @@ export const routeTree = rootRoute
         "/_authenticated/apps/",
         "/_authenticated/bc-baccarat-sqz-tables/",
         "/_authenticated/bc-baccarat-tables/",
+        "/_authenticated/bc-niuniu-sqz-tables/",
         "/_authenticated/bc-niuniu-tables/",
+        "/_authenticated/bc-pushdot-sqz-tables/",
         "/_authenticated/bc-pushdot-tables/",
         "/_authenticated/broadcasts/",
         "/_authenticated/chats/",
@@ -1166,8 +1224,16 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/bc-baccarat-tables/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/bc-niuniu-sqz-tables/": {
+      "filePath": "_authenticated/bc-niuniu-sqz-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/bc-niuniu-tables/": {
       "filePath": "_authenticated/bc-niuniu-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-pushdot-sqz-tables/": {
+      "filePath": "_authenticated/bc-pushdot-sqz-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/bc-pushdot-tables/": {
