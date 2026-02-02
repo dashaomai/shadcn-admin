@@ -39,6 +39,10 @@ import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authent
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedBroadcastsIndexImport } from './routes/_authenticated/broadcasts/index'
+import { Route as AuthenticatedBcTiengowFTablesIndexImport } from './routes/_authenticated/bc-tiengow-f-tables/index'
+import { Route as AuthenticatedBcTiengowFSqzTablesIndexImport } from './routes/_authenticated/bc-tiengow-f-sqz-tables/index'
+import { Route as AuthenticatedBcTiengowDTablesIndexImport } from './routes/_authenticated/bc-tiengow-d-tables/index'
+import { Route as AuthenticatedBcTiengowDSqzTablesIndexImport } from './routes/_authenticated/bc-tiengow-d-sqz-tables/index'
 import { Route as AuthenticatedBcPushdotTablesIndexImport } from './routes/_authenticated/bc-pushdot-tables/index'
 import { Route as AuthenticatedBcPushdotSqzTablesIndexImport } from './routes/_authenticated/bc-pushdot-sqz-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
@@ -263,6 +267,50 @@ const AuthenticatedBroadcastsIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/broadcasts/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcTiengowFTablesIndexRoute =
+  AuthenticatedBcTiengowFTablesIndexImport.update({
+    id: '/bc-tiengow-f-tables/',
+    path: '/bc-tiengow-f-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-tiengow-f-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcTiengowFSqzTablesIndexRoute =
+  AuthenticatedBcTiengowFSqzTablesIndexImport.update({
+    id: '/bc-tiengow-f-sqz-tables/',
+    path: '/bc-tiengow-f-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-tiengow-f-sqz-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcTiengowDTablesIndexRoute =
+  AuthenticatedBcTiengowDTablesIndexImport.update({
+    id: '/bc-tiengow-d-tables/',
+    path: '/bc-tiengow-d-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-tiengow-d-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcTiengowDSqzTablesIndexRoute =
+  AuthenticatedBcTiengowDSqzTablesIndexImport.update({
+    id: '/bc-tiengow-d-sqz-tables/',
+    path: '/bc-tiengow-d-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-tiengow-d-sqz-tables/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -589,6 +637,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcPushdotTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bc-tiengow-d-sqz-tables/': {
+      id: '/_authenticated/bc-tiengow-d-sqz-tables/'
+      path: '/bc-tiengow-d-sqz-tables'
+      fullPath: '/bc-tiengow-d-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcTiengowDSqzTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-tiengow-d-tables/': {
+      id: '/_authenticated/bc-tiengow-d-tables/'
+      path: '/bc-tiengow-d-tables'
+      fullPath: '/bc-tiengow-d-tables'
+      preLoaderRoute: typeof AuthenticatedBcTiengowDTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-tiengow-f-sqz-tables/': {
+      id: '/_authenticated/bc-tiengow-f-sqz-tables/'
+      path: '/bc-tiengow-f-sqz-tables'
+      fullPath: '/bc-tiengow-f-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcTiengowFSqzTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-tiengow-f-tables/': {
+      id: '/_authenticated/bc-tiengow-f-tables/'
+      path: '/bc-tiengow-f-tables'
+      fullPath: '/bc-tiengow-f-tables'
+      preLoaderRoute: typeof AuthenticatedBcTiengowFTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/broadcasts/': {
       id: '/_authenticated/broadcasts/'
       path: '/broadcasts'
@@ -735,6 +811,10 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
   AuthenticatedBcPushdotSqzTablesIndexRoute: typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   AuthenticatedBcPushdotTablesIndexRoute: typeof AuthenticatedBcPushdotTablesIndexRoute
+  AuthenticatedBcTiengowDSqzTablesIndexRoute: typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
+  AuthenticatedBcTiengowDTablesIndexRoute: typeof AuthenticatedBcTiengowDTablesIndexRoute
+  AuthenticatedBcTiengowFSqzTablesIndexRoute: typeof AuthenticatedBcTiengowFSqzTablesIndexRoute
+  AuthenticatedBcTiengowFTablesIndexRoute: typeof AuthenticatedBcTiengowFTablesIndexRoute
   AuthenticatedBroadcastsIndexRoute: typeof AuthenticatedBroadcastsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
@@ -770,6 +850,14 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedBcPushdotSqzTablesIndexRoute,
   AuthenticatedBcPushdotTablesIndexRoute:
     AuthenticatedBcPushdotTablesIndexRoute,
+  AuthenticatedBcTiengowDSqzTablesIndexRoute:
+    AuthenticatedBcTiengowDSqzTablesIndexRoute,
+  AuthenticatedBcTiengowDTablesIndexRoute:
+    AuthenticatedBcTiengowDTablesIndexRoute,
+  AuthenticatedBcTiengowFSqzTablesIndexRoute:
+    AuthenticatedBcTiengowFSqzTablesIndexRoute,
+  AuthenticatedBcTiengowFTablesIndexRoute:
+    AuthenticatedBcTiengowFTablesIndexRoute,
   AuthenticatedBroadcastsIndexRoute: AuthenticatedBroadcastsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
@@ -817,6 +905,10 @@ export interface FileRoutesByFullPath {
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/bc-tiengow-d-sqz-tables': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
+  '/bc-tiengow-d-tables': typeof AuthenticatedBcTiengowDTablesIndexRoute
+  '/bc-tiengow-f-sqz-tables': typeof AuthenticatedBcTiengowFSqzTablesIndexRoute
+  '/bc-tiengow-f-tables': typeof AuthenticatedBcTiengowFTablesIndexRoute
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
@@ -860,6 +952,10 @@ export interface FileRoutesByTo {
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/bc-tiengow-d-sqz-tables': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
+  '/bc-tiengow-d-tables': typeof AuthenticatedBcTiengowDTablesIndexRoute
+  '/bc-tiengow-f-sqz-tables': typeof AuthenticatedBcTiengowFSqzTablesIndexRoute
+  '/bc-tiengow-f-tables': typeof AuthenticatedBcTiengowFTablesIndexRoute
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
@@ -906,6 +1002,10 @@ export interface FileRoutesById {
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
   '/_authenticated/bc-pushdot-sqz-tables/': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/_authenticated/bc-pushdot-tables/': typeof AuthenticatedBcPushdotTablesIndexRoute
+  '/_authenticated/bc-tiengow-d-sqz-tables/': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
+  '/_authenticated/bc-tiengow-d-tables/': typeof AuthenticatedBcTiengowDTablesIndexRoute
+  '/_authenticated/bc-tiengow-f-sqz-tables/': typeof AuthenticatedBcTiengowFSqzTablesIndexRoute
+  '/_authenticated/bc-tiengow-f-tables/': typeof AuthenticatedBcTiengowFTablesIndexRoute
   '/_authenticated/broadcasts/': typeof AuthenticatedBroadcastsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
@@ -953,6 +1053,10 @@ export interface FileRouteTypes {
     | '/bc-niuniu-tables'
     | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
+    | '/bc-tiengow-d-sqz-tables'
+    | '/bc-tiengow-d-tables'
+    | '/bc-tiengow-f-sqz-tables'
+    | '/bc-tiengow-f-tables'
     | '/broadcasts'
     | '/chats'
     | '/developers'
@@ -995,6 +1099,10 @@ export interface FileRouteTypes {
     | '/bc-niuniu-tables'
     | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
+    | '/bc-tiengow-d-sqz-tables'
+    | '/bc-tiengow-d-tables'
+    | '/bc-tiengow-f-sqz-tables'
+    | '/bc-tiengow-f-tables'
     | '/broadcasts'
     | '/chats'
     | '/developers'
@@ -1039,6 +1147,10 @@ export interface FileRouteTypes {
     | '/_authenticated/bc-niuniu-tables/'
     | '/_authenticated/bc-pushdot-sqz-tables/'
     | '/_authenticated/bc-pushdot-tables/'
+    | '/_authenticated/bc-tiengow-d-sqz-tables/'
+    | '/_authenticated/bc-tiengow-d-tables/'
+    | '/_authenticated/bc-tiengow-f-sqz-tables/'
+    | '/_authenticated/bc-tiengow-f-tables/'
     | '/_authenticated/broadcasts/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
@@ -1123,6 +1235,10 @@ export const routeTree = rootRoute
         "/_authenticated/bc-niuniu-tables/",
         "/_authenticated/bc-pushdot-sqz-tables/",
         "/_authenticated/bc-pushdot-tables/",
+        "/_authenticated/bc-tiengow-d-sqz-tables/",
+        "/_authenticated/bc-tiengow-d-tables/",
+        "/_authenticated/bc-tiengow-f-sqz-tables/",
+        "/_authenticated/bc-tiengow-f-tables/",
         "/_authenticated/broadcasts/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
@@ -1238,6 +1354,22 @@ export const routeTree = rootRoute
     },
     "/_authenticated/bc-pushdot-tables/": {
       "filePath": "_authenticated/bc-pushdot-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-tiengow-d-sqz-tables/": {
+      "filePath": "_authenticated/bc-tiengow-d-sqz-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-tiengow-d-tables/": {
+      "filePath": "_authenticated/bc-tiengow-d-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-tiengow-f-sqz-tables/": {
+      "filePath": "_authenticated/bc-tiengow-f-sqz-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-tiengow-f-tables/": {
+      "filePath": "_authenticated/bc-tiengow-f-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/broadcasts/": {
