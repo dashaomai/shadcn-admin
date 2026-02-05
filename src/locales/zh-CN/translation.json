@@ -168,6 +168,10 @@
     },
     "tables": {
       "properties": {
+        "catalog": {
+          "public": "公共桌",
+          "private": "密码桌"
+        },
         "type": {
           "0": "未知类型",
           "1": "一般桌",
@@ -733,12 +737,21 @@
         "submit": "保存"
       },
       "properties": {
+        "id": {
+          "title": "游戏桌 ID"
+        },
         "name": {
           "title": "游戏桌名",
           "description": "游戏桌的名称",
           "placeholder": "请输入游戏桌的名称",
           "updateDescription": "游戏桌名称不可修改",
           "createDescription": "请输入游戏桌名称，不可与其它游戏桌重名。"
+        },
+        "catalog": {
+          "title": "游戏桌分类"
+        },
+        "password": {
+          "title": "密码"
         },
         "description": {
           "title": "游戏桌备注",
