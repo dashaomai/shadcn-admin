@@ -425,19 +425,19 @@
     "games": {
       "name": {
         "bc_baccarat": "區塊鏈百家樂",
-        "bc_baccarat_sqz": "區塊鏈眯牌百家樂",
+        "bc_baccarat_sqz": "區塊鏈瞇牌百家樂",
         "bc_niuniu": "區塊鏈妞妞",
         "bc_niuniu_s": "區塊鏈百家妞妞",
-        "bc_niuniu_s_sqz": "區塊鏈眯牌百家妞妞",
+        "bc_niuniu_s_sqz": "區塊鏈瞇牌百家妞妞",
         "bc_pushdot": "區塊鏈推筒子",
-        "bc_pushdot_sqz": "區塊鏈眯牌推筒子",
+        "bc_pushdot_sqz": "區塊鏈瞇牌推筒子",
         "bc_pushdot_q": "區塊鏈四張推筒子",
         "bc_pushdot_q_sqz": "區塊鏈瞇牌四張推筒子",
         "bc_blackjack": "區塊鏈 21 點",
         "bc_tiengow_f": "區塊鏈天九",
-        "bc_tiengow_f_sqz": "區塊鏈眯牌天九",
+        "bc_tiengow_f_sqz": "區塊鏈瞇牌天九",
         "bc_tiengow_d": "區塊鏈兩張天九",
-        "bc_tiengow_d_sqz": "區塊鏈眯牌兩張天九"
+        "bc_tiengow_d_sqz": "區塊鏈瞇牌兩張天九"
       }
     },
     "tables": {
