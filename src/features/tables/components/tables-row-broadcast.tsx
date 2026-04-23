@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect } from 'react'
 import { IconBroadcast } from '@tabler/icons-react'
 import logger from 'loglevel'
 import { useTranslation } from 'react-i18next'
@@ -58,7 +58,7 @@ export function TablesRowBroadcast({ row }: Props) {
     logger.info('handleStartBroadcast', url)
 
     let gameName: string = ''
-    const tableName: string = row.original.name
+    const tableId: number = row.original.id
 
     if (!allGames.isFetched) {
       logger.warn('handleStartBroadcast games not fetch')
@@ -89,7 +89,7 @@ export function TablesRowBroadcast({ row }: Props) {
       }
     }
 
-    const response = await generateUrl(gameName, tableName)
+    const response = await generateUrl(gameName, tableId)
     if (!response) {
       return
     }

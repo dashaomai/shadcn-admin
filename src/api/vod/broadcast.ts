@@ -46,7 +46,7 @@ export const finishBroadcast = async () => {
 
 export type GenerateUrlRequest = {
   gameName: string
-  tableName: string
+  tableId: number
 }
 
 export type GenerateUrlResponse = {
@@ -54,10 +54,10 @@ export type GenerateUrlResponse = {
   pull: string
 }
 
-export const generateUrl = async (gameName: string, tableName: string) => {
+export const generateUrl = async (gameName: string, tableId: number) => {
   const request: GenerateUrlRequest = {
     gameName,
-    tableName,
+    tableId,
   }
 
   return fetchAuthed<GenerateUrlResponse>('/broadcast/url', {
