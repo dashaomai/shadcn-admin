@@ -56,7 +56,7 @@ export default function TablesPage({ gameId, path }: Props) {
 
         <MainContent>
           <TablesTable
-            columns={columns}
+            columns={columns(game)}
             data={tableStore.broadcast.tables}
             page={page}
             limit={limit}

@@ -717,6 +717,22 @@
         "bc_tiengow_f_sqz": "区块链瞇牌天九",
         "bc_tiengow_d": "区块链两张天九",
         "bc_tiengow_d_sqz": "区块链瞇牌两张天九"
+      },
+      "shortname": {
+        "bc_baccarat": "百家乐",
+        "bc_baccarat_sqz": "百家乐",
+        "bc_niuniu": "妞妞",
+        "bc_niuniu_s": "百家妞妞",
+        "bc_niuniu_s_sqz": "百家妞妞",
+        "bc_pushdot": "推筒子",
+        "bc_pushdot_sqz": "推筒子",
+        "bc_pushdot_q": "四张推筒子",
+        "bc_pushdot_q_sqz": "四张推筒子",
+        "bc_blackjack": "21 点",
+        "bc_tiengow_f": "天九",
+        "bc_tiengow_f_sqz": "天九",
+        "bc_tiengow_d": "两张天九",
+        "bc_tiengow_d_sqz": "两张天九"
       }
     },
     "tables": {
