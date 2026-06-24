@@ -167,7 +167,7 @@ export const columns = (
     },
 
     {
-      accessorKey: 'tableName',
+      accessorKey: 'tableId',
       header: ({ column }) => (
         <DataTableColumnHeader
           column={column}
