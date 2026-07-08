@@ -12,241 +12,253 @@ export const columns = (
   anchors?: AnchorInfo[]
 ): ColumnDef<GiftRecord>[] => [
 
-  {
-    accessorKey: 'orderId',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.orderId.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('orderId')}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.giftRecords.properties.orderId.title'
+    {
+      accessorKey: 'orderId',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.orderId.title')}
+        />
       ),
-    },
-    enableSorting: false,
-  },
-
-  {
-    accessorKey: 'nickname',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.player.title')}
-      />
-    ),
-    cell: ({ row }) => {
-      let { nickname, memberId } = row.original
-      nickname = nickname?.replace(/^"/g, '').replace(/"$/g, '')
-
-      return (
+      cell: ({ row }) => (
         <div className='w-fit text-nowrap overflow-ellipsis'>
-          {memberId} ({nickname})
+          {row.getValue('orderId')}
         </div>
-      )
-    },
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.giftRecords.properties.player.title'
       ),
-    },
-    enableSorting: false,
-  },
 
-  {
-    accessorKey: 'anchorId',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.receiver.title')}
-      />
-    ),
-    cell: ({ row }) => {
-      if (Array.isArray(anchors)) {
-        const { anchorId } = row.original
-        const anchor = anchors.find((a) => a.id === anchorId)
+      meta: {
+        displayTag: i18n.t(
+          'apps.giftRecords.properties.orderId.title'
+        ),
+      },
+      enableSorting: false,
+    },
+
+    {
+      accessorKey: 'nickname',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.player.title')}
+        />
+      ),
+      cell: ({ row }) => {
+        let { nickname, memberId } = row.original
+        nickname = nickname?.replace(/^"/g, '').replace(/"$/g, '')
 
         return (
           <div className='w-fit text-nowrap overflow-ellipsis'>
-            {anchor ? anchor.nickname : '-'}
+            {memberId} ({nickname})
           </div>
         )
-      } else {
-        return <div>-</div>
-      }
+      },
+
+      meta: {
+        displayTag: i18n.t(
+          'apps.giftRecords.properties.player.title'
+        ),
+      },
+      enableSorting: false,
     },
 
-    meta: {
-      displayTag: i18n.t('apps.giftRecords.properties.receiver.title'),
+    {
+      accessorKey: 'anchorId',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.receiver.title')}
+        />
+      ),
+      cell: ({ row }) => {
+        if (Array.isArray(anchors)) {
+          const { anchorId } = row.original
+          const anchor = anchors.find((a) => a.id === anchorId)
+
+          return (
+            <div className='w-fit text-nowrap overflow-ellipsis'>
+              {anchor ? anchor.nickname : '-'}
+            </div>
+          )
+        } else {
+          return <div>-</div>
+        }
+      },
+
+      meta: {
+        displayTag: i18n.t('apps.giftRecords.properties.receiver.title'),
+      },
+      enableHiding: false,
+      enableSorting: false,
+      filterFn: 'arrIncludesSome',
     },
-    enableHiding: false,
-    enableSorting: false,
-    filterFn: 'arrIncludesSome',
-  },
 
-  {
-    accessorKey: 'createdAt',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.time.title')}
-      />
-    ),
-    cell: ({ row }) => {
-      const { createdAt } = row.original
+    {
+      accessorKey: 'createdAt',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.time.title')}
+        />
+      ),
+      cell: ({ row }) => {
+        const { createdAt } = row.original
 
-      const time = formatToDate(createdAt)
-      return (
-        <div className='w-fit text-nowrap overflow-ellipsis'>
-          {time}
-        </div>
-      )
-    },
-
-    meta: {
-      displayTag: i18n.t('apps.giftRecords.properties.time.title'),
-    },
-  },
-
-  {
-    accessorKey: 'gameId',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.game.title')}
-      />
-    ),
-    cell: ({ row }) => {
-      if (Array.isArray(games)) {
-        const gameId = row.getValue('gameId') as number
-        const game = games.find((g) => g.id === gameId)
-
+        const time = formatToDate(createdAt)
         return (
           <div className='w-fit text-nowrap overflow-ellipsis'>
-            {game ? i18n.t(`apps.games.name.${game.name}`) : '-'}
+            {time}
           </div>
         )
-      } else {
-        return <div>-</div>
-      }
+      },
+
+      meta: {
+        displayTag: i18n.t('apps.giftRecords.properties.time.title'),
+      },
     },
 
-    meta: {
-      displayTag: i18n.t('apps.giftRecords.properties.game.title'),
-    },
-  },
-
-  {
-    accessorKey: 'roundId',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.roundId.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('roundId')}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.giftRecords.properties.roundId.title'
+    {
+      accessorKey: 'gameId',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.game.title')}
+        />
       ),
-    },
-    enableSorting: false,
-  },
+      cell: ({ row }) => {
+        if (Array.isArray(games)) {
+          const gameId = row.getValue('gameId') as number
+          const game = games.find((g) => g.id === gameId)
 
-  {
-    accessorKey: 'tableName',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t(
+          return (
+            <div className='w-fit text-nowrap overflow-ellipsis'>
+              {game ? i18n.t(`apps.games.name.${game.name}`) : '-'}
+            </div>
+          )
+        } else {
+          return <div>-</div>
+        }
+      },
+
+      meta: {
+        displayTag: i18n.t('apps.giftRecords.properties.game.title'),
+      },
+    },
+
+    {
+      accessorKey: 'roundId',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.roundId.title')}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {row.getValue('roundId')}
+        </div>
+      ),
+
+      meta: {
+        displayTag: i18n.t(
+          'apps.giftRecords.properties.roundId.title'
+        ),
+      },
+      enableSorting: false,
+    },
+
+    {
+      accessorKey: 'tableId',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t(
+            'apps.giftRecords.properties.tableName.title'
+          )}
+        />
+      ),
+      cell: ({ row }) => {
+        if (Array.isArray(games)) {
+          const gameId = row.getValue('gameId') as number
+          const game = games.find((g) => g.id === gameId)
+          const tableId = row.getValue('tableId')
+          const tableName = game ? `${i18n.t('apps.games.name.' + game.name)} ${tableId}` : '-'
+
+          return (
+            <div className='w-fit text-nowrap overflow-ellipsis'>
+              {tableName}
+            </div>
+          )
+        } else {
+          return <div>-</div>
+        }
+
+      },
+
+      meta: {
+        displayTag: i18n.t(
           'apps.giftRecords.properties.tableName.title'
-        )}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('tableName')}
-      </div>
-    ),
+        ),
+      },
 
-    meta: {
-      displayTag: i18n.t(
-        'apps.giftRecords.properties.tableName.title'
+      sortingFn: 'alphanumeric',
+    },
+
+    {
+      accessorKey: 'giftName',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.giftName.title')}
+        />
       ),
-    },
-
-    sortingFn: 'alphanumeric',
-  },
-
-  {
-    accessorKey: 'giftName',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.giftName.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {row.getValue('giftName')}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t('apps.giftRecords.properties.giftName.title'),
-    },
-  },
-
-  {
-    accessorKey: 'value',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.giftValue.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {currencyToString(row.getValue('value'))}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t('apps.giftRecords.properties.giftValue.title'),
-    },
-  },
-
-  {
-    accessorKey: 'orderStatus',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={i18n.t('apps.giftRecords.properties.orderStatus.title')}
-      />
-    ),
-    cell: ({ row }) => (
-      <div className='w-fit text-nowrap overflow-ellipsis'>
-        {i18n.t(`common.order.status.${row.getValue('orderStatus')}`)}
-      </div>
-    ),
-
-    meta: {
-      displayTag: i18n.t(
-        'apps.giftRecords.properties.orderStatus.title'
+      cell: ({ row }) => (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {row.getValue('giftName')}
+        </div>
       ),
+
+      meta: {
+        displayTag: i18n.t('apps.giftRecords.properties.giftName.title'),
+      },
     },
-  },
-]
+
+    {
+      accessorKey: 'value',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.giftValue.title')}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {currencyToString(row.getValue('value'))}
+        </div>
+      ),
+
+      meta: {
+        displayTag: i18n.t('apps.giftRecords.properties.giftValue.title'),
+      },
+    },
+
+    {
+      accessorKey: 'orderStatus',
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={i18n.t('apps.giftRecords.properties.orderStatus.title')}
+        />
+      ),
+      cell: ({ row }) => (
+        <div className='w-fit text-nowrap overflow-ellipsis'>
+          {i18n.t(`common.order.status.${row.getValue('orderStatus')}`)}
+        </div>
+      ),
+
+      meta: {
+        displayTag: i18n.t(
+          'apps.giftRecords.properties.orderStatus.title'
+        ),
+      },
+    },
+  ]
