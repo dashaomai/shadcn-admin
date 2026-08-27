@@ -22,6 +22,9 @@ import {
   IconUserCog,
   IconUsers,
   IconWoman,
+  IconDice4Filled,
+  IconDice4,
+  IconDiamond,
 } from '@tabler/icons-react'
 import { AudioWaveform } from 'lucide-react'
 import {
@@ -121,6 +124,11 @@ export const sidebarData: SidebarData = {
               icon: IconSpadeFilled,
             },
             {
+              title: 'apps.games.name.e_baccarat',
+              url: '/e-baccarat-tables',
+              icon: IconSpade,
+            },
+            {
               title: 'apps.games.name.bc_niuniu_s',
               url: '/bc-niuniu-tables',
               icon: IconClubs,
@@ -141,6 +149,16 @@ export const sidebarData: SidebarData = {
               icon: IconDice3Filled,
             },
             {
+              title: 'apps.games.name.bc_pushdot_q',
+              url: '/bc-pushdot-q-tables',
+              icon: IconDice4,
+            },
+            {
+              title: 'apps.games.name.bc_pushdot_q_sqz',
+              url: '/bc-pushdot-q-sqz-tables',
+              icon: IconDice4Filled,
+            },
+            {
               title: 'apps.games.name.bc_tiengow_f',
               url: '/bc-tiengow-f-tables',
               icon: IconDice,
@@ -159,6 +177,11 @@ export const sidebarData: SidebarData = {
               title: 'apps.games.name.bc_tiengow_d_sqz',
               url: '/bc-tiengow-d-sqz-tables',
               icon: IconDice2Filled,
+            },
+            {
+              title: 'apps.games.name.bc_blackjack',
+              url: '/bc-blackjack-tables',
+              icon: IconDiamond,
             },
           ],
         },

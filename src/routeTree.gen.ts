@@ -36,6 +36,7 @@ import { Route as AuthenticatedOperationsIndexImport } from './routes/_authentic
 import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedGiftRecordsIndexImport } from './routes/_authenticated/giftRecords/index'
 import { Route as AuthenticatedGameCatalogsIndexImport } from './routes/_authenticated/game-catalogs/index'
+import { Route as AuthenticatedEBaccaratTablesIndexImport } from './routes/_authenticated/e-baccarat-tables/index'
 import { Route as AuthenticatedDevelopersIndexImport } from './routes/_authenticated/developers/index'
 import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedBroadcastsIndexImport } from './routes/_authenticated/broadcasts/index'
@@ -45,8 +46,11 @@ import { Route as AuthenticatedBcTiengowDTablesIndexImport } from './routes/_aut
 import { Route as AuthenticatedBcTiengowDSqzTablesIndexImport } from './routes/_authenticated/bc-tiengow-d-sqz-tables/index'
 import { Route as AuthenticatedBcPushdotTablesIndexImport } from './routes/_authenticated/bc-pushdot-tables/index'
 import { Route as AuthenticatedBcPushdotSqzTablesIndexImport } from './routes/_authenticated/bc-pushdot-sqz-tables/index'
+import { Route as AuthenticatedBcPushdotQTablesIndexImport } from './routes/_authenticated/bc-pushdot-q-tables/index'
+import { Route as AuthenticatedBcPushdotQSqzTablesIndexImport } from './routes/_authenticated/bc-pushdot-q-sqz-tables/index'
 import { Route as AuthenticatedBcNiuniuTablesIndexImport } from './routes/_authenticated/bc-niuniu-tables/index'
 import { Route as AuthenticatedBcNiuniuSqzTablesIndexImport } from './routes/_authenticated/bc-niuniu-sqz-tables/index'
+import { Route as AuthenticatedBcBlackjackTablesIndexImport } from './routes/_authenticated/bc-blackjack-tables/index'
 import { Route as AuthenticatedBcBaccaratTablesIndexImport } from './routes/_authenticated/bc-baccarat-tables/index'
 import { Route as AuthenticatedBcBaccaratSqzTablesIndexImport } from './routes/_authenticated/bc-baccarat-sqz-tables/index'
 import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
@@ -243,6 +247,17 @@ const AuthenticatedGameCatalogsIndexRoute =
     ),
   )
 
+const AuthenticatedEBaccaratTablesIndexRoute =
+  AuthenticatedEBaccaratTablesIndexImport.update({
+    id: '/e-baccarat-tables/',
+    path: '/e-baccarat-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/e-baccarat-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedDevelopersIndexRoute =
   AuthenticatedDevelopersIndexImport.update({
     id: '/developers/',
@@ -337,6 +352,28 @@ const AuthenticatedBcPushdotSqzTablesIndexRoute =
     ),
   )
 
+const AuthenticatedBcPushdotQTablesIndexRoute =
+  AuthenticatedBcPushdotQTablesIndexImport.update({
+    id: '/bc-pushdot-q-tables/',
+    path: '/bc-pushdot-q-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-pushdot-q-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcPushdotQSqzTablesIndexRoute =
+  AuthenticatedBcPushdotQSqzTablesIndexImport.update({
+    id: '/bc-pushdot-q-sqz-tables/',
+    path: '/bc-pushdot-q-sqz-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-pushdot-q-sqz-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AuthenticatedBcNiuniuTablesIndexRoute =
   AuthenticatedBcNiuniuTablesIndexImport.update({
     id: '/bc-niuniu-tables/',
@@ -355,6 +392,17 @@ const AuthenticatedBcNiuniuSqzTablesIndexRoute =
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any).lazy(() =>
     import('./routes/_authenticated/bc-niuniu-sqz-tables/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AuthenticatedBcBlackjackTablesIndexRoute =
+  AuthenticatedBcBlackjackTablesIndexImport.update({
+    id: '/bc-blackjack-tables/',
+    path: '/bc-blackjack-tables/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/_authenticated/bc-blackjack-tables/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -609,6 +657,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBcBaccaratTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/bc-blackjack-tables/': {
+      id: '/_authenticated/bc-blackjack-tables/'
+      path: '/bc-blackjack-tables'
+      fullPath: '/bc-blackjack-tables'
+      preLoaderRoute: typeof AuthenticatedBcBlackjackTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
     '/_authenticated/bc-niuniu-sqz-tables/': {
       id: '/_authenticated/bc-niuniu-sqz-tables/'
       path: '/bc-niuniu-sqz-tables'
@@ -621,6 +676,20 @@ declare module '@tanstack/react-router' {
       path: '/bc-niuniu-tables'
       fullPath: '/bc-niuniu-tables'
       preLoaderRoute: typeof AuthenticatedBcNiuniuTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-pushdot-q-sqz-tables/': {
+      id: '/_authenticated/bc-pushdot-q-sqz-tables/'
+      path: '/bc-pushdot-q-sqz-tables'
+      fullPath: '/bc-pushdot-q-sqz-tables'
+      preLoaderRoute: typeof AuthenticatedBcPushdotQSqzTablesIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/bc-pushdot-q-tables/': {
+      id: '/_authenticated/bc-pushdot-q-tables/'
+      path: '/bc-pushdot-q-tables'
+      fullPath: '/bc-pushdot-q-tables'
+      preLoaderRoute: typeof AuthenticatedBcPushdotQTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/bc-pushdot-sqz-tables/': {
@@ -684,6 +753,13 @@ declare module '@tanstack/react-router' {
       path: '/developers'
       fullPath: '/developers'
       preLoaderRoute: typeof AuthenticatedDevelopersIndexImport
+      parentRoute: typeof AuthenticatedRouteImport
+    }
+    '/_authenticated/e-baccarat-tables/': {
+      id: '/_authenticated/e-baccarat-tables/'
+      path: '/e-baccarat-tables'
+      fullPath: '/e-baccarat-tables'
+      preLoaderRoute: typeof AuthenticatedEBaccaratTablesIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/game-catalogs/': {
@@ -807,8 +883,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedBcBaccaratSqzTablesIndexRoute: typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   AuthenticatedBcBaccaratTablesIndexRoute: typeof AuthenticatedBcBaccaratTablesIndexRoute
+  AuthenticatedBcBlackjackTablesIndexRoute: typeof AuthenticatedBcBlackjackTablesIndexRoute
   AuthenticatedBcNiuniuSqzTablesIndexRoute: typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   AuthenticatedBcNiuniuTablesIndexRoute: typeof AuthenticatedBcNiuniuTablesIndexRoute
+  AuthenticatedBcPushdotQSqzTablesIndexRoute: typeof AuthenticatedBcPushdotQSqzTablesIndexRoute
+  AuthenticatedBcPushdotQTablesIndexRoute: typeof AuthenticatedBcPushdotQTablesIndexRoute
   AuthenticatedBcPushdotSqzTablesIndexRoute: typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   AuthenticatedBcPushdotTablesIndexRoute: typeof AuthenticatedBcPushdotTablesIndexRoute
   AuthenticatedBcTiengowDSqzTablesIndexRoute: typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
@@ -818,6 +897,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBroadcastsIndexRoute: typeof AuthenticatedBroadcastsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDevelopersIndexRoute: typeof AuthenticatedDevelopersIndexRoute
+  AuthenticatedEBaccaratTablesIndexRoute: typeof AuthenticatedEBaccaratTablesIndexRoute
   AuthenticatedGameCatalogsIndexRoute: typeof AuthenticatedGameCatalogsIndexRoute
   AuthenticatedGiftRecordsIndexRoute: typeof AuthenticatedGiftRecordsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
@@ -843,9 +923,15 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedBcBaccaratSqzTablesIndexRoute,
   AuthenticatedBcBaccaratTablesIndexRoute:
     AuthenticatedBcBaccaratTablesIndexRoute,
+  AuthenticatedBcBlackjackTablesIndexRoute:
+    AuthenticatedBcBlackjackTablesIndexRoute,
   AuthenticatedBcNiuniuSqzTablesIndexRoute:
     AuthenticatedBcNiuniuSqzTablesIndexRoute,
   AuthenticatedBcNiuniuTablesIndexRoute: AuthenticatedBcNiuniuTablesIndexRoute,
+  AuthenticatedBcPushdotQSqzTablesIndexRoute:
+    AuthenticatedBcPushdotQSqzTablesIndexRoute,
+  AuthenticatedBcPushdotQTablesIndexRoute:
+    AuthenticatedBcPushdotQTablesIndexRoute,
   AuthenticatedBcPushdotSqzTablesIndexRoute:
     AuthenticatedBcPushdotSqzTablesIndexRoute,
   AuthenticatedBcPushdotTablesIndexRoute:
@@ -861,6 +947,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBroadcastsIndexRoute: AuthenticatedBroadcastsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDevelopersIndexRoute: AuthenticatedDevelopersIndexRoute,
+  AuthenticatedEBaccaratTablesIndexRoute:
+    AuthenticatedEBaccaratTablesIndexRoute,
   AuthenticatedGameCatalogsIndexRoute: AuthenticatedGameCatalogsIndexRoute,
   AuthenticatedGiftRecordsIndexRoute: AuthenticatedGiftRecordsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
@@ -901,8 +989,11 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/bc-blackjack-tables': typeof AuthenticatedBcBlackjackTablesIndexRoute
   '/bc-niuniu-sqz-tables': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/bc-pushdot-q-sqz-tables': typeof AuthenticatedBcPushdotQSqzTablesIndexRoute
+  '/bc-pushdot-q-tables': typeof AuthenticatedBcPushdotQTablesIndexRoute
   '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/bc-tiengow-d-sqz-tables': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
@@ -912,6 +1003,7 @@ export interface FileRoutesByFullPath {
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
+  '/e-baccarat-tables': typeof AuthenticatedEBaccaratTablesIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
@@ -948,8 +1040,11 @@ export interface FileRoutesByTo {
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/bc-baccarat-sqz-tables': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/bc-baccarat-tables': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/bc-blackjack-tables': typeof AuthenticatedBcBlackjackTablesIndexRoute
   '/bc-niuniu-sqz-tables': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/bc-niuniu-tables': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/bc-pushdot-q-sqz-tables': typeof AuthenticatedBcPushdotQSqzTablesIndexRoute
+  '/bc-pushdot-q-tables': typeof AuthenticatedBcPushdotQTablesIndexRoute
   '/bc-pushdot-sqz-tables': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/bc-pushdot-tables': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/bc-tiengow-d-sqz-tables': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
@@ -959,6 +1054,7 @@ export interface FileRoutesByTo {
   '/broadcasts': typeof AuthenticatedBroadcastsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/developers': typeof AuthenticatedDevelopersIndexRoute
+  '/e-baccarat-tables': typeof AuthenticatedEBaccaratTablesIndexRoute
   '/game-catalogs': typeof AuthenticatedGameCatalogsIndexRoute
   '/giftRecords': typeof AuthenticatedGiftRecordsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
@@ -998,8 +1094,11 @@ export interface FileRoutesById {
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/bc-baccarat-sqz-tables/': typeof AuthenticatedBcBaccaratSqzTablesIndexRoute
   '/_authenticated/bc-baccarat-tables/': typeof AuthenticatedBcBaccaratTablesIndexRoute
+  '/_authenticated/bc-blackjack-tables/': typeof AuthenticatedBcBlackjackTablesIndexRoute
   '/_authenticated/bc-niuniu-sqz-tables/': typeof AuthenticatedBcNiuniuSqzTablesIndexRoute
   '/_authenticated/bc-niuniu-tables/': typeof AuthenticatedBcNiuniuTablesIndexRoute
+  '/_authenticated/bc-pushdot-q-sqz-tables/': typeof AuthenticatedBcPushdotQSqzTablesIndexRoute
+  '/_authenticated/bc-pushdot-q-tables/': typeof AuthenticatedBcPushdotQTablesIndexRoute
   '/_authenticated/bc-pushdot-sqz-tables/': typeof AuthenticatedBcPushdotSqzTablesIndexRoute
   '/_authenticated/bc-pushdot-tables/': typeof AuthenticatedBcPushdotTablesIndexRoute
   '/_authenticated/bc-tiengow-d-sqz-tables/': typeof AuthenticatedBcTiengowDSqzTablesIndexRoute
@@ -1009,6 +1108,7 @@ export interface FileRoutesById {
   '/_authenticated/broadcasts/': typeof AuthenticatedBroadcastsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/developers/': typeof AuthenticatedDevelopersIndexRoute
+  '/_authenticated/e-baccarat-tables/': typeof AuthenticatedEBaccaratTablesIndexRoute
   '/_authenticated/game-catalogs/': typeof AuthenticatedGameCatalogsIndexRoute
   '/_authenticated/giftRecords/': typeof AuthenticatedGiftRecordsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
@@ -1049,8 +1149,11 @@ export interface FileRouteTypes {
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
+    | '/bc-blackjack-tables'
     | '/bc-niuniu-sqz-tables'
     | '/bc-niuniu-tables'
+    | '/bc-pushdot-q-sqz-tables'
+    | '/bc-pushdot-q-tables'
     | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
     | '/bc-tiengow-d-sqz-tables'
@@ -1060,6 +1163,7 @@ export interface FileRouteTypes {
     | '/broadcasts'
     | '/chats'
     | '/developers'
+    | '/e-baccarat-tables'
     | '/game-catalogs'
     | '/giftRecords'
     | '/help-center'
@@ -1095,8 +1199,11 @@ export interface FileRouteTypes {
     | '/apps'
     | '/bc-baccarat-sqz-tables'
     | '/bc-baccarat-tables'
+    | '/bc-blackjack-tables'
     | '/bc-niuniu-sqz-tables'
     | '/bc-niuniu-tables'
+    | '/bc-pushdot-q-sqz-tables'
+    | '/bc-pushdot-q-tables'
     | '/bc-pushdot-sqz-tables'
     | '/bc-pushdot-tables'
     | '/bc-tiengow-d-sqz-tables'
@@ -1106,6 +1213,7 @@ export interface FileRouteTypes {
     | '/broadcasts'
     | '/chats'
     | '/developers'
+    | '/e-baccarat-tables'
     | '/game-catalogs'
     | '/giftRecords'
     | '/help-center'
@@ -1143,8 +1251,11 @@ export interface FileRouteTypes {
     | '/_authenticated/apps/'
     | '/_authenticated/bc-baccarat-sqz-tables/'
     | '/_authenticated/bc-baccarat-tables/'
+    | '/_authenticated/bc-blackjack-tables/'
     | '/_authenticated/bc-niuniu-sqz-tables/'
     | '/_authenticated/bc-niuniu-tables/'
+    | '/_authenticated/bc-pushdot-q-sqz-tables/'
+    | '/_authenticated/bc-pushdot-q-tables/'
     | '/_authenticated/bc-pushdot-sqz-tables/'
     | '/_authenticated/bc-pushdot-tables/'
     | '/_authenticated/bc-tiengow-d-sqz-tables/'
@@ -1154,6 +1265,7 @@ export interface FileRouteTypes {
     | '/_authenticated/broadcasts/'
     | '/_authenticated/chats/'
     | '/_authenticated/developers/'
+    | '/_authenticated/e-baccarat-tables/'
     | '/_authenticated/game-catalogs/'
     | '/_authenticated/giftRecords/'
     | '/_authenticated/help-center/'
@@ -1231,8 +1343,11 @@ export const routeTree = rootRoute
         "/_authenticated/apps/",
         "/_authenticated/bc-baccarat-sqz-tables/",
         "/_authenticated/bc-baccarat-tables/",
+        "/_authenticated/bc-blackjack-tables/",
         "/_authenticated/bc-niuniu-sqz-tables/",
         "/_authenticated/bc-niuniu-tables/",
+        "/_authenticated/bc-pushdot-q-sqz-tables/",
+        "/_authenticated/bc-pushdot-q-tables/",
         "/_authenticated/bc-pushdot-sqz-tables/",
         "/_authenticated/bc-pushdot-tables/",
         "/_authenticated/bc-tiengow-d-sqz-tables/",
@@ -1242,6 +1357,7 @@ export const routeTree = rootRoute
         "/_authenticated/broadcasts/",
         "/_authenticated/chats/",
         "/_authenticated/developers/",
+        "/_authenticated/e-baccarat-tables/",
         "/_authenticated/game-catalogs/",
         "/_authenticated/giftRecords/",
         "/_authenticated/help-center/",
@@ -1340,12 +1456,24 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/bc-baccarat-tables/index.tsx",
       "parent": "/_authenticated"
     },
+    "/_authenticated/bc-blackjack-tables/": {
+      "filePath": "_authenticated/bc-blackjack-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
     "/_authenticated/bc-niuniu-sqz-tables/": {
       "filePath": "_authenticated/bc-niuniu-sqz-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/bc-niuniu-tables/": {
       "filePath": "_authenticated/bc-niuniu-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-pushdot-q-sqz-tables/": {
+      "filePath": "_authenticated/bc-pushdot-q-sqz-tables/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/bc-pushdot-q-tables/": {
+      "filePath": "_authenticated/bc-pushdot-q-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/bc-pushdot-sqz-tables/": {
@@ -1382,6 +1510,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/developers/": {
       "filePath": "_authenticated/developers/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/e-baccarat-tables/": {
+      "filePath": "_authenticated/e-baccarat-tables/index.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/game-catalogs/": {
