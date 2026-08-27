@@ -8,5 +8,5 @@ export const Route = createLazyFileRoute(
 })
 
 function RouteComponent() {
-  <TablesPage gameId={107} path='/_authenticated/bc-pushdot-q-sqz-tables/' />
+  return <TablesPage gameId={107} path='/_authenticated/bc-pushdot-q-sqz-tables/' />
 }
